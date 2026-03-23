@@ -1,0 +1,105 @@
+---
+title: "BPMN Events"
+description: "Comprehensive guide to BPMN Events, including Start, End, Boundary, and Intermediate events."
+---
+## Start Events
+
+A process must always contain at least one start event as they define how a process begins.
+
+The types of start event are:
+
+-  Start events
+-  Error start events
+-  Message start events
+-  Signal start events
+-  Timer start events
+
+## Timer Start Event
+
+Timer start events begin a process at a specific time once or repeatedly at intervals.
+
+## Error Start Event
+
+Error start events can only be used in event sub-processes. They begin an event sub-processes when a named error is received.
+
+## Message Start Event
+
+Message start events begin a process instance when a named message is received.
+
+## End Events
+
+End events indicate where the current process flow ends, therefore there can be no outgoing sequence flow from an end event. Different types of end event can have actions other than just ending the process flow execution path.
+
+The types of end event are:
+
+-  End events
+-  Error end events
+-  Message end events
+-  Terminate end events
+
+## Error End Event
+
+Error end events throw an error when the process flow reaches them.
+
+## Terminate End Event
+
+Terminate end events cause the current process scope to be immediately ended, including any parallel process flows. The scope is determined by the location of the terminate end event. If the terminate end event is in a sub-process or call activity, only the sub-process or call activity instance will be ended and not the parent or originating process instance. In the case of a multi-instance sub-process or call activity, only a single instance is ended.
+
+## Boundary Events
+
+Boundary events are assigned to other BPMN elements such as service tasks and user tasks. They are used by dragging the selected boundary type onto the BPMN element to influence and using the spanner icon to select the type of boundary event to use.
+
+While the element that the boundary event is attached to is being executed within a process instance, the boundary event is waiting for its trigger event. Once that event occurs the behavior can follow one of two paths:
+
+-
+Interrupting behavior where the element’s execution is terminated by the boundary event and the sequence flow out of the boundary event is followed. Interrupting boundary events are displayed as solid lines.
+
+-
+Non-interrupting behavior where the element’s execution continues and a new sequence flow is followed from the boundary event in parallel to the main sequence flow. Non-interrupting boundary events are displayed as dashed lines.
+
+Note: Depending on the boundary type, a trigger may never reach the attached boundary event. For example a signal may not be thrown for a signal boundary event to catch.
+Boundary events use the attachedToRef property to indicate the id of the element they are attached to. Interrupting behavior is the default for boundary events. Non-interrupting events contain the cancelActivity=false property.
+
+The types of boundary event are:
+
+-  Error boundary events
+-  Message boundary events
+-  Signal boundary events
+-  Timer boundary events
+
+## Error Boundary Event
+
+Error boundary events catch error events on the boundary of another element. Error boundary events are always interrupting, so as soon as an error is caught all process execution within the element they are attached to ceases.
+
+## Message Boundary Event
+
+Message boundary events are attached to the boundary of another element. When a named message is received by the message boundary event, the process flow will be interrupted or a concurrent flow will be created depending on whether the event is interrupting or non-interrupting.
+
+## Timer Boundary Event
+
+Timer boundary events can be interrupting or non-interrupting. They wait for a specified time before triggering and can also be set to trigger at multiple intervals.
+
+## Intermediate Events
+
+Intermediate events can be used at any point throughout a process. They always provide additional behavior such as throwing a signal or catching a timer.
+
+The types of intermediate event are:
+
+-  Message intermediate catch events
+-  Message intermediate throw events
+-  Signal intermediate catch events
+-  Signal intermediate throw events
+-  Timer intermediate catch events
+
+## Link Intermediate Catch Event
+
+Link intermediate catching events create a connection between two sections of a process. They can be used to create loops or avoid long sequence flows.
+
+Link events are limited to a single process level, which means that they cannot link a parent process to a sub-process. There can only be one link catch event per process.
+
+## Link Intermediate Throw Event
+
+Link intermediate throwing events create a connection between two sections of a process. They can be used to create loops or avoid long sequence flows.
+
+Link events are limited to a single process level, which means that they cannot link a parent process to a sub-process. There can be multiple link throw events connected to the same link catching event.
+

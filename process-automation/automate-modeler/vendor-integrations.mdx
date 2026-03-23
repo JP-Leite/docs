@@ -1,0 +1,165 @@
+---
+title: "Vendor Integrations"
+description: "Configuration parameters for Salesforce, OnBase, DocuSign, Nuxeo, and Perceptive integrations."
+---
+## Salesforce
+
+The Salesforce connector is used to integrate with an installation of [Salesforce](https://salesforce.com/) and have a process operate on Salesforce objects.
+
+The Salesforce connector is displayed on the process diagram with the Salesforce logo.
+
+The authentication for the Salesforce connector can be selected from a drop-down menu, using the Application Service Credentials or an authentication that was set in the project. For more details on creating an authentication, see Authentication Configurations.
+
+It is also possible to set the authentication using the configuration parameters. For more details, see Configuration Parameters.
+
+Note: The Salesforce connector requires a Salesforce account to use. This account is separate from the production environment and is created and managed by customers.
+The actions that can be executed using the Salesforce connector are:
+
+-  Create an object instance
+-  Get an object instance
+-  Update an object instance
+-  Delete an object instance
+-  Query an object instance
+-  Submit a Salesforce object instance for approval
+-  Query the current approval processes in Salesforce
+-  Approve a Salesforce object instance submitted for approval
+-  Reject a Salesforce object instance submitted for approval
+-  Create a new custom object in Salesforce
+
+Note: The Salesforce connector requires a [Salesforce developer account](https://developer.salesforce.com/signup) to interact with and a Connected App set up to interact with the Studio Modeler connector.
+
+## Onbase
+
+The OnBase connector is used to establish connection with OnBase services and use their functions.
+
+The OnBase connector appears on the process diagram as a rectangle with an OnBase logo.
+
+The authentication for the OnBase connector is set using the configuration parameters. For more details, see OnBase Configuration Parameters.
+
+The following actions are possible with the OnBase connector:
+
+-  CREATE_DOCUMENT
+-  UPLOAD_DOCUMENT_REVISION
+-  DOWNLOAD_FILE
+-  ADD_DOCUMENT_KEYWORDS
+-  READ_DOCUMENT_KEYWORDS
+-  REMOVE_DOCUMENT_KEYWORDS
+-  UPDATE_DOCUMENT_KEYWORDS
+
+## Onbase Configuration Parameters
+
+The configuration parameters for the OnBase connector are:
+
+| Parameter | Description |
+| --- | --- |
+| ONBASE_URL | URL of the OnBase instance to which the application is connected. |
+| ONBASE_AUTHURL | URL of the OnBase authentication. |
+| ONBASE_USERNAME | Username of the user that is connected to the OnBase instance. |
+| ONBASE_PASSWORD | Password of the user that is connected to the OnBase instance. |
+| ONBASE_CLIENTID | The identifier of the OnBase client. |
+| ONBASE_GRANTTYPE | Type of authentication. |
+| ONBASE_SCOPE | Scope of OnBase resources that can be accessed with this connector. |
+
+All parameters are required to establish a connection.
+
+## Docusign
+
+The DocuSign connector provides a standard mechanism in Studio Modeler to send documents for digital signing in DocuSign.
+
+The DocuSign connector is displayed on the process diagram as a pen.
+
+The authentication for the DocuSign connector is set using the configuration parameters. For more details, see DocuSign Configuration Parameters.
+
+Note: The DocuSign connector requires a DocuSign account to handle document signing. This account is separate to the production environment and is created and managed by customers.
+The actions that can be executed using the DocuSign connector are:
+
+-  SEND_FOR_SIGNATURE
+-  DOWNLOAD_DOCUMENT
+
+As part of the BPMN definition process, any service task that is responsible for sending or downloading the document needs to set the docusignconnector.SEND_FOR_SIGNATURE or docusignconnector.DOWNLOAD_DOCUMENT properties as the value for its implementation attribute.
+
+The following input parameters must also be provided for the DocuSign API in the Service task depending on the implementation.
+
+## Docusign Connector
+
+Docusign connector use Docusign to fire the trigger when a document is sent or downloaded.
+
+The input parameters for the Docusign connector event are:
+
+| Parameter | Description |
+| --- | --- |
+| condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
+
+## Docusign Configuration Parameters
+
+The configuration parameters for the DocuSign connector are:
+
+| Parameter | Description |
+| --- | --- |
+| DOCUSIGN_APILOCATION | The DocuSign REST API location. |
+| DOCUSIGN_ACCOUNT_ID | The identifier of the DocuSign account under which the app is operated. |
+| DOCUSIGN_CLIENT_ID | The App Integration Key from DocuSign. |
+| DOCUSIGN_IMPERSONATED_USER_ID | The DocuSign User GUID whom the app impersonates. |
+| DOCUSIGN_AUTH_SERVER | The DocuSign OAuth server location, for example account-d.docusign.com. |
+| DOCUSIGN_JWT_LIFETIME | DocuSign JWT token lifetime. |
+| DOCUSIGN_RSA_KEY | The private RSA key of the DocuSign App for JWT authentication. |
+| DOCUSIGN_DEFAULT_EMAIL_SUBJECT | The efault email subject of an email that DocuSign sends to the signer. |
+| DOCUSIGN_DEFAULT_SIGNHERE_LABEL | The DocuSign Sign Here box - an invisible tab label. |
+| DOCUSIGN_DEFAULT_SIGNHERE_PAGE | The default page in document where DocuSign Sign Here box should go. |
+| DOCUSIGN_DEFAULT_SIGNHERE_POSX | The default X position at the Sign Here page. |
+| DOCUSIGN_DEFAULT_SIGNHERE_POSY | The default Y position at the Sign Here page. |
+| DOCUSIGN_DEFAULT_TIMEOUT | Timeout defined in seconds for polling waits the document to be signed. |
+| DOCUSIGN_POLL_SLEEP | Time between polling defined in milliseconds. |
+
+## Nuxeo
+
+The Nuxeo connector is used to establish connection with Nuxeo services and use their functions.
+
+The Nuxeo connector appears on the process diagram as a rectangle with a Nuxeo logo.
+
+The authentication used for the Nuxeo connector can be selected from the drop-down menu. The available authentication type is Basic and Bearer Token. For more details, see Authentication.
+
+Note: To use the Bearer Token authentication type, a JWT token needs to be created and Nuxeo repository has to be configured to support it. For more details refer to Configuring Nuxeo for JWT Access in the Nuxeo documentation.
+The following actions are possible with the Nuxeo connector:
+
+-  READ_DOCUMENT_METADATA
+-  CREATE_DOCUMENT
+-  DOWNLOAD_FILE
+-  UPDATE_DOCUMENT_METADATA
+-  DELETE_DOCUMENT_METADATA
+-  UPDATE_DOCUMENT
+-  SEARCH_DOCUMENTS
+
+## Creating A Nuxeo Authentication
+
+To make the connector able to perform actions against a Nuxeo repository, you need to create an Authentication and select it in the connector instance.
+
+To create the authentication:
+
+1.  In the project, select New > Authentication.
+2.  Enter the Authentication name, for example Nuxeo-auth.
+3.  Select one of the options:
+| Authentication type | Description |
+| --- | --- |
+| Basic | This authenticaation is an equivalent of the basic authentication that Nuxeo repository support by default. If selected, you need to provide a username and a password to deploy the application. |
+| Bearer Token | This authentication expects a token that doesn't expire. To use it, a JWT token needs to be created and Nuxeo repository has to be configured to support it. For more details refer to Configuring Nuxeo for JWT Access in the Nuxeo documentation. |
+
+The authentication is added and can be used within the process.
+
+## Perceptive
+
+The Perceptive connector is used to establish connection with Perceptive Content services and use their functions.
+
+The Perceptive connector appears on the process diagram as a rectangle with a simplified Perceptive Content logo.
+
+The authentication used for the Perceptive connector can be selected from the drop-down menu. The following authentication types are available: Basic and Bearer Token. For more details, see Authentication.
+
+The following actions are possible with the Perceptive connector:
+
+-  SEARCH_DOCUMENTS
+-  CREATE_DOCUMENT
+-  ADD_DOCUMENT_TO_WORKFLOW
+-  UPDATE_DOCUMENT_CONTENT
+-  DOWNLOAD_FILE
+-  UPDATE_DOCUMENT_KEYS
+

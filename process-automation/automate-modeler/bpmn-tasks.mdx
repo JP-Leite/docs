@@ -1,0 +1,107 @@
+---
+title: "BPMN Tasks"
+description: "Guide to the different task types in BPMN processes."
+---
+## Service Task
+
+Service tasks are used to add an automated action executed by an external service, for example a web service or an automated system. These can be: connectors, business rule tasks, and script tasks.
+
+Service tasks are displayed as a single, thin rounded rectangle with a cog icon inside.
+
+Note: Service tasks do not emit the TASK_CREATED and TASK_COMPLETED events. The INTEGRATION_REQUESTED and INTEGRATION_RESULT_RECEIVED events should be monitored to report or track service tasks instead.
+
+## User Task
+
+User tasks represent a stage in the process where human action is required and cannot be omitted.
+
+User tasks are displayed as a single thin, rounded rectangle with a user icon inside.
+
+Human action is handled by a task being assigned to specific users or groups. The task that is assigned can be modeled using a form. After a task is completed, the process flow continues on to the next element in the process. When a new user task is added to a process diagram, it is automatically assigned to the process initiator.
+
+## Task Assignment
+
+User tasks can be assigned to a single user or to a group of candidates. To assign the tasks automatically, edit the Expression under the Assignment section of the Properties pane.
+
+You can choose the task to be assigned to a static user, identity, or using an expression. When selecting from a pool of candidates, the task can be assigned manually or sequentially.
+
+## Redirecting After Submission
+
+When a user task is related to a form submission, you can decide what is going to happen after the form is submitted, using the Redirect after submission drop-down menu. The following options are available:
+- Workspace
+-
+Landing page
+
+You can set a customized Landing Page using a Rich text editor. It is available after the Landing Page option is set from the drop-down menu.
+
+- URL (static)
+- URL (query string)
+
+## Task Due Date
+
+The task due date can be set using one of the following options:
+| Option | Description |
+| --- | --- |
+| Static date | A defined date set from a calendar. |
+| Time duration | Period that has to pass for the task to be due. |
+| Process variable | Value of a process variable that exists within the process. |
+
+## Task Priority
+
+The task can have a priority set for the purposes of filtering or assigning to the users.
+
+## Form and Screen Options
+
+You can select a form from a drop-down menu to be used as input for the user task.
+
+If dedicated IDP screens exists, it is possible to select a Screen instead of a form. This allows the user who executes a task to use a dedicated user interface from IDP to complete the task.
+
+## Script Task
+
+Script tasks are used to execute automated scripts implemented locally within the process. They include include scripts in a process definition.
+
+Script tasks are displayed as a single thin, rounded rectangle with a script icon inside.
+
+Script tasks are essentially treated as service tasks and will always have the implementation value of script.EXECUTE. The name of the script that is associated to the script task is used as the value under _activiti_script_ when viewing the Extensions Editor.
+
+For more information on adding scripts, see Scripts.
+
+## Send Email Task
+
+The email service is used to send emails using the SMTP protocol as part of a process instance.
+
+The email service is displayed on the process diagram as an envelope.
+
+Note:
+The email service requires an email server to use. This server is separate to the production environment and should be created and managed by customers.
+
+To use the task, you need to set the following:
+
+-  Send action (the default action of the connector), including the email template
+-  Configuration Parameters
+-  Errors
+
+## Call Activity
+
+Call activities are used to start an instance of another process definition. The original process waits until the called process is complete before continuing with its own process flow.
+
+The calledElement property uses a processDefinitionId to define which process to start.
+
+Note:
+When a call activity element is executed it receives its own processInstanceId. The process variables of a call activity are also completely separate to those in the parent process.
+
+Note:
+Call activities can only be used to start a process instance of a process definition that exists in the same application as the process that is calling it.
+
+## Agentic Task
+
+Agentic Task allows you to use the Task Agent that is created through the Agent Builder platform to receive inuputs and produce outputs using the predefined variables, which allows you to implement AI at scale in your organization's workflow. For more information on the Agent Builder and its configuration see the Hyland Agent Builder documentation.
+
+To create the Agentic task:
+
+1.  Drag the Agentic task from the palette into the workflow canvas. A Create Agentic Task dialog box is displayed.
+2.  Select one of existing agents or create a new one using the drop-down menu. For more information on creating a new agent and its configuration, see the Hyland Agent Builder documentation.
+3.  Fill in the Agentic Task Name.
+4.  Select Create.
+
+Once created, the task is added to the canvas. If you created a new agent, the agent is added to the Process Automation section on the left under the Agents tab, and also as a connector under the Connectors tab.
+
