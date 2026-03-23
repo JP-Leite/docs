@@ -1089,126 +1089,211 @@
                 "group": "Agent Builder",
                 "pages": [
                   "guides/agent-builder",
-                  "content-intelligence/agent-builder/accessing-the-agent-builder-app",
-                  "content-intelligence/agent-builder/accessing-the-agent-builder-in-studio-modeler",
-                  "content-intelligence/agent-builder/adding-collaborators",
-                  "content-intelligence/agent-builder/agent-basics",
-                  "content-intelligence/agent-builder/application-name",
-                  "content-intelligence/agent-builder/choosing-an-editor",
-                  "content-intelligence/agent-builder/collaborators",
-                  "content-intelligence/agent-builder/connectors",
-                  "content-intelligence/agent-builder/creating-an-agent",
-                  "content-intelligence/agent-builder/creating-an-agent-in-studio-modeler",
-                  "content-intelligence/agent-builder/creating-environment-variables",
-                  "content-intelligence/agent-builder/creating-projects",
-                  "content-intelligence/agent-builder/deleting-multiple-projects-at-once",
-                  "content-intelligence/agent-builder/managing-projects",
-                  "content-intelligence/agent-builder/deleting-projects",
-                  "content-intelligence/agent-builder/deploying-projects",
-                  "content-intelligence/agent-builder/documentation-notice",
-                  "content-intelligence/agent-builder/downloading-project-releases",
-                  "content-intelligence/agent-builder/downloading-projects",
-                  "content-intelligence/agent-builder/duplicating-projects",
-                  "content-intelligence/agent-builder/editing-an-agent",
-                  "content-intelligence/agent-builder/editing-project-name",
-                  "content-intelligence/agent-builder/editing-project-release-names",
-                  "content-intelligence/agent-builder/files",
-                  "content-intelligence/agent-builder/folder-structure",
-                  "content-intelligence/agent-builder/hot-reload",
-                  "content-intelligence/agent-builder/interacting-with-agents-in-studio-modeler",
-                  "content-intelligence/agent-builder/introduction",
-                  "content-intelligence/agent-builder/permissions",
-                  "content-intelligence/agent-builder/project-properties",
-                  "content-intelligence/agent-builder/quick-run",
-                  "content-intelligence/agent-builder/releasing-projects",
-                  "content-intelligence/agent-builder/removing-collaborators",
-                  "content-intelligence/agent-builder/restoring-project-releases",
-                  "content-intelligence/agent-builder/selecting-language",
-                  "content-intelligence/agent-builder/testing-a-task-agent",
-                  "content-intelligence/agent-builder/testing-an-agent",
-                  "content-intelligence/agent-builder/uploading-project-elements",
-                  "content-intelligence/agent-builder/using-environment-variables-in-variable-mapping",
-                  "content-intelligence/agent-builder/using-example-projects",
-                  "content-intelligence/agent-builder/using-studio-modeler",
-                  "content-intelligence/agent-builder/validating-projects",
-                  "content-intelligence/agent-builder/validation",
-                  "content-intelligence/agent-builder/viewing-project-releases"
+                  {
+                    "group": "Getting Started",
+                    "pages": [
+                      "content-intelligence/agent-builder/accessing-the-agent-builder-app",
+                      "content-intelligence/agent-builder/accessing-the-agent-builder-in-studio-modeler",
+                      "content-intelligence/agent-builder/introduction",
+                      "content-intelligence/agent-builder/using-example-projects",
+                      "content-intelligence/agent-builder/using-studio-modeler"
+                    ]
+                  },
+                  {
+                    "group": "Project Management",
+                    "pages": [
+                      "content-intelligence/agent-builder/creating-projects",
+                      "content-intelligence/agent-builder/deleting-multiple-projects-at-once",
+                      "content-intelligence/agent-builder/managing-projects",
+                      "content-intelligence/agent-builder/deleting-projects",
+                      "content-intelligence/agent-builder/deploying-projects",
+                      "content-intelligence/agent-builder/downloading-project-releases",
+                      "content-intelligence/agent-builder/downloading-projects",
+                      "content-intelligence/agent-builder/duplicating-projects",
+                      "content-intelligence/agent-builder/editing-project-name",
+                      "content-intelligence/agent-builder/editing-project-release-names",
+                      "content-intelligence/agent-builder/project-properties",
+                      "content-intelligence/agent-builder/releasing-projects",
+                      "content-intelligence/agent-builder/restoring-project-releases",
+                      "content-intelligence/agent-builder/uploading-project-elements",
+                      "content-intelligence/agent-builder/validating-projects",
+                      "content-intelligence/agent-builder/viewing-project-releases"
+                    ]
+                  },
+                  {
+                    "group": "Agent Configuration",
+                    "pages": [
+                      "content-intelligence/agent-builder/agent-basics",
+                      "content-intelligence/agent-builder/application-name",
+                      "content-intelligence/agent-builder/choosing-an-editor",
+                      "content-intelligence/agent-builder/connectors",
+                      "content-intelligence/agent-builder/creating-an-agent",
+                      "content-intelligence/agent-builder/creating-an-agent-in-studio-modeler",
+                      "content-intelligence/agent-builder/editing-an-agent",
+                      "content-intelligence/agent-builder/interacting-with-agents-in-studio-modeler"
+                    ]
+                  },
+                  {
+                    "group": "Development & Testing",
+                    "pages": [
+                      "content-intelligence/agent-builder/creating-environment-variables",
+                      "content-intelligence/agent-builder/files",
+                      "content-intelligence/agent-builder/folder-structure",
+                      "content-intelligence/agent-builder/hot-reload",
+                      "content-intelligence/agent-builder/quick-run",
+                      "content-intelligence/agent-builder/selecting-language",
+                      "content-intelligence/agent-builder/testing-a-task-agent",
+                      "content-intelligence/agent-builder/testing-an-agent",
+                      "content-intelligence/agent-builder/using-environment-variables-in-variable-mapping",
+                      "content-intelligence/agent-builder/validation"
+                    ]
+                  },
+                  {
+                    "group": "Collaborators & Security",
+                    "pages": [
+                      "content-intelligence/agent-builder/adding-collaborators",
+                      "content-intelligence/agent-builder/collaborators",
+                      "content-intelligence/agent-builder/permissions",
+                      "content-intelligence/agent-builder/removing-collaborators"
+                    ]
+                  },
+                  {
+                    "group": "Other",
+                    "pages": [
+                      "content-intelligence/agent-builder/documentation-notice"
+                    ]
+                  }
                 ]
               },
               {
                 "group": "IDP",
                 "pages": [
                   "guides/idp",
-                  "content-intelligence/idp/accessing-the-idp-application",
-                  "content-intelligence/idp/configuring-document-ai",
-                  "content-intelligence/idp/configuring-document-processing",
-                  "content-intelligence/idp/create-a-custom-field-validation-template-in-process-modeling",
-                  "content-intelligence/idp/create-custom-forms",
-                  "content-intelligence/idp/creating-a-class",
-                  "content-intelligence/idp/creating-a-document-upload-form",
-                  "content-intelligence/idp/creating-a-field",
-                  "content-intelligence/idp/creating-a-new-process-workflow",
-                  "content-intelligence/idp/creating-a-parent-class",
-                  "content-intelligence/idp/creating-an-idp-project",
-                  "content-intelligence/idp/creating-process-variables",
-                  "content-intelligence/idp/deploying-a-project",
-                  "content-intelligence/idp/documentation-notice",
-                  "content-intelligence/idp/field-validation-settings",
-                  "content-intelligence/idp/format-field-output-settings",
-                  "content-intelligence/idp/glossary",
-                  "content-intelligence/idp/idp-reporting-dashboards",
-                  "content-intelligence/idp/introduction",
-                  "content-intelligence/idp/logging-on-to-the-hyland-intelligent-document-processing-application",
-                  "content-intelligence/idp/manage-class-properties",
-                  "content-intelligence/idp/manage-field-settings",
-                  "content-intelligence/idp/manage-project-level-settings",
-                  "content-intelligence/idp/managing-a-process",
-                  "content-intelligence/idp/managing-idp-projects",
-                  "content-intelligence/idp/roles",
-                  "content-intelligence/idp/supported-file-formats",
-                  "content-intelligence/idp/supported-languages",
-                  "content-intelligence/idp/system-requirements",
-                  "content-intelligence/idp/uploading-a-file",
-                  "content-intelligence/idp/viewing-all-idp-projects",
-                  "content-intelligence/idp/working-with-the-document-viewer",
-                  "content-intelligence/idp/workspace-overview"
+                  {
+                    "group": "Getting Started",
+                    "pages": [
+                      "content-intelligence/idp/accessing-the-idp-application",
+                      "content-intelligence/idp/documentation-notice",
+                      "content-intelligence/idp/glossary",
+                      "content-intelligence/idp/roles",
+                      "content-intelligence/idp/supported-file-formats",
+                      "content-intelligence/idp/supported-languages",
+                      "content-intelligence/idp/system-requirements",
+                      "content-intelligence/idp/workspace-overview"
+                    ]
+                  },
+                  {
+                    "group": "Project Configuration",
+                    "pages": [
+                      "content-intelligence/idp/configuring-document-ai",
+                      "content-intelligence/idp/configuring-document-processing",
+                      "content-intelligence/idp/deploying-a-project",
+                      "content-intelligence/idp/managing-idp-projects"
+                    ]
+                  },
+                  {
+                    "group": "Forms & Fields",
+                    "pages": [
+                      "content-intelligence/idp/create-custom-forms",
+                      "content-intelligence/idp/creating-a-document-upload-form",
+                      "content-intelligence/idp/creating-a-field",
+                      "content-intelligence/idp/manage-class-properties"
+                    ]
+                  },
+                  {
+                    "group": "Process Workflows",
+                    "pages": [
+                      "content-intelligence/idp/creating-a-new-process-workflow",
+                      "content-intelligence/idp/managing-a-process"
+                    ]
+                  },
+                  {
+                    "group": "Operations & Audit",
+                    "pages": [
+                      "content-intelligence/idp/idp-reporting-dashboards",
+                      "content-intelligence/idp/logging-on-to-the-hyland-intelligent-document-processing-application",
+                      "content-intelligence/idp/uploading-a-file",
+                      "content-intelligence/idp/viewing-all-idp-projects"
+                    ]
+                  },
+                  {
+                    "group": "Classes & Validation",
+                    "pages": [
+                      "content-intelligence/idp/create-a-custom-field-validation-template-in-process-modeling",
+                      "content-intelligence/idp/creating-a-class",
+                      "content-intelligence/idp/creating-a-parent-class"
+                    ]
+                  },
+                  {
+                    "group": "Other",
+                    "pages": [
+                      "content-intelligence/idp/creating-an-idp-project",
+                      "content-intelligence/idp/creating-process-variables",
+                      "content-intelligence/idp/field-validation-settings",
+                      "content-intelligence/idp/format-field-output-settings",
+                      "content-intelligence/idp/introduction",
+                      "content-intelligence/idp/manage-field-settings",
+                      "content-intelligence/idp/manage-project-level-settings",
+                      "content-intelligence/idp/working-with-the-document-viewer"
+                    ]
+                  }
                 ]
               },
               {
                 "group": "Architecture",
                 "pages": [
-                  "content-intelligence/architecture/agent",
-                  "content-intelligence/architecture/ai-enabling-content",
-                  "content-intelligence/architecture/assist-and-automate",
-                  "content-intelligence/architecture/autonomous-agents",
-                  "content-intelligence/architecture/better-content-qualification",
-                  "content-intelligence/architecture/built-in-security-audit",
-                  "content-intelligence/architecture/cloud-agnostic",
-                  "content-intelligence/architecture/complex-queries",
-                  "content-intelligence/architecture/content-lake",
-                  "content-intelligence/architecture/context",
-                  "content-intelligence/architecture/crossplane-terraform-for-deployment",
-                  "content-intelligence/architecture/data-curation",
-                  "content-intelligence/architecture/data-pipeline",
-                  "content-intelligence/architecture/datadog-for-monitoring-compliance",
-                  "content-intelligence/architecture/design-principles",
-                  "content-intelligence/architecture/documentation-notice",
-                  "content-intelligence/architecture/encryption",
-                  "content-intelligence/architecture/github-actions-for-cicd",
-                  "content-intelligence/architecture/hyland-cloud-infrastructure",
-                  "content-intelligence/architecture/iam-idp-and-virtual-private-cloud",
-                  "content-intelligence/architecture/ingesting-data",
-                  "content-intelligence/architecture/intelligent-document-processing-and-automate",
-                  "content-intelligence/architecture/knowledge-discovery",
-                  "content-intelligence/architecture/knowledge-enrichment",
-                  "content-intelligence/architecture/kubernetes-for-workload-management",
-                  "content-intelligence/architecture/machine-learning-platform",
-                  "content-intelligence/architecture/modular-api-first",
-                  "content-intelligence/architecture/newest-technology",
-                  "content-intelligence/architecture/overview",
-                  "content-intelligence/architecture/security-principles",
-                  "content-intelligence/architecture/semantic-indexing",
-                  "content-intelligence/architecture/tenant-provisioning"
+                  {
+                    "group": "Key Concepts",
+                    "pages": [
+                      "content-intelligence/architecture/agent",
+                      "content-intelligence/architecture/assist-and-automate",
+                      "content-intelligence/architecture/autonomous-agents",
+                      "content-intelligence/architecture/content-lake",
+                      "content-intelligence/architecture/context",
+                      "content-intelligence/architecture/intelligent-document-processing-and-automate",
+                      "content-intelligence/architecture/knowledge-discovery",
+                      "content-intelligence/architecture/overview",
+                      "content-intelligence/architecture/semantic-indexing"
+                    ]
+                  },
+                  {
+                    "group": "Infrastructure & Deployment",
+                    "pages": [
+                      "content-intelligence/architecture/cloud-agnostic",
+                      "content-intelligence/architecture/crossplane-terraform-for-deployment",
+                      "content-intelligence/architecture/github-actions-for-cicd",
+                      "content-intelligence/architecture/hyland-cloud-infrastructure",
+                      "content-intelligence/architecture/kubernetes-for-workload-management",
+                      "content-intelligence/architecture/modular-api-first",
+                      "content-intelligence/architecture/newest-technology",
+                      "content-intelligence/architecture/tenant-provisioning"
+                    ]
+                  },
+                  {
+                    "group": "Security & Compliance",
+                    "pages": [
+                      "content-intelligence/architecture/built-in-security-audit",
+                      "content-intelligence/architecture/datadog-for-monitoring-compliance",
+                      "content-intelligence/architecture/design-principles",
+                      "content-intelligence/architecture/documentation-notice",
+                      "content-intelligence/architecture/encryption",
+                      "content-intelligence/architecture/iam-idp-and-virtual-private-cloud",
+                      "content-intelligence/architecture/security-principles"
+                    ]
+                  },
+                  {
+                    "group": "Data Pipelines",
+                    "pages": [
+                      "content-intelligence/architecture/ai-enabling-content",
+                      "content-intelligence/architecture/better-content-qualification",
+                      "content-intelligence/architecture/complex-queries",
+                      "content-intelligence/architecture/data-curation",
+                      "content-intelligence/architecture/data-pipeline",
+                      "content-intelligence/architecture/ingesting-data",
+                      "content-intelligence/architecture/knowledge-enrichment",
+                      "content-intelligence/architecture/machine-learning-platform"
+                    ]
+                  }
                 ]
               }
             ]
