@@ -1,8 +1,0 @@
----
-title: "Other Validation"
----
-
-Consider the following validation rule:
-
--
-Values with a 0 as the first, leftmost digit are flagged as INVALID. This could indicate that a leading digit was missed via OCR or other means. For example, 000,234.56 is not assumed to be $234.56, as the leading digit could have actually been a 6 that was misread via OCR (making the correct value $600,234.56 in that case).

@@ -1,0 +1,64 @@
+---
+title: "API Overview"
+description: "General terminology, objects, placeholders, and conventions for the Governance REST API."
+---
+## Terminology
+
+Familiarize yourself with the following terms as you explore the Governance REST API and this guide:
+
+-  REST API
+-  CRUD
+
+## Conventions
+
+Review the following writing conventions to optimize your usage of this guide:
+
+-  Placeholders
+-  Curl Commands
+-  Endpoints
+
+## Objects
+
+The following sections include objects common to multiple APIs or endpoints within the Governance REST API:
+
+-  Legal Case
+-  Record
+
+## Crud
+
+The most common methods used to make API calls to interact with resources are POST, GET, PUT, and DELETE. These methods correspond to the Create, Retrieve, Update, and Delete (CRUD) actions, respectively.
+
+## Curl Commands
+
+The tutorials in this guide describe how to make API calls using client URL (cURL, or curl) commands. Each curl command may contain many pieces of data, which can be difficult to read when written as one long line that requires horizontal scrolling. To improve readability, where feasible, this guide uses the \ character to mark artificial line breaks to visually separate different pieces of a curl command. Depending on the command line application you use to run the curl commands (for example, Command Prompt or Terminal), you may need to remove the line breaks or otherwise edit any copied curl examples to align with the syntax preferred by the application.
+
+## Placeholders
+
+This guide includes many different code examples to provide a starting point for developers to make requests to the Governance REST API and to understand responses from the server. Many of these examples include placeholder text in square brackets (for example, [recordId]), which represents values specific to the Content Innovation Cloud user making the request or receiving the response. To make successful requests to the server, you must replace the placeholder text with values appropriate for your user account or resource (for example, always replace the [access_token] placeholder with the actual string representing the token you retrieved for your current session).
+
+## Endpoints
+
+To make calls to the Governance REST API, you must include the URL of the Hyland Governance database directly before the endpoint in your request. In this guide's tutorials, this URL is represented by the [base_url] placeholder in sample requests (for example, GET [base_url]/secured). However, in this guide's reference topics, the [base_url] placeholder is omitted for simplicity (for example, GET /secured).
+
+Additionally, this guide includes several different endpoints that are associated with similar or identical requests or responses, especially for endpoints belonging to the same API. Where feasible, the Endpoints sections refer to common requests and responses in the Objects sections to reduce redundancies.
+
+## Rest Api
+
+A Representational State Transfer Application Programming Interface (REST API) is a simple and flexible design pattern that allows developers to communicate with applications or devices over the web. When a client makes a request to a server using a REST API, the server responds with the representation of a resource (for example, an HTML, XML, or JSON document), which contains hypermedia links that can be followed to change the state of the system.
+
+Only the identifier of the first requested resource from the REST API needs to be known, as all other identifiers will be discovered. This allows the identifiers to change without having to inform the client beforehand, and it only allows for loose coupling between the client and server.
+
+## General Status Codes And Errors
+
+The following table lists general status codes and errors that may be returned when making requests to the Governance REST API. For a listing of the status codes and errors specific to an endpoint, see that endpoint's section of the documentation.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | The requested action for the repository has been performed successfully. |
+| 201 | Created | A new resource has been created successfully. |
+| 400 | Bad Request | The server could not process the request due to an apparent client error, such as a malformed request syntax. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |
+| 404 | Not Found | The requested resource could not be found. |
+| 409 | Conflict | The request could not be processed due to a conflict in the current state of the resource. |
+
