@@ -2,20 +2,14 @@
 title: "Set_Permissions"
 ---
 
----
-title: "SET_PERMISSIONS"
-source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/dse1713769468616"
-section: "Hyland Automate Modeler"
----
-
 The SET_PERMISSIONS action is used to .assign roles to a list of users on a file or folder.
 
 The input parameters for SET_PERMISSIONS are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| file | Array<json>, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
-| folder | Array<json>, JSON | Optional | ACS folder to be updated. If the received value contains multiple references to folders, only the first of them will be used. |
+| file | Array`<json>`, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
+| folder | Array`<json>`, JSON | Optional | ACS folder to be updated. If the received value contains multiple references to folders, only the first of them will be used. |
 | nodeId | String | Optional | Node ID of the file or folder in ACS. Example: a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
 | path | String | Optional | Node ID of the file or folder in ACS. For example, a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
 | role | String | Required | Role of the user, for example Coordinator. |
@@ -25,4 +19,4 @@ The output parameters from SET_PERMISSIONS are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| response | Array<json> | Optional | Response for the calls. |
+| response | Array`<json>` | Optional | Response for the calls. |

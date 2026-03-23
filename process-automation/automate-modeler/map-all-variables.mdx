@@ -2,12 +2,6 @@
 title: "Map All Variables"
 ---
 
----
-title: "Map All Variables"
-source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/xlf1674557944817"
-section: "Hyland Automate Modeler"
----
-
 Map all variables will automatically map the values of process variables to values or variables within a model if their names are identical. It will also map values or variables from a model to the process variables in the process if their names are identical. Additionally, for output variables only, if there is no process variable with a matching name to one of the outputs of the model it will be created when the model is executed using the name of the output value or variable.
 
 For example, if Map all variables is selected for a user task that contains an orderStatus field on the form, a process variable with the name orderStatus can be used to set the status of an order automatically when the user task is started. Before the task is completed, a user can update the orderStatus field on the form and it will update the same process variable when the task is finished with the new status. Additionally, all the other form fields will be created as process variables when the task is completed.

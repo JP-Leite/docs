@@ -2,20 +2,14 @@
 title: "Unlock_Node"
 ---
 
----
-title: "UNLOCK_NODE"
-source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/jhb1713769538417"
-section: "Hyland Automate Modeler"
----
-
 The UNLOCK_NODE action is used to unlock a file or folder so it can be edited.
 
 The input parameters for UNLOCK_NODE are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| file | Array<json>, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
-| folder | Array<json>, JSON | Optional | ACS folder to be updated. If the received value contains multiple references to folders, only the first of them will be used. |
+| file | Array`<json>`, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
+| folder | Array`<json>`, JSON | Optional | ACS folder to be updated. If the received value contains multiple references to folders, only the first of them will be used. |
 | nodeId | String | Optional | Node ID of the file or folder in ACS. Example: a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
 | path | String | Optional | Node ID of the file or folder in ACS. For example, a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
 
@@ -23,4 +17,4 @@ The output parameters from UNLOCK_NODE are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| response | Array<json> | Optional | Response for the calls. |
+| response | Array`<json>` | Optional | Response for the calls. |

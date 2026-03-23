@@ -2,12 +2,6 @@
 title: "Textract"
 ---
 
----
-title: "Textract"
-source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/vzt1676969327893"
-section: "Hyland Automate Modeler"
----
-
 The EXTRACT action is used by the Textract connector to execute Amazon Textract to extract text and metadata from JPEG and PNG files that are less than 5mb in size.
 
 The Amazon Textract APIs called are the following:
@@ -23,7 +17,7 @@ The input parameters of the Textract connector are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| file | Array<content>, Content | Required | A variable of type file to send for extraction. |
+| file | Array`<content>`, Content | Required | A variable of type file to send for extraction. |
 | outputFormat | String | Optional | The format of the output file. Possible values are JSON and TXT. The default value is JSON. |
 | confidenceLevel | String | Optional | The level of confidence (0 – 10) to use in the analysis, for example: 0.75 |
 | timeout | Integer | Optional | The timeout period for calling the Textract service in milliseconds, for example: 910000 |

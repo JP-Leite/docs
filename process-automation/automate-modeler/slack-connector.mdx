@@ -2,12 +2,6 @@
 title: "Slack Connector"
 ---
 
----
-title: "Slack Connector"
-source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/sxo1676645863663"
-section: "Hyland Automate Modeler"
----
-
 The Slack connector contains a MESSAGE_RECEIVED event. This event allows for Slack messages to be monitored and an event published when specific criteria are met.
 
 Note: Make sure the Slack connector event subscription has been configured to receive notifications from the Slack API.
@@ -16,7 +10,7 @@ The input parameters for a received Slack message are:
 | Parameter | Description |
 | --- | --- |
 | condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
-| pattern | A regular expression that selects which messages trigger an action. Java catching group syntax can be used to create groups from the pattern as variables, for example: Order Number (?<orderNumber>.+) The variables can then be used in echo and echoError, for example: ${orderNumber} Note: This parameter is required. |
+| pattern | A regular expression that selects which messages trigger an action. Java catching group syntax can be used to create groups from the pattern as variables, for example: Order Number (?`<orderNumber>`.+) The variables can then be used in echo and echoError, for example: ${orderNumber} Note: This parameter is required. |
 | echo | A message sent to the user of the message that is matched, for example: Your reference number is ${orderNumber}. |
 | echoError | A message sent to the user of the message that is matched if an error occurs when publishing the event, for example: There was a problem publishing that event. |
 | channelTypes | The channel types to be monitored in Slack, such as direct-message,public-channel or mention. |

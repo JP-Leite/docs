@@ -1,24 +1,36 @@
 ---
 title: "Overview"
+description: "How to create a Governance project, set retention policies, and deploy your governance configuration in CIC."
 ---
 
----
-title: "Overview"
-source: "https://support.hyland.com/r/Current/Hyland-Governance/sxy1747316870475"
-section: "Hyland Governance"
----
+This section guides you through creating a Governance project, setting a retention policy, and deploying the project so that records management is enforced across your CIC repositories.
 
-This section provides a guidance on how to create a Governance project, set retention policy, and deploy the project.
+## Governance Workflow
 
-You can create and configure a Governance project in Studio Modeler. Within this project, you need to create a file plan and a category subject to this file plan. A file plan defines retention and disposition schedules and ensures that records are maintained for the appropriate amount of time in accordance with regulations. In order to deploy the file plan, you need to create a retention policy for the category. When this configuration is done, to enable further management of records in Workspace, you need to deploy the Governance project.
+<Steps>
+  <Step title="Create a Governance Project">
+    Create and configure a Governance project in Studio Modeler. This is the container for your file plan and retention configuration.
 
-.
+    [Create a Governance Project →](/governance-identity/governance/creating-a-governance-project)
+  </Step>
+  <Step title="Create a File Plan">
+    Define a file plan that sets retention and disposition schedules, ensuring records are maintained for the correct duration according to regulations.
 
-To create a Governance project, see:
+    [Create a File Plan →](/governance-identity/governance/creating-a-file-plan)
+  </Step>
+  <Step title="Create a Category">
+    Add a category to your file plan to group related records and apply retention rules at the right granularity.
 
--  Creating a Governance Project
--  Creating a File Plan
--  Creating a Category
--  Creating a Retention Policy
--  Releasing a Project
--  Deploying a Poject
+    [Create a Category →](/governance-identity/governance/creating-a-category)
+  </Step>
+  <Step title="Set a Retention Policy">
+    Create a retention policy for the category to define exactly how long records are kept and what happens when they expire.
+
+    [Create a Retention Policy →](/governance-identity/governance/creating-a-retention-policy)
+  </Step>
+  <Step title="Deploy the Project">
+    Release and deploy the Governance project to make the configuration active. Once deployed, users can manage records in Workspace.
+
+    [Release a Project →](/governance-identity/governance/releasing-a-project) · [Deploy a Project →](/governance-identity/governance/deploying-a-project)
+  </Step>
+</Steps>

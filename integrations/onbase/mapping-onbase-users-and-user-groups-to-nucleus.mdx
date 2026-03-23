@@ -2,12 +2,6 @@
 title: "Mapping Onbase Users And User Groups To Nucleus"
 ---
 
----
-title: "Mapping OnBase Users and User Groups to Nucleus"
-source: "https://support.hyland.com/r/Current/OnBase-Connector-for-Content-Intelligence/nxi1751290170152"
-section: "OnBase Connector for Content Intelligence"
----
-
 The ContIntOnbaseConnector.NucleusIntegration service is designed to map all users and User Groups from OnBase to HX Nucleus. To execute this service on a scheduled basis, you must create a scheduled task.Whenever a new OnBase user is created, OnbaseNucleusUserSyncTask task needs to be completed to synchronize it with Nucleus.
 
 Before initiating this integration, you must create an Integration ID in the Content Innovation Cloud Administration Portal for the environment where all documents are ingested. Update the defaultConfig.json file with the created value. To create an Integration ID, see Registering a System Integration in the Content Innovation Cloud Administration Portal documentation. For information on updating the default.Config.json file, see Configuring the defaultConfig.json File.

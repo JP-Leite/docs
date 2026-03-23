@@ -2,12 +2,6 @@
 title: "Configuring Log Files For Troubleshooting On Windows"
 ---
 
----
-title: "Configuring Log Files for Troubleshooting on Windows"
-source: "https://support.hyland.com/r/Current/Hyland-Capture/oqy1646191707371"
-section: "Hyland Capture"
----
-
 Desktop Host is configured by default to send diagnostics logging messages to log files that can be used by Technical Support to diagnose and troubleshoot issues. This section provides information on how to configure Desktop Host in Windows to send additional information to the default log files and to modify the default logging configuration.
 
 To configure Desktop Host logging in Windows:
@@ -28,7 +22,7 @@ To configure Desktop Host logging in Windows:
 ```
 
 3.  For the key "File", replace the value "%ProgramData%/Hyland/DesktopHost/logs/DesktopHostGateway_Log.json" with the file path for the log file, including the name of the file you want the log to be saved as. This file must be a .json file.
-For example, the default path mentioned above would write the logs to a file called DesktopHostGateway_Log<date-stamp>.json in the logs directory within the directory where Desktop Host is installed.
+For example, the default path mentioned above would write the logs to a file called DesktopHostGateway_Log`<date-stamp>`.json in the logs directory within the directory where Desktop Host is installed.
 
 Note:
 Ensure that the Windows user account running Desktop Host has write permission for the path specified in the "File" key.
@@ -95,7 +89,7 @@ If "FileRollOnSize" is set to "true", the attribute "FileByteLimit" is active.
 }
 ```
 
-11.  For the key "File", replace the value "%LocalAppData%/Hyland/DesktopHost/logs/DesktopHostCore_Log.json" with the file path for the log file, including the name of the file you want the log to be saved as. This file must be a .json file. For example, the default path mentioned above would write the logs to a file called DesktopHostCore_Log<date-stamp>.json in the logs directory within the directory created for a user.Note: Ensure that the Windows user account running Desktop Host has write permission for the path specified in the "File" key.
+11.  For the key "File", replace the value "%LocalAppData%/Hyland/DesktopHost/logs/DesktopHostCore_Log.json" with the file path for the log file, including the name of the file you want the log to be saved as. This file must be a .json file. For example, the default path mentioned above would write the logs to a file called DesktopHostCore_Log`<date-stamp>`.json in the logs directory within the directory created for a user.Note: Ensure that the Windows user account running Desktop Host has write permission for the path specified in the "File" key.
 12.  For the other key and value pairs in the diagnostic route DesktopHostCore_Log, edit those as needed.  Note: Ensure the key "include-profiles" includes the value "Desktop Host Core".
 13.  In the file, locate the DesktopHostLauncher_Log diagnostics route, within the Hyland.Logging element. By default, the route includes the following key and value elements, which you can edit as needed:
 ```
@@ -111,7 +105,7 @@ If "FileRollOnSize" is set to "true", the attribute "FileByteLimit" is active.
 }
 ```
 
-14.  For the key "File", replace the value "%LocalAppData%/Hyland/DesktopHost/logs/DesktopHostLauncher_Log.json" with the file path for the log file, including the name of the file you want the log to be saved as. This file must be a .json file. For example, the default path mentioned above would write the logs to a file called DesktopHostLauncher_Log<date-stamp>.json in the logs directory within the directory created for a user.Note: Ensure that the Windows user account running Desktop Host has write permission for the path specified in the "File" key.
+14.  For the key "File", replace the value "%LocalAppData%/Hyland/DesktopHost/logs/DesktopHostLauncher_Log.json" with the file path for the log file, including the name of the file you want the log to be saved as. This file must be a .json file. For example, the default path mentioned above would write the logs to a file called DesktopHostLauncher_Log`<date-stamp>`.json in the logs directory within the directory created for a user.Note: Ensure that the Windows user account running Desktop Host has write permission for the path specified in the "File" key.
 15.  For the other key and value pairs in the diagnostic route DesktopHostLauncher_Log, edit those as needed.  Note: Ensure the key "include-profiles" includes the value "Desktop Host Launcher".
 16.  Save the file and close the text editor.
 17.  Restart the computer.

@@ -2,12 +2,6 @@
 title: "Configuring The Cf Onbase Plugin"
 ---
 
----
-title: "Configuring the CF OnBase Plugin"
-source: "https://support.hyland.com/r/Current/Content-Federation-Services/cch1742332108712"
-section: "Content Federation Services"
----
-
 After the CF OnBase Plugin is installed, the CF OnBase Plugin application settings need to be configured to communicate with the content repository.
 
 CAUTION: When upgrading the CF OnBase Plugin to a new version, values in the PluginConfig.json file are not retained, so you need to reconfigure parameters in the file. For this reason, save a backup of the values in the PluginConfig.json file before upgrading the CF OnBase Plugin.
@@ -20,7 +14,7 @@ To configure the CF OnBase Plugin:
 
 | PluginConfig.json Parameter | Value |
 | --- | --- |
-| McaServerUrl | The Server URL of the MCA Adapter For example, https://hostname.example.com/<McaApplicationName>/ |
+| McaServerUrl | The Server URL of the MCA Adapter For example, https://hostname.example.com/``<McaApplicationName>``/ |
 | IntegrationId | The value obtained from the Integration ID field during the registration of CFS in the Content Innovation Cloud Administration Portal For more information, see Adding a System Integration. |
 
 5.  Optional: Configure MCA session cookie cleanup by editing the values of the EnableOnBaseSessionCookieCleanUp and OnBaseSessionCookieHeader parameters.
