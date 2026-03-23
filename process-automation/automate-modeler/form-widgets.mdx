@@ -1,46 +1,213 @@
 ---
 title: "Form Widgets"
+description: "A comprehensive guide to configuring input fields and UI widgets in your forms."
 ---
+## Button
 
-All form fields display a field editor when they are created in the GUI. Each field has a tab for general properties that are common amongst the majority of form fields, with some also having a tab for advanced properties that are specific to that field type.
+Button fields allow you to add custom buttons to the form, which then can be configured using form rules. To learn more about the configuration, see Creating Form Rules.
 
-Most of the fields are grouped according to their type. You can expand the form palette to see the group names and select the field that interests you.
+Button fields belong to the UI field group.
 
-The general properties of form fields are:
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Checkbox
+
+Checkbox fields are boolean values. They are either checked or unchecked.
+
+Checkbox fields belong to the UI field group.
+
+The Checkbox people fields do not have the Placeholder property.
+
+Checkbox can be set to checked or unchecked by default, using the Default value checkbox in the Checkbox pane.
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Radio Buttons
+
+Radio buttons fields allow the form designer to define a set of options a form filler must choose from. This list can be a manually entered set of options or it can read from a REST service. For more information, see:
+
+-  Manual Radio Buttons Fields
+-  REST Service Radio Buttons Fields
+
+Radio Buttons fields belong to the UI field group.
+
+## Dropdown
+
+Dropdown fields allow the form designer to define a set of options that a form filler must choose from a list.
+
+Dropdown fields belong to the UI field group.
+
+When you use dropdown fields in a process, you can enter any character of the item you are searching for to limit the amount of returned entries. This includes any part of a sentence. This feature works when there are more than five entries and is useful when your lists are large.
+
+The basic parameters of the field are set in the General tab. The Dropdown fields do not have the Placeholder property.
+
+For advanced parameters, see Configuring Advanced Dropdown Field Parameters.
+
+## Text
+
+Text fields are for entering string data in a single line. Text fields belong to the Text field group.
+
+The advanced properties for a Text field are:
 
 | Property | Description |
 | --- | --- |
-| Label | The name of the field that will appear on the rendered form, for example: First name |
-| ID | The unique ID of the field, for example: Text070upd |
-| Required? | Checking this box makes a field mandatory. |
-| Read-only | Determines whether the field can be filled in by a form filler. |
-| Colspan | The number of columns a field spans. |
-| Placeholder | The default value of the field. |
-| Tooltip | Tooltip information that will appear on the rendered form field, providing help text to a form filler |
+| Min length | Sets the minimum character count for text that can be entered into the field including whitespace. |
+| Max length | Sets the maximum character count for text that can be entered into the field including whitespace. |
+| Regex pattern | A regular expression can be entered that will validate the text entered into the field. For exmple, some common Regex patterns are:Alphanumeric characters without space: ^[a-zA-Z0-9]*$  Alphanumeric characters with space: ^[a-zA-Z0-9 ]*$  Common email addresses: ^([a-zA-Z0–9._%-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,6})*$  Username, meaning an alphanumeric string that may include underscore (_) and dash (-), 3 to 16 characters long: ^[a-z0-9_-]{3,16}$  Date in YYY-MM-dd format:  ([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))   URL address with https(s) protocl optional: (https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)  File path with filename and extension: ((\/|\\|\/\/|https?:\\\\|https?:\/\/)[a-z0-9 _@\-^!#$%&+={}.\/\\\[\]]+)+\.[a-z]+$ |
+| Input mask | Set the format for how data may be entered into the field. For example (00) 0000-0000 for a mandatory 8-digit phone number and 2-digit area code will not allow for letters to be entered at all. |
+| Reversed | This reverses the entry for an Input mask and reads the text from right to left instead. |
+| Input mask placeholder | The placeholder to demonstrate the format of an Input mask. For example (__) ____-____ in the phone number example. |
+| External property | This option allows you to select a property of the currently logged user, such as last name or email, in the Text field. The property can be selected from the Select External Property drop-down menu. |
 
 Note:
-Any exceptions to the general properties are stated in the section specific to that field type. For example, the header field type does not have the Required? property.
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
 
-Each form field can also have a set of visibility conditions set on it where the field will either be hidden or displayed depending upon the values of other fields or variables within that form. The Edit Visibility Conditions button is displayed in the properties of every field.
+## Multiline Text
 
-The steps of visibility conditions are:
+Multiline text fields are for entering string data across multiple lines. Multiline text fields belong to the Text field group.
 
--
--
--
--
+The advanced properties for a Multiline text field are:
 
--
--
--
--
-
-| Step | Description | Options |
-| --- | --- | --- |
-| Depends on | The field or variable that will be evaluated | A field or variable within the form. |
-| If it’s | The comparison operator between Depends on and Value | equal to   not equal to   empty   not empty |
-| Value | The value, field or variable that the Depends on step is evaluating against | A field or variable within the form or a static value |
-| Next condition operator | The operator for evaluating against further conditions | and   and not   or   or not |
+| Property | Description |
+| --- | --- |
+| Min length | Sets the minimum character count for text that can be entered into the field including whitespace. |
+| Max length | Sets the maximum character count for text that can be entered into the field including whitespace. |
+| Regex pattern | A regular expression can be entered that will validate the text entered into the field. For exmple, some common Regex patterns are:Alphanumeric characters without space: ^[a-zA-Z0-9]*$  Alphanumeric characters with space: ^[a-zA-Z0-9 ]*$  Common email addresses: ^([a-zA-Z0–9._%-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,6})*$  Username, meaning an alphanumeric string that may include underscore (_) and dash (-), 3 to 16 characters long: ^[a-z0-9_-]{3,16}$  Date in YYY-MM-dd format:  ([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))   URL address with https(s) protocl optional: (https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)  File path with filename and extension: ((\/|\\|\/\/|https?:\\\\|https?:\/\/)[a-z0-9 _@\-^!#$%&+={}.\/\\\[\]]+)+\.[a-z]+$ |
 
 Note:
-Conditions are evaluated in the order they are declared.
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Display Text
+
+Display text fields allow the form designer to display a line of fixed text to the form filler. This text is not editable by the filler themselves. The Text to display property is used to enter the text.
+
+Display text fields belong to the Display text field group.
+
+Display text fields do not have the Read-only, Placeholder, and Required? fields, nor do they have an advanced properties tab.
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Display Rich Text
+
+Display Rich text field allows you to add HTML formatted text to forms.
+
+Display Rich text fields belong to the Display text field group.
+
+Use the Open Rich Text Editor to open the editor and edit your text. The Rich Text Editor includes standard formatting tools such as headings, font color, hyperlinks, and code blocks.
+
+Display text fields do not have the Read-only, Placeholder, and Required? fields, nor do they have an advanced properties tab.
+
+Note:
+After creation, the form only displays read-only text and does not capture any values.
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Date
+
+Date fields are for date type data. Date fields belong to the Date field group.
+
+The advanced properties for a Date field are:
+
+| Property | Description |
+| --- | --- |
+| Default value | Sets the default date of the field. If you want the default date to be ‘today’ and that is the current day then you can select the Today check box. |
+| Set dynamic date range | When turned on you can enter a Minimum and Maximum date range. This forces the date picker to only allow a user to select a date within the configured period, and any dates outside of the date range will be grayed out. Note: When using dynamic date range, the Min Date and Max Date fields are unavailable. |
+| Min date | Sets the earliest date that can be entered into the field. |
+| Max date | Sets the latest date that can be entered into the field. |
+| Date display format | Sets the format of how a date is entered into the field. For example: YYYY-MM-DD would display as 2001-10-01 for 1st October, 2001. An example of how the date is displayed is shown under the Today's date header. |
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Date And Time
+
+Date fields are for date and time type data. Date and time fields belong to the Date field group.
+
+The advanced properties for a Date and time field are:
+
+| Property | Description |
+| --- | --- |
+| Default value | Sets the default date of the field. If you want the default date to be ‘now’ and that is the current day and time, then you can select the Now check box. |
+| Min Date & Time | Sets the earliest date that can be entered into the field. |
+| Max Date & Time | Sets the latest date that can be entered into the field. |
+| Date display format | Sets the format of how a date is entered into the field. For example: YYYY-MM-DD HH:mm would display as 2001-10-01 12:24 for 1st October, 2001 12h 25min. An example of how the date is displayed is shown under the Today's date header. |
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Calendar
+
+The Calendar connector uses the Microsoft Graph API to integrate with Microsoft accounts.
+
+The Calendar connector is displayed on the process diagram with the calendar icon.
+
+The authentication for the Calendar connector is set using the configuration parameters. For more details, see Configuration.
+
+Note:
+The Calendar connector and user both require a Microsoft Outlook client to use the Calendar connector. The Calendar connector requires a Microsoft Outlook account. The account is separate from the production environment and is created and managed by an administrator.
+
+The actions that can be executed using the Calendar connector are:
+
+-  Create a Calendar Event: Creates an event or appointment in the calendar.
+-  Update a Calendar Event: Updates an event or appointment in the calendar.
+-  Get Schedule Availability: Retrieves user availability.
+-  Remove a Calendar Event: Removes an event or appointment in the calendar.
+
+## Amount
+
+Amount fields are for entering a value depicting currency. Amount fields belong to the Text field group.
+
+The advanced properties for an Amount field are:
+
+| Property | Description |
+| --- | --- |
+| Min value | Sets the minimum value that can be entered into the field. |
+| Max value | Sets the maximum value that can be entered into the field. |
+| Currency | Sets the currency symbol for the field, for example: $, £ or €. |
+| Allow decimals | Checking this box will allow for decimal places to be entered into the field. |
+
+The value of the field can be used in calculations, using the Value in the Form Rules Payload section. For more information, see Creating Form Rules.
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Hyperlink
+
+Hyperlink fields allow the form designer to expose a link that form fillers can click on whilst they are filling out a form.
+
+Hyperlink fields belong to the UI field group.
+
+Hyperlink fields do not have the Read-only and Placeholder properties.
+
+The advanced properties for a Hyperlink field are:
+
+| Property | Description |
+| --- | --- |
+| Hyperlink URL | The URL that the field will launch when clicked |
+| Display text | The text that is displayed for the URL, for example: Click here to view the expenses policy. |
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
+## Repeatable Section
+
+Section fields are container fields that you can use for the users to repeat them if needed.
+
+Section fields belong to the Containers field group.
+
+The field properties are:
+
+| Property | Description |
+| --- | --- |
+| Number of columns | Number of columns that appear in the repeatable section. |
+| Initial number of rows | Number of rows displayed when the repeatable section is first shown. |
+| Allow deleting initial rows | A checkbox which allows the end user to delete the initial rows. It is checked by default. |
+| Maximum number of rows | A drop-down menu with a possible maximum number of rows to be added to the repeatable section. |
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.
+
