@@ -1,0 +1,61 @@
+---
+title: "Return User Information"
+---
+
+---
+title: "Return User Information"
+source: "https://support.hyland.com/r/Current/Hyland-Governance-REST-API/vyj1760306138110"
+section: "Hyland Governance REST API"
+---
+
+Returns permission-related information for the user.
+
+## Base Request
+
+```
+GET /api/userInfo
+```
+
+## Headers
+
+[Mozilla developer documentation](https://developer.mozilla.org/)
+
+| Header Name | Description | Required | Values |
+| --- | --- | --- | --- |
+| Authorization | The access token | Required | Bearer [access_token] where [access_token] is a string generated when you complete authentication (see Getting Started) |
+| User-Agent | Identity of the client making the request to the server | Required | [product]/[version] where [product] is the name of the software you are using to make the request and [version] is the numbered version of the software (for example, MyCompanyProduct/1.0). For information on other types of values commonly included in user-agent request headers, see the User-Agent HTTP header reference section on the  website. |
+| Accept | The format of the data to be returned | Optional | */* |
+
+## Sample Request
+
+```
+GET /api/userInfo
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+Accept: */*
+```
+
+## Response Body
+
+| Element | Description | Type | Notes |
+| --- | --- | --- | --- |
+| [generic object] | List of permission-related values that apply to the user's Content Innovation Cloud account. | array | The values in the list are strings. |
+
+## Sample Response
+
+```
+[
+  "string"
+]
+```
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns the permission-related information for the user. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |

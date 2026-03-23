@@ -1,0 +1,59 @@
+---
+title: "Configuring The Cf Broker"
+---
+
+---
+title: "Configuring the CF Broker"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/dba1742323670688"
+section: "Content Federation Services"
+---
+
+After the CF Broker is installed, the CF Broker application settings need to be configured to communicate with Content Innovation Cloud authentication (CIC) server.
+
+CAUTION: When upgrading the CF Broker to a new version, values in the appsettings.json file are not retained, so you need to reconfigure parameters in the file. For this reason, save a backup of the values in the appsettings.json file before upgrading the CF Broker.
+To configure the CF Broker:
+
+1.  Navigate to the Hyland Content Federation Broker folder. By default, the folder is located in C:\Program Files\Hyland.
+2.  Open the appsettings.json file in a plain-text editor, such as Notepad.
+3.  In the GatewayConfiguration object, set values for the following parameters:
+
+-
+-
+
+| appsettings.json Parameter | Value |
+| --- | --- |
+| Region | A value that corresponds to the geographical region where your CIC services are hosted and to where your CF Broker is connecting.Enter one of the following values depending on the region in which your CIC services are hosted:   US: For deployments in the United States  EU: For deployments in Europe  The default value for Region is US. |
+| BrokerName | A unique, human-readable name used to identify the registered broker instance. |
+| ProtectedKeyFilePath | The path to a .json file that stores the encrypted CF Broker's key pair and the gateway's public key.Note: Users need to give proper permissions to the LOCAL SERVICE account to this path for the Broker service to access it. |
+| BrokerRegistrationToken | The bootstrap token generated in the Content Federation Admin Portal that allows a negotiated key exchange to occur between the CF Broker and the CF Gateway.For more information on how to generate a token for the CF Broker, see Generating Broker Tokens. |
+
+4.  In the Credentials object, set values for the following parameters:
+| appsettings.json Parameter | Value |
+| --- | --- |
+| ClientId | The identifier of the registered external application in the CIC. |
+| ClientSecret | The Secret associated with the registered external application in the CIC. |
+
+For information on the Credentials values, which are obtained during registration, see Registering the CF Broker in the Content Innovation Cloud.
+5.  In the DataProtection Object, set values for the following parameters:
+
+| appsettings.json Parameter | Value |
+| --- | --- |
+| KeyPersistencePath | Directory Location on the machine where .NET Data Protection keys needs to be persisted. Note: LOCAL SERVICE account needs read/write access to this location. |
+| KeyStorePath | Certificate File Location on the machine that is to be used to encrypt/decrypt CF Broker's protected key pairs. This certificate needs to have a private key. Note: Currently, only PFX certificates are supported. If this field is blank, the .NET Data Protection key is generated and stored in an unencrypted format at the KeyPersistencePath location. |
+| KeyStorePassword | Password for the certificate. If this field is blank, the .NET Data Protection key is generated and stored in an unencrypted format at the KeyPersistencePath location. |
+| KeyLifeTimeInDays | The time period (in days) beyond which the certificate expires. CF Broker cannot encrypt or decrypt the protected key pairs using the certificate. No value less than 7 is supported in this field. Note: The default value is 0, which indicates that the certificate expires after 90 days. |
+
+6.  Optional: Configure the settings for CF Broker error log files.
+1.  In the Serilog object, under MinimumLevel, set the Default value to the lowest-severity information that is logged. By default, the value is set to Warning. The following table describes valid values for log levels:CAUTION: Do not set the Default value to any value other than one of the values described in the following table. An invalid Default value may cause the CF Broker to crash or fail to start.
+| Log Level Value | Description |
+| --- | --- |
+| Fatal | Logs that describe an unrecoverable application, system crash, or catastrophic failure that requires immediate attention |
+| Error | Logs that highlight when the current flow of execution is stopped due to a failure. These logs indicate a failure in the current activity, but not an application-wide failure. |
+| Warning | Logs that highlight an abnormal or unexpected event in the application flow but do not otherwise cause the application to stop |
+| Information | Logs that track the general flow of the application |
+| Debug | Logs that are used for interactive investigation during development |
+| Verbose | Logs that contain the most detailed messages and may include sensitive data CAUTION: Verbose logs should never be enabled in a production environment unless instructed by your first line of support. |
+
+2.  In the Serilog object, under WriteTo, change the path value to the file path where the error log will be stored. By default, the file path for the error log is %PROGRAMDATA%/Hyland/logs/CF Broker/Hyland.ContentFederation.Broker.json.
+7.  Save and close the appsettings.json file.
+8.  Encrypt the ClientSecret value. For more information, see Encrypting the ClientSecret.

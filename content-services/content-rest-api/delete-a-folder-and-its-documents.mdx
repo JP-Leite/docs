@@ -1,0 +1,18 @@
+---
+title: "Delete A Folder And Its Documents"
+---
+
+---
+title: "Delete a Folder and Its Documents"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/bzb1678224132329"
+section: "Hyland Content REST API"
+---
+
+Delete a folder and the documents it contains by making API calls to the following endpoints in their listed order. See each endpoint's listed reference section for more information.
+
+1. To create a new folder, call POST /api/documents/path[docPath] (see Create a Document in a Folder with the Specified Path).
+2. To create new documents in the folder, call POST /api/documents/path[docPath] (see Create a Document in a Folder with the Specified Path).
+3. To return the folder, call GET /api/documents/path[docPath] (see Return the Document with the Specified Path).
+4. Call one of the following endpoints:
+- To delete the folder and its documents, call DELETE /api/documents/path[docPath] (see Delete the Document with the Specified Path).
+- To delete the folder and its documents by the folder's ID, call DELETE /api/documents/[docId] (see Delete the Document with the Specified ID).

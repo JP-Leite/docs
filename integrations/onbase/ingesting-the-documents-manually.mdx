@@ -1,0 +1,52 @@
+---
+title: "Ingesting Documents Manually"
+description: "Trigger manual ingestion of specific OnBase documents into the content lake using document IDs."
+---
+
+You can manually ingest specific documents using the `manual-ingest-documents` CLI command. To do this, you need the **Document ID** (also called the Document Handle) of each document. Document IDs can be found in the document's properties within OnBase.
+
+---
+
+## Steps
+
+<Steps>
+  <Step title="Open a Terminal as Administrator">
+    Run **Command Prompt** or **Windows PowerShell** with administrator privileges.
+  </Step>
+  <Step title="Navigate to the CLI Folder">
+    Use `cd` to navigate to the `ContIntOnbaseConnector.CLI` folder:
+
+    ```bash
+    cd C:\OnbaseConnectorSetUp\OnbaseConnector\ContIntOnbaseConnector.CLI
+    ```
+
+    Press **Enter**.
+  </Step>
+  <Step title="Run the Manual Ingest Command">
+    <Tabs>
+      <Tab title="Command Prompt">
+        ```
+        ContIntOnbaseConnector.CLI manual-ingest-documents
+        ```
+      </Tab>
+      <Tab title="PowerShell">
+        ```
+        .\ContIntOnbaseConnector.CLI manual-ingest-documents
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Provide Document IDs">
+    When prompted with **"Please provide the document Ids you want to ingest separated by commas"**, enter the document IDs separated by commas:
+
+    ```
+    7302,7405
+    ```
+
+    Press **Enter**. The message **"Manual document ingestion started successfully"** confirms the ingestion has begun.
+  </Step>
+</Steps>
+
+<Info>
+  Document IDs can be found in the document's properties panel within OnBase. They are also referred to as the **Document Handle**.
+</Info>

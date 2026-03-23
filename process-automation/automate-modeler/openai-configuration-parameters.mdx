@@ -1,0 +1,17 @@
+---
+title: "Openai Configuration Parameters"
+---
+
+---
+title: "OpenAI Configuration Parameters"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/mvx1739797962659"
+section: "Hyland Automate Modeler"
+---
+
+The configuration parameters for the OpenAI connector are:
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| OPENAI_API_ENDPOINT | Required | The endpoint that should be called by the connector: https://api.openai.com/v1 for OpenAI or https://{resource-name}.openai.azure.com/openai/deployments/{deployment-name} for Azure OpenAI. |
+| OPENAI_API_KEY | Required | String value generated within the OpenAI account or Azure. Used for authenticating the requests. |
+| OPENAI_TIMEOUT | Optional | Timeout for the API call. The default value is 120000 (in milliseconds). |

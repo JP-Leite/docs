@@ -1,0 +1,72 @@
+---
+title: "Installation"
+description: "Install the Hyland Content Intelligence app on your Atlassian site to enable the Confluence Connector."
+---
+
+## Prerequisites
+
+Before you begin, confirm the following items are in place:
+
+<CardGroup cols={2}>
+  <Card title="Installation Link" icon="link">
+    Obtain a Hyland Content Intelligence installation link from your **Hyland representative**. This link points directly to the app listing and is valid for a single install.
+  </Card>
+  <Card title="Site Admin Access" icon="user-gear">
+    You must have **site administrator** privileges on the target Atlassian site. Standard user or space admin roles are not sufficient.
+  </Card>
+</CardGroup>
+
+---
+
+## Installation Steps
+
+<Steps>
+  <Step title="Open the Installation Link">
+    Click the installation link provided by Hyland. This opens the **Atlassian App Installation** screen, which displays the permissions the Hyland Content Intelligence app is requesting.
+
+    Review the listed permissions before proceeding. The app requires read access to Confluence content in order to ingest pages and blogs.
+  </Step>
+  <Step title="Select Site and Product">
+    From the installation screen, select the **Atlassian site** and **product** (Confluence) you wish to install the connector on.
+
+    If your organisation uses multiple Confluence sites, repeat this process for each site that should be connected to Content Intelligence.
+  </Step>
+  <Step title="Click Install">
+    Click the **Get app** button (top-right of the installation screen) and then click **Install** on the confirmation dialog that appears. Atlassian will provision the app on your selected site.
+  </Step>
+  <Step title="Confirm in App Navigation">
+    Once installation is complete, navigate to the **main navigation menu** in Confluence and open the **Apps** section. The **Hyland Content Intelligence** app should now be listed there, confirming a successful installation.
+  </Step>
+</Steps>
+
+---
+
+## After Installation
+
+<Info>
+  The connector app is now installed, but **no content is being ingested yet**. You must complete the configuration steps before data flows into Hyland Content Intelligence.
+</Info>
+
+Proceed to the following guides to finish setup:
+
+| Next Step | Guide |
+| --- | --- |
+| Supply your HxI environment credentials | [Ingestion Configuration →](/integrations/confluence/ingestion-configuration) |
+| Configure your Atlassian API token | [API Token Configuration →](/integrations/confluence/atlassian-api-token-configuration) |
+| Configure the connector settings | [Configuring Confluence Connector →](/integrations/confluence/configuring-confluence-connector) |
+
+---
+
+## Troubleshooting
+
+<Accordion title="The app does not appear in the Apps menu after installation">
+  Try refreshing the Confluence page. If it still does not appear, navigate to **Apps → Manage Apps** and confirm that **Hyland Content Intelligence** is listed and enabled. If the app shows as disabled, click **Enable**.
+</Accordion>
+
+<Accordion title="I don't have an installation link">
+  Contact your Hyland account representative or Hyland Support to obtain a valid installation link for your organisation.
+</Accordion>
+
+<Accordion title="I don't have site administrator permissions">
+  Contact your Atlassian organisation's site administrator to either grant you admin rights or perform the installation on your behalf.
+</Accordion>

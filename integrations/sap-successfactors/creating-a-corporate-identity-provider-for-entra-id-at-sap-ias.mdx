@@ -1,0 +1,25 @@
+---
+title: "Creating A Corporate Identity Provider For Entra Id At Sap Ias"
+---
+
+---
+title: "Creating a Corporate Identity Provider for Entra ID at SAP IAS"
+source: "https://support.hyland.com/r/Current/Hyland-for-SAP-SuccessFactors/brz1762195457579"
+section: "Hyland for SAP SuccessFactors"
+---
+
+This section, intended for system administrators and SAP Administrator (in-house or Implementation Partner/Account Executive) , describes the steps to create a Corporate Identity Provider for Entra ID at SAP IAS.
+
+To create a Corporate Identity Provider for Entra ID at SAP IAS:
+
+Note: Before you proceed, ensure that you have created an Entra ID application. If you have not created an Entra ID application, please complete the instructions under Creating an Entra ID application for SAP IAS.
+1.  Log on to the SAP Cloud Identity Services Admin Console.
+To obtain the required link to log on and credentials, please work with your SAP Administrator (in-house or Implementation Partner/Account Executive).
+
+The Cloud Identity Services page is displayed.
+2.  Select Identity Providers | Corporate Identity Providers. The Identity Providers page is displayed.
+3.  From the list or providers, locate the provider created for Hyland and click SAML 2.0 Configuration. The SAML 2.0 page is displayed.
+4.  To create a corporate Identity Provider for Entra ID, do one of the following:
+- In the Metadata URL field, enter the value of the App Federation Metadata Url configured while creating an Entra ID application for SAP IAS.
+- In the Metadata File field, select Browse and navigate to the location of the Federation Metadata XML file.
+Note: This is a file (with the extension.xml) that is generated while creating a new Entra ID application. For specific instructions on how to create a new Entra ID application and obtain this file, see Creating an Entra ID application for SAP IAS.

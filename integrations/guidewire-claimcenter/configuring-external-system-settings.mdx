@@ -1,0 +1,26 @@
+---
+title: "Configuring External System Settings"
+---
+
+---
+title: "Configuring External System Settings"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-ClaimCenter/vco1755113595534"
+section: "Hyland for Guidewire ClaimCenter"
+---
+
+You must configure the external system settings with the appropriate scopes, environment, and application for your solution.
+
+To configure the external system settings:
+
+1.  Log in to the CIC Administration Portal using the assigned administrator account of your CIC instance.
+2.  Click the External Systems tab in the top menu.
+3.  Click External Applications in the left pane. The External Applications page is displayed.
+4.  Click on the external application that was used when the service user was created. For example: ClaimCenter_Backend_Client. See Creating a Service User for information on creating a service user. The application's page is displayed.
+5.  Click the Allowed Scopes drop-down list and select all desired scopes for your solution. The following scopes are required:
+- environment_authorization
+- hxp.nucleus.account
+- uceb
+6.  If you have an Environment-level application, an Environment drop-down is displayed below the Allowed Scopes drop-down list. Click on the drop-down list and select the desired environment.
+7.  If you have an Account-level application, an Application drop-down is displayed below the Allowed Scopes drop-down list. Click on the drop-down list and select hfgw-cc.
+8.  Click Save.
+9.  Click Close. You are returned to the External Applications page.

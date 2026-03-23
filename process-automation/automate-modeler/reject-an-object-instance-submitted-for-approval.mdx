@@ -1,0 +1,25 @@
+---
+title: "Reject An Object Instance Submitted For Approval"
+---
+
+---
+title: "Reject an Object Instance Submitted for Approval"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/zkc1677243012489"
+section: "Hyland Automate Modeler"
+---
+
+The APPROVAL_REJECT action is used by the Salesforce connector to reject a Salesforce object that is awaiting approval.
+
+The input parameters to reject an object awaiting approval are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| salesforcePayload | JSON | Required | The payload to send to Salesforce as a JSON map. See the  for valid fields to send. |
+
+[Salesforce API documentation](https://developer.salesforce.com/docs/api-explorer/sobject/Account)
+The output parameters from rejecting an object awaiting approval are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| salesforceResult | String | Optional | The result from the REST or SOAP call from Salesforce |
+| salesforceStatus | String | Optional | The HTTP status code of the response |

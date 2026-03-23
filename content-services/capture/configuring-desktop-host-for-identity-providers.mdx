@@ -1,0 +1,59 @@
+---
+title: "Configuring Desktop Host For Identity Providers"
+---
+
+---
+title: "Configuring Desktop Host for Identity Providers"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/hjj1646248505613"
+section: "Hyland Capture"
+---
+
+This section provides information on how to configure Desktop Host to work with an Identity Provider (IdP) service, such as the Hyland Experience IdP.
+
+Note:
+You need to make the following configuration changes to Desktop Host only if it utilizes services that need to be authenticated using an IdP.
+
+Desktop Host requests an access token from the Hyland Experience IdP server. This token is used by services using Desktop Host to authenticate users and allow access to protected resources or actions.
+
+To configure Desktop Host to use an IdP service:
+
+1.  Open the config.json file in a plain-text editor. In a typical installation, this file is in one of the following locations:
+-
+Before installation, the file is in the same directory as the installer.
+
+-
+After Windows installation, the file is in C:\ProgramData\Hyland\DesktopHost\bin.
+
+-
+After macOS installation, the file is in /Library/Hyland/DesktopHost/bin.
+
+2.  Locate the end of the WhitelistedAddress section and insert the following text after it to create a new IdP section:
+```
+"IdP": {
+    "IdPConfigurations": [
+        {
+            "ServiceName": "IdP Service Name",
+            "Issuer": "https://my.domain/identityprovider",
+            "ClientID": "Client ID",
+            "Scope": "openid offline_access"
+        }
+    ],
+    "IdPServerTimeout":300
+}
+```
+
+Note:
+Each key and value must be in double quotation marks, and pairs of key and value elements must be separated with commas.
+
+3.  For the key "ServiceName", edit the value to specify the name of the IdP service. For example, IdP Service Name.
+4.  For the key "Issuer", edit the value to specify the URL of the IdP server issuer endpoint. For example, if the domain is my.domain, the IdP application name is identityprovider, and the environment is configured for secure connections, then the value is: https://my.domain/identityprovider.
+5.  For the key "ClientID", edit the value to specify the unique identifier of the IdP service that works with Desktop Host.
+6.  For the key "Scope", edit the value to specify a list of access privileges requested by the client. Each scope name must be separated with a space. For example, openid offline_access.
+7.  For the key "IdPServerTimeout", edit the value to specify a time in seconds after which the server becomes unavailable.  Note: By default, the value is 300 seconds. If you do not specify a value, this value is used.
+8.  Save the config.json file.
+9.  Do one of the following:
+-
+If you have not yet installed Desktop Host, place the config.json file in either the same folder as the Desktop Host installer (for Windows) or in the Home folder (for macOS).
+
+-
+If you have already installed Desktop Host, restart the computer.

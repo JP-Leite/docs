@@ -1,0 +1,15 @@
+---
+title: "Detectdominantlanguage"
+---
+
+---
+title: "DetectDominantLanguage"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/rkb1676970023685"
+section: "Hyland Automate Modeler"
+---
+
+You need to supply the calls that detect the language of the text document that is going to be processed. To do this, the connector calls the DetectDominantLanguage API. The DetectDominantLanguage call only works on text smaller than a configurable limit, which by default is 5000 bytes. The connector uses the first 5000 bytes/characters of the document to determine what language to use when making calls to AWS Comprehend.
+
+The DetectDominantLanguage service currently supports a greater set of languages than the entity detection services. It does this by checking the returned language against a configurable list of available languages.
+
+Note: Currently only EN and ES are supported by AWS entity detection. If the detected language is not in this list a configurable default language is used instead, which is EN by default.

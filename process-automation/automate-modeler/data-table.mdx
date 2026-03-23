@@ -1,0 +1,39 @@
+---
+title: "Data Table"
+---
+
+---
+title: "Data Table"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ddm1698998550615"
+section: "Hyland Automate Modeler"
+---
+
+The Data Table field displays related information in a table when the application is running.
+
+Data Tables can display the following data types:
+
+| Data type | Description |
+| --- | --- |
+| text | Displays text, including alphanumeric and special characters, for example Warning for the user. |
+| decimal | Displays numbers, including decimals separated by a period, for example 12.5 |
+| integer | Displays numbers, excluding decimals, for example 12. |
+| amount | Displays amount with currency shown as ISO code or a symbol, depending on the Schema Definition, for example $12. |
+| date | Displays date in a selected format, depending on the Schema Definition, for example 2000-12-01. |
+| boolean | Displays a true or false value. |
+| JSON | Result of a JSON code. |
+| fileSize | Displays the size of a file that the data table shows information for, for example 16 MB. |
+| icon | Displays material icon supported by Google, for example group. For more information, search the Google documentation for Material Symbols. |
+
+The following are the advanced properties for a Data Table field:
+
+```
+```
+
+| Property | Description |
+| --- | --- |
+| Rowspan | The number of rows a field spans. |
+| Form variable (JSON) | A drop-down list of all available JSON-type form variables. These variables can be used by the application to populate the data table. If there are no JSON variables, the list is empty. To create a new form variable, see Creating Form Variables. |
+| Path to array in JSON | The path to the array you want the table to display from the JSON data returned by the form variable. Each nested JSON object is added using a period as a separator, as shown in this example:firstnestedlevel.secondnestedlevel.thirdnestedlevel  This field accepts any characters that are accepted according to the JSON specification. If the Path to array in JSON field is empty, its default value is path. For more information, see Configuring a Path to Array in JSON and Generating Rows from Objects in JSON. |
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.

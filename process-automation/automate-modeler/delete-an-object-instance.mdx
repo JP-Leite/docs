@@ -1,0 +1,24 @@
+---
+title: "Delete An Object Instance"
+---
+
+---
+title: "Delete an Object Instance"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/hza1677242931541"
+section: "Hyland Automate Modeler"
+---
+
+The DELETE action is used by the Salesforce connector to delete a Salesforce object.
+
+The input parameters to delete an object are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| SObjectName | String | Required | The name of the Salesforce object to delete, for example: Account |
+| SObjectId | String | Required | The Salesforce object ID, for example: accountId |
+
+The output parameters from deleting an object from Salesforce are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| salesforceStatus | String | Optional | The HTTP status code of the response |

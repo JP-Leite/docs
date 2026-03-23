@@ -1,0 +1,18 @@
+---
+title: "Model For Search"
+---
+
+---
+title: "Model for Search"
+source: "https://support.hyland.com/r/Current/Content-Innovation-Cloud-Overview/lbm1680039750005"
+section: "Content Innovation Cloud Overview"
+---
+
+Search functionality within the Hyland Content repository leverages OpenSearch, a managed instance of Elasticsearch in AWS. OpenSearch is used to process HXQL queries executed through either of the following methods:
+
+- Using the Workspace application's UI (see the Hyland Workspace documentation for more information).
+- Making calls to the Query API (see the Hyland Content REST API documentation for more information).
+
+When documents are created in the repository, they are indexed with various properties that can be searched against to later retrieve the documents. For example, to search for documents with titles containing Insurance, you can search against the sys_title property using the following query: SELECT * FROM SysFile WHERE sys_title LIKE '%Insurance%'.
+
+Additionally, through the Transformation Service's extraction of text from content in the repository, you can perform full-text searches using queries like the following example, which searches for any documents that include the word world: SELECT * FROM SysContent WHERE sys_fulltext = 'world'.

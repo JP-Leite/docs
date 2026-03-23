@@ -1,0 +1,40 @@
+---
+title: "Mixins"
+---
+
+---
+title: "Mixins"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/znj1680078376344"
+section: "Hyland Automate Modeler"
+---
+
+The Mixins section allows you to create mixins, which are sets of schemas.
+
+Mixins allow you to build content types with properties that can be shared among different content types. Documents inherit schemas and their associated property fields from parent documents. By using mixins, however, you can apply multiple schemas to documents without the need for those schemas to be inherited. Additionally, a mixin can be added dynamically to a document instance, even if the document type does not reference the mixin.
+
+Note:
+A mixin does not need to contain any items.
+
+In addition to using your own mixins for creating content types, you can use one of the system mixins that are included with Studio Modeler application by default. These are:
+
+| Mixin | Description |
+| --- | --- |
+| SysFilish | Allows the content with this mixin to behave like a file and have its properties. |
+| SysFolderish | Allows the content with this mixin to behave like a folder and have its properties, including having child documents. |
+| SysFullTextIndexable | Allows the text within the content with this mixin to be fully indexable. |
+| SysVersionable | Allows the content with this mixin to be versioned. |
+| SysGovernable | Allows to create a content type that is governable |
+
+You can create separate mixins for different content types to allow or forbid certain types of behaviors or properties. For example, you can create a solution with two content types as follows:
+
+-
+-
+
+-
+-
+
+| Content Type 1 | Content Type 2 |
+| --- | --- |
+| sysFilish  Custom mixin with schemas for Content Type 1 | sysFilish  Custom mixin with schemas for Content Type 2 |
+
+In this example, both content types share the properties from sysFilish, but have different schemas and therefore act differently.

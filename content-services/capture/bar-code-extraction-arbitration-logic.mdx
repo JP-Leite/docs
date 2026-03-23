@@ -1,0 +1,22 @@
+---
+title: "Bar Code Extraction Arbitration Logic"
+---
+
+---
+title: "Bar Code Extraction Arbitration Logic"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/qva1713765240565"
+section: "Hyland Capture"
+---
+
+Documents can be indexed based on bar code values. Bar codes are filtered by type and region to determine the bar code which needs to be extracted.
+
+When extracting bar code data for a Document Class during indexing, multiple bar codes with different values may match the specifications configured for indexing values. These bar codes may be present either on the same page or on multiple pages within a document.
+
+The Hyland Experience Capture application uses the following arbitration methods to resolve any conflict arising from multiple valid bar codes when indexing data.
+
+| Method | Description |
+| --- | --- |
+| Filter Out Data Types | This removes all the bar code values that are not valid for the field that is to be populated. For example, if the field is a numeric field, bar code values that do not meet the field data type definition for numeric are removed. |
+| Go with the first page with a matching bar code | If there are multiple pages with valid bar code values, the bar code on the first page that matches the extraction criteria is considered for extraction. |
+| Top-most Bar code | If there are multiple bar codes with valid values on the chosen page, the top-most bar code is considered for extraction. |
+| Left-most Bar code | If there are multiple bar codes that are considered to be the top-most on the page (according to the top edge of the bar code), the bar code placed at the left-most corner of the page is considered for extraction. |

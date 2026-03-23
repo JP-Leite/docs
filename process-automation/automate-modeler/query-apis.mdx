@@ -1,0 +1,58 @@
+---
+title: "Query Apis"
+---
+
+---
+title: "Query APIs"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/pou1676635382024"
+section: "Hyland Automate Modeler"
+---
+
+The following APIs are supported:
+
+-  ProcessInstanceAdminControllerApi
+-  ProcessInstanceControllerApi
+-  ProcessInstanceDeleteControllerApi
+-  ProcessInstanceDiagramAdminControllerApi
+-  ProcessInstanceDiagramControllerApi
+-  ProcessInstanceServiceTasksAdminControllerApi
+-  ProcessInstanceTasksControllerApi
+-  ProcessInstanceVariableAdminControllerApi
+-  ProcessInstanceVariableControllerApi
+-  TaskAdminControllerApi
+-  TaskControllerApi
+-  TaskVariableAdminControllerApi
+-  TaskVariableControllerApi
+
+Using the following names you can perform all the actions related to the APIs mentioned above:
+
+-
+-
+-
+-
+
+-
+-
+-
+-
+-
+
+-
+-
+
+-
+-
+
+| Name | Action |
+| --- | --- |
+| QueryProcessInstanceAdminService | Studio Modeler Query Process Instance Admin REST API, which includes:  ProcessInstanceAdminControllerApi   ProcessInstanceDiagramAdminControllerApi   ProcessInstanceServiceTasksAdminControllerApi   ProcessInstanceVariableAdminControllerApi |
+| QueryProcessInstanceService | Studio Modeler Query Process Instance REST API, which includes:  ProcessInstanceControllerApi   ProcessInstanceDeleteControllerApi   ProcessInstanceDiagramControllerApi   ProcessInstanceTasksControllerApi   ProcessInstanceVariableControllerApi |
+| QueryTaskAdminService | Studio Modeler Query Task Admin API, which includes:  TaskAdminControllerApi   TaskVariableAdminControllerApi |
+| QueryTaskService | Studio Modeler Query Task API, which includes:  TaskControllerApi   TaskVariableControllerApi |
+
+For example:
+
+```
+const queryProcessInstanceAdminService = new QueryProcessInstanceAdminService();
+queryProcessInstanceAdminService.findById('idProcess');
+```

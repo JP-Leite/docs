@@ -1,0 +1,30 @@
+---
+title: "Installing The Cf Onbase Plugin In Silent Mode"
+---
+
+---
+title: "Installing the CF OnBase Plugin in Silent Mode"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/zbv1752527260720"
+section: "Content Federation Services"
+---
+
+You can use the Hyland.ContentFederation.OnBase.Plugin.Installer.msi to perform a silent installation by using the command prompt. Silent installation means that the installer runs without the GUI and without the need for user interaction.
+
+The CF OnBase Plugin installation files are available to download from Hyland Community.
+To install the CF OnBase Plugin in silent mode:
+
+1.  Open Command Prompt with the Run as administrator option. The Command Prompt window is displayed.
+2.  Navigate to the folder where the CF OnBase Plugin installation files were downloaded.
+3.  Execute the following command to install the CF OnBase Plugin in silent mode:
+```
+msiexec /i "Hyland.ContentFederation.OnBase.Plugin.Installer.msi" /q ACCEPT_EULA=1
+```
+
+The following table describes the switches within the command:
+
+| Command Switch | Description |
+| --- | --- |
+| /i | Triggers the installation |
+| /q   /silent   /quiet | Triggers the silent installation |
+| ACCEPT_EULA | Confirms End User License Agreement (EULA) acceptance during installation Setting this switch to 1, Y, y, YES, yes, TRUE, or true accepts the EULA. |
+| INSTALLFOLDER | Optional: Specifies the destination location for the installation By default, the CF OnBase Plugin is installed to the following location: C:\Program Files\Hyland\Hyland Content Federation OnBase Plugin. |

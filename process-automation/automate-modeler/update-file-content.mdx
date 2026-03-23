@@ -1,0 +1,31 @@
+---
+title: "Update_File_Content"
+---
+
+---
+title: "UPDATE_FILE_CONTENT"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/wtx1713769683202"
+section: "Hyland Automate Modeler"
+---
+
+The UPDATE_FILE_CONTENT action is used to update the contents of a file, creating a new version of it.
+
+The input parameters for UPDATE_FILE_CONTENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| majorVersion | Boolean | Optional | If true, create a major version. |
+| newName | String | Optional | Optional new name of the file to be updated, includingthe file extension, for example newName.txt. |
+| sourceFile | Array<json>, JSON, content | Optional | ACS file to be included as node content. If the received value contains multiple files, only the first of them will be processed. File variables are initialised by content actions or content events in triggers. |
+| sourceJson | JSON | Optional | Source JSON to be included as node content. |
+| sourceText | String | Optional | Source text to be included as node content. |
+| targetFile | Array<json>, JSON | Optional | ACS file to be overwritten after the action. If the received value contains multiple files, only the first of them will be processed. File variables are initialised by content actions or content events. |
+| targetFileId | String | Optional | Node ID of the file to be updated in ACS, for example a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
+| targetFilePath | String | Optional | Path of the node to be updated in ACS, for example /User Homes/hruser/invoices/invoice.txt. |
+| versionComment | String | Optional | Version comment to appear in the version history, for example, Minor changes after final review by Management. |
+
+The output parameters from UPDATE_FILE_CONTENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| response | Array<json> | Optional | Response for the calls. |

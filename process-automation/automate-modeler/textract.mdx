@@ -1,0 +1,35 @@
+---
+title: "Textract"
+---
+
+---
+title: "Textract"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/vzt1676969327893"
+section: "Hyland Automate Modeler"
+---
+
+The EXTRACT action is used by the Textract connector to execute Amazon Textract to extract text and metadata from JPEG and PNG files that are less than 5mb in size.
+
+The Amazon Textract APIs called are the following:
+
+- Detect Document Text API, which joins all LINE block objects with a line separator between them
+- Analyze Document API, which performs FORM and TABLES analysis
+
+The IAM user configured to run the Textract services needs to have the textract:DetectDocumentText and textract:AnalyzeDocument permissions.
+
+The authentication for the Textract connector is set using the configuration parameters. For more details, see Textract Configuration Parameters.
+
+The input parameters of the Textract connector are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| file | Array<content>, Content | Required | A variable of type file to send for extraction. |
+| outputFormat | String | Optional | The format of the output file. Possible values are JSON and TXT. The default value is JSON. |
+| confidenceLevel | String | Optional | The level of confidence (0 – 10) to use in the analysis, for example: 0.75 |
+| timeout | Integer | Optional | The timeout period for calling the Textract service in milliseconds, for example: 910000 |
+
+The output parameters from the Textract analysis are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| awsResult | JSON | Optional | The result of the analysis from the Textract service. |

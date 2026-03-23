@@ -1,0 +1,28 @@
+---
+title: "Creating A Data Cleanup Job"
+---
+
+---
+title: "Creating a Data Cleanup Job"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Administration/wzq1676042379525"
+section: "Hyland Automate Administration"
+---
+
+A data cleanup can be used to delete process data of all selected processed that were completed or cancelled before the selected data retention period, including the audit data that was involved in a selected process and can be cleaned up by the application administrator.
+
+You can clean up historical data using the Create cleanup job process:
+
+1.  Expand Process Admin from the left pane.
+2.  Select Data Cleanup.
+3.  Click the + symbol on the top right to create a new cleanup job.
+4.  Use the application you want to clean up the data for from the drop-down menu.
+5.  Select the applications process definition you want to cleanup.
+You can select multiple process definitions. This is especially useful when picking child processes for the cleanup. If you don't select any child processes, their data will not be impacted at all.
+
+If you do not select a process definition for the application, all process definitions are selected by default.
+
+6.  In the Historic retention days select the period over which the data will be kept. For example, if you select Last 1 year, the data older than 1 year will be deleted, and the one collected over the last 1 will be kept.
+7.  Click Yes I agree to creating the cleanup job.
+8.  Click CREATE.
+
+A message will be displayed to inform you about the cleanup result.

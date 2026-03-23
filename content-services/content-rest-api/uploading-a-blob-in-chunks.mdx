@@ -1,0 +1,71 @@
+---
+title: "Uploading A Blob In Chunks"
+---
+
+---
+title: "Uploading a Blob in Chunks"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/yds1711042102681"
+section: "Hyland Content REST API"
+---
+
+Upload larger blobs in chunks for parallel or incremental processing.
+
+To upload a blob in chunks:
+
+1.  Create a new upload by entering a request similar to the following example:
+```
+curl -i -X POST [base_url]/api/upload/create \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Accept: application/vnd.hxcs.v1+json"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the Hyland Content repository |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+A response that includes an alphanumeric id for the upload is displayed, as shown in the following example:
+
+```
+{
+  "id": "b2615fe6-bc85-4bb1-8886-c2c2118e098f",
+  "properties": {
+    "additionalProp1": {},
+    "additionalProp2": {},
+    "additionalProp3": {}
+  },
+  "hasContent": true,
+  "isChunked": true,
+  "fileName": "string",
+  "mimeType": "plain/text",
+  "encoding": "UTF-8",
+  "fileSize": 0,
+  "isChunksCompleted": true,
+  "chunkCount": 0,
+  "chunks": {
+    "additionalProp1": "string",
+    "additionalProp2": "string",
+    "additionalProp3": "string"
+  },
+  "chunkIndexes": [
+    0
+  ]
+}
+```
+
+2.  To upload a chunk of the blob to the repository, use the upload id from the previous response as you enter a request similar to the following example for client streaming (see Upload a File for an indirect streaming example):
+```
+curl -i -X POST [base_url]/api/upload?id=b2615fe6-bc85-4bb1-8886-c2c2118e098f&chunkCount=5&chunkIndex=0&chunked=true&encoding=UTF-8 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Accept: application/vnd.hxcs.v1+json" \
+  -H "Content-Type: */*"
+```
+
+3.  Repeat chunk upload calls similar to the call you made in step 2 for each chunk you want to upload. You can adjust the query parameters in each call to decide the sizes of the chunks and whether to send them sequentially or with some measure of parallelism.
+For more information on additional steps to complete an advanced blob upload process, see Performing an Advanced Blob Upload Process.

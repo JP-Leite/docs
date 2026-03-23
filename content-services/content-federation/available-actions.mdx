@@ -1,0 +1,298 @@
+---
+title: "Available Actions"
+---
+
+---
+title: "Available Actions"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/yls1742409767874"
+section: "Content Federation Services"
+---
+
+When configuring the Content Federated connector, the action is used to define what the connector does.
+
+For information on how connector terms relate to OnBase-specific terms, see OnBase Terms and CFS Terms.
+
+The following actions are available to the Content Federated connector:
+
+-  GET_CONTENT_PARTS
+-  SEARCH_CONTENTS
+-  CREATE_CONTENT
+-  READ_FIELDS
+-  READ_CONTENTTYPE_GROUP
+-  GET_RENDITION
+-  GET_OBJECT_QUERIES
+-  EXECUTE_OBJECT_QUERY
+-  GET_CONTENT_PART_PROPERTIES
+-  READ_CONTENTTYPE_GROUPS
+-  GET_OBJECT_QUERY_DETAILS
+-  READ_CONTENTTYPE_DEFINITION
+-  READ_CONTENT_BINARY
+
+## GET_CONTENT_PARTS
+
+Minimum Compatible Version: CFS V3
+
+The GET_CONTENT_PARTS action returns a presigned URL or streamed binary for parts of a given piece of content. This can be useful for viewing the parts or for downstream processing.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| contentId | String | Required | The ID of the content part to retrieve properties for |
+| logicalPartIds | Array | Required | The IDs of the logical parts to retrieve |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system with a list of available content parts and their properties.The contents of the result may be used as data for the input parameters of another action. |
+
+## SEARCH_CONTENTS
+
+Minimum Compatible Version: CFS V2
+
+The SEARCH_CONTENTS action allows for performing searches within the content source, helping to locate content based on specific criteria, such as metadata, content type, or keywords.
+
+Note: Access to hidden keywords is determined by the permissions of the user running this action. Ensure that users assigned to run this action have the necessary Access Restricted Keywords privilege if they require access to hidden keyword entries.
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description | Default Value |
+| --- | --- | --- | --- | --- |
+| offset | String | Optional | Page offset for pagination. | 0 |
+| pageSize | String | Optional | Page size for the content. | 100 |
+| searchContent | JSON | Required | Parameters of the content to be searched. You can use the pencil button next to this field to display the Edit variable mapping dialog box. In the Value tab, you can define the search parameters for the action to limit the search results. | N/A |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. | N/A |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## CREATE_CONTENT
+
+Minimum Compatible Version: CFS V2
+
+The CREATE_CONTENT action creates new content (such as documents or records) in the content source system. It uploads and stores the content along with its associated metadata.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | JSON | Required | Content that will be created. |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## READ_FIELDS
+
+Minimum Compatible Version: CFS V2
+
+The READ_FIELDS action retrieves the metadata or fields associated with a content item. It provides descriptive data, such as keywords, tags, or other attributes related to the content.
+
+Note: Access to hidden keywords is determined by the permissions of the user running this action. Ensure that users assigned to run this action have the necessary Access Restricted Keywords privilege if they require access to hidden keyword entries.
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| contentId | String | Required | Identifier of the content whose metadata will be read. |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## READ_CONTENTTYPE_GROUP
+
+Minimum Compatible Version: CFS V2
+
+The READ_CONTENTTYPE_GROUP action reads data from a single Content Type Group, including all of its Content Types.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| contentTypeGroupId | String | Required | Identifier of the group type whose content type will be read. |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## GET_RENDITION
+
+Minimum Compatible Version: CFS V3
+
+The GET_RENDITION action fetches all available PDF renditions of a content item.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| contentId | String | Required | Identifier of the content that will be read |
+| mimeType | String | Required | MIME type of the content that will be readThe only accepted value for this parameter is application/pdf. |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| response | JSON | Optional | A response from the system. It contains the MIME type, and file validation metadata.The contents of the result may be used as data for the input parameters of another action. |
+
+## GET_OBJECT_QUERIES
+
+Minimum Compatible Version: CFS V2
+
+The GET_OBJECT_QUERIES action returns a list of available search queries within the system. These queries are used to search through structured data (like patient data) and help users populate keyword values for content.
+
+This action can be connected further with the GET_OBJECT_QUERY_DETAILS and then EXECUTE_OBJECT_QUERY actions to execute a query with parameters set.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| offset | String | Optional | Page offset for pagination. |
+| pageSize | String | Optional | Page size for the content. |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## EXECUTE_OBJECT_QUERY
+
+Minimum Compatible Version: CFS V2
+
+The EXECUTE_OBJECT_QUERY action allows users to submit specific search criteria and execute a query. It returns results that match the given search fields, such as data objects or records. For example, if the user is searching patient data, this action would return matching records based on the provided search parameters.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | JSON | Required | Object query fields. Use the pencil button to open the Edit variable mapping dialog box, where you can add the query fields for the lookup in the Value tab. |
+| offset | String | Optional | Page offset for pagination. |
+| pageSize | String | Optional | Page size for the content. |
+| queryId | String | Required | Identifier of the query that will be executed. |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## GET_CONTENT_PART_PROPERTIES
+
+Minimum Compatible Version: CFS V3
+
+The GET_CONTENT_PART_PROPERTIES action returns a list of metadata for a given content part. The returned list includes the MIME type, size, and page count. This may be useful for breaking down large TIFFs or multi-part documents. It may also be useful for flows that rely on knowing the input structure of content parts.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| contentId | String | Required | The ID of the content part to retrieve properties for |
+| offset | String | Optional | Page offset for pagination |
+| pageSize | String | Optional | Page size for the content |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system with a list of available content parts and their properties.The contents of the result may be used as data for the input parameters of another action. |
+
+## READ_CONTENTTYPE_GROUPS
+
+Minimum Compatible Version: CFS V2
+
+The READ_CONTENTTYPE_GROUPS action is used to read data from all existing Content Type Groups, but it is limited only to their identifiers and names.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description | Default Value |
+| --- | --- | --- | --- | --- |
+| offset | String | Optional | Page offset for pagination. | N/A |
+| operation | String | Optional | Type of the operation. | "Search" |
+| pageSize | String | Optional | Page size for the content. | N/A |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. | N/A |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## GET_OBJECT_QUERY_DETAILS
+
+Minimum Compatible Version: CFS V2
+
+The GET_OBJECT_QUERY_DETAILS action provides detailed information about a specific search query. It includes all the fields (think of them as columns in a table) that can be used in the query.
+
+This can be used with EXECUTE_OBJECT_QUERY to execute a lookup with defined search parameters.
+
+Note: Access to hidden keywords is determined by the permissions of the user running this action. Ensure that users assigned to run this action have the necessary Access Restricted Keywords privilege if they require access to hidden keyword entries.
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| queryId | String | Required | Identifier of the query whose details will be read. |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## READ_CONTENTTYPE_DEFINITION
+
+Minimum Compatible Version: CFS V2
+
+The READ_CONTENTTYPE_DEFINITION action is used to read the definition of a Content Type that was configured in another system.
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description | Default Value |
+| --- | --- | --- | --- | --- |
+| contentTypeId | String | Required | Identifier of a content type that will be read. | N/A |
+| operation | String | Optional | Type of operation. | "Search" |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. | N/A |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |
+
+## READ_CONTENT_BINARY
+
+CAUTION: This action is deprecated and is set to be removed. Please use the GET_RENDITION action instead.
+Minimum Compatible Version: CFS V2
+
+The READ_CONTENT_BINARY action fetches the binary data of a content item, allowing access to the raw file or content itself (such as images, PDFs, and audio files).
+
+The input parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| contentId | String | Required | Identifier of the content that will be read. |
+| mimeType | String | Required | MIME type of the content that will be read. |
+| task | String | Optional | Identifier of the previous task, whose data is fetched if the authorization was done on behalf of that task. |
+
+The output parameters of the action are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | A response from the system.The contents of the result may be used as data for the input parameters of another action. |

@@ -1,0 +1,29 @@
+---
+title: "Content Model"
+description: "How content is typed, structured, and modelled in the Content Innovation Cloud repository."
+---
+
+## Overview
+
+The **content model** is the schema system that governs how documents are defined and stored in the CIC repository. It determines what metadata a document can carry, how documents relate to each other, and how they can be searched.
+
+Every document in the repository belongs to a **content type**, which is defined using the content model building blocks below.
+
+---
+
+## Building Blocks
+
+| Building Block | Description |
+| --- | --- |
+| [Content Type](/content-services/cic-overview/content-type) | A template that defines the structure of a document — which properties and mixins it carries. |
+| [Property](/content-services/cic-overview/property) | A metadata field (e.g., title, author, expiry date) attached to a content type or mixin. |
+| [Mixin](/content-services/cic-overview/mixin) | A reusable set of properties that can be applied across multiple content types. |
+| [Classification](/content-services/cic-overview/classification) | A taxonomy-based category applied to documents for filtering and grouping. |
+| [Document](/content-services/cic-overview/document) | An instance of a content type — a real piece of content with populated property values. |
+| [Blob](/content-services/cic-overview/blob) | The binary file payload attached to a document (PDF, Word, image, etc.). |
+
+---
+
+<Tip>
+  Design your content model with **mixins** for shared metadata. For example, a `ReviewMetadata` mixin with `reviewer`, `approvedAt`, and `reviewStatus` properties can be reused across invoice, contract, and policy content types — keeping your model DRY and consistent.
+</Tip>

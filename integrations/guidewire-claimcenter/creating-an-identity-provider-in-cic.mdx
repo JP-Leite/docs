@@ -1,0 +1,33 @@
+---
+title: "Creating An Identity Provider In Cic"
+---
+
+---
+title: "Creating an Identity Provider in CIC"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-ClaimCenter/yug1755880901597"
+section: "Hyland for Guidewire ClaimCenter"
+---
+
+You must create an identity provider within the CIC Administration Portal which corresponds to the Single Sign-On (SSO) Identity Provider Server that will be used to authenticate in Guidewire ClaimCenter.
+
+To create an identity provider within the CIC Administration Portal:
+
+1.  Log in to the CIC Administration Portal.
+2.  Navigate to Identity > Identity Providers. The Identity Providers page is displayed.
+3.  Click Add Identity Provider. The Add Identity Provider wizard is displayed.
+4.  Type the name for the Identity Provider Client in the Identity Provider Name field.
+5.  Type the entityID for your Identity Provider Server in the Entity Id field. See the Identity Provider Server documentation for details on finding this value.
+6.  Type the metadata URL for your Identity Provider Server in the Metadata URL field. See the Identity Provider Server documentation for details on finding this value.
+7.  Select RSA-SHA256 from the Minimum Assertion Signature Algorithm drop-down.
+8.  Click Next Step. The Bindings page is displayed.
+9.  Enable the Override authentication request binding option and select Redirect from the first Binding Type drop-down.
+10.  Enable the Override assertion binding option and select Post from the second Binding Type drop-down.
+11.  Click Next Step. The Claim Type Mapping page is displayed.
+12.  Enter the required details for the identity provider you are adding. Ensure that the claim names match in the Service Provider Application of the selected Identity Provider Server.
+13.  Click Next Step. The Email Domains page is displayed.
+14.  Enable the email domain(s) corresponding to the Single Sign-On (SSO) Identity Provider Server that will be used to authenticate in Guidewire ClaimCenter. If the domain does not appear in the list, click the Add Email Domain button to add the domain to the list. Guidewire ClaimCenter will use the selected email domain to route federation to a particular Single Sign-On (SSO) Identity Provider Server and within the Hyland CIC Platform.
+15.  Click Next Step. The Settings page is displayed.
+16.  Select Enabled.
+17.  Click Next Step. The Review page is displayed.
+18.  Review the information displayed and click Add Identity Provider. The identity provider is added to the Identity Providers list.
+19.  Create a new User Group in CIC whose name matches the SSO domain. For full details on how to create a User Group, see Configuring User Groups.

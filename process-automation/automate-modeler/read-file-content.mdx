@@ -1,0 +1,27 @@
+---
+title: "Read_File_Content"
+---
+
+---
+title: "READ_FILE_CONTENT"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/myj1713769697605"
+section: "Hyland Automate Modeler"
+---
+
+The READ_FILE_CONTENT action is used to read the content of a file in the ACS repository and can get the content back.
+
+The input parameters for READ_FILE_CONTENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| contentType | String | Optional | Type of the content to be returned. Possible values are: JSON or TXT. |
+| file | Array<json>, JSON | Optional | ACS file to be read. If the received value contains multiple files, only the first of them will be processed. |
+| nodeId | String | Optional | Node ID of the file or folder in ACS, for example: a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
+| path | String | Optional | Path of the node in ACS, for example /User Homes/hruser/invoices. |
+
+The output parameters from READ_FILE_CONTENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| jsonContent | JSON | Optional | The JSON content. |
+| textContent | String | Optional | The text content. |

@@ -1,0 +1,27 @@
+---
+title: "Create_Content"
+---
+
+---
+title: "CREATE_CONTENT"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/qdh1704702085163"
+section: "Hyland Automate Modeler"
+---
+
+The CREATE_CONTENT action is used to create content in the application.
+
+The payload for the action is:
+
+```
+```
+
+| Property | Required | Description |
+| --- | --- | --- |
+| contentType | Required | The content type name from the repository content types and the properties from that content type schemas to be set. For example:{
+  "metadataType": "my-custom-type",
+  "properties": {
+    "my_prop": "value1"
+  }
+} |
+| name | Optional | Name of the content that will be created. |
+| targetContainer | Required | The content parameter holding the reference to a content, or the content object for the content container in the repository where the content object will be created. If the received value contains multiple references to content objects, only the first of them will be used. |

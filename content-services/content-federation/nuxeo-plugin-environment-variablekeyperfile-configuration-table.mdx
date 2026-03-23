@@ -1,0 +1,21 @@
+---
+title: "Nuxeo Plugin Environment Variablekeyperfile Configuration Table"
+---
+
+---
+title: "Nuxeo Plugin Environment Variable/KeyPerFile Configuration Table"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/kyb1763423977193"
+section: "Content Federation Services"
+---
+
+The following Nuxeo Plugin Configuration Environment Variables are supported in the container.
+
+The {PluginEnvPrefix} is configured within the Broker configuration, and each plugin within the ‘Plugins’ section must have a unique {PluginEnvPrefix}.
+
+| Configuration Section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
+| --- | --- | --- | --- |
+| PluginConfiguration | The Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| PluginConfiguration | The Nuxeo API Server URL | {PluginEnvPrefix}PluginConfiguration__0__NuxeoServerApiUrl | PluginConfiguration__0__NuxeoServerApiUrl |
+| IdentityProviderOptions | The Client ID of the client configured within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The Client secret of the client configured within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The JWT secret signing key configured in the nuxeo.conf file within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__JwtSecretSigningKey | PluginConfiguration__0__IdentityProviderOptions__JwtSecretSigningKey |

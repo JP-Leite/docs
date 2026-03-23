@@ -1,0 +1,51 @@
+---
+title: "Uploading A Blob In A Single Request"
+---
+
+---
+title: "Uploading a Blob in a Single Request"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/wiw1711042141213"
+section: "Hyland Content REST API"
+---
+
+Upload smaller blobs in a single request and retrieve an upload ID.
+
+To upload a blob in a single request, create an upload without including an id query parameter, as shown in the following example for client streaming (see Upload a File for an indirect streaming example):
+```
+curl -i -X POST [base_url]/api/upload?encoding=UTF-8 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Accept: application/vnd.hxcs.v1+json" \
+  -H "Content-Type: */*"
+```
+
+A response that includes an alphanumeric id for the upload is displayed, as shown in the following example:
+
+```
+{
+  "id": "b2615fe6-bc85-4bb1-8886-c2c2118e098f",
+  "properties": {
+    "additionalProp1": {},
+    "additionalProp2": {},
+    "additionalProp3": {}
+  },
+  "hasContent": true,
+  "isChunked": true,
+  "fileName": "string",
+  "mimeType": "plain/text",
+  "encoding": "UTF-8",
+  "fileSize": 0,
+  "isChunksCompleted": true,
+  "chunkCount": 0,
+  "chunks": {
+    "additionalProp1": "string",
+    "additionalProp2": "string",
+    "additionalProp3": "string"
+  },
+  "chunkIndexes": [
+    0
+  ]
+}
+```
+
+For more information on additional steps to complete an advanced blob upload process, see Performing an Advanced Blob Upload Process.

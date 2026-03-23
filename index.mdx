@@ -1,97 +1,87 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Hyland CIC Documentation"
+description: "Build the future of content management and process automation on Hyland's Content Innovation Cloud."
 ---
 
-## Setting up
+<img
+  className="block dark:hidden"
+  src="/logo/light.svg"
+  alt="Hyland CIC"
+/>
+<img
+  className="hidden dark:block"
+  src="/logo/dark.svg"
+  alt="Hyland CIC"
+/>
 
-Get your documentation site up and running in minutes.
+## Explore the Platform
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+Everything you need to build on Hyland's Content Innovation Cloud — from API reference to product guides.
 
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
+<CardGroup cols={2}>
   <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
+    title="Overview & Architecture"
+    icon="sitemap"
+    href="/overview/introduction"
   >
-    Edit your docs locally and preview them in real time.
+    Understand how CIC components like Studio, Runtime, and Repository fit together.
   </Card>
   <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
-
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
+    title="Interactive API Reference"
     icon="code"
-    href="/essentials/code"
+    href="/api/query"
   >
-    Add sample code to demonstrate how to use your product.
+    Explore all 6 CIC APIs with a live "try-it-out" playground for every endpoint.
   </Card>
   <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
+    title="Content Intelligence"
+    icon="brain"
+    href="/content-intelligence/agent-builder"
   >
-    Display images and other media.
+    Leverage AI with Agent Builder, IDP, and Knowledge Discovery services.
   </Card>
   <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
+    title="Authentication"
+    icon="lock"
+    href="/overview/authentication"
   >
-    Write once and reuse across your docs.
+    Set up OAuth2, manage tokens, and configure the HxP Identity Adapter.
   </Card>
-</Columns>
+</CardGroup>
 
-## Need inspiration?
+## Quick Start
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<Steps>
+  <Step title="Get your Credentials">
+    Acquire your Client ID and Client Secret from the HxP Admin Portal.
+  </Step>
+  <Step title="Authenticate">
+    Follow the [Authentication guide](/overview/authentication) to get your first Bearer token.
+  </Step>
+  <Step title="Make your first call">
+    Use the [Query Service API](/api/query) to list your current tasks or process instances.
+  </Step>
+</Steps>
+
+## Core APIs
+
+<CardGroup cols={3}>
+  <Card title="Query" icon="magnifying-glass" href="/api/query">
+    Search tasks, process instances, and audit events.
+  </Card>
+  <Card title="Runtime" icon="gears" href="/api/runtime">
+    Process execution, task operations, and forms.
+  </Card>
+  <Card title="Repository" icon="folder-open" href="/api/repository">
+    Documents, permissions, folders, and renditions.
+  </Card>
+  <Card title="Modeling" icon="pen-ruler" href="/api/modeling">
+    Studio modeling, DMN simulation, and runtime.
+  </Card>
+  <Card title="Deployment" icon="rocket" href="/api/deployment">
+    App deployment, releases, and config.
+  </Card>
+  <Card title="Identity" icon="user-shield" href="/api/identity">
+    Users, groups, and application permissions.
+  </Card>
+</CardGroup>

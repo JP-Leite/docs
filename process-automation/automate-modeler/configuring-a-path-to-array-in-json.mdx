@@ -1,0 +1,45 @@
+---
+title: "Configuring A Path To Array In Json"
+---
+
+---
+title: "Configuring a Path to Array in JSON"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/tda1739193225431"
+section: "Hyland Automate Modeler"
+---
+
+To guide the application in locating the data within the JSON response for display in the data table, you need to specify a path.
+
+For instance, to access available_cars, you can use response.data.available_cars. This path directs the application to the correct data rows. A dot . is used as a separator to navigate through nested objects.
+
+```
+{
+    "response": {
+        "data": {
+            "available_cars": [
+                {
+                    "car_id": 1,
+                    "car_name": "Ferrari 458",
+                    "car_price": "500000",
+                    "car_inspection_date": "2021-11-08T11:12:17Z"
+                },
+                {
+                    "car_id": 2,
+                    "car_name": "Lamborghini Urus",
+                    "car_price": "150000",
+                    "car_inspection_date": "2020-10-04T11:12:17Z"
+                }
+            ]
+        },
+        "pagination": {
+            "maxItems": 100
+        }
+    }
+}
+```
+
+In cases where a property name contains a separator (.), you can use square brackets to specify the exact property name. This ensures that the entire string within the brackets is treated as a single property, for example response.data.[available.cars].
+
+In addition to accessing properties, you can also access specific elements in an array by their index. This is particularly useful when you want to display only a specific entry from an array. For example, consider the available_cars array. If you want to display only the first car in the array, you can do so by specifying the index of that car in the path. In JavaScript, arrays are zero-indexed, meaning the first element is at index 0. So, to access the first car, your path would be response.data.available_cars[0]. This tells the application to fetch only the first car from the available_cars array.
+
+Note: You can access any element in the array by using its index number.

@@ -1,0 +1,69 @@
+---
+title: "Create Channel"
+---
+
+---
+title: "Create Channel"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/svf1677237508736"
+section: "Hyland Automate Modeler"
+---
+
+The CREATE_CHANNEL action is used by the Slack connector to create a new public or private channel in Slack.
+
+The input parameters to create a channel in Slack are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| channelName | String | Required | The name of the channel to be created |
+| channelType | String | Required | Determines whether the channel is public or private. |
+| members | String | Required | A list of members that will be invited to join the new channel using Slack IDs or email addresses |
+
+The output parameters from creating a channel in Slack are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| slackResult | JSON | Optional | An object containing the details of the newly created channel |
+
+An example of a channel creation in the slackResult is:
+
+```
+{
+  "ok":true,
+  "channel":{
+    "id":"CFWSKMFR6",
+    "name":"my_channel",
+    "is_channel":true,
+    "created":1549985348,
+    "is_archived":false,
+    "is_general":false,
+    "unlinked":0,
+    "creator":"UFX13DBJM",
+    "name_normalized":"my_channel",
+    "is_shared":false,
+    "is_org_shared":false,
+    "is_member":true,
+    "is_private":false,
+    "is_mpim":false,
+    "last_read":"0000000000.000000",
+    "latest":null,
+    "unread_count":0,
+    "unread_count_display":0,
+    "members":[
+      "UFX13DBJM",
+      "DFWSKM0HH"
+    ],
+    "topic":{
+      "value":"",
+      "creator":"",
+      "last_set":0
+    },
+    "purpose":{
+      "value":"",
+      "creator":"",
+      "last_set":0
+    },
+    "previous_names":[],
+    "priority":0
+  }
+}
+```

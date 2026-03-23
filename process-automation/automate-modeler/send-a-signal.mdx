@@ -1,0 +1,23 @@
+---
+title: "Send A Signal"
+---
+
+---
+title: "Send a Signal"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ngl1676891934158"
+section: "Hyland Automate Modeler"
+---
+
+The action to send a signal will send a named signal of global scope when an event criteria are met. The signal can be caught by the catching the following signal events:
+
+-  Signal start events
+-  Signal intermediate catch events
+-  Signal boundary events
+
+The payload for the send signal action is:
+
+| Property | Required | Description |
+| --- | --- | --- |
+| name | Required | The name of the signal to emit, for example: Signal_0n91cib |
+| payloadType | Required | The type of payload. This is set to SignalPayload and cannot be changed. |
+| variables | Optional | Values from the trigger event can be mapped to process variables in the process definition. If the trigger event was a connector, this includes output parameters in the connector event. |

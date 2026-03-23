@@ -1,0 +1,24 @@
+---
+title: "Upload_Document_Revision"
+---
+
+---
+title: "UPLOAD_DOCUMENT_REVISION"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/vkp1711369498252"
+section: "Hyland Automate Modeler"
+---
+
+The UPLOAD_DOCUMENT_REVISION action is used to upload a version of a document within OnBase.
+
+The input parameters for UPLOAD_DOCUMENT_REVISION are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | Content | Required | An existing file in the Hyland repository that will be uploaded as a new document revision to the OnBase repository. |
+| documentId | String | Required | Identifier of a document in the OnBase repository, the revision of which will be uploaded. |
+
+The output parameters from UPLOAD_DOCUMENT_REVISION are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| revisionId | String | Optional | Number of the document revision in the OnBase repository. |

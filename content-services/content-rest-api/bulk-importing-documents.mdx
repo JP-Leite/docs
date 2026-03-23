@@ -1,0 +1,326 @@
+---
+title: "Bulk Importing Documents"
+---
+
+---
+title: "Bulk Importing Documents"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/pou1750023657703"
+section: "Hyland Content REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start performing bulk import processes to ingest large volumes of documents into the repository efficiently and securely.
+
+Note: This tutorial makes calls to Bulk Import API endpoints. For full reference information on all available Bulk Import API endpoints, see Bulk Import.
+To perform a bulk import process:
+
+1.  Open Command Prompt or Terminal.
+2.  Enter a request similar to the following example to create a job for bulk importing documents into the repository:
+```
+curl -i -X POST [base_url]/api/import \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -d "{\"name\": \"BulkImportJob1\", \"description\": \"MyPrimaryBulkImportJob\", \"creator\": \"john123doe456\", \"queue\": \"BulkImportQueue1\", \"uniqueKey\": \"bulk001import236\"}"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the Hyland Content repository |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+A response that includes AWS credentials to access an S3 bucket as well as the jobId for the bulk import job is displayed, as shown in the following example:
+
+```
+{
+  "awsAccessKeyId": "awsId1",
+  "awsSecretAccessKey": "awsKey1",
+  "awsSessionToken": "awsToken1",
+  "bucket": "https://bulk-1234-sandbox-us-east-1-hy.s3.amazonaws.com/",
+  "createdAt": "2025-05-20T04:21:32.943728813Z",
+  "creator": "john123doe456",
+  "description": "MyPrimaryBulkImportJob",
+  "dryRun": false,
+  "failedDocuments": 0,
+  "importedDocuments": 0,
+  "jobId": "c3814fe7-af63-4bd1-8906-d3c2453e091g",
+  "name": "BulkImportJob1",
+  "queue": "BulkImportQueue1",
+  "status": "CREATED",
+  "totalDocuments": 0,
+  "uniqueKey": "bulk001import236"
+}
+```
+
+3.  To upload your files and metadata to an S3 folder named after the jobId from the previous response, do the following:
+1.  Prepare your files for upload by creating a JSON file named bulk-import-metadata.json, which contains the appropriate metadata for your upload files. Store this JSON file at the root level for the bulk import folder (equivalent to the jobId from the previous response).
+To create appropriate metadata for this bulk import JSON file, enter metadata similar to the following example:
+
+```
+[
+{
+    "sys_primaryType": "SysFile",
+    "sys_title": "My Abcd 1 document",
+    "the_unique_key": "12344456667",
+    "jobId": "123456",
+    "sysfile_blob": {
+        "digest": "7509e5bda0c762d2bac7f90d758b5b2263fa01ccbc542ab5e3df163be08e6ca9",
+        "encoding": "UTF-8",
+        "filename": "stores.jpg",
+        "length": 12,
+        "mimeType": "image/jpeg",
+        "import_key": "Abcd1.jpeg"
+    }
+},
+{
+    "sys_primaryType": "SysFile",
+    "sys_title": "My Abcd 2 document",
+    "the_unique_key": "12344456667",
+    "jobId": "123456",
+    "sysfile_blob": {
+        "digest": "7509e5bda0c762d2bac7f90d758b5b2263fa01ccbc542ab5e3df163be08e6ca9",
+        "encoding": "UTF-8",
+        "filename": "A1/boom.pdf",
+        "length": 12,
+        "mimeType": "application/pdf",
+        "import_key": "Abcd2.pdf"
+    }
+},
+{
+    "sys_primaryType": "SysFile",
+    "sys_title": "My Abcd 3 document",
+    "the_unique_key": "12344456667",
+    "jobId": "123456",
+    "sysfile_blob": {
+        "digest": "7509e5bda0c762d2bac7f90d758b5b2263fa01ccbc542ab5e3df163be08e6ca9",
+        "encoding": "UTF-8",
+        "filename": "A1/A2/horn.pptx",
+        "length": 12,
+        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "import_key": "Abcd3.pptx"
+    }
+},
+{
+    "sys_primaryType": "SysFile",
+    "sys_title": "My Abcd 4 document",
+    "the_unique_key": "12344456667",
+    "jobId": "123456",
+    "sysfile_blob": {
+        "digest": "7509e5bda0c762d2bac7f90d758b5b2263fa01ccbc542ab5e3df163be08e6ca9",
+        "encoding": "UTF-8",
+        "filename": "A1/A2/nest.docx",
+        "length": 12,
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "import_key": "Abcd4.docx"
+    }
+}
+]
+```
+
+Note: Each filename must contain the path of the files stored in the S3 bucket. Valid path values include the following examples: hello.txt, A1/hello.txt, and A1/A2/hello.txt.
+2.  Using the awsAccessKeyId, awsSecretAccessKey, and awsSessionToken values from the previous response, enter a command similar to the following example in the AWS Command Line Interface (CLI):
+```
+export AWS_ACCESS_KEY_ID="awsId1"
+export AWS_SECRET_ACCESS_KEY="awsKey1"
+export AWS_SESSION_TOKEN="awsToken1"
+```
+
+3.  Copy contents to the S3 bucket by entering the following command in the AWS CLI:
+```
+aws s3 cp [source_location] [destination_location]
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [source_location] | The path to the source location of the files you are uploading |
+| [destination_location] | The bucket value from the previous response with the jobId value appended (for example, s3://bulk-1234-sandbox-us-east-1-hy/c3814fe7-af63-4bd1-8906-d3c2453e091g) |
+
+4.  Start the bulk import job you created by entering a request similar to the following example (in Command Prompt or Terminal), using the same [jobId] value that was previously generated:
+```
+curl -i -X POST [base_url]/api/import/job/c3814fe7-af63-4bd1-8906-d3c2453e091g/start \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+The repository enqueues metadata files and workers process the job, loading metadata and content from the S3 bucket. The number of documents processed and any errors are tracked, and a response similar to the following example is displayed:
+
+```
+{
+  "bucket": "https://bulk-1234-sandbox-us-east-1-hy.s3.amazonaws.com/",
+  "completedAt": "2025-05-20T04:21:32.943728813Z",
+  "createdAt": "2025-05-20T04:21:32.943728813Z",
+  "creator": "john123doe456",
+  "description": "MyPrimaryBulkImportJob",
+  "dryRun": false,
+  "failedDocuments": 0,
+  "importedDocuments": 0,
+  "jobId": "c3814fe7-af63-4bd1-8906-d3c2453e091g",
+  "name": "BulkImportJob1",
+  "queue": "BulkImportQueue1",
+  "startedAt": "2025-05-20T04:40:44.456264533Z",
+  "status": "CREATED",
+  "totalDocuments": 2,
+  "uniqueKey": "bulk001import236"
+}
+```
+
+5.  To check the status and other processing details for the bulk import job, enter a request similar to the following example, using the correct [jobId] for the job you are checking:
+```
+curl -i -X GET [base_url]/api/import/job/c3814fe7-af63-4bd1-8906-d3c2453e091g/status \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+A response that includes a variety of processing information, such as the job's status and counts of the total, imported, and failed documents, is displayed, as shown in the following example:
+
+```
+{
+  "bucket": "https://bulk-1234-sandbox-us-east-1-hy.s3.amazonaws.com/",
+  "completedAt": "2025-05-20T04:40:46.524499700Z",
+  "createdAt": "2025-05-20T04:21:32.943728813Z",
+  "creator": "john123doe456",
+  "description": "MyPrimaryBulkImportJob",
+  "dryRun": false,
+  "failedDocuments": 0,
+  "importedDocuments": 2,
+  "jobId": "c3814fe7-af63-4bd1-8906-d3c2453e091g",
+  "name": "BulkImportJob1",
+  "queue": "BulkImportQueue1",
+  "startedAt": "2025-05-20T04:40:44.456264533Z",
+  "status": "COMPLETED",
+  "totalDocuments": 2,
+  "uniqueKey": "bulk001import236"
+}
+```
+
+6.  To see more details on failed documents for the bulk import job, generate a report for the job by entering a request similar to the following example:
+```
+curl -i -X GET [base_url]/api/import/job/c3814fe7-af63-4bd1-8906-d3c2453e091g/report \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+A response that includes a list of document IDs for any failed documents is displayed, as shown in the following example:
+
+```
+{
+  "documentsFailed": [], //list of failed doc info, if any
+  "job": {
+    "bucket": "https://bulk-1234-sandbox-us-east-1-hy.s3.amazonaws.com/",
+    ...
+  }
+}
+```
+
+7.  To check the statuses and other processing details for all bulk import jobs, enter a request similar to the following example:
+```
+curl -i -X GET [base_url]/api/import/jobs \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+A response that includes the number of jobs and the processing details for each job is displayed, as shown in the following example:
+
+```
+{
+  "count": 2,
+  "index": 0,
+  "jobs": [
+    {
+      "bucket": "https://bulk-1234-sandbox-us-east-1-hy.s3.amazonaws.com/",
+      "createdAt": "2025-05-20T04:21:03.828761383Z",
+      "creator": "john123doe456",
+      "description": "MyPrimaryBulkImportJob",
+      "dryRun": false,
+      "failedDocuments": 0,
+      "importedDocuments": 2,
+      "jobId": "c3814fe7-af63-4bd1-8906-d3c2453e091g",
+      "name": "BulkImportJob1",
+      "queue": "BulkImportQueue1",
+      "status": "COMPLETED",
+      "totalDocuments": 2,
+      "uniqueKey": "bulk001import236"
+    },
+    {
+      "bucket": "https://bulk-5678-sandbox-us-east-1-hy.s3.amazonaws.com/",
+      "completedAt": "2025-05-20T04:40:46.524499700Z",
+      "createdAt": "2025-05-20T04:21:32.943728813Z",
+      "creator": "john123doe456",
+      "description": "MySecondaryBulkImportJob",
+      "dryRun": false,
+      "failedDocuments": 0,
+      "importedDocuments": 0,
+      "jobId": "fbd717cb-2813-40b9-a3a9-948a3e06916e",
+      "name": "BulkImportJob2",
+      "queue": "BulkImportQueue2",
+      "startedAt": "2025-05-20T04:40:44.456264533Z",
+      "status": "CREATED",
+      "totalDocuments": 0,
+      "uniqueKey": "bulk002import548"
+    }
+  ],
+  "total": 2
+}
+```
+
+8.  To abort a running bulk import job, enter a request similar to the following example:
+```
+curl -i -X POST [base_url]/api/import/job/fbd717cb-2813-40b9-a3a9-948a3e06916e/abort \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+A response that indicates a canceled status is displayed, as shown in the following example:
+
+```
+{
+  "bucket": "https://bulk-5678-sandbox-us-east-1-hy.s3.amazonaws.com/",
+  "createdAt": "2025-05-20T04:21:32.943728813Z",
+  "creator": "john123doe456",
+  "description": "MySecondaryBulkImportJob",
+  "dryRun": false,
+  "failedDocuments": 2,
+  "importedDocuments": 20,
+  "jobId": "fbd717cb-2813-40b9-a3a9-948a3e06916e",
+  "name": "BulkImportJob2",
+  "queue": "BulkImportQueue2",
+  "startedAt": "2025-05-20T04:40:44.456264533Z",
+  "status": "CANCELLED",
+  "totalDocuments": 100,
+  "uniqueKey": "bulk002import548"
+}
+```
+
+9.  To refresh expired AWS credentials that are associated with a canceled bulk import job, enter a request similar to the following example:
+```
+curl -i -X POST [base_url]/api/import/job/fbd717cb-2813-40b9-a3a9-948a3e06916e/refresh-credentials \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+A response that includes the refreshed AWS credentials is displayed, as shown in the following example:
+
+```
+{
+  "awsAccessKeyId": "awsId2",
+  "awsSecretAccessKey": "awsKey2",
+  "awsSessionToken": "awsToken2",
+  "jobId": "fbd717cb-2813-40b9-a3a9-948a3e06916e"
+}
+```
+
+10.  To delete a bulk import job, enter a request similar to the following example:
+```
+curl -i -X DELETE [base_url]/api/import/job/c3814fe7-af63-4bd1-8906-d3c2453e091g/purge \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+All files, including versioned files, and metadata placed inside the S3 bucket are deleted.
+
+Tip: Delete a bulk import job once you have finished ingesting the job's documents into the repository.
+For more information on the response body elements shown in these examples, see Bulk Import.

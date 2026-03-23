@@ -1,0 +1,29 @@
+---
+title: "Boundary Events"
+---
+
+---
+title: "Boundary Events"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/sqk1673523952302"
+section: "Hyland Automate Modeler"
+---
+
+Boundary events are assigned to other BPMN elements such as service tasks and user tasks. They are used by dragging the selected boundary type onto the BPMN element to influence and using the spanner icon to select the type of boundary event to use.
+
+While the element that the boundary event is attached to is being executed within a process instance, the boundary event is waiting for its trigger event. Once that event occurs the behavior can follow one of two paths:
+
+-
+Interrupting behavior where the element’s execution is terminated by the boundary event and the sequence flow out of the boundary event is followed. Interrupting boundary events are displayed as solid lines.
+
+-
+Non-interrupting behavior where the element’s execution continues and a new sequence flow is followed from the boundary event in parallel to the main sequence flow. Non-interrupting boundary events are displayed as dashed lines.
+
+Note: Depending on the boundary type, a trigger may never reach the attached boundary event. For example a signal may not be thrown for a signal boundary event to catch.
+Boundary events use the attachedToRef property to indicate the id of the element they are attached to. Interrupting behavior is the default for boundary events. Non-interrupting events contain the cancelActivity=false property.
+
+The types of boundary event are:
+
+-  Error boundary events
+-  Message boundary events
+-  Signal boundary events
+-  Timer boundary events

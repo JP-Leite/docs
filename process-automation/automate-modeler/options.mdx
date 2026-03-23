@@ -1,0 +1,29 @@
+---
+title: "Options"
+---
+
+---
+title: "OPTIONS"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/amd1677156928850"
+section: "Hyland Automate Modeler"
+---
+
+The OPTIONS action is used to send HTTP OPTIONS requests.
+
+The input parameters for OPTIONS are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| restUrl | String | Required | URL of the REST endpoint including the protocol and path, for example: http://hyland.com |
+| restUrlParams | JSON | Optional | JSON map of the URL parameter names and values to append to the URL. |
+| restUrlEncoded | Boolean | Optional | Determines whether to encode the URL, for example: true. |
+| requestHeaders | JSON | Optional | A JSON map of the request header names and values. Values can be fixed values or variables. |
+| circuitBreaker | Boolean | Optional | Determines whether the circuit breaker is enabled, for example: true. |
+| timeout | Integer | Optional | The timeout period to wait for the service in milliseconds. The default timeout is 30 000. |
+
+The output parameters from OPTIONS are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| restStatus | Integer | Optional | The HTTP response status code from the REST service call. |
+| responseHeaders | JSON | Optional | The HTTP response headers from the REST service call. |

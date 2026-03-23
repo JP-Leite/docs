@@ -1,0 +1,50 @@
+---
+title: "Re-ingesting Failed Documents"
+description: "Retry ingestion for documents that failed during a previous OnBase Connector run."
+---
+
+If documents fail to ingest, you can re-ingest them using the `retry-failed-documents` CLI command. Failed documents are marked in the ingestion status database.
+
+---
+
+## Common Causes of Ingestion Failure
+
+- The pre-signed URL API call was not successful
+- Content was not uploaded successfully to S3
+- The document was not ingested correctly in the content lake
+- An exception occurred while processing the document batch
+
+---
+
+## Steps
+
+<Steps>
+  <Step title="Open a Terminal as Administrator">
+    Run **Command Prompt** or **Windows PowerShell** with administrator privileges.
+  </Step>
+  <Step title="Navigate to the CLI Folder">
+    ```bash
+    cd C:\OnbaseConnectorSetUp\OnbaseConnector\ContIntOnbaseConnector.CLI
+    ```
+
+    Press **Enter**.
+  </Step>
+  <Step title="Run the Retry Command">
+    Run:
+
+    ```
+    ContIntOnbaseConnector.CLI retry-failed-documents
+    ```
+
+    When prompted, choose one of the following:
+    - Press **A** to retry **all** failed documents.
+    - Press **S** to retry a **subset** of documents — enter the IDs separated by commas when prompted (e.g., `7503,7603`).
+  </Step>
+  <Step title="Confirm">
+    Press **Enter**. The command prompt displays a confirmation message when failed document processing has started.
+  </Step>
+</Steps>
+
+<Info>
+  To identify which documents failed, check the ingestion status using SQLite. See [Viewing Documents Ingestion Status →](/integrations/onbase/viewing-documents-ingestion-status)
+</Info>

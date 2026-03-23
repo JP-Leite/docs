@@ -1,0 +1,22 @@
+---
+title: "Multiline Text"
+---
+
+---
+title: "Multiline Text"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/low1673603775795"
+section: "Hyland Automate Modeler"
+---
+
+Multiline text fields are for entering string data across multiple lines. Multiline text fields belong to the Text field group.
+
+The advanced properties for a Multiline text field are:
+
+| Property | Description |
+| --- | --- |
+| Min length | Sets the minimum character count for text that can be entered into the field including whitespace. |
+| Max length | Sets the maximum character count for text that can be entered into the field including whitespace. |
+| Regex pattern | A regular expression can be entered that will validate the text entered into the field. For exmple, some common Regex patterns are:Alphanumeric characters without space: ^[a-zA-Z0-9]*$  Alphanumeric characters with space: ^[a-zA-Z0-9 ]*$  Common email addresses: ^([a-zA-Z0–9._%-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,6})*$  Username, meaning an alphanumeric string that may include underscore (_) and dash (-), 3 to 16 characters long: ^[a-z0-9_-]{3,16}$  Date in YYY-MM-dd format:  ([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))   URL address with https(s) protocl optional: (https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)  File path with filename and extension: ((\/|\\|\/\/|https?:\\\\|https?:\/\/)[a-z0-9 _@\-^!#$%&+={}.\/\\\[\]]+)+\.[a-z]+$ |
+
+Note:
+You can use the Edit Visibility Conditions button to decide when the field is visible or hidden.

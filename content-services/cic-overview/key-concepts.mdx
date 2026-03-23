@@ -1,0 +1,75 @@
+---
+title: "Key Concepts"
+description: "The foundational building blocks of the Content Innovation Cloud repository."
+---
+
+## Overview
+
+The Content Innovation Cloud is built around a structured content repository. Before developing or administering CIC, you should understand the following core concepts that define how content is modelled, stored, and organised.
+
+---
+
+## Content Model
+
+The CIC content model defines how documents and their metadata are structured. It consists of the following pieces:
+
+<CardGroup cols={2}>
+  <Card title="Content Type" icon="tag" href="/content-services/cic-overview/content-type">
+    A template that defines the structure of a document — including which properties and mixins it carries. Each document in CIC belongs to a content type.
+  </Card>
+  <Card title="Property" icon="list" href="/content-services/cic-overview/property">
+    A metadata field attached to a content type or mixin. Properties define the attributes that describe a document (e.g., title, author, date).
+  </Card>
+  <Card title="Mixin" icon="puzzle-piece" href="/content-services/cic-overview/mixin">
+    A reusable set of properties that can be attached to multiple content types. Mixins promote consistency across your content model.
+  </Card>
+  <Card title="Classification" icon="sitemap" href="/content-services/cic-overview/classification">
+    A way to categorise documents using taxonomy values, enabling dynamic filtering and grouping within the repository.
+  </Card>
+</CardGroup>
+
+---
+
+## Repository Structure
+
+<CardGroup cols={2}>
+  <Card title="Repository" icon="database" href="/content-services/cic-overview/repository">
+    The central store for all documents in CIC. Similar to a database, it enforces security, organisation, and availability of content.
+  </Card>
+  <Card title="Document" icon="file" href="/content-services/cic-overview/document">
+    The primary unit of content in CIC. A document is a combination of metadata (properties), binary content (a file or blob), and associated workflows.
+  </Card>
+  <Card title="Folder Structure" icon="folder-tree" href="/content-services/cic-overview/folder-structure">
+    Documents are organised in a hierarchical folder structure within the repository, which also drives permission inheritance.
+  </Card>
+  <Card title="Blob" icon="hard-drive" href="/content-services/cic-overview/blob">
+    The binary content attached to a document — the actual file payload (PDF, Word document, image, etc.).
+  </Card>
+</CardGroup>
+
+---
+
+## Versioning & Collaboration
+
+<CardGroup cols={2}>
+  <Card title="Version" icon="code-branch" href="/content-services/cic-overview/version">
+    CIC automatically maintains a version history for every document. You can view, restore, or compare previous versions at any time.
+  </Card>
+  <Card title="Working Copy" icon="copy" href="/content-services/cic-overview/working-copy">
+    A checked-out copy of a document that allows a user to edit it exclusively, preventing conflicting changes from other users.
+  </Card>
+  <Card title="Renditions" icon="images" href="/content-services/cic-overview/renditions">
+    Alternative representations of a document (e.g., PDF preview, thumbnail). The Transformation Service generates renditions automatically.
+  </Card>
+  <Card title="Transformation Service" icon="wand-magic-sparkles" href="/content-services/cic-overview/transformation-service">
+    A background service that converts documents between formats and extracts text for full-text search indexing.
+  </Card>
+</CardGroup>
+
+---
+
+## Next: Repository Capabilities
+
+Once you understand the content model, explore what you can **do** with content in CIC:
+
+[Repository Capabilities →](/content-services/cic-overview/repository-capabilities)

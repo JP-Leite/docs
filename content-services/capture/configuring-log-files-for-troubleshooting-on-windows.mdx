@@ -1,0 +1,117 @@
+---
+title: "Configuring Log Files For Troubleshooting On Windows"
+---
+
+---
+title: "Configuring Log Files for Troubleshooting on Windows"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/oqy1646191707371"
+section: "Hyland Capture"
+---
+
+Desktop Host is configured by default to send diagnostics logging messages to log files that can be used by Technical Support to diagnose and troubleshoot issues. This section provides information on how to configure Desktop Host in Windows to send additional information to the default log files and to modify the default logging configuration.
+
+To configure Desktop Host logging in Windows:
+
+1.  Open the config.json file in a plain-text editor with elevated privileges. In a typical installation, this file is in C:\ProgramData\Hyland\DesktopHost\bin.
+2.  In the file, locate the DesktopHostGateway_Log diagnostics route, within the Hyland.Logging element. By default, the route includes the following key and value elements, which you can edit as needed:
+```
+"DesktopHostGateway_Log":{
+    "File":"%ProgramData%/Hyland/DesktopHost/logs/DesktopHostGateway_Log.json",
+    "minimum-level":"Information",
+    "FileRollInterval":"Day",
+    "FileByteLimit":"10000000",
+    "FileCountLimit":"30",
+    "FileRollOnSize":"true",
+    "OutputFormat":"Json",
+    "include-profiles": "Desktop Host Gateway"
+}
+```
+
+3.  For the key "File", replace the value "%ProgramData%/Hyland/DesktopHost/logs/DesktopHostGateway_Log.json" with the file path for the log file, including the name of the file you want the log to be saved as. This file must be a .json file.
+For example, the default path mentioned above would write the logs to a file called DesktopHostGateway_Log<date-stamp>.json in the logs directory within the directory where Desktop Host is installed.
+
+Note:
+Ensure that the Windows user account running Desktop Host has write permission for the path specified in the "File" key.
+
+4.   For the key "minimum-level", edit the value to the lowest level of severity you want to be reported in the log. The following log levels are available, listed from most severe to least severe:   Note:
+Log level names are case sensitive.
+
+| Log Level | Description |
+| --- | --- |
+| Critical | Logs that describe an unrecoverable application, system crash, or catastrophic failure that requires immediate attention. |
+| Error | Logs that highlight when the current flow of execution is stopped due to a failure. These logs indicate a failure in the current activity, but not an application-wide failure. |
+| Warning | Logs that highlight an abnormal or unexpected event in the application flow but do not otherwise cause the application to stop. |
+| Information | Logs that track the general flow of the application. |
+| Debug | Logs that are used for interactive investigation during development. |
+| Trace | Logs that contain the most detailed messages and may include sensitive data. These logs should never be enabled in a production environment. |
+| None | A logging category that does not write any logging messages. |
+
+For example, the route could be edited to include the following attribute:
+
+```
+"minimum-level": "Information",
+```
+
+This example specifies that the logging route only receives logging messages with a severity level of Information or above.
+
+Note:
+The default severity level of a route is a minimum of Information and a maximum of Critical. The route uses these severity levels if it does not include a minimum-level line specified in the config.json file.
+
+5.  For the key "FileRollInterval", edit the value to specify the interval after which you want a new log created. The following intervals are available for use:
+
+| Interval | Description |
+| --- | --- |
+| Minute | A new log file will be created every minute. |
+| Hour | A new log file will be created every hour. |
+| Day | A new log file will be created every day. |
+| Month | A new log file will be created every month. |
+| Year | A new log file will be created every year. |
+| Infinite | A new log file will never be created. |
+
+6.  For the key "FileByteLimit", you can edit the value to specify the maximum size in bytes for a log file before a new file is created. This attribute is only active if the value for the key "FileRollOnSize" is set to "true".
+7.  For the key "FileCountLimit", you can edit the value to specify the number of log files that are created before the oldest file is deleted. If you do not want to delete older files, you can set the value to "null".
+8.  For the key "FileRollOnSize", you can edit the value to "true" if you want a new log file to be created when the current log file reaches the maximum size in bytes. If you do not want create new files based on file size, you can set the value to "false".  Note:
+If "FileRollOnSize" is set to "true", the attribute "FileByteLimit" is active.
+
+9.  For the key "OutputFormat", you can specify the structure of each message that would be written in the log file. The following formats are available for use:
+
+| Format | Description |
+| --- | --- |
+| Minimal | Message that contains only the time, log level, exception, and the message field. |
+| Text | Message that contains all possible fields as a list of key-value pairs. |
+| Json | Message that contains fields in a compact JSON format on a single line. This format is ideal for further processing into a SIEM (Security Information and Event Management) or for reading with the Diagnostics Console. |
+
+10.  In the file, locate the DesktopHostCore_Log diagnostics route, within the Hyland.Logging element. By default, the route includes the following key and value elements, which you can edit as needed:
+```
+"DesktopHostCore_Log":{
+    "File":"%LocalAppData%/Hyland/DesktopHost/logs/DesktopHostCore_Log.json",
+    "minimum-level":"Information",
+    "FileRollInterval":"Day",
+    "FileByteLimit":"10000000",
+    "FileCountLimit":"30",
+    "FileRollOnSize":"true",
+    "OutputFormat":"Json",
+    "include-profiles": "Desktop Host Core"
+}
+```
+
+11.  For the key "File", replace the value "%LocalAppData%/Hyland/DesktopHost/logs/DesktopHostCore_Log.json" with the file path for the log file, including the name of the file you want the log to be saved as. This file must be a .json file. For example, the default path mentioned above would write the logs to a file called DesktopHostCore_Log<date-stamp>.json in the logs directory within the directory created for a user.Note: Ensure that the Windows user account running Desktop Host has write permission for the path specified in the "File" key.
+12.  For the other key and value pairs in the diagnostic route DesktopHostCore_Log, edit those as needed.  Note: Ensure the key "include-profiles" includes the value "Desktop Host Core".
+13.  In the file, locate the DesktopHostLauncher_Log diagnostics route, within the Hyland.Logging element. By default, the route includes the following key and value elements, which you can edit as needed:
+```
+"DesktopHostLauncher_Log":{
+    "File":"%LocalAppData%/Hyland/DesktopHost/logs/DesktopHostLauncher_Log.json",
+    "minimum-level":"Information",
+    "FileRollInterval":"Day",
+    "FileByteLimit":"10000000",
+    "FileCountLimit":"30",
+    "FileRollOnSize":"true",
+    "OutputFormat":"Json",
+    "include-profiles": "Desktop Host Launcher"
+}
+```
+
+14.  For the key "File", replace the value "%LocalAppData%/Hyland/DesktopHost/logs/DesktopHostLauncher_Log.json" with the file path for the log file, including the name of the file you want the log to be saved as. This file must be a .json file. For example, the default path mentioned above would write the logs to a file called DesktopHostLauncher_Log<date-stamp>.json in the logs directory within the directory created for a user.Note: Ensure that the Windows user account running Desktop Host has write permission for the path specified in the "File" key.
+15.  For the other key and value pairs in the diagnostic route DesktopHostLauncher_Log, edit those as needed.  Note: Ensure the key "include-profiles" includes the value "Desktop Host Launcher".
+16.  Save the file and close the text editor.
+17.  Restart the computer.

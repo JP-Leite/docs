@@ -1,0 +1,28 @@
+---
+title: "Send_Request"
+---
+
+---
+title: "SEND_REQUEST"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/uyy1739796772836"
+section: "Hyland Automate Modeler"
+---
+
+The SEND_REQUEST action is used to send a request to the OpenAI large language model (LLM), such as data summarisation, content enrichment or suggestions for the end user input.
+
+The input parameters to send an OpenAI request are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| model | String | Required | Name of the OpenAI model to use. Refer to models compatible with the /v1/chat/completions API as defined in the Model endpoint compatibility of the OpenAI Platform documentation. For example: gpt-4o. |
+| prompt | String | Required | The prompt that will be sent to the OpenAI model. For example: Explain the concept of gravity. |
+| systemInstructions | String | Optional | Additional instructions for the OpenAI system. For example: The answer must be in the HTML format. |
+| temperature | String | Optional | The temperature that will be used by the OpenAI system to generate a response. Higher values will make the output more random, lower values will make it more deterministic. The value of this parameter must be within a range between 0 and 2. The default value is 0.7.Note: It is recommended to use either Temperature or Top P parameter, not both at the same time. |
+| topP | String | Optional | The top P value that will be used by the OpenAI system to generate a response. It is an alternative to sampling with temperature. The value of this parameter must be within a range between 0 1. The default value is 1.Note: It is recommended to use either Temperature or Top P parameter, not both at the same time. |
+| maxCompletionTokens | Integer | Optional | The maximum number of tokens to generate in the completion. The value of this parameter must be within a range between 1 and 4096. For example: 100. |
+
+The output parameters to send an OpenAI request are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| response | String | Optional | A response from the OpenAI model. |

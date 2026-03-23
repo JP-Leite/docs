@@ -1,0 +1,26 @@
+---
+title: "Create An Object Instance"
+---
+
+---
+title: "Create an Object Instance"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/rjd1677242883760"
+section: "Hyland Automate Modeler"
+---
+
+The CREATE action is used by the Salesforce connector to create a new Salesforce object.
+
+The input parameters to create an object are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| SObjectName | String | Required | The name of the Salesforce object to create, for example: Account |
+| salesforcePayload | JSON | Required | The payload to send to Salesforce as a JSON map. See the  for valid fields to send. |
+
+[Salesforce API documentation](https://developer.salesforce.com/docs/api-explorer/sobject/Account)
+The output parameters from creating an object in Salesforce are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| salesforceResult | String | Optional | The result from the REST or SOAP call from Salesforce |
+| salesforceStatus | String | Optional | The HTTP status code of the response |

@@ -1,0 +1,24 @@
+---
+title: "Get_Channels"
+---
+
+---
+title: "GET_CHANNELS"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/zlp1677251285157"
+section: "Hyland Automate Modeler"
+---
+
+The GET_CHANNELS action is used by the Teams connector to retrieve all the existing channels from a specific team.
+
+The input parameters to retrieve all the existing channels from a specific team are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| teamId | String | Required | Identifier of the team |
+| channelName | String | Optional | Name of the channel. If this property is null, the action will return all the channels. |
+
+The output parameter to retrieve all the existing channels from a specific team is:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | Response with the identifier, the name, the membership type, and the web URL returned by the Teams API |

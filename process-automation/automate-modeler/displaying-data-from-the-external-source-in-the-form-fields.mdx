@@ -1,0 +1,29 @@
+---
+title: "Displaying Data From The External Source In The Form Fields"
+---
+
+---
+title: "Displaying Data from the External Source in the Form Fields"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ptx1757417466843"
+section: "Hyland Automate Modeler"
+---
+
+The data captured in the previous step can be displayed within the form widgets, using the form rules again, but this time the rules are executed once the process is completed.
+
+To create the form rules:
+
+1.  Stay in the Edit form rules dialog box.
+2.  Select + button. A new rule is added to the editor.
+3.  Select Form events > Form finished from the Event source drop-down menu. An onProcessFinish rule is added to the list.
+4.  Select the + button next to the Condition section. A Condition dialog box is displayed.
+5.  Select the Correlation key related to the primary process and click Save.
+6.  Select the + button next to the Actions section.
+7.  Select Update field > Text from the Action type drop-down menu.
+8.  In the Payload section, select the applicable value configured as a process variable. In case of this form widget, the value is student_name.  Note: You can only select corresponding variables in the value field, which means that you cannot select the Integer field.  This will cause the Text form widget to be updated with the captured data.
+9.  Using the + button next to the Actions section, add another action.
+10.  Select Update field > Integer from the Action type drop-down menu.
+11.  In the Payload section, select the applicable value configured as a process variable. In case of this form widget, the value is student_age.  Note: You can only select corresponding variables in the value field, which means that you cannot select the Text field.  This will cause the Integer form widget to be updated with the captured data.
+12.  Using the + button next to the Actions section, add the final action.
+13.  Select Execute form actions > Hide spinner from the Action type drop-down menu. This will hide the spinner once the data is captured and ready to be displayed.
+
+The form rules are now configured to display external data within the form.

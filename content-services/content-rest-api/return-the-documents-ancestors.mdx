@@ -1,0 +1,197 @@
+---
+title: "Return The Documents Ancestors"
+---
+
+---
+title: "Return the Document's Ancestors"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/ivk1678226305530"
+section: "Hyland Content REST API"
+---
+
+Returns the document's ancestors.
+
+## Base Request
+
+```
+GET /api/documents/[docId]/ancestors
+```
+
+where [docId] is the alphanumeric ID for the document.
+
+## Headers
+
+[Mozilla developer documentation](https://developer.mozilla.org/)
+
+| Header Name | Description | Required | Values |
+| --- | --- | --- | --- |
+| Authorization | The access token | Required | Bearer [access_token] where [access_token] is a string generated when you complete authentication (see Getting Started) |
+| User-Agent | Identity of the client making the request to the server | Required | [product]/[version] where [product] is the name of the software you are using to make the request and [version] is the numbered version of the software (for example, MyCompanyProduct/1.0). For information on other types of values commonly included in user-agent request headers, see the User-Agent HTTP header reference section on the  website. |
+| HXCS-REPOSITORY | The repository ID | Optional | Any contributed repository name. Default is default. |
+| Accept | The format of the data to be returned | Optional | application/vnd.hxcs.v1+json |
+
+## Sample Request
+
+```
+GET /api/documents/[docId]/ancestors
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+HXCS-REPOSITORY: default
+Accept: application/vnd.hxcs.v1+json
+```
+
+## Response Body
+
+See Document for response body details. The response body for this endpoint follows the same structure as the common response body for the other Document API endpoints, only the response body for this endpoint includes the common elements as children of the ancestors parent element.
+
+## Sample Response
+
+```
+{
+  "ancestors": [
+    {
+      "sys_acl": [
+        {
+          "begin": "2025-10-02T17:08:34.712Z",
+          "creator": "string",
+          "end": "2025-10-02T17:08:34.712Z",
+          "granted": true,
+          "group": {
+            "id": "string",
+            "name": "string"
+          },
+          "permission": "string",
+          "status": "PENDING",
+          "user": {
+            "email": "string",
+            "firstName": "string",
+            "id": "string",
+            "lastName": "string",
+            "properties": {
+              "additionalProp1": {},
+              "additionalProp2": {},
+              "additionalProp3": {}
+            }
+          }
+        }
+      ],
+      "sys_ancestorIds": [
+        "string"
+      ],
+      "sys_changeToken": "string",
+      "sys_contributors": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "string",
+          "lastName": "string",
+          "properties": {
+            "additionalProp1": {},
+            "additionalProp2": {},
+            "additionalProp3": {}
+          }
+        }
+      ],
+      "sys_created": "2025-10-02T17:08:34.712Z",
+      "sys_creator": {
+        "email": "string",
+        "firstName": "string",
+        "id": "string",
+        "lastName": "string",
+        "properties": {
+          "additionalProp1": {},
+          "additionalProp2": {},
+          "additionalProp3": {}
+        }
+      },
+      "sys_description": "string",
+      "sys_effectiveAcl": [
+        {
+          "begin": "2025-10-02T17:08:34.712Z",
+          "creator": "string",
+          "end": "2025-10-02T17:08:34.712Z",
+          "granted": true,
+          "group": {
+            "id": "string",
+            "name": "string"
+          },
+          "permission": "string",
+          "status": "PENDING",
+          "user": {
+            "email": "string",
+            "firstName": "string",
+            "id": "string",
+            "lastName": "string",
+            "properties": {
+              "additionalProp1": {},
+              "additionalProp2": {},
+              "additionalProp3": {}
+            }
+          }
+        }
+      ],
+      "sys_effectivePermissions": [
+        "string"
+      ],
+      "sys_fulltextBinary": "string",
+      "sys_id": "string",
+      "sys_isFolderish": true,
+      "sys_lastContributor": {
+        "email": "string",
+        "firstName": "string",
+        "id": "string",
+        "lastName": "string",
+        "properties": {
+          "additionalProp1": {},
+          "additionalProp2": {},
+          "additionalProp3": {}
+        }
+      },
+      "sys_lifecycleState": "string",
+      "sys_lockCreated": "2025-10-02T17:08:34.712Z",
+      "sys_lockOwner": {
+        "email": "string",
+        "firstName": "string",
+        "id": "string",
+        "lastName": "string",
+        "properties": {
+          "additionalProp1": {},
+          "additionalProp2": {},
+          "additionalProp3": {}
+        }
+      },
+      "sys_mixinTypes": [
+        "string"
+      ],
+      "sys_modified": "2025-10-02T17:08:34.712Z",
+      "sys_name": "string",
+      "sys_parentId": "string",
+      "sys_parentPath": "string",
+      "sys_path": "string",
+      "sys_pathDepth": 0,
+      "sys_pos": 0,
+      "sys_primaryType": "string",
+      "sys_repository": "string",
+      "sys_secpol": [
+        "string"
+      ],
+      "sys_title": "string",
+      "sysgov_hasLegalHold": "boolean",
+      "sysgov_isRecord": "boolean",
+      "sysgov_retainUntil": "date",
+      "additionalProp1": {}
+    }
+  ]
+}
+```
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns a list of the ancestors of the document with the specified ID. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |
+| 404 | Not Found | The document could not be found. |

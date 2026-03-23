@@ -1,0 +1,47 @@
+---
+title: "Introduction"
+description: "Learn how the OnBase Connector for Content Intelligence connects your OnBase repository to Hyland Knowledge Discovery."
+---
+
+## What is OnBase Connector for Content Intelligence?
+
+The **OnBase Connector for Content Intelligence** provides knowledge retrieval capabilities by connecting your OnBase content repository to **Knowledge Discovery**. Knowledge Discovery allows users to quickly find critical information using natural language queries within the content in your repository.
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Natural Language Search" icon="magnifying-glass">
+    Users can search through OnBase documents using conversational queries instead of keyword searches, getting contextual answers powered by AI.
+  </Card>
+  <Card title="Automatic Document Ingestion" icon="cloud-arrow-up">
+    The connector automatically collects and ingests all documents that match your specified Document Types and creation date ranges — eliminating the need for manual exports.
+  </Card>
+</CardGroup>
+
+---
+
+## Ingestion Model
+
+The OnBase Connector for Content Intelligence supports **automatic ingestion**:
+
+- Define **Document Types** to include in ingestion
+- Optionally set a **creation date range** to limit which documents are ingested
+- The connector continuously monitors for new matching documents and ingests them automatically
+
+<Info>
+  If no filter criteria are configured, the connector ingests **all documents** in the OnBase repository.
+</Info>
+
+---
+
+## Get Started
+
+| Step | Description |
+| --- | --- |
+| **1. Prerequisites** | Verify all software requirements are met |
+| **2. Install** | Run the setup script to deploy the connector |
+| **3. Configure** | Update configuration files with your credentials |
+| **4. Encrypt** | Secure your credentials using the CLI |
+| **5. Start** | Launch the connector and verify ingestion |
+
+[Get started with Prerequisites →](/integrations/onbase/prerequisites)

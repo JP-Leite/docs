@@ -1,0 +1,27 @@
+---
+title: "Email Service"
+---
+
+---
+title: "Email Service"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/tdn1704702046746"
+section: "Hyland Automate Modeler"
+---
+
+An Email service action can be used to send an email.
+
+The payload for the action is:
+
+| Property | Required | Description |
+| --- | --- | --- |
+| attachments | Optional | List of files that will be attached to the email. If the received value contains multiple contents, all of them will be attached. For example, "uri": "hxpr:/1234567890". |
+| bcc | Optional | The bcc recipient of the email. Multiple recipients are allowed. |
+| cc | Optional | The cc recipient of the email. Multiple recipients are allowed. |
+| charset | Optional | Allows to change the character set of the email, for example UTF-8. |
+| from | Required | The email address of the sender. If no sender is provided, the default configured address is used. |
+| html | Optional | HTML code with the body of the email. |
+| metadata | Optional | Metadata that will be used by the template to resolve variable placeholders. Metadata is a JSON object that contains key-value pairs. |
+| subject | Optional | The subject of the email. |
+| template | Optional | The template file that will be used to generate the email. If the received value contains multiple templates, only the first of them will be used. Templates can be uploaded from theStudio Modeler application or referenced from the repository. |
+| text | Optional | Text-only of the message. It can be used in combination with HTML for the clients that don't support rich content. In such case, the client falls back to the text-only option. |
+| to | Required | Recipients of the email. Multiple recipients are allowed. |

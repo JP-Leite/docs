@@ -1,0 +1,25 @@
+---
+title: "Form Api"
+---
+
+---
+title: "Form API"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/kqc1676637145619"
+section: "Hyland Automate Modeler"
+---
+
+The following API is currently supported:
+
+-  FormApi
+
+You can use the following name to perform all the actions related to the API indicated above:
+
+-  FormService: Studio Modeler Form API (includes FormApi)
+
+For example:
+
+```
+const formId = variables.formId;
+const formService = new FormService();
+const form = formService.getFormDefinition(formId);
+```

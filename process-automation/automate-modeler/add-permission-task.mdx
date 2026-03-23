@@ -1,0 +1,26 @@
+---
+title: "Add Permission Task"
+---
+
+---
+title: "Add Permission Task"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/dno1677068916090"
+section: "Hyland Automate Modeler"
+---
+
+The Add permission task is used to assign user and/or group permissions to content.
+
+The Action for this task is ADD_PERMISSION.
+
+The Add permission input parameters are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | file | Requires one | Reference to the content object for which to add permissions, for example: 775a8f2d-8123-49a7-ae1f-f3f49d4eae20 |
+| permissions | add-permission-selector | Requires one | Specifies the user or group permissions to be added. |
+
+The Add permission output parameters are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | JSON | Optional | Resulting content object after updating the permissions |

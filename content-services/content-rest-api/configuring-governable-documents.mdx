@@ -1,0 +1,189 @@
+---
+title: "Configuring Governable Documents"
+---
+
+---
+title: "Configuring Governable Documents"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/jqj1743182802669"
+section: "Hyland Content REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start configuring basic governance settings for documents in the repository. By setting a retention period or placing a legal hold on a governable document, you can prevent the document from being edited or deleted under the specified conditions.
+
+Before configuring the governance settings for a document, also note the following:
+
+- You must be an administrator or have the ManageRetention permission on a document to be able to change its governance settings.
+- Using the Content REST API to configure a document's governance settings may conflict with simultaneous changes made to the document's governance settings using either the Hyland Workspace application or the Hyland Governance REST API. To avoid inconsistencies, coordinate with other users who have retention management permissions before configuring a document's governance settings.
+
+To configure governance settings for a document:
+
+1.  Open Command Prompt or Terminal.
+2.  Enter a request similar to the following example to update the repository's content model to include the SysGovernable mixin:
+```
+curl -i -X PUT [base_url]/api/repository/model \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -d "{\"SysGovernable\": \"schemas\": \"sysgovernable\"}"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the Hyland Content repository |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+A response that includes the sysgovernable schema's fields is displayed, as shown in the following example:
+
+```
+{
+  ...
+  "sysgovernable": {
+    "fields": {
+      "sysgov_hasLegalHold": {
+        "type": "boolean"
+      },
+      "sysgov_isRecord": {
+        "type": "boolean"
+      },
+      "sysgov_retainUntil": {
+        "type": "date"
+      }
+    },
+  ...
+}
+```
+
+3.  Enter a request similar to the following example to update the content model to add a governable content type:
+```
+curl -i -X PUT [base_url]/api/repository/model \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -d "{\"primaryTypes\": {\"GovernableFile\": {\"extends\": \"SysFile\", \"mixins\": [\"SysGovernable\"]}"
+```
+
+For response body details and a sample response to this type of request, see Model.
+
+4.  Create a folder for your governable documents by entering a request similar to the following example:
+```
+curl -i -X POST [base_url]/api/documents/00000000-0000-0000-0000-000000000000 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sys_primaryType\": \"SysFolder\", \"sys_title\": \"My Governable Folder\"}"
+```
+
+For response body details and a sample response to this type of request, see Document.
+
+5.  Enter a request similar to the following example to create a governable file in the folder you just created, ensuring that you assign the governable content type you created previously:
+```
+curl -i -X POST [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sys_primaryType\": \"GovernableFile\", \"sys_title\": \"My File\"}"
+```
+
+where [docId] is the ID of the folder you created to store your governable documents.
+
+A response that includes the sysgovernable schema's fields with default values is displayed, as shown in the following example:
+
+```
+{
+  ...
+  "sys_mixinTypes": [
+    "SysGovernable",
+    "SysFilish"
+  ],
+  ...
+  "sysgov_hasLegalHold": false,
+  "sysgov_isRecord": false,
+  ...
+}
+```
+
+6.  To mark as a record the governable file you just created, enter a request similar to the following example:
+```
+curl -i -X PUT [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sysgov_isRecord\": true}"
+```
+
+where [docId] is the alphanumeric ID for the document.
+
+7.  To delete the document you just marked as a record, enter the following request:
+```
+curl -i -X DELETE [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+Note: The document can be deleted at this stage because it is not under a retention policy.
+8.  Repeat the steps to create a governable file and mark it as a record.
+9.  To update the retention period for the new document record you just created, enter a request similar to the following example:
+```
+curl -i -X PUT [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sysgov_retainUntil\": \"2025-05-13T10:02:02Z\"}"
+```
+
+10.  To test the retention period you just set, attempt to update the title of the document by entering a request similar to the following example:
+```
+curl -i -X PUT [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sys_title\": \"My Updated File\"}"
+```
+
+A response that includes a 403 error is displayed, indicating that you do not have Write permissions on the document while it is under retention.
+
+11.  To test the retention period you just set in another way, attempt to delete the document by entering the following request:
+```
+curl -i -X DELETE [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]"
+```
+
+A response that includes a 403 error is displayed, indicating that you do not have Delete permissions on the document while it is under retention.
+
+12.  To add a legal hold on the document, enter a request similar to the following example:
+```
+curl -i -X PUT [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sysgov_hasLegalHold\": true}"
+```
+
+If you have followed all the steps to this point, the displayed response indicates that all of the sysgovernable schema's fields have now been applied to the document:
+
+```
+{
+  ...
+  "sysgov_hasLegalHold": true,
+  "sysgov_isRecord": true,
+  "sysgov_retainUntil": "2025-05-13T10:02:02Z",
+  ...
+}
+```
+
+13.  To remove the legal hold on the document, enter a request similar to the following example:
+```
+curl -i -X PUT [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sysgov_hasLegalHold\": false}"
+```
+
+A response indicating that the sysgov_hasLegalHold parameter has been set back to false is displayed.
+
+Note: While you can remove a legal hold on a document at any time, you must wait for any set retention period to expire before retention on the document is removed.
+For full reference information on all available Document API endpoints, see Document.

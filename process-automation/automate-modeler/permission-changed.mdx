@@ -1,0 +1,21 @@
+---
+title: "Permission_Changed"
+---
+
+---
+title: "PERMISSION_CHANGED"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ixv1703159643658"
+section: "Hyland Automate Modeler"
+---
+
+The PEMISSION_CHANGED trigger is fired when permissions to read or write content are changed, for example removed, added, or updated.
+
+The input parameters for a form event are:
+
+| Parameter | Description |
+| --- | --- |
+| condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
+| type | The content type of the content created in the repository, for example SysFile. |
+| mixins | The name of the mixins that the created content must have, for example Folderish. |
+| path | A regular expression matching the path of the created content, for example /invoices.* |
+| contentId | The identifier of the created content, for example 67bd1953-76e8-4104-ac4b-0ca8a9f130eb. |

@@ -1,0 +1,40 @@
+---
+title: "Cf Broker Environment Variable Keyperfile Configuration Table"
+---
+
+---
+title: "CF Broker Environment Variable/ KeyPerFile Configuration Table"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/smo1763394534789"
+section: "Content Federation Services"
+---
+
+The following Broker Configuration Environment Variables/KeyPerFile are supported in the container.
+
+| Config Section | Configuration Value Purpose | Environment Variable | KeyPerFile name |
+| --- | --- | --- | --- |
+| Serilog | Minimum Log Level | FCC_CFBROKER_Serilog__MinimumLevel | Serilog__MinimumLevel |
+| Serilog | Log Path | FCC_CFBROKER_Serilog__logPath | Serilog__logPath |
+| Serilog | Rolling Interval | FCC_CFBROKER_Serilog__RollingInterval | Serilog__RollingInterval |
+| Serilog | Formatter | FCC_CFBROKER_Serilog__Formatter | Serilog__Formatter |
+| GatewayConfiguration | Region | FCC_CFBROKER_GatewayConfiguration__Region | GatewayConfiguration__Region |
+| GatewayConfiguration | Gateway Registration Key | FCC_CFBROKER_GatewayConfiguration__GatewayRegistrationKey | GatewayConfiguration__GatewayRegistrationKey |
+| GatewayConfiguration | Gateway Signing Key | FCC_CFBROKER_GatewayConfiguration__GatewaySigningKey | GatewayConfiguration__GatewaySigningKey |
+| GatewayConfiguration | Broker Registration Token | FCC_CFBROKER_GatewayConfiguration__BrokerRegistrationToken | GatewayConfiguration__BrokerRegistrationToken |
+| GatewayConfiguration | Gateway API Server URL | FCC_CFBROKER_GatewayConfiguration__GatewayApiServerUrl | GatewayConfiguration__GatewayApiServerUrl |
+| GatewayConfiguration | Websocket Server URL | FCC_CFBROKER_GatewayConfiguration__WebsocketServerUrl | GatewayConfiguration__WebsocketServerUrl |
+| GatewayConfiguration | Number of Websockets | FCC_CFBROKER_GatewayConfiguration__NumberOfWebsockets | GatewayConfiguration__NumberOfWebsockets |
+| GatewayConfiguration | Broker Name | FCC_CFBROKER_GatewayConfiguration__BrokerName | GatewayConfiguration__BrokerName |
+| GatewayConfiguration | Keys.json path | FCC_CFBROKER_GatewayConfiguration__ProtectedKeyFilePath | GatewayConfiguration__ProtectedKeyFilePath |
+| GatewayConfiguration | HxIAM Client ID | FCC_CFBROKER_GatewayConfiguration__Credentials__ClientId | GatewayConfiguration__Credentials__ClientId |
+| GatewayConfiguration | HxIAM Client Secret | FCC_CFBROKER_GatewayConfiguration__Credentials__ClientSecret | GatewayConfiguration__Credentials__ClientSecret |
+| GatewayConfiguration | Scopes | FCC_CFBROKER_GatewayConfiguration__Credentials__Scopes | GatewayConfiguration__Credentials__Scopes |
+| GatewayConfiguration | HxIAM Authentication Server URL | FCC_CF_BROKER_GatewayConfiguration__Credentials__AuthenticationServeraUrl | GatewayConfiguration__Credentials__AuthenticationServeraUrl |
+| GatewayConfiguration | Retry Interval (Milliseconds) | FCC_CFBROKER_GatewayConfiguration__GatewayApiRetrySettings__RetryIntervalInMilliseconds | GatewayConfiguration__GatewayApiRetrySettings__RetryIntervalInMilliseconds |
+| GatewayConfiguration | Number of Retries | FCC_CFBROKER_GatewayConfiguration__GatewayApiRetrySettings__NumberOfRetries | GatewayConfiguration__GatewayApiRetrySettings__NumberOfRetries |
+| PluginConfiguration | Validate plugin signature | FCC_CFBROKER_PluginConfiguration__Plugins__0__isSigningValidationRequired | PluginConfiguration__Plugins__0__isSigningValidationRequired |
+| PluginConfiguration | Signer details Common Name | FCC_CFBROKER_PluginConfiguration__Plugins__0__SignerDetails__CommonName | PluginConfiguration__Plugins__0__SignerDetails__CommonName |
+| PluginConfiguration | Signer details Organization | FCC_CFBROKER_PluginConfiguration__Plugins__0__SignerDetails__Organization | PluginConfiguration__Plugins__0__SignerDetails__Organization |
+| PluginConfiguration | Plugin ID | FCC_CFBROKER_PluginConfiguration__Plugins__0__PluginId | PluginConfiguration__Plugins__0__PluginId |
+| PluginConfiguration | Plugin Path | FCC_CFBROKER_PluginConfiguration__Plugins__0__PluginPath | PluginConfiguration__Plugins__0__PluginPath |
+| PluginConfiguration | Plugin configuration path | FCC_CFBROKER_PluginConfiguration__Plugins__0__PluginConfigPath | PluginConfiguration__Plugins__0__PluginConfigPath |
+| PluginConfiguration | KeyPerFile directory path | FCC_CFBROKER_PluginConfiguration__Plugins__0__KeyPerFileDirectoryPath | PluginConfiguration__Plugins__0__KeyPerFileDirectoryPath |

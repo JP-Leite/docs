@@ -1,0 +1,28 @@
+---
+title: "Mapping Onbase Users And User Groups To Nucleus"
+---
+
+---
+title: "Mapping OnBase Users and User Groups to Nucleus"
+source: "https://support.hyland.com/r/Current/OnBase-Connector-for-Content-Intelligence/nxi1751290170152"
+section: "OnBase Connector for Content Intelligence"
+---
+
+The ContIntOnbaseConnector.NucleusIntegration service is designed to map all users and User Groups from OnBase to HX Nucleus. To execute this service on a scheduled basis, you must create a scheduled task.Whenever a new OnBase user is created, OnbaseNucleusUserSyncTask task needs to be completed to synchronize it with Nucleus.
+
+Before initiating this integration, you must create an Integration ID in the Content Innovation Cloud Administration Portal for the environment where all documents are ingested. Update the defaultConfig.json file with the created value. To create an Integration ID, see Registering a System Integration in the Content Innovation Cloud Administration Portal documentation. For information on updating the default.Config.json file, see Configuring the defaultConfig.json File.
+To map users and User Groups from OnBase to Nucleus:
+
+1.  Run the Windows PowerShell with administrator privileges.
+2.  Locate the path to the folder where the OnbaseNucleusUserSyncTask.ps1 file is located, such as C:\OnbaseConnectorSetUp\OnbaseConnector. By default, the OnbaseNucleusUserSyncTask.ps1 file is located in the designated installation directory that was defined during the installation process.
+3.  In the PowerShell window, enter cd and paste the path to the folder where the OnbaseNucleusUserSyncTask.ps1 file is located. For example, cd C:\OnbaseConnectorSetUp\OnbaseConnector.
+4.  Press Enter.
+5.  Run the following command:
+```
+Powershell -file OnbaseNucleusUserSyncTask.ps1
+```
+
+If an installation is successful, the PowerShell displays a success message and a new task is created in the Windows Task Scheduler.
+6.  Run the Windows Task Scheduler as an administrator and confirm that a new task named OnbaseNucleusUserSyncTask is created. By default, the task is set to run daily at 1 PM executing the ContIntOnbaseConnector.NucleusIntegration service to synchronize OnBase users and User Groups with Nucleus. You can adjust the execution time as needed. You can manually trigger this task anytime using the Windows Task Scheduler by clicking the Run  button within the Task Scheduler application.
+7.  If you add a new user in OnBase for synchronization with Nucleus or make any changes in the User Groups or Document Types that are mapped to the user that is synchronized with Nucleus, you must run the following command:  Note: If any changes are made in the OnBase Configuration module, you must relaunch the application before running the command.
+Execute iisreset in the Command Prompt to reset the OnBase Application Server and the OnBase Connector for Content Intelligence system.

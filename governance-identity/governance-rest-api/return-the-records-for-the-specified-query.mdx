@@ -1,0 +1,89 @@
+---
+title: "Return The Records For The Specified Query"
+---
+
+---
+title: "Return the Records for the Specified Query"
+source: "https://support.hyland.com/r/Current/Hyland-Governance-REST-API/lnt1750634302568"
+section: "Hyland Governance REST API"
+---
+
+Returns the records for the specified query.
+
+## Base Request
+
+```
+GET /api/records/query
+```
+
+## Query Parameters
+
+-
+-
+-
+-
+-
+-
+
+| Parameter | Description | Type | Required | Notes |
+| --- | --- | --- | --- | --- |
+| contentId | Alphanumeric ID for the Governance content in the database. | string | Optional | None |
+| status | The current status of the record. | string | Optional | Any of the following values may be entered:  Unprocessed: The record has been created, but it has not yet been processed.  Incomplete: The record is missing information.  Ready: The record has been processed successfully (that is, the retention dates have been calculated according to the rule).  UnderRetention: The record is under an active retention date.  ReachedDisposition: The record is no longer under retention because it has passed its retention date.  Deleted: The record has been deleted. |
+| cutoffDateFrom | The earliest cutoff date and time by which to search for records in the database. | date-time | Optional | In ISO 8601 format (for example, 2025-06-27T21:55:40.205Z). |
+| cutoffDateTo | The latest cutoff date and time by which to search for records in the database. | date-time | Optional | In ISO 8601 format (for example, 2025-06-27T21:55:40.205Z). |
+| categoryId | Alphanumeric ID for the category assigned to the record. | string | Optional | None |
+| dispositionDateFrom | The earliest disposition date and time by which to search for records in the database. | date-time | Optional | In ISO 8601 format (for example, 2025-06-27T21:55:40.205Z). |
+| dispositionDateTo | The latest disposition date and time by which to search for records in the database. | date-time | Optional | In ISO 8601 format (for example, 2025-06-27T21:55:40.205Z). |
+| onHold | The name of the legal category under which records on legal hold are to be searched. | string | Optional | None |
+| limit | The maximum number of records to evaluate when searching the database. | integer | Optional | Default is 10. |
+| eds | Alphanumeric ID for the environment data source associated with the record. | string | Required | None |
+| creator | The user who created the record. | string | Optional | None |
+| modifier | The user who last modified the record. | string | Optional | None |
+| fileName | The name of the file to be recorded. | string | Optional | None |
+| exclusiveStartKey | The key of the last record on the previous page of search results. | string | Optional | Can be used in conjunction with the limit parameter to implement pagination of Governance search results in the Workspace application. |
+
+## Headers
+
+[Mozilla developer documentation](https://developer.mozilla.org/)
+
+| Header Name | Description | Required | Values |
+| --- | --- | --- | --- |
+| Authorization | The access token | Required | Bearer [access_token] where [access_token] is a string generated when you complete authentication (see Getting Started) |
+| User-Agent | Identity of the client making the request to the server | Required | [product]/[version] where [product] is the name of the software you are using to make the request and [version] is the numbered version of the software (for example, MyCompanyProduct/1.0). For information on other types of values commonly included in user-agent request headers, see the User-Agent HTTP header reference section on the  website. |
+| Accept | The format of the data to be returned | Optional | application/json |
+
+## Sample Request
+
+```
+GET /api/records/query?limit=20&eds=b2615fe6-bc85-4bb1-8886-c2c2118e098f
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+Accept: application/json
+```
+
+## Response Body
+
+| Element | Description | Type | Notes |
+| --- | --- | --- | --- |
+| additionalProp1 | Placeholder example of a non-system property that can be added to supplement the system properties. | Defined by the user. | None |
+
+## Sample Response
+
+```
+{
+  "additionalProp1": "string",
+  "additionalProp2": "string",
+  "additionalProp3": "string"
+}
+```
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns the records for the given query. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |

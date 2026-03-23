@@ -1,0 +1,25 @@
+---
+title: "Conventions"
+---
+
+---
+title: "Conventions"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/onv1714585806792"
+section: "Hyland Capture"
+---
+
+Review the following writing conventions to optimize your usage of the Capture REST API guide.
+
+## Placeholders
+
+This guide includes many different code examples to provide a starting point for developers to make requests to the Capture REST API and to understand responses from the server. Many of these examples include placeholder text in square brackets (for example, [base_url]), which represents values specific to the Hyland Capture user making the request or receiving the response. To make successful requests to the server, you must replace the placeholder text with values appropriate for your user account or resource (for example, always replace the [access_token] placeholder with the actual string representing the token you retrieved for your current session).
+
+## Curl Commands
+
+The tutorials in this guide describe how to make API calls using client URL (cURL, or curl) commands. Each curl command may contain many pieces of data, which can be difficult to read when written as one long line that requires horizontal scrolling. To improve readability, where feasible, this guide uses the \ character to mark artificial line breaks to visually separate different pieces of a curl command. Depending on the command line application you use to run the curl commands (for example, Command Prompt or Terminal), you may need to remove the line breaks or otherwise edit any copied curl examples to align with the syntax preferred by the application.
+
+## Endpoints
+
+To make calls to the Capture REST API, you must include the URL of your Hyland Capture environment directly before the endpoint in your request. In this guide's tutorials, this URL is represented by the [base_url] placeholder in sample requests (for example, GET [base_url]/api/export/batch). However, in this guide's reference topics, the [base_url] placeholder is omitted for simplicity (for example, GET /api/export/batch).
+
+Additionally, this guide includes several different endpoints that are associated with similar or identical objects. Where feasible, the Endpoints sections refer to common objects in the Objects sections to reduce redundancies.

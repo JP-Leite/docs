@@ -1,0 +1,31 @@
+---
+title: "Download_Document"
+---
+
+---
+title: "DOWNLOAD_DOCUMENT"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/xiu1677148755029"
+section: "Hyland Automate Modeler"
+---
+
+The DOWNLOAD_DOCUMENT action is used by the DocuSign connector to download the envelope from DocuSign. It takes into account the envelopeId that is the UUID that relates to the envelope.
+
+The input parameters for DOWNLOAD_DOCUMENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| outputFileName | String | Optional | The name of the file that will be created, for example: invoice.pdf |
+| envelopeId | Yes | Required | UUID related to the envelope from the DocuSign API |
+| targetFolder | Content | Requires one | A variable of type folder to store the signed document in. |
+| targetFolderId | String | Optional | The target folder ID to save the document in Content repository. |
+| targetFolderPath | String | Requires one | The location path or relative path of the folder to store the signed document in Content repository. For example, a location path of  /app:company_home/app:user_homes/cm:hruser  or a relative path of  /User Homes/hruser |
+| targetFileType | String | Optional | The type to set for the signed file, for example: fin:invoice |
+| targetFileMetadata | Content-Metadata | Optional | Metadata assigned to the signed document in Content repository. |
+
+The output parameters from DOWNLOAD_DOCUMENT are:
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| file | Content | The file stored in Content repository of the document. |
+
+No exceptions or errors are thrown by the connector, however all exceptions are caught and logged. The task execution is always successful, and errors will be returned in an error event.

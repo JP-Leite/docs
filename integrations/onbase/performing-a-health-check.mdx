@@ -1,0 +1,51 @@
+---
+title: "Performing a Health Check"
+description: "Verify the status of OnBase Connector for Content Intelligence services using the built-in CLI health check command."
+---
+
+The `check-health` CLI command verifies whether each OnBase Connector service is running as expected. Use this after starting the connector or to diagnose issues.
+
+---
+
+## Services Checked
+
+The health check reports the status of the following services:
+
+| Service | Description |
+| --- | --- |
+| `DocumentImport` | Imports OnBase documents into the content lake |
+| `Gateway` | Manages event subscriptions between services |
+| `NucleusIntegration` | Connects to the Hyland CIC environment |
+| `WebHost` | The main web API serving requests |
+
+---
+
+## Steps
+
+<Steps>
+  <Step title="Open Command Prompt as Administrator">
+    Run **Windows Command Prompt** with administrator privileges.
+  </Step>
+  <Step title="Navigate to the CLI Folder">
+    Use `cd` to navigate to the `ContIntOnbaseConnector.CLI` folder:
+
+    ```bash
+    cd C:\OnbaseConnectorSetUp\OnbaseConnector\ContIntOnbaseConnector.CLI
+    ```
+
+    Press **Enter**.
+  </Step>
+  <Step title="Run the Health Check Command">
+    Run:
+
+    ```
+    .\ContIntOnbaseConnector.CLI.exe check-health
+    ```
+
+    The status of each service (`DocumentImport`, `Gateway`, `NucleusIntegration`, `WebHost`) is displayed in the console.
+  </Step>
+</Steps>
+
+<Info>
+  If any service shows an error status, check the connector log files in the `Logger` folder inside your installation directory for details. See [Troubleshooting](/integrations/onbase/troubleshooting) for common issues.
+</Info>

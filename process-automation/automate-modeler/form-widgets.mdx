@@ -1,0 +1,52 @@
+---
+title: "Form Widgets"
+---
+
+---
+title: "Form Widgets"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/mhe1673532425307"
+section: "Hyland Automate Modeler"
+---
+
+All form fields display a field editor when they are created in the GUI. Each field has a tab for general properties that are common amongst the majority of form fields, with some also having a tab for advanced properties that are specific to that field type.
+
+Most of the fields are grouped according to their type. You can expand the form palette to see the group names and select the field that interests you.
+
+The general properties of form fields are:
+
+| Property | Description |
+| --- | --- |
+| Label | The name of the field that will appear on the rendered form, for example: First name |
+| ID | The unique ID of the field, for example: Text070upd |
+| Required? | Checking this box makes a field mandatory. |
+| Read-only | Determines whether the field can be filled in by a form filler. |
+| Colspan | The number of columns a field spans. |
+| Placeholder | The default value of the field. |
+| Tooltip | Tooltip information that will appear on the rendered form field, providing help text to a form filler |
+
+Note:
+Any exceptions to the general properties are stated in the section specific to that field type. For example, the header field type does not have the Required? property.
+
+Each form field can also have a set of visibility conditions set on it where the field will either be hidden or displayed depending upon the values of other fields or variables within that form. The Edit Visibility Conditions button is displayed in the properties of every field.
+
+The steps of visibility conditions are:
+
+-
+-
+-
+-
+
+-
+-
+-
+-
+
+| Step | Description | Options |
+| --- | --- | --- |
+| Depends on | The field or variable that will be evaluated | A field or variable within the form. |
+| If it’s | The comparison operator between Depends on and Value | equal to   not equal to   empty   not empty |
+| Value | The value, field or variable that the Depends on step is evaluating against | A field or variable within the form or a static value |
+| Next condition operator | The operator for evaluating against further conditions | and   and not   or   or not |
+
+Note:
+Conditions are evaluated in the order they are declared.

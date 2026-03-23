@@ -1,0 +1,27 @@
+---
+title: "Send Sms"
+---
+
+---
+title: "Send SMS"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/oro1677241646113"
+section: "Hyland Automate Modeler"
+---
+
+The SEND_SMS action is used by the Twilio connector to send an SMS message.
+
+The input parameters to send an SMS are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| smsFrom | String | Required | The phone number the SMS will be sent from |
+| smsTo | JSON | Required | The list of numbers the SMS will be sent to |
+| smsBody | String | Required | The contents of the SMS. The message supports , for example ${fullName.lastName} can be used from the metadata parameter to include variables. |
+| metadata | JSON | Optional | Metadata to be used by the smsBody parameter to include process variables in a message |
+
+[FreeMarker syntax](https://freemarker.apache.org/docs/dgui_datamodel_basics.html)
+The output parameters from sending an SMS using Twilio are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| smsResult | JSON | Optional | An object containing a map of message IDs and destination numbers the message was sent to |

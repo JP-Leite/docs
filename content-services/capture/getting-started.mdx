@@ -1,0 +1,42 @@
+---
+title: "Getting Started"
+---
+
+---
+title: "Getting Started"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/dne1713980715921"
+section: "Hyland Capture"
+---
+
+Before you can start using the Capture REST API, you must complete some basic authentication steps. Using your Hyland Experience Identity Provider (IdP) connection and service application credentials, you can retrieve an access token and use it to start making API calls. For more information on registering and assigning a service user to acquire service application credentials, see the service applications sections of the Hyland Experience Administration Portal documentation: [Service Applications](https://support.hyland.com/access/sources/dita/topic?dita:mapPath=nkc1646250723533.ditamap&dita:ditavalPath=Hyland.ditaval&dita:topicPath=xnw1667411154416.dita).
+
+To complete authentication:
+
+1.  Open Command Prompt or Terminal.
+2.  Enter the following request to retrieve an access token:
+```
+curl -i -X POST [idp_url]/idp/connect/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=client_credentials&client_id=[service_app_id]&client_secret=[service_app_secret]"
+```
+
+where [idp_url] is the URL to your Hyland Experience IdP connection, [service_app_id] is your Hyland Experience service application's auto-generated client ID, and [service_app_secret] is your service application's client secret.
+
+A response similar to the following example is displayed:
+
+```
+{
+  "access_token": "eyJhbGcirwbcQmQA",
+  "expires_in": 900,
+  "token_type": "Bearer",
+  "scope": "hxp hxp.integrations hxps openid"
+}
+```
+
+In this example, the eyJhbGcirwbcQmQA access token expires in 900 seconds (15 minutes).
+
+Note: Real access tokens are much longer than the simple, 16-character string used in the example token.
+3.  To test your access token, include it in a bearer authorization header when making a call to one of the Capture REST API's endpoints.
+For information on the Capture REST API's available endpoints, see Endpoints.
+
+For information on common next steps following authentication, see Exporting a Batch.

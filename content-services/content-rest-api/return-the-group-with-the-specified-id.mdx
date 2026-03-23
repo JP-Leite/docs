@@ -1,0 +1,63 @@
+---
+title: "Return The Group With The Specified Id"
+---
+
+---
+title: "Return the Group with the Specified ID"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/bzj1694797394709"
+section: "Hyland Content REST API"
+---
+
+Returns the group with the specified ID.
+
+## Base Request
+
+```
+GET /api/group/[groupId]
+```
+
+where [groupId] is the alphanumeric ID for the group.
+
+## Headers
+
+[Mozilla developer documentation](https://developer.mozilla.org/)
+
+| Header Name | Description | Required | Values |
+| --- | --- | --- | --- |
+| Authorization | The access token | Required | Bearer [access_token] where [access_token] is a string generated when you complete authentication (see Getting Started) |
+| User-Agent | Identity of the client making the request to the server | Required | [product]/[version] where [product] is the name of the software you are using to make the request and [version] is the numbered version of the software (for example, MyCompanyProduct/1.0). For information on other types of values commonly included in user-agent request headers, see the User-Agent HTTP header reference section on the  website. |
+| Accept | The format of the data to be returned | Optional | application/vnd.hxcs.v1+json |
+
+## Sample Request
+
+```
+GET /api/group/[groupId]
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+Accept: application/vnd.hxcs.v1+json
+```
+
+## Response Body
+
+See Group for response body details.
+
+## Sample Response
+
+```
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns the group with the specified ID. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |
+| 404 | Not Found | The group could not be found. |

@@ -1,0 +1,53 @@
+---
+title: "Ingestion Configuration"
+description: "Supply your Hyland Content Intelligence environment credentials to connect the Confluence Connector."
+---
+
+The Ingestion Configuration section links the Confluence Connector to your **Hyland Insights (HxI)** environment. You must complete all four fields before content ingestion can begin.
+
+---
+
+## Configuration Fields
+
+<Steps>
+  <Step title="Environment Details">
+    Provide the **Environment ID** and **Client ID** for your HxI environment. These identifiers are unique to your Hyland tenant and can be obtained from your Hyland administrator or the HxI portal.
+  </Step>
+  <Step title="Security Credentials">
+    Enter the **Client Secret** associated with your HxI environment. Treat this value like a password — never store it in Confluence pages or share it externally.
+  </Step>
+  <Step title="Source Identification">
+    Provide the **Source ID** (UUID) that identifies which Content Intelligence agent or source this connector feeds. Your Hyland administrator will provide this value when provisioning the integration.
+  </Step>
+</Steps>
+
+---
+
+## Field Reference
+
+| Field | Description | Example Format |
+| --- | --- | --- |
+| **Environment ID** | Unique identifier for your HxI environment | `env-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` |
+| **Source ID** | UUID identifying which CIC agent uses this connector | `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` |
+| **Client ID** | OAuth2 client identifier for the HxI environment | `client-xxxxxxxx` |
+| **Client Secret** | OAuth2 secret for authenticating to HxI | *(do not record in plain text)* |
+
+<Info>
+  All four fields are **required**. Saving the configuration with any field blank will result in a validation error and the connector will be unable to ingest content.
+</Info>
+
+---
+
+## Troubleshooting
+
+<Accordion title="Validation fails after saving credentials">
+  Double-check that the **Environment ID**, **Client ID**, and **Client Secret** were copied from the HxI portal exactly, with no leading or trailing spaces. Also confirm that the **Source ID** UUID matches the source configured in your Hyland Content Intelligence environment.
+</Accordion>
+
+<Accordion title="I don't know my Environment ID or Source ID">
+  These values are provisioned by your Hyland administrator. Open a support ticket with Hyland or contact your Hyland Customer Success Manager to retrieve them.
+</Accordion>
+
+<Accordion title="My Client Secret has been rotated">
+  Update the **Client Secret** field in the connector settings with the new secret and save. No reinstallation of the app is required.
+</Accordion>

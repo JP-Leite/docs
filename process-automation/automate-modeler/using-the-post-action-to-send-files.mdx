@@ -1,0 +1,33 @@
+---
+title: "Using The Post Action To Send Files"
+---
+
+---
+title: "Using the POST Action to Send Files"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/xyp1677161762110"
+section: "Hyland Automate Modeler"
+---
+
+You can use the RequestPayload property in the expression editor to reference and send a file from another location using the POST action.
+
+Note:
+The maximum file size for each file is 10 MB and the files are processed one-by-one to decrease the amount of memory used. If you have a large number of concurrent processes with bigger files, the execution time might be longer than usual.
+
+To use the POST action to send files:
+
+1.  Click the + icon next to Processes. Create a new process named send-file.
+2.  Create a User task named Attach file.
+3.  Create a REST Connector named Send POST request.
+4.  Join the User task to the REST Connector.
+5.  Select the REST Connector. In the Properties pane, select the POST action from the Action drop-down list.
+6.  Under the Input mapping section, click the edit icon next to RequestPayload. The Edit variable mapping window is displayed.
+7.  Select one of the parameter types.
+
+| Parameter type | Descritpion |
+| --- | --- |
+| raw | This type of parameter allows you to edit a JSON file and manually enter the needed properties. To use this option, in the Value column on the right, enter the following:   { "base64File": "${getBase64FileContent(file)}" }  where file is the file process variable (may have a different name in your process). |
+| form-data | This type of parameter allows you to edit a list of properties, each of which has its own key, type, and value. To use this option, in the Value column on the right, select the + button to add a new property, enter its Key and select the Variable type from the drop-down menu. Then you can select the file from your Workspace from the next drop-down menu. |
+| binary | This type of parameter allows you to select the file from a drop-down menu. To use this option, in the Value column on the right, select the file from your Workspace from the next drop-down menu. |
+
+8.  Select the restUrI parameter on the left and then select Value on the right.
+9.  Enter the UrI you want to use. For example: https://postman-echo.com

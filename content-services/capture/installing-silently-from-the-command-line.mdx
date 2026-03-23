@@ -1,0 +1,57 @@
+---
+title: "Installing Silently From The Command Line"
+---
+
+---
+title: "Installing Silently from the Command Line"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/tfk1646248505342"
+section: "Hyland Capture"
+---
+
+This section describes installing Desktop Host silently and optionally specifying the location of the custom config.json file during installation.
+
+Note: If you are upgrading Desktop Host, it is recommended that you uninstall the older version and then perform a silent installation. See Uninstalling Silently from the Command Line for complete information.
+This procedure installs the application to the default installation location at C:\ProgramData\Hyland\DesktopHost.
+
+If you are running the installer silently from the command line you must use the /silent switch.
+
+The /silent switch specifies the quiet mode and is required to suppress the GUI.
+
+CAUTION:
+Ensure that you use the 32-bit and 64-bit installers to install the application on 32-bit and 64-bit computers, respectively.
+
+To install Desktop Host silently:
+
+1.  Launch a command prompt with elevated privileges.
+2.  Navigate to the directory on your computer where the Desktop Host installer is located.
+3.  Enter the complete name of the installer executable (HylandDesktopHostSetup.x86.exe or HylandDesktopHostSetup.x64.exe) within double quotes, followed by a space.
+For example:
+
+"HylandDesktopHostSetup.x64.exe"
+
+4.  To specify the location of the custom config.json file, enter DH_CUSTOM_CONFIG_PATH="[path]" where [path] is the full path to the custom config.json file. The path must be a full absolute path (including the file name), within double quotes, and followed by a space.
+For example:
+
+"HylandDesktopHostSetup.x64.exe" DH_CUSTOM_CONFIG_PATH="C:\DesktopHostInstaller\bin\config.json"
+
+Note:
+If you specify the DH_CUSTOM_CONFIG_PATH parameter, the config.json file in the installation directory is overwritten. You can also skip this step and provide the configuration settings after installation is complete.
+
+5.  To specify the custom installation location for Desktop Host, enter DH_CUSTOM_INSTALL_DIR="[path]" where [path] is the full path to the custom installation directory. The path must be a full absolute path, within double quotes, and followed by a space.
+For example:
+
+"HylandDesktopHostSetup.x64.exe"
+
+DH_CUSTOM_INSTALL_DIR="C:\HylandDesktopHost"
+
+Note:
+If you specify the DH_CUSTOM_INSTALL_DIR parameter, the default installation directory for Desktop Host is overwritten with the path to the installation directory that you specify. You can skip this step if you want to install Desktop Host in the default installation directory.
+
+6.  Enter /silent and press Enter to execute the command.
+For example:
+
+"HylandDesktopHostSetup.x64.exe"
+
+DH_CUSTOM_INSTALL_DIR="C:\HylandDesktopHost"
+
+DH_CUSTOM_CONFIG_PATH="C:\DesktopHostInstaller\bin\config.json" /silent

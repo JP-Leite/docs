@@ -1,0 +1,15 @@
+---
+title: "Copy A Folder And Create New Documents"
+---
+
+---
+title: "Copy a Folder and Create New Documents"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/gzj1678221875302"
+section: "Hyland Content REST API"
+---
+
+Copy an existing folder and create new documents inside the copied folder by making API calls to the following endpoints in their listed order. See each endpoint's listed reference section for more information.
+
+1. To return an existing folder, call GET /api/documents/path[docPath] (see Return the Document with the Specified Path).
+2. To copy the existing folder, call POST /api/documents/[docId]/copy (see Copy a Document to a Folder).
+3. To create a new document in the copied folder, call POST /api/documents/path[docPath] (see Create a Document in a Folder with the Specified Path).

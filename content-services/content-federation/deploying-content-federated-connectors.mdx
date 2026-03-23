@@ -1,0 +1,59 @@
+---
+title: "Deploying Content Federated Connectors"
+---
+
+---
+title: "Deploying Content Federated Connectors"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/uqx1742412928336"
+section: "Content Federation Services"
+---
+
+Content Federated connectors are deployed as part of released projects created within Automate. Content Federated connectors are configured in the last step of the deployment process.
+
+Before a project can be deployed, you need to release the project. For more information on how to release a project in Automate, see Releasing Projects in the Hyland Automate Administration documentation.
+To deploy a project that contains a Content Federated connector:
+
+1.  Log in to the Automate Administration App.
+2.  In the left pane, select Devops > Project Releases. The Project Releases page is displayed.
+3.  Click the Options button (![Options button](data:image/gif;base64,R0lGODlhDQAZAHcAACH5BAAAAAAALAAAAAANABkAh////0dFUUdLbUdRmWRLUZFRUZHJ8cv5/O3Jmfn50Pn5/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhHABUIHEiwoMGDCBMqXEgQAQEBBhAmKBAgwIADBydWvIjQIUSGIBV6jJiRokWMBjWe7PiQZMiXDVtKNMkxJU2UBkfC3MmzYEAAOw==)) next to the project that includes a Content Federated connector.
+4.  Click Deploy. The Application Name page of the Deploy Application wizard is displayed.Note: For more information on the available options and fields in the Deploy Application wizard, see Deploying Projects in the Hyland Automate Administration documentation.
+5.  Configure the following fields:
+| Field | Description |
+| --- | --- |
+| Application Name | Enter a unique name for the project. |
+| Project Release | Select the release of the project you want to deploy. |
+| Environments | Select the environment in which the application is to be deployed. |
+
+6.  To enable development of custom UI applications, select Enable local development.
+7.  Click Next. The Validation page of the wizard is displayed.
+8.  Ensure the validation of the project is successful.
+9.  Click Next. The Admin Access page of the wizard is displayed.
+10.  To grant administrative access to the project, do one of the following:
+- To grant administrative access to individual users, select the users by entering their usernames in the Admin users field.
+- To grant administrative access to user groups, select the user groups by enter their user group names in the Admin groups field.
+11.  Click Next. The Manager Access page of the wizard is displayed.
+12.  To grant manager access to the project, do one of the following:
+- To grant manager access to individual users, select the users by entering their usernames in the Manager users field.
+- To grant manager access to user groups, select the user groups by entering their user group names in the Manager groups field.
+13.  Click Next. The User Access page of the wizard is displayed.
+14.  To grant user-level access to the project, do one of the following:
+- To grant user-level access to individual users, select the users by entering their usernames in the Users field.
+- To grant user-level access to user groups, select the user groups by entering their user group names in the User groups field.
+15.  Click Next. The Connectors page of the wizard is displayed.
+16.  Expand the editable fields by clicking Content Connector.
+17.  Configure fields based on whether the Content Federated connector in the project being deployed is connecting on behalf of an end user or through a service user. For more information, see Methods of User Configuration.
+- If the project contains a Content Federated connector that is connecting on behalf of (OBO) an end user, configure the following fields:
+| Field | Description |
+| --- | --- |
+| CONNECTOR_CONNECTION_IDENTIFIER | ID property associated with the CFS Connection in the Content Federation Admin Portal |
+| CONNECTOR_EXTERNAL_APPLICATION_ID | Not required for OBO |
+| CONNECTOR_EXTERNAL_APPLICATION_SECRET | Not required for OBO |
+
+- If the project contains a Content Federated connector that is connecting through a service user (SU), configure the following fields:
+| Field | Description |
+| --- | --- |
+| CFS_CONNECTION_IDENTIFIER | ID property associated with the CFS Connection in the Content Federation Admin Portal |
+| CONNECTOR_EXTERNAL_APPLICATION_ID | Identifier of the registered external application in the CIC |
+| CONNECTOR_EXTERNAL_APPLICATION_SECRET | Secret associated with the registered external application in the CIC |
+
+18.  Click Deploy. The project is deployed and made available to users.

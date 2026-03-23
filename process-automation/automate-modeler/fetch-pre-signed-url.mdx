@@ -1,0 +1,26 @@
+---
+title: "Fetch Pre Signed Url"
+---
+
+---
+title: "Fetch Pre-Signed URL"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ccv1711454657596"
+section: "Hyland Automate Modeler"
+---
+
+The Fetch pre-signed URL task is used to provide a pre-signed URL that points to a binary file within the repository in order to send that URL to an external end-point.
+
+The Action for this task is FETCH_PRE_SIGNED_URL.
+
+The Fetch pre-signed URL input parameters are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | Content | Requires one | Reference to the content object to be fetched, for example: 775a8f2d-8123-49a7-ae1f-f3f49d4eae20 |
+| expiration | Integer | Required | Provide the period, for which the generated pre-signed URL is valid. The time is stated in minutes. |
+
+The Fetch pre-signed URL output parameters are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| filePreSignedURL | string | Optional | The pre-signed URL of the file. |

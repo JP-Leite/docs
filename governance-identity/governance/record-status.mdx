@@ -1,0 +1,20 @@
+---
+title: "Record Status"
+---
+
+---
+title: "Record Status"
+source: "https://support.hyland.com/r/Current/Hyland-Governance/mku1748431572221"
+section: "Hyland Governance"
+---
+
+After you filter the records, you can see the record results. The following table presents the description of record statuses.
+
+| Record status | Description |
+| --- | --- |
+| Unprocessed | This status is for initially created records that are not selected for processing and do not have an assigned retention policy. If the Record Manager decides to remove an unprocessed record, it does not affect the content that is in the repository. |
+| Incomplete | The status for records that are found to be incomplete. This status is displayed when the document is missing a property-based date. The missing information needs to be completed for the record to fall under the Ready status. For more information on how to update a cutoff date in Workspace, see Editing Record Properties |
+| Ready | The status for records which were processed successfully by CIC Governance. The retention period has not started, because the cutoff date or the trigger event is in the future. The record is waiting for the retention to start. |
+| Under Retention | The status for records which are under active retention date. Note: Records with this status cannot be removed. The delete option is not available. |
+| Reached Disposition | The status for records that have passed the retention period. The record is marked for deletion and can be removed manually by the Record Manager. Both the record in Governance and the recorded content in the repository are removed. A record with this status can only be kept or deleted. It is not possible to edit a record with this status.Note: Records that have passed the retention period and have the Reached Disposition status are not removed automatically. |
+| On Hold | The status for records added to a legal hold. Records with this status cannot be altered or deleted. This status outweighs the existing record status, but doesnt remove it. The original record status continues to be subject to the retention lifecycle but the On Hold rule has a priority over the retention policy. It means, that until the record is on hold, it cannot be altered or removed, even if the disposition date has been reached. |

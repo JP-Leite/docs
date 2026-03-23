@@ -1,0 +1,23 @@
+---
+title: "Configuring User Groups"
+---
+
+---
+title: "Configuring User Groups"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-PolicyCenter/twf1767984879750"
+section: "Hyland for Guidewire PolicyCenter"
+---
+
+When a new environment is provisioned, several user groups are created by default. Do not delete or edit the default user groups unless directed to by a Hyland Administrator. If you need to create a new user group, see the Content Innovation Cloud Administration Portal documentation. Users must be manually added to these user groups. For general information on assigning users to HxPR user groups, see the Content Innovation Cloud Administration Portal documentation.
+
+The following user groups exist by default:
+
+| User Group Name | Description |
+| --- | --- |
+| Account Administrators | This user group provides configuration rights in the CIC Administration Portal allowing for general platform administration. |
+| Guidewire PC Content Users | This user group allows users to upload documents both from within Guidewire PolicyCenter and from within the Hyland CIC Platform. Note: Access to content may be further restricted by Document Security configuration settings. For more information on Document Security, refer to Configuring Document Security. |
+| Guidewire PC Solution Administrators | This user group provides configuration rights for backend processes such as document upload. |
+| Guidewire Doc Security - None | This user group corresponds to the PolicyCenter Security Type that is a blank field. PolicyCenter users who are a part of this group can view documents that have been uploaded with the Security Type none. If no specific permissions are set to the Unrestricted Security Type in Guidewire PolicyCenter, users who are assigned to the Guidewire Doc Security - None user group will also be able to view documents uploaded under the Unrestricted security type. CIC users assigned to the Guidewire Doc Security - None user group can only view documents uploaded under the Security Type none. When a document is uploaded to the Guidewire Doc Security - None Security Group, the guid of this user group is added to the Document Security Type ID property for the document. |
+| Guidewire Doc Security - Sensitive | This user group corresponds to the Sensitive Security Type set in Guidewire PolicyCenter. PolicyCenter users assigned to this user group can view documents uploaded to the None, Unrestricted and Sensitive Security Types. CIC users assigned to the Guidewire Doc Security - Sensitive user group can only view documents uploaded under the Security Type Sensitive |
+| Guidewire Doc Security - Unrestricted | This user group corresponds to the Unrestricted Document Security Type in Guidewire PolicyCenter. PolicyCenter users assigned to this user group can view documents uploaded under the Unrestricted Document and None Security Types.CIC users assigned to the Guidewire Doc Security - Unrestricted user group can only view documents uploaded under the Security Type Unrestricted.  When a document is uploaded to the Guidewire Doc Security - Unrestricted Security Group, the guid of this user group is added to the Document Security Type ID property for the document. |
+| Guidewire Doc Security - Internal only | This user group corresponds to the Internal only Document Security Type in Guidewire PolicyCenter. PolicyCenter users assigned to this user group can view documents uploaded under the Internal only Security Type.CIC users assigned to the Guidewire Doc Security - Internal only user group can view documents uploaded under the Security Type Internal only.  When a document is uploaded to the Guidewire Doc Security - Internal only Security Group, the guid of this user group is added to the Document Security Type ID property for the document. |

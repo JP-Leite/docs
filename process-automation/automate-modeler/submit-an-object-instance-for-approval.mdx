@@ -1,0 +1,25 @@
+---
+title: "Submit An Object Instance For Approval"
+---
+
+---
+title: "Submit an Object Instance for Approval"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/toc1677242962299"
+section: "Hyland Automate Modeler"
+---
+
+The APPROVAL_SUBMIT action is used by the Salesforce connector to submit a Salesforce object for approval.
+
+The input parameters to submit an object for approval are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| salesforcePayload | JSON | Required | The payload to send to Salesforce as a JSON map. See the  for valid fields to send. |
+
+[Salesforce API documentation](https://developer.salesforce.com/docs/api-explorer/sobject/Account)
+The output parameters from submitting an object for approval are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| salesforceResult | String | Optional | The result from the REST or SOAP call from Salesforce |
+| salesforceStatus | String | Optional | The HTTP status code of the response |

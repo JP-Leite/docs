@@ -1,0 +1,42 @@
+---
+title: "Adding Schema Properties"
+---
+
+---
+title: "Adding Schema Properties"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ytp1711351021431"
+section: "Hyland Automate Modeler"
+---
+
+Once the schema is created, you can add its properties and sub-properties.
+
+To configure schema properties:
+
+1.  Select the + button next to the [schema name] drop-down menu. The Add Property window is opened.
+2.  Enter the property Name.
+3.  Select the property Type from the drop-down menu. You can choose the following types:
+| Type | Description |
+| --- | --- |
+| String | A property that represents text. |
+| Integer | A property that represents a whole number. |
+| Floating point | A property that represents numbers with decimals (not only integer numbers.) |
+| Boolean | A property that represent a true or false option. |
+| Complex | A property that allows nesting sub-properties under a property. Only one level of sub-properties is allowed. |
+| Date | A property that represents a date. |
+| Blob | A property that represents binary content. For example, you can create a property to store thumbnails of the content objects in the repository. |
+
+4.  Enter an optional property Description.
+5.  Depending on the property type, you can add an optional default property value in the Default field.
+6.  Depending on the property type, you have the following additional property configuration options:
+
+| Option | Description |
+| --- | --- |
+| Multivalued | Defines whether the property can have multiple values.Available for all property types, except for Complex. |
+| Required | Defines whether the property value is required. Available for all property types, except for Complex. |
+| Limited length | Defines whether the property value has a limited character length. When selected, you can choose the minimum and maximum value length. Available for the following property types: String. |
+| Full text indexable | Defines whether the property value content will be indexed and can be searched for later. Available for the following property types: String, Blob. |
+| Limited value | Defines whether the property value is limited. When selected, you can choose the minimum and maximum value for the property. Available for the following property types: Integer, Date. |
+
+7.  When you are done configuring, select Add Property.
+
+The property is added to the schema. Repeat the steps to add further properties.

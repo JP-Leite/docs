@@ -1,0 +1,26 @@
+---
+title: "Creating An Entra Id Application For Sap Ias"
+---
+
+---
+title: "Creating an Entra ID application for SAP IAS"
+source: "https://support.hyland.com/r/Current/Hyland-for-SAP-SuccessFactors/uzy1762162592982"
+section: "Hyland for SAP SuccessFactors"
+---
+
+This section, intended for system administrators and SAP Administrator (in-house or Implementation Partner/Account Executive) , describes the steps to create an Entra ID application for SAP IAS.
+
+To create an Entra ID application for SAP IAS:
+
+1.  Log on to the SAP Cloud Identity Services Admin Console.
+To obtain the required link to log on and credentials, please work with your SAP Administrator (in-house or Implementation Partner/Account Executive).
+
+The Cloud Identity Services page is displayed.
+2.  Select Applications & Resources | Tenant Settings | Single Sign-On | SAML 2.0 Configuration. The SAML 2.0 Configuration page is displayed. These settings are required while creating a new Entra ID application for SAP IAS.
+3.  Log on to the Entra ID portal with administrator privileges. The Home page is displayed.
+4.  Select Enterprise applications | New application . The Browse Microsoft Entra App  page is displayed.
+5.  Click Create your own application. The Create your own application page is displayed.
+6.  Enter a name for the new application, select Integrate any other application you don't find in the gallery (Non-gallery), and then click Create. The Overview page for the new application is displayed.
+7.  Under the Getting Started section, click Set up single sign on. The Single sign-on page is displayed.
+8.  Under Select a single sign-on method, select SAML. The Set up Single Sign-On with SAML page is displayed.
+9.  In the Basic SAML Configuration section, click Edit.  Note: For more information on configuring Identifier (Entity ID) and Reply URL (Assertion Consumer Service URL), see the Identity Providers and Metadata for SAML Identity Providers chapters in the Content Innovation Cloud Administration Portal documentation.

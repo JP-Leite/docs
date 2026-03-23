@@ -1,0 +1,26 @@
+---
+title: "General Status Codes And Errors"
+---
+
+---
+title: "General Status Codes and Errors"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/gfu1674155149685"
+section: "Hyland Content REST API"
+---
+
+The following table lists general status codes and errors that may be returned when making requests to the Content REST API. For a listing of the status codes and errors specific to an endpoint, see that endpoint's section of the documentation.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | The requested action for the repository has been performed successfully. |
+| 201 | Created | A new resource has been created successfully. |
+| 202 | Accepted | The requested action has been accepted for processing, but the processing has not been completed. The request might be acted upon later, or it might be disallowed when processing occurs. |
+| 204 | No Content | The requested action for the repository has been performed successfully, and no content has been returned. |
+| 400 | Bad Request | The server could not process the request due to an apparent client error, such as a malformed request syntax. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |
+| 404 | Not Found | The requested resource could not be found. |
+| 409 | Conflict | The request could not be processed due to a conflict in the current state of the resource. |
+| 412 | Precondition Failed | The server did not meet all of the preconditions that the requestor specified on the request header fields. |
+| 422 | Unprocessable Entity | The request was well-formed but could not be followed due to validation errors. |
+| 501 | Not Implemented | The server could not recognize the request method, or the server lacked the ability to fulfill the request at the time the request was made. |

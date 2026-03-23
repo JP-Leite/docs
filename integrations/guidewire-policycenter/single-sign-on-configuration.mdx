@@ -1,0 +1,13 @@
+---
+title: "Single Sign On Configuration"
+---
+
+---
+title: "Single Sign-On Configuration"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-PolicyCenter/pnq1762963358985"
+section: "Hyland for Guidewire PolicyCenter"
+---
+
+You must create the following user groups in your single sign-on platform: Guidewire Doc Security - None, Guidewire Doc Security - Sensitive, Guidewire Doc Security - Unrestricted, and Guidewire Doc Security - Internal Only. These user groups will match the user groups in the Hyland Content Innovation Cloud which are created by default during environment provisioning.
+
+Because the user groups in the Hyland Content Innovation Cloud are configured with a Group Type of external, they will be controlled by your single sign-on platform. You must then assign users to the document security user groups based on their roles and permissions. For example, if a user should be able to view Sensitive documents in Guidewire PolicyCenter, then they will need to be added to the Guidewire Doc Security - Sensitive user group in your SSO platform. See your SSO platform's documentation for detailed information on creating user groups and assigning users.

@@ -1,0 +1,26 @@
+---
+title: "Task Triggers"
+---
+
+---
+title: "Task Triggers"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/aul1704697896909"
+section: "Hyland Automate Modeler"
+---
+
+Task triggers can be fired when an action is done in relation to tasks, for example a task is assigned, created, updated or completed.
+
+Specific details of when the trigger is fired. The configuration parameters are:
+
+| Parameter | Definition |
+| --- | --- |
+| condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
+| name | Task name as configured in the application, for example Set document metadata. |
+| status | Task status within the process, for example CREATED. |
+| owner | Username of the task owner, for example MyUsername. |
+| assignee | Username of the task assignee, for example MyUsername. |
+| priority | Priority of the task, for example 1. |
+| formKey | Key of the form associated to the task, for example form-17ed2ac0-a96c-494e-aed4-48455f469331. |
+| businessKey | If exists, a business key associated to the process instance, for example Customer Review Process. |
+| taskDefinitionKey | Task definition key as defined in the application, for example Activity_102rnv9. |
+| standalone | Boolean value of whether the task is standalone (true) or not (false). A standalone task means that the task can be executed by the engine itself, without creating a separate process for it. |

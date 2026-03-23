@@ -1,0 +1,49 @@
+---
+title: "Configuring applicationConfig.json"
+description: "Configure the OnBase Application Server connection and CIC ingestion parameters in applicationConfig.json."
+---
+
+The `applicationConfig.json` file connects the OnBase Connector to your OnBase Application Server and your Content Innovation Cloud ingestion environment. **This configuration is required.**
+
+The file is located in the `Configuration` folder of your installation directory:
+```
+C:\OnbaseConnectorSetUp\Configuration\applicationConfig.json
+```
+
+---
+
+## Configuration Steps
+
+<Steps>
+  <Step title="Open the File">
+    Open `applicationConfig.json` in a plain text editor such as **Notepad**.
+  </Step>
+  <Step title="Configure the OnBase Connector Section">
+    Locate the **OnBase Connector** section and update the following parameters:
+
+    | Property | Description | Example |
+    | --- | --- | --- |
+    | `DataProvider` | Database provider. Use `SqlServer` for SQL Server or `Oracle` for Oracle. | `"DataProvider": "SqlServer"` |
+    | `StartDate` | Start date for document ingestion (format: `MM-DD-YYYY`). Leave blank to ingest from the earliest available document. | `"StartDate": "04-10-2025"` or `"StartDate": ""` |
+    | `ApplicationServerURL` | OnBase Application Server URL. | `"ApplicationServerUrl": "https://sales-demohyland.com/AppServer/Service.asmx"` |
+    | `DataSource` | OnBase Unity API data source name. Found in the Web Application Management Console under **Connection Strings → View Contexts → Data Sources**. | `"DataSource": "OnBase"` |
+  </Step>
+  <Step title="Configure the Ingestion Connection Section">
+    Locate the **Ingestion Connection** section and update the following parameters:
+
+    | Property | Description | Example |
+    | --- | --- | --- |
+    | `HxpEnvironment` | CIC Environment Key. Found in the Knowledge Discovery URL. | `"HxpEnvironment": "hxai-e4ea560-a906-3246-90bc-eb882443d36c"` |
+    | `SourceId` | UUID of the connected repository. Created when connecting a repository in Knowledge Discovery. | `"SourceId": "e9d0d86e-ecdd-4055-9b45-645bc7agg6b3"` |
+  </Step>
+  <Step title="Save the File">
+    Save the `applicationConfig.json` file and close the editor.
+  </Step>
+</Steps>
+
+---
+
+## Next Steps
+
+- [Configure defaultConfig.json →](/integrations/onbase/configuring-the-defaultconfigjson-file)
+- [Encrypt the Secret Keys →](/integrations/onbase/encrypting-the-secret-keys)

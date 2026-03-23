@@ -1,0 +1,66 @@
+---
+title: "Starting the OnBase Connector"
+description: "Deploy the OnBase Connector IIS application pools and start the connector service."
+---
+
+After completing configuration and encryption, run the `DeployOBConnector.ps1` script to start the OnBase Connector for Content Intelligence. This script creates and starts all required IIS application pools.
+
+---
+
+## Start the Connector
+
+<Steps>
+  <Step title="Open PowerShell as Administrator">
+    Run **Windows PowerShell** with administrator privileges.
+  </Step>
+  <Step title="Navigate to the Connector Folder">
+    Use `cd` to navigate to the folder containing `DeployOBConnector.ps1`:
+
+    ```powershell
+    cd C:\OnbaseConnectorSetUp\OnbaseConnector
+    ```
+
+    Press **Enter**.
+  </Step>
+  <Step title="Run the Deployment Script">
+    For a **default IIS installation**, run:
+
+    ```powershell
+    Powershell -file DeployOBConnector.ps1
+    ```
+
+    If the connector is hosted on a **custom IIS website**, run instead, replacing `MyCustomSite` with your custom site name:
+
+    ```powershell
+    Powershell -file DeployOBConnector.ps1 -WebSiteName "MyCustomSite"
+    ```
+
+    Press **Enter** to execute.
+  </Step>
+  <Step title="Verify the IIS Application Pools">
+    Running the script starts the following IIS application pools, visible in **IIS Manager → Application Pools**:
+
+    - `OBConnectorDocumentImportPool`
+    - `OBConnectorGatewayPool`
+    - `OBConnectorNucleusIntegrationPool`
+    - `OBConnectorWebHostPool`
+
+    The connector begins running in the background.
+  </Step>
+</Steps>
+
+<Info>
+  Knowledge Discovery may not be immediately available after starting the connector. To monitor ingestion progress, check the log file in the `Logger` folder inside `ContIntOnbaseConnector.WebHost\` in your installation directory.
+</Info>
+
+---
+
+## Custom Website Hosting
+
+If you need to host the connector on a custom IIS website (rather than the Default Web Site), see [Hosting OnBase Connector on a Custom Website](/integrations/onbase/hosting-onbase-connector-on-a-custom-website) for full instructions.
+
+---
+
+## Next Step
+
+[Using Knowledge Discovery from OnBase →](/integrations/onbase/using-knowledge-discovery)

@@ -1,0 +1,39 @@
+---
+title: "Content Apis"
+---
+
+---
+title: "Content APIs"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/yqk1676631002295"
+section: "Hyland Automate Modeler"
+---
+
+The following content APIs are supported:
+
+-  ActionService
+-  GroupService
+-  NodeService
+-  PeopleService
+-  QueryService
+-  SearchService
+-  SiteService
+-  TagService
+
+Note: The API scripts can be tested in the simulator on the scripts window.
+You can create the object by accessing the API which then allows you to make use of all its methods.
+
+For example:
+
+```
+const documentApi = new DocumentApi();
+const document = documentApi.createDocumentUnderParentById(
+    variables.parentDocumentId,
+    null,
+    {
+        sys_primaryType: variables.documentPrimaryType,
+        dc_title: variables.documentTitle,
+        dc_description: variables.documentDescription
+    }
+);
+variables.document = document;
+```

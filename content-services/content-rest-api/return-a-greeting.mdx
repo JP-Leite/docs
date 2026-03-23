@@ -1,0 +1,43 @@
+---
+title: "Return A Greeting"
+---
+
+---
+title: "Return a Greeting"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/ujv1677623522729"
+section: "Hyland Content REST API"
+---
+
+Returns a greeting to the user.
+
+## Base Request
+
+```
+GET /hello
+```
+
+## Headers
+
+| Header Name | Description | Required | Values |
+| --- | --- | --- | --- |
+| Accept | The format of the data to be returned | Optional | text/plain |
+
+## Sample Request
+
+```
+GET /hello
+
+Accept: text/plain
+```
+
+## Response
+
+See Greeting for a sample response.
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns a greeting to the user. |

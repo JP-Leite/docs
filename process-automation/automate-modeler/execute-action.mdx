@@ -1,0 +1,28 @@
+---
+title: "Execute_Action"
+---
+
+---
+title: "EXECUTE_ACTION"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/mtb1713769399355"
+section: "Hyland Automate Modeler"
+---
+
+The EXECUTE_ACTION action is used to execute folder and file rules in ACS.
+
+The input parameters for EXECUTE_ACTION are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| actionDefinitionId | String | Required | Identifier of the action to be executed, for example copy. |
+| file | Array<json>, JSON | Optional | ACS file that the action is executed against. If the received value contains multiple files, only the first of them will be processed. |
+| folder | Array<json>, JSON | Optional | Alfresco Content Services folder to be updated. Folder variables are initialised by content actions or content events in triggers. |
+| nodeId | String | Optional | Node ID of the file or folder in Alfresco Content Services. For example: a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
+| params | JSON | Optionals | Parameters to be passed to the action. Key-Value pair map. |
+| path | String | Optional | Location or relative path of the node to be updated. For example, a location path could be /app:company_home/app:user_homes/cm:hruser and a relative path could be /User Homes/hruser (by default the relative path is from Company Home). |
+
+The output parameters from EXECUTE_ACTION are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| actionExecutionId | String | Optional | Identifier of the action execution.. |

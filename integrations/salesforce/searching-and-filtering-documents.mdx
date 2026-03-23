@@ -1,0 +1,86 @@
+---
+title: "Searching And Filtering Documents"
+---
+
+---
+title: "Searching and Filtering Documents"
+source: "https://support.hyland.com/r/Current/Hyland-for-Salesforce/hcn1756732334573"
+section: "Hyland for Salesforce"
+---
+
+This section shows you how to set filters so you can view only the documents captured using Hyland for Salesforce that match your specified criteria.
+
+After you capture documents using Hyland for Salesforce, you can view them in the Document List window. You can also configure and apply filters to show only the documents that match the criteria you choose.
+To search and filter documents:
+
+1.  Open a web browser and log on to the Salesforce environment with your credentials. The Home page is displayed.
+2.  On the Salesforce Record Detail page, navigate to the section where Hyland for Salesforce is added.
+3.  Log in to the application if you aren't authenticated already. The Document List window for the selected Salesforce object is displayed.
+This page displays a list of captured documents, columns and column names, total number of records, pages in the Document List window, and filtering criteria to sort and display documents.
+
+Note: These details are shown based on the settings configured through the Solution Configurations and Application Configurations sections within Hyland for Salesforce. These changes are typically made by your system administrator. Please contact your system administrator if you require help with these configurations. For detailed instructions, see the following:
+-
+Configuring the Application Configurations
+
+-
+Configuring the Solution Configurations
+
+4.  In the Quick Find text box, enter text or characters that you want to locate in the list of displayed document. A list of documents containing only the text or characters you entered and occuring in any of the columns and keywords corresponding to these documents is displayed in the Document List window.
+For example, if you entered example, all documents containing this value in the column names as well as the keywords, such as Document Name, File Name, is displayed.
+
+Note:
+-
+The search is restricted to keyword values only and does not search within the contents of captured documents.
+
+-
+Only columns and keywords and their values that are preconfigured are displayed in the Document List window. Configuring keywords and their values are typically done by your system administrator. Please contact your system administrator if you require help with these. For detailed instructions, see Configuring the Solution Configurations.
+
+Tip: To organize your view, click the arrow next to any column to sort documents in ascending or descending order. You can also drag columns to rearrange them as needed.
+5.  To specify filtering criteria that determines which documents are displayed in the Document List window, click the funnel-shaped icon to the left of the Import to Hyland for Salesforce button. The Filter section is displayed.
+6.  In the Filter section, you can do the following:
+- Add a rule
+- Add rule logic
+7.  To add a rule, click Add Rule.
+1.  From the Field drop-down list, select an option.
+These options include the column names displayed in the Document List window.
+
+2.  From the Operator drop-down list, select one of the following options:
+| Option | Description |
+| --- | --- |
+| Equals | Only documents with keywords that match the text you enter for Value are displayed in the results. |
+| Does Not Equals | Only documents with keywords that do not begin with the text you enter for Value are displayed in the results. |
+| Starts With | Only documents with keywords that begin with the text you enter for Value are displayed in the results. |
+| Ends With | Only documents with keywords that end with the text you enter for Value are displayed in the results. |
+| Contains | Only documents with keywords that contain the text you enter for Value are displayed in the results. |
+
+3.  In the Value text box, enter a value.
+This value and the selected operator determine the search and filter criteria. For example, if you chose Document ID as the Field, Contains as the Operator, and entered example as the Value, the results will show all documents with example anywhere in their Document ID.
+
+Note:
+-
+You can add multiple rules. To add multiple rules, repeat the steps. By default, all rules are combined with AND as the Operator and are applied while filtering documents.
+
+-
+To use a combination of rules, such as 1 AND 2 OR 3, you must use a rule logic.
+
+4.  Click Apply Filter. The Document List window displays all documents that match all the rules you configured.
+8.  To add a rule logic, click Add Rule Logic.
+This enables you to select a combination of rules from the two or more rules you configured.
+
+A text box is displayed.
+9.  In the text box, you can add AND or OR between the rule numbers, depending on how you want the rules to work together. Then click Apply Filter.
+-
+For example, if you added two rules and used OR, you can change to AND to make both rules required. The rule logic will be 1 AND 2 and both rules are applied.
+
+-
+If you added three rules and used a mix of AND and OR, you can change them to explore different combinations.The possible rule logics can be:
+
+| Combination | Description |
+| --- | --- |
+| 1 AND 2 AND 3 | All three rules are applied while filtering. |
+| 1 OR 2 OR 3 | Either of the three rules are applied while filtering. |
+| 1 AND 2 OR 3 | Rule 1 and 2 are applied, and then rule 3 is applied. Documents are shown in the results if both rules 1 and 2 are matched or rule 3 is matched. |
+| 1 OR 2 AND 3 | Rule 2 and 3 are applied, and then rule 1 is applied. Documents are shown in the results if both rules 2 and 3 are matched or rule 1 is matched. |
+
+Note: To prioritize a specific group of rules when applying filters, enclose that group in brackets. For example, if you’ve set up the rule logic as:1 AND 2 AND 3 OR 4 and you want 2 AND 3 to be evaluated first, add brackets around them: 1 AND (2 AND 3) OR 4. This ensures that rule 2 and 3 are applied first before combining with the others.
+The Document List window displays all documents that match the rules you configured.

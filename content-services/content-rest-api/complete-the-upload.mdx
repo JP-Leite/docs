@@ -1,0 +1,72 @@
+---
+title: "Complete The Upload"
+---
+
+---
+title: "Complete the Upload"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/hgu1680208126351"
+section: "Hyland Content REST API"
+---
+
+Completes the upload with the specified ID. This is mainly useful for direct uploads to Amazon S3 buckets.
+
+## Base Request
+
+```
+POST /api/upload/[id]/complete
+```
+
+where [id] is the alphanumeric ID for the upload.
+
+## Headers
+
+[Mozilla developer documentation](https://developer.mozilla.org/)
+
+| Header Name | Description | Required | Values |
+| --- | --- | --- | --- |
+| Authorization | The access token | Required | Bearer [access_token] where [access_token] is a string generated when you complete authentication (see Getting Started) |
+| User-Agent | Identity of the client making the request to the server | Required | [product]/[version] where [product] is the name of the software you are using to make the request and [version] is the numbered version of the software (for example, MyCompanyProduct/1.0). For information on other types of values commonly included in user-agent request headers, see the User-Agent HTTP header reference section on the  website. |
+| Accept | The format of the data to be returned | Optional | application/vnd.hxcs.v1+json |
+| Content-Type | The format of the data to be posted | Optional | application/json |
+
+## Request Body
+
+| Element | Description | Type | Required |
+| --- | --- | --- | --- |
+| fileKey | The key of the file to be uploaded. | string | Optional |
+| fileName | The name of the file to be uploaded. | string | Optional |
+| mimeType | The MIME type of the file to be uploaded. | string | Optional |
+
+## Sample Request
+
+```
+POST /api/upload/[id]/complete
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+Accept: application/vnd.hxcs.v1+json
+Content-Type: application/json
+
+{
+  "fileKey": "string",
+  "fileName": "myFile.txt",
+  "mimeType": "text/plain"
+}
+```
+
+## Response
+
+No response body is returned.
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | The upload with the specified ID has been completed successfully. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |
+| 404 | Not Found | The upload with the specified ID could not be found. |
+| 409 | Conflict | The upload could not be completed with the given information. |
+| 501 | Not Implemented | The upload could not be completed for the current upload handler. |

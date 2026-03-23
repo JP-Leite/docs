@@ -1,0 +1,63 @@
+---
+title: "Bulk Ingestion"
+description: "Manually push a batch of Confluence pages into Hyland Content Intelligence for an initial load or targeted refresh."
+---
+
+## When to Use Bulk Ingestion
+
+Bulk Ingestion is a manual operation that lets you select and push specific Confluence pages to Hyland Content Intelligence in a single batch. Use it in these scenarios:
+
+<CardGroup cols={2}>
+  <Card title="Initial Onboarding" icon="play">
+    Load your existing Confluence content into CIC before enabling Auto Ingestion. This ensures your knowledge base is populated from day one.
+  </Card>
+  <Card title="Targeted Refresh" icon="arrows-rotate">
+    Re-push a set of pages after a major restructure or when content has fallen out of sync, without waiting for Auto Ingestion to catch up.
+  </Card>
+  <Card title="New Space Integration" icon="folder-plus">
+    When a new Confluence space is added to your CIC Source ID scope, use Bulk Ingestion to load its historical content immediately.
+  </Card>
+  <Card title="Post-Incident Recovery" icon="shield-check">
+    If a connectivity issue prevented Auto Ingestion from running, Bulk Ingestion lets you backfill the missed changes quickly.
+  </Card>
+</CardGroup>
+
+---
+
+## Steps
+
+<Steps>
+  <Step title="Navigate to Ingest Screen">
+    In Confluence, go to **Apps → Hyland Content Intelligence** and select the **Ingest Confluence Content** screen.
+  </Step>
+  <Step title="Select Content to Ingest">
+    Browse the available pages and select one or more items you want to push to Content Intelligence.
+
+    You can select individual pages, all pages in a space, or a combination.
+  </Step>
+  <Step title="Click Ingest">
+    Click the **Ingest** button to start the ingestion process. The connector will queue the selected pages and transmit them to your HxI environment.
+  </Step>
+  <Step title="Monitor Progress">
+    A progress indicator confirms the operation. Larger batches may take several minutes. You do not need to keep the browser window open — the process runs in the background.
+  </Step>
+</Steps>
+
+---
+
+## Limits and Considerations
+
+| Item | Detail |
+| --- | --- |
+| **Content Types Supported** | Pages and Blog Posts only |
+| **Batch Size** | No hard limit; larger batches take proportionally longer |
+| **Re-ingestion** | Re-ingesting already-indexed pages overwrites the existing CIC entry with the latest version |
+| **Ordering** | Pages are queued in the order selected; processing is sequential |
+
+<Tip>
+  For large Confluence sites, start with the highest-priority spaces first. You can run additional Bulk Ingestion operations at any time without affecting Auto Ingestion.
+</Tip>
+
+<Warning>
+  Bulk Ingestion does **not** retroactively delete pages from CIC that have been removed from Confluence. To remove stale content, contact Hyland Support.
+</Warning>

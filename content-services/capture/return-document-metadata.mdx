@@ -1,0 +1,132 @@
+---
+title: "Return Document Metadata"
+---
+
+---
+title: "Return Document Metadata"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/bac1713979312152"
+section: "Hyland Capture"
+---
+
+Returns a list of metadata for the specified documents in the specified batch. These metadata include URLs pointing to PDF files for the documents.
+
+## Base Request
+
+```
+GET /api/export/batch/documents
+```
+
+## Query Parameters
+
+| Parameter | Description | Type | Required | Notes |
+| --- | --- | --- | --- | --- |
+| batchId | Alphanumeric ID for the batch. | string | Required | None |
+| docId | List of the alphanumeric IDs for the documents in the batch. | array | Required | The list must contain a minimum of one and a maximum of 30 document IDs. |
+
+## Headers
+
+See Export for headers details.
+
+## Sample Request
+
+```
+GET /api/export/batch/documents?batchId=635e1123c43252b2sdjn3529&docId=[635e1123c43252b2sdjn3530,635e1123c43252b2sdjn3531]
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+hxp_environment: test-ac7a0b36-4fca-3849-ga68-13e6h6385c8a
+hxp_app: hxc
+Accept: application/json
+```
+
+## Response Body
+
+-
+-
+-
+-
+-
+
+-
+-
+-
+-
+
+| Element | Description | Type | Notes |
+| --- | --- | --- | --- |
+| Documents | List of the specified documents in the batch. | array | None |
+| Id | Alphanumeric ID of the parent element. | string | The ID may represent a document, document class, field value, or original file. |
+| Name | The name of the parent element. | string | The name may represent a document, document class, or field value. |
+| BatchName | The name of the specified batch. | string | None |
+| ContentQueueName | The name of the Content Queue under which the batch resides. | string | None |
+| DocumentClass | List of elements identifying the document class to which the document is assigned. | array | Commonly used elements in the list may include the document class ID and name. |
+| FieldValues | List of values representing each document's fields. | array | Commonly used elements in the list may include the field ID and name. |
+| DisplayValue | The field value that is displayed to the user after it has been formatted. | string | None |
+| SourceValue | The text value of the field as it is provided by the source. | string | Common examples of sources providing the text values include OCR and bar code processing. |
+| DataType | An enumeration of the data types used in the application. | string | Common data types include the following:   Alphanumeric   Phrase   Numeric   DateTime   CurrencyAmount |
+| ExportedFiles | List of the files that have been exported from the application. | array | None |
+| FileName | The name of the file. | string | Depending on the parent element, the file name may represent an exported file or an original batch file. |
+| ContentType | The type of content the file represents. | string | This value maps to the MIME type set by the client (for example, image/png). Depending on the parent element, the content type may represent an exported file or an original batch file. |
+| DownloadUrl | The pre-signed download URL of the file. | string | None |
+| Checksum | The hashed value of the exported PDF file. | string | None |
+| ChecksumAlgorithm | Algorithm used to calculate the hash of the PDF file. | string | Common values include SHA-256. |
+| OriginalFiles | List of the original batch file details for the specified document. | array | None |
+| Rotation | The rotation angle of the original document. | string | Possible values include the following:  None   Clockwise   UpsideDown   CounterClockwise |
+| Skew | The skew angle of the original document. | floating point | Possible values range from -90.00 to 90.00 degrees. |
+
+## Sample Response
+
+```
+{
+  "Documents": [
+    {
+      "Id": "string",
+      "Name": "string",
+      "BatchName": "string",
+      "ContentQueueName": "string",
+      "DocumentClass": {
+        "Id": "string",
+        "Name": "string"
+      },
+      "FieldValues": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "DisplayValue": "string",
+          "SourceValue": "string",
+          "DataType": "Alphanumeric"
+        }
+      ],
+      "ExportedFiles": [
+        {
+          "FileName": "string",
+          "ContentType": "string",
+          "DownloadUrl": "string",
+          "Checksum": "string",
+          "ChecksumAlgorithm": "string",
+          "OriginalFiles": [
+            {
+              "Id": "string",
+              "FileName": "string",
+              "ContentType": "string",
+              "Rotation": "string",
+              "Skew": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns the list of metadata for the specified documents in the specified batch. |
+| 404 | Not Found | The specified batch or documents could not be found. Error details may include the following: ItemNotFound. |
+| 409 | Conflict | The specified batch is not in a state that is ready to be exported. Error details may include the following: InvalidBatchState. |
+| 500 | Internal Server Error | The document artifact and PDF file hashes do not match. Error details may include the following: ChecksumMismatch. |

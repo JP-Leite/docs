@@ -1,0 +1,62 @@
+---
+title: "Configuring Confluence Connector"
+description: "Complete the initial environment configuration for the Hyland Confluence Connector."
+---
+
+After installing the Hyland Content Intelligence app, you must configure two areas before any content can be ingested:
+
+1. **Ingestion Configuration** — your Hyland Content Intelligence (HxI) environment credentials
+2. **Atlassian API Token Configuration** — authentication credentials for accessing Confluence
+
+Both are configured from within the Hyland Content Intelligence app in Confluence's **Apps** menu.
+
+---
+
+## Configuration Checklist
+
+<Steps>
+  <Step title="Open the App Settings">
+    In Confluence, navigate to **Apps → Hyland Content Intelligence**. This opens the connector's configuration panel.
+  </Step>
+  <Step title="Configure HxI Environment Credentials">
+    Fill in your Environment ID, Client ID, and Client Secret to connect the app to your Hyland Insights environment.
+
+    See [Ingestion Configuration →](/integrations/confluence/ingestion-configuration) for a full field-by-field reference.
+  </Step>
+  <Step title="Configure Atlassian API Token">
+    Supply the Atlassian User ID and REST API token that the connector will use to authenticate against the Confluence API on behalf of a service account.
+
+    See [API Token Configuration →](/integrations/confluence/atlassian-api-token-configuration) for step-by-step instructions.
+  </Step>
+  <Step title="Save and Validate">
+    Save your configuration. The connector will attempt to validate the credentials. If validation succeeds, the app is ready to ingest content.
+  </Step>
+</Steps>
+
+---
+
+## Environment Requirements
+
+<CardGroup cols={2}>
+  <Card title="HxI Environment" icon="cloud">
+    You need an active Hyland Insights (HxI) environment. Contact your Hyland representative if you do not have one provisioned.
+  </Card>
+  <Card title="Atlassian Service Account" icon="at">
+    Use a dedicated **service account** for the API token rather than a personal account. This ensures ingestion continues even if a user leaves the organisation.
+  </Card>
+</CardGroup>
+
+<Warning>
+  Credentials are stored securely by the Atlassian platform. Never share your Client Secret or API token in plain text or store them in Confluence pages.
+</Warning>
+
+---
+
+## Related Guides
+
+| Guide | Purpose |
+| --- | --- |
+| [Ingestion Configuration](/integrations/confluence/ingestion-configuration) | HxI Environment ID, Client ID, Source ID, Client Secret fields |
+| [API Token Configuration](/integrations/confluence/atlassian-api-token-configuration) | Atlassian User ID and REST API token setup |
+| [Bulk Ingestion](/integrations/confluence/bulk-ingestion) | Perform an initial load of existing Confluence content |
+| [Auto Ingestion](/integrations/confluence/auto-ingestion) | Enable real-time sync for ongoing content updates |

@@ -1,0 +1,71 @@
+---
+title: "Performing A Simple Blob Upload Process"
+---
+
+---
+title: "Performing a Simple Blob Upload Process"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/tkt1710525235897"
+section: "Hyland Content REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start performing a simple blob upload process. This process involves creating or updating a document in the repository and bundling any wanted blobs with the main JSON payload for the document.
+
+Before performing a simple blob upload process, also note the following:
+
+- Because a simple blob upload may be processed in memory by some servers, blobs larger than 30 MB should be processed using the advanced blob upload process instead (see Performing an Advanced Blob Upload Process).
+- This tutorial makes calls to Document API endpoints. For full reference information on all available Document API endpoints, see Document.
+
+To perform a simple blob upload process:
+
+1.  Open Command Prompt or Terminal.
+2.  Create or update a document in the repository by making a call to one of the following endpoints while using a multipart/form-data content type:
+-  POST /api/documents/[docId] (see Create a Document in a Folder with the Specified ID for full reference information)
+-  POST /api/documents/path/[docPath] (see Create a Document in a Folder with the Specified Path for full reference information)
+-  PUT /api/documents/[docId] (see Update the Document with the Specified ID for full reference information)
+-  PUT /api/documents/path/[docPath] (see Update the Document with the Specified Path for full reference information)
+This request must also meet the following criteria:
+
+- The first part of the request must correspond to the endpoint's main content type (for example, application/json).
+- Each subsequent part of the request must represent a blob needed for the upload and include appropriate filename and content type information (for example, the content type for indirect streaming must be text/uri-list).
+- Each part of the request using indirect streaming must include a URI list with the first URI referring to the blob to be downloaded from the external source. If the download mechanism requires additional headers to be passed in the request, these headers must precede the first URI in the list and begin with # (for example, # Cookie: test=cookie).
+- Any blob must be paired with the appropriate part of the request by matching the blob's upload ID with the name property of the corresponding content disposition.
+The following example makes a call to the POST /api/documents/[docId] endpoint, and it includes a mixture of client-streamed blobs and reference URIs for indirect streaming:
+
+```
+curl -i -X POST [base_url]/api/documents/00000000-0000-0000-0000-000000000000 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: multipart/form-data; boundary=d74496d66958873e" \
+  -d "--d74496d66958873e" \
+  -H "Content-Disposition: form-data; name=\"main\"" \
+  -H "Content-Type: application/json" \
+  -d "{\"sys_title\": \"My File\", \"sysfile_blob\": {\"uploadId\": \"1234\"}, \"mybiz_image\": {\"uploadId\": \"5678\"}}, \"myearth_image\": {\"uploadId\": \"9012\"}}" \
+  -d "--d74496d66958873e" \
+  -H "Content-Disposition: form-data; name=\"1234\"; filename=\"image1.jpg\"" \
+  -H "Content-Type: image/jpeg" \
+  -d "[first_blob_content]" \
+  -d "--d74496d66958873e" \
+  -H "Content-Disposition: form-data; name=\"5678\"; filename=\"image2.gif\"" \
+  -H "Content-Type: image/gif" \
+  -d "[second_blob_content]" \
+  -d "--d74496d66958873e" \
+  -H "Content-Disposition: form-data; name=\"9012\"; filename=\"image3.jpg\"" \
+  -H "Content-Type: text/uri-list" \
+  -d "# Authorization: Bearer [access_token]" \
+  -d "# Cookie: test=cookie" \
+  -d "https://www.example.com/images/earth/earth-night.jpeg" \
+  -d "--d74496d66958873e--"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the Hyland Content repository |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+| [first_blob_content] | Any content, including all parameters, to be included in the request's first blob. |
+| [second_blob_content] | Any content, including all parameters, to be included in the request's second blob. |
+
+For response body details and a sample response to this type of request, see Document.

@@ -1,0 +1,31 @@
+---
+title: "Patch"
+---
+
+---
+title: "PATCH"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/nak1677156904501"
+section: "Hyland Automate Modeler"
+---
+
+The PATCH action is used to send HTTP PATCH requests.
+
+The input parameters for PATCH are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| restUrl | String | Required | URL of the REST endpoint including the protocol and path, for example: http://hyland.com |
+| restUrlParams | JSON | Optional | JSON map of the URL parameter names and values to append to the URL. |
+| restUrlEncoded | Boolean | Optional | Determines whether to encode the URL, for example: true. |
+| requestHeaders | JSON | Optional | A JSON map of the request header names and values. Values can be fixed values or variables. |
+| requestPayload | JSON | Optional | The body of the request. |
+| circuitBreaker | Boolean | Optional | Determines whether the circuit breaker is enabled, for example: true. |
+| timeout | Integer | Optional | The timeout period to wait for the service in milliseconds. The default timeout is 30 000. |
+
+The output parameters from PATCH are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| restResult | JSON | Optional | The response from the REST service call. |
+| restStatus | Integer | Optional | The HTTP response status code from the REST service call. |
+| responseHeaders | JSON | Optional | The HTTP response headers from the REST service call. |

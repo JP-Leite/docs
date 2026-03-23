@@ -1,0 +1,18 @@
+---
+title: "Uploading A Blob And Attaching It To A Document"
+---
+
+---
+title: "Uploading a Blob and Attaching It to a Document"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/svj1710524988852"
+section: "Hyland Content REST API"
+---
+
+To ensure a blob is persisted in the Hyland Content repository, you must first upload the blob to the repository and then use the blob within a content object. You can perform these two actions either within a single request or spread across multiple requests. While the single-request approach offers simplicity for smaller blobs (up to about 30 MB), the multiple-request approach allows you to use a more advanced process that uploads larger blobs in chunks. This advanced process offers improved performance by uploading chunks in parallel, and it allows you to suspend and resume the upload process by pausing between chunks.
+
+In addition, when transferring the blob's data to the repository, you can either directly provide the set of bytes that make up the blob in a process called client streaming, or provide an external URI reference to these bytes in a process called indirect streaming. A URI would be interpreted by the repository, which can use more optimized download mechanisms than the ones that could be used by the client making the request.
+
+See the following sections for details on the simple and advanced blob upload processes:
+
+-  Performing a Simple Blob Upload Process
+-  Performing an Advanced Blob Upload Process

@@ -1,0 +1,27 @@
+---
+title: "Update_Tag"
+---
+
+---
+title: "UPDATE_TAG"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/lnn1713769569410"
+section: "Hyland Automate Modeler"
+---
+
+The UPDATE_TAG action is used to update the tags for a file or folder.
+
+The input parameters for UPDATE_TAG are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| file | Array<json>, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
+| folder | Array<json>, JSON | Optional | ACS folder to be updated. If the received value contains multiple references to folders, only the first of them will be used. |
+| nodeId | String | Optional | Node ID of the file or folder in ACS. Example: a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
+| path | String | Optional | Node ID of the file or folder in ACS. For example, a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
+| tags | Array<string> | Required | Tags to be updated or added. |
+
+The output parameters from UPDATE_TAG are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| response | Array<json> | Optional | Response for the calls. |

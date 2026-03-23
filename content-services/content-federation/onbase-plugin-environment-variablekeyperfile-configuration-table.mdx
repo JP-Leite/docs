@@ -1,0 +1,25 @@
+---
+title: "Onbase Plugin Environment Variablekeyperfile Configuration Table"
+---
+
+---
+title: "OnBase Plugin Environment Variable/KeyPerFile Configuration Table"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/ewu1763399140200"
+section: "Content Federation Services"
+---
+
+The following OnBase Plugin Configuration Environment Variables are supported in the container.
+
+The {PluginEnvPrefix} is configured within the Broker configuration, and each plugin within the ‘Plugins’ section must have a unique {PluginEnvPrefix}.
+
+| Config Section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
+| --- | --- | --- | --- |
+| PluginConfiguration | The URL for MCA | {PluginEnvPrefix}PluginConfiguration__0__McaServerUrl | PluginConfiguration__0__McaServerUrl |
+| PluginConfiguration | Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| IdentityProviderOptions | The URL for IDP (Hyland IdS in case of OnBase) | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Address | PluginConfiguration__0__IdentityProviderOptions__Address |
+| IdentityProviderOptions | The IdP Client ID | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The IdP Client Secret | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The IdP Grant Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__GrantType | PluginConfiguration__0__IdentityProviderOptions__GrantType |
+| IdentityProviderOptions | The IdP Subject Token Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType | PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType |
+| IdentityProviderOptions | The IdP Scope | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Scope | PluginConfiguration__0__IdentityProviderOptions__Scope |
+| IdentityProviderOptions | The IdP Tenant | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__IdPTenant | PluginConfiguration__0__IdentityProviderOptions__IdPTenant |

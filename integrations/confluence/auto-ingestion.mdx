@@ -1,0 +1,67 @@
+---
+title: "Auto Ingestion"
+description: "Keep Hyland Content Intelligence in sync with Confluence automatically — no manual intervention required."
+---
+
+## How Auto Ingestion Works
+
+Once the Confluence Connector is configured, **Auto Ingestion** monitors your selected Confluence site for changes. Whenever a page or blog post is created, edited, or deleted, the connector automatically pushes the updated content and its metadata to Hyland Content Intelligence.
+
+This ensures that AI agents querying your knowledge base always have access to the most current version of your documentation — without any manual effort.
+
+<Info>
+  Auto Ingestion is triggered by **content save events** in Confluence. Minor edits and draft saves may not trigger ingestion depending on your Confluence version and configuration.
+</Info>
+
+---
+
+## Enabling Auto Ingestion
+
+Auto Ingestion is enabled as part of the standard connector configuration. No additional steps are required beyond completing the [Ingestion Configuration](/integrations/confluence/ingestion-configuration) and [API Token Configuration](/integrations/confluence/atlassian-api-token-configuration).
+
+Once credentials are saved and validated, the connector begins listening for events on the configured Confluence site automatically.
+
+---
+
+## What Gets Ingested
+
+| Content Type | Ingested? |
+| --- | --- |
+| Pages | ✅ Yes |
+| Blog Posts | ✅ Yes |
+| Attachments | ❌ Not supported |
+| Comments | ❌ Not supported |
+| Jira Links | ❌ Not supported |
+
+---
+
+## Auto Ingestion vs. Bulk Ingestion
+
+<CardGroup cols={2}>
+  <Card title="Auto Ingestion" icon="rotate">
+    **Best for:** Ongoing sync after initial setup.
+
+    Automatically captures changes as they happen. Requires no user action. Ideal for keeping CIC up to date with daily editorial activity.
+  </Card>
+  <Card title="Bulk Ingestion" icon="bolt">
+    **Best for:** Initial data load or backfill.
+
+    Manually select and push a batch of pages to CIC in one operation. Use this when onboarding a new Confluence space or recovering from an outage.
+
+    [Learn more →](/integrations/confluence/bulk-ingestion)
+  </Card>
+</CardGroup>
+
+---
+
+## Troubleshooting
+
+<Accordion title="Changes in Confluence are not appearing in Content Intelligence">
+  1. Confirm the connector is fully configured and credentials are valid — go to **Apps → Hyland Content Intelligence → Settings**.
+  2. Check that the affected page is in a Confluence **space** that is in scope for the configured Source ID.
+  3. Wait a few minutes — there may be a brief processing delay before changes propagate to CIC.
+</Accordion>
+
+<Accordion title="A deleted page is still appearing in search results">
+  Deleted content is eventually de-indexed during the next sync cycle. If it persists, trigger a **Bulk Ingestion** on the affected space to force a refresh.
+</Accordion>

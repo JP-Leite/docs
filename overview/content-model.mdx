@@ -1,0 +1,32 @@
+---
+title: "Content Model"
+description: "Documents, versions, content types, and repository structure"
+---
+
+## Core Entities
+
+The CIC content model is built around these key concepts:
+
+### Document
+The primary content object. A document has metadata (properties), a binary file (blob), and belongs to a content type.
+
+### Content Type
+Defines the schema for a document — which properties it has, which blobs it can hold, and what behaviors apply to it.
+
+### Property
+A metadata field on a document (e.g. `title`, `author`, `createdDate`). Properties have a name, type, and can be required or optional.
+
+### Blob
+The binary content of a document (e.g. a PDF, image, or Word file). A document can have one or more blobs.
+
+### Repository
+A logical container for documents, folders, and content types. Each CIC environment has one or more repositories.
+
+### Folder Structure
+Documents are organized in a hierarchical folder tree within a repository.
+
+## Related APIs
+
+- **Repository REST API** — CRUD operations on documents, folders, and content types
+- **Query Service** — Search across documents and process data
+- **Transformation Service** — Convert documents between formats

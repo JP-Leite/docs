@@ -1,0 +1,27 @@
+---
+title: "Xml"
+---
+
+---
+title: "XML"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/meo1678966175789"
+section: "Hyland Automate Modeler"
+---
+
+An example of the XML of a start event without a form defined is:
+
+```
+<bpmn2:startEvent id="StartProcess_1" name="FormStart_4">
+	<bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+</bpmn2:startEvent>
+```
+
+An example of the XML of a start event with a form defined is:
+
+```
+<bpmn2:startEvent id="StartProcess_1" name="FormStart_4" activiti:formKey="form-4ccd023b-d607-4cab-8623-da4c87dd9611">
+	<bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+</bpmn2:startEvent>
+```
+
+Note: The activiti:formKey is the id of the form used to start the process.

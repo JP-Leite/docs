@@ -1,0 +1,189 @@
+---
+title: "Creating A Document"
+---
+
+---
+title: "Creating a Document"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/iwt1677090114024"
+section: "Hyland Content REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start creating documents in the Hyland Content repository and assigning access privileges to them.
+
+Note: This tutorial makes calls to Document API endpoints. For full reference information on all available Document API endpoints, see Document.
+To create a document:
+
+1.  Open Command Prompt or Terminal.
+2.  Enter the following request to create a new document at the root level of the repository:
+```
+curl -i -X POST [base_url]/api/documents/00000000-0000-0000-0000-000000000000 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sys_primaryType\": \"SysFile\", \"sys_title\": \"My File\"}"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the Hyland Content repository |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+A response that includes the structure of your newly created document is displayed, as shown in the following example:
+
+```
+{
+  "sys_ancestorIds": [
+    "string"
+  ],
+  "sys_changeToken": "string",
+  "sys_contributors": [
+    {
+      "email": "string",
+      "firstName": "string",
+      "id": "d857a535-df7c-49da-aec3-e26ad728594d",
+      "lastName": "string",
+      "properties": {
+        "additionalProp1": {},
+        "additionalProp2": {},
+        "additionalProp3": {}
+      }
+    }
+  ],
+  "sys_created": "2025-10-02T17:53:42.710Z",
+  "sys_creator": {
+    "email": "string",
+    "firstName": "string",
+    "id": "d857a535-df7c-49da-aec3-e26ad728594d",
+    "lastName": "string",
+    "properties": {
+      "additionalProp1": {},
+      "additionalProp2": {},
+      "additionalProp3": {}
+    }
+  },
+  "sys_description": "string",
+  "sys_effectivePermissions": [
+    "string"
+  ],
+  "sys_fulltextBinary": "string",
+  "sys_id": "63a5f989-9ce8-4605-8c3a-0697084b9453",
+  "sys_isFolderish": true,
+  "sys_lastContributor": {
+    "email": "string",
+    "firstName": "string",
+    "id": "d857a535-df7c-49da-aec3-e26ad728594d",
+    "lastName": "string",
+    "properties": {
+      "additionalProp1": {},
+      "additionalProp2": {},
+      "additionalProp3": {}
+    }
+  },
+  "sys_lifecycleState": "string",
+  "sys_lockCreated": "2025-10-02T17:53:42.710Z",
+  "sys_lockOwner": {
+    "email": "string",
+    "firstName": "string",
+    "id": "string",
+    "lastName": "string",
+    "properties": {
+      "additionalProp1": {},
+      "additionalProp2": {},
+      "additionalProp3": {}
+    }
+  },
+  "sys_mixinTypes": [
+    "SysVersionable"
+  ],
+  "sys_modified": "2025-10-02T17:53:42.710Z",
+  "sys_name": "My File",
+  "sys_parentId": "00000000-0000-0000-0000-000000000000",
+  "sys_parentPath": "string",
+  "sys_path": "/My File",
+  "sys_pathDepth": 0,
+  "sys_pos": 0,
+  "sys_primaryType": "File",
+  "sys_repository": "string",
+  "sys_secpol": [
+    "string"
+  ],
+  "sys_title": "My File"
+}
+```
+
+3.  To modify the new document's ACL, use the document's ID as you enter a request similar to the following example:
+```
+curl -i -X PUT [base_url]/api/documents/[sys_id] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sys_acl\": [{\"user\": {\"firstName\": \"John\", \"lastName\": \"Doe\", \"id\": \"[anothertestuser_id]\"}, \"permission\": \"Read\", \"granted\": true, \"creator\": \"testuser\", \"begin\": \"2024-01-01T00:00:00Z\", \"end\": \"2025-01-01T00:00:00Z\"}]}"
+```
+
+where [sys_id] is the ID of the document you created in step 2 and [anothertestuser_id] is a unique string ID you can specify for a user as you grant them access privileges.
+
+A response similar to the one in step 2 is displayed, only this new response includes ACL-related properties, such as sys_acl and sys_effectiveAcl:
+
+```
+{
+  "sys_acl": [
+    {
+      "begin": "2024-01-01T00:00:00Z",
+      "creator": "testuser",
+      "end": "2025-01-01T00:00:00Z",
+      "granted": true,
+      "group": {
+        "id": "string",
+        "name": "string"
+      },
+      "permission": "Read",
+      "status": "EFFECTIVE",
+      "user": {
+        "email": "string",
+        "firstName": "John",
+        "id": [anothertestuser_id],
+        "lastName": "Doe",
+        "properties": {
+          "additionalProp1": {},
+          "additionalProp2": {},
+          "additionalProp3": {}
+        }
+      }
+    }
+  ],
+  "sys_effectiveAcl": [
+    {
+      "begin": "2024-01-01T00:00:00Z",
+      "creator": "testuser",
+      "end": "2025-01-01T00:00:00Z",
+      "granted": true,
+      "group": {
+        "id": "string",
+        "name": "string"
+      },
+      "permission": "Read",
+      "status": "EFFECTIVE",
+      "user": {
+        "email": "string",
+        "firstName": "John",
+        "id": [anothertestuser_id],
+        "lastName": "Doe",
+        "properties": {
+          "additionalProp1": {},
+          "additionalProp2": {},
+          "additionalProp3": {}
+        }
+      }
+    }
+  ],
+  ...
+  "sys_id": "63a5f989-9ce8-4605-8c3a-0697084b9453",
+  ...
+}
+```
+
+For more information on the response body elements shown in these examples, see Document.

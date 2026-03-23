@@ -1,0 +1,46 @@
+---
+title: "Installation Overview"
+---
+
+---
+title: "Installation Overview"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/mhr1742244578603"
+section: "Content Federation Services"
+---
+
+The Content Federation Services (CFS) application requires the installation and/or configuration of related components in order to connect to your content repository. The specific components required for using the CFS, such as the CF Broker and CF Plugin, differ depending on the type of content repository that you connect to the CFS.
+
+The following topics detail the requirements for installing and configuring CFS components.
+
+## Overview of Steps
+
+The following list represents a high-level overview of the steps needed to install the Content Federation Services (CFS) application. This overview includes notes where steps differ depending on your content repository.
+
+| Installation Step | Required for? |
+| --- | --- |
+| Prerequisite Requirements |  | All repositories |
+|  | Compatible Content and Data Source Systems | All repositories |
+|  | Microsoft .NET Core and .NET Framework | All repositories |
+|  | Temporary File Service (TempFS) | OnBase only |
+|  | Content Federation Metadata-Content Abstraction (CF MCA) Adapter | OnBase only |
+|  | Hyland Identity Service (IdS) | OnBase only |
+|  | Hyland Application Settings Utility (HASU) | All repositories |
+|  | Secure Environment Recommendations | All repositories |
+| Registering an Application for the CF Broker |  | OnBase, Alfresco, and Nuxeo |
+| Configuring User Groups and Roles for the CFS |  | All repositories |
+| Registering the CFS Consumer API in the Content Innovation Cloud |  | All repositories |
+| Adding a System Integration |  | All repositories |
+| Configuring an App Registration for SharePoint Integration |  | SharePoint only |
+| Configuring a New Connection |  | All repositories |
+|  | Acquiring Connection Information for SharePoint | SharePoint only |
+| Configuring Hyland IdS to Connect with the CF Broker |  | OnBase only |
+| Installing the CF Broker |  | OnBase, Alfresco, and Nuxeo |
+| Configuring the CF Broker |  | OnBase, Alfresco, and Nuxeo |
+| Installing the CF Plugin |  | OnBase, Alfresco, and Nuxeo |
+| Note: The CF Plugin must be installed on the same computer as the CF Broker. |
+|  | Installing the CF OnBase Plugin | OnBase repositories that are not mapping to CIC users |
+|  | Installing the CF Alfresco Plugin | Alfresco only |
+|  | Installing the CF Nuxeo Plugin | Nuxeo only |
+|  | Installing the CF FI Plugin | OnBase repositories that are mapping to CIC users |
+|  | Note: For information on mapping users, see User Mapping. |
+| Starting the CF Broker Service |  | OnBase, Alfresco, and Nuxeo |

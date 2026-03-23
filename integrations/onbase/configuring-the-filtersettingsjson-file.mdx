@@ -1,0 +1,65 @@
+---
+title: "Configuring filterSettings.json"
+description: "Restrict document ingestion to specific OnBase Document Types and Keyword Values using filterSettings.json."
+---
+
+By default, the OnBase Connector ingests **all documents** in your OnBase repository. The `filterSettings.json` file lets you narrow ingestion to specific **Document Types** and **Keyword Values**, so only relevant content is processed.
+
+<Info>
+  This configuration step is **optional**. If no filters are configured, the connector ingests all documents.
+</Info>
+
+The file is located at:
+```
+C:\OnbaseConnectorSetUp\Configuration\filterSettings.json
+```
+
+---
+
+## Configuration Steps
+
+<Steps>
+  <Step title="Open the File">
+    Open `filterSettings.json` in a plain text editor such as **Notepad**.
+  </Step>
+  <Step title="Configure the Filter Settings">
+    The file has the following structure. Modify as needed:
+
+    | Setting | Description |
+    | --- | --- |
+    | `docTypes` | A collection of Document Types to ingest. If empty, **all documents** are ingested. |
+    | `name` | The name of the Document Type (e.g., `"Purchase order"`). Used to match the OnBase Document Type. |
+    | `filterKeywords` | A list of Keyword Types that must match for a document to be ingested. Each item has a `keywordName` and `keywordValue`. Only documents matching **all** keyword values will be ingested. |
+    | `ingestableKeywords` | A list of Keyword Type names whose values will be ingested as document metadata. If empty, **all** Keyword Types for that Document Type are ingested. |
+  </Step>
+  <Step title="Apply the Example Configuration">
+    Here is an example `filterSettings.json` that ingests documents of type `docType1` where Keyword `name1 = value1` AND `name2 = value2`, and ingests keywords `name3` and `name4` as metadata:
+
+    ```json
+    {
+      "docTypes": [
+        {
+          "name": "docType1",
+          "filterKeywords": [
+            {
+              "keywordName": "name1",
+              "keywordValue": "value1"
+            },
+            {
+              "keywordName": "name2",
+              "keywordValue": "value2"
+            }
+          ],
+          "ingestableKeywords": [
+            "name3",
+            "name4"
+          ]
+        }
+      ]
+    }
+    ```
+  </Step>
+  <Step title="Save and Close">
+    Save the `filterSettings.json` file and close the editor.
+  </Step>
+</Steps>

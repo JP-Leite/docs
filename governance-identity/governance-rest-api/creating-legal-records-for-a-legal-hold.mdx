@@ -1,0 +1,160 @@
+---
+title: "Creating Legal Records For A Legal Hold"
+---
+
+---
+title: "Creating Legal Records for a Legal Hold"
+source: "https://support.hyland.com/r/Current/Hyland-Governance-REST-API/xxz1760311222655"
+section: "Hyland Governance REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start creating and viewing the details for legal records to be included in a legal hold process.
+
+Before creating legal records for a legal hold process, also note the following:
+
+- Legal records can be created for multiple legal cases. To retrieve legal records for a legal case that was previously created for the same legal hold process, you must use the existing legal case's ID (see Creating a Legal Case for a Legal Hold).
+- This tutorial makes calls to Legal Record API endpoints. For full reference information on all available Legal Record API endpoints, see Legal Record.
+
+To create legal records:
+
+1.  Open Command Prompt or Terminal.
+2.  Enter a request similar to the following example to search for records (with optional query parameters):
+```
+curl -i -X GET [base_url]/api/records/query?fileName=MyRecord \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "Accept: application/json"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the repository to which you are connecting your Governance solution |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+A response that includes each record's ID, environment data source ID, and category ID is displayed, as shown in the following example:
+
+```
+{
+  "contents": [
+    {
+      "createdByUser": "string",
+      "createdAt": "2025-10-09T02:50:01.939Z",
+      "modifiedByUser": "string",
+      "modifiedAt": "2025-10-09T02:50:01.939Z",
+      "createdByUsername": "string",
+      "modifiedByUsername": "string",
+      "id": "c3814fe7-af63-4bd1-8906-d3c2453e091g",
+      "environmentDataSourceId": "b2615fe6-bc85-4bb1-8886-c2c2118e098f",
+      "status": "string",
+      "cutOffDate": "2025-10-09T02:50:01.939Z",
+      "retainUntil": "2025-10-09T02:50:01.939Z",
+      "categoryId": "fbd717cb-2813-40b9-a3a9-948a3e06916e",
+      "disposition": "string",
+      "hasCredential": true,
+      "fileName": "MyRecord",
+      "entityType": "ACCOUNT",
+      "accountId": "string",
+      "contentID": "string",
+      "contentMetadata": {
+        "additionalProp1": "string",
+        "additionalProp2": "string",
+        "additionalProp3": "string"
+      },
+      "eventType": "string",
+      "dataSourceType": "HxPR",
+      "environmentID": "string",
+      "contentFocus": "string"
+    }
+  ],
+  "lastEvaluatedKey": "string"
+}
+```
+
+3.  Create legal records for the retrieved records by using the retrieved record, environment data source (eds), and category IDs, as well as the legal case ID for the legal case you want to attach the legal records to, as you enter a request similar to the following example:
+```
+curl -i -X POST [base_url]/api/legal-records \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d "{\"records\": [{\"edsId\": \"b2615fe6-bc85-4bb1-8886-c2c2118e098f\", \"categoryId\": \"fbd717cb-2813-40b9-a3a9-948a3e06916e\", \"recordId\": \"c3814fe7-af63-4bd1-8906-d3c2453e091g\"}], \"legalCaseIds\": [\"57a3f856-4ce8-9105-7c2a-0153064b8453\"]}"
+```
+
+A 201 HTTP status is displayed in response, as the records are created in asynchronous mode.
+
+4.  To retrieve the legal records attached to the legal case at any point after creating them, use the legal case's ID as you enter a request similar to the following example:
+```
+curl -i -X GET [base_url]/api/legal-records/57a3f856-4ce8-9105-7c2a-0153064b8453 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "Accept: application/json"
+```
+
+A response that includes each legal record's content ID and environment data source ID is displayed, as shown in the following example:
+
+```
+{
+  "contents": [
+    {
+      "createdByUser": "string",
+      "createdAt": "2025-10-09T02:56:24.800Z",
+      "modifiedByUser": "string",
+      "modifiedAt": "2025-10-09T02:56:24.800Z",
+      "createdByUsername": "string",
+      "modifiedByUsername": "string",
+      "id": "string",
+      "environmentDataSourceId": "b2615fe6-bc85-4bb1-8886-c2c2118e098f",
+      "status": "string",
+      "legalHoldCategoryId": "string",
+      "fileName": "string",
+      "entityType": "ACCOUNT",
+      "accountId": "string",
+      "contentID": "91af83ba-0e34-32t7-l4m5-678ha97fs8de",
+      "contentMetadata": {
+        "additionalProp1": "string",
+        "additionalProp2": "string",
+        "additionalProp3": "string"
+      },
+      "eventType": "string",
+      "dataSourceType": "HxPR",
+      "environmentID": "string"
+    }
+  ],
+  "lastEvaluatedKey": "string"
+}
+```
+
+5.  To retrieve the legal cases attached to the legal records you created, use each legal record's content and environment data source (eds) IDs as you enter a request similar to the following example:
+```
+curl -i -X GET [base_url]/api/legal-records/legal-cases?contentId=91af83ba-0e34-32t7-l4m5-678ha97fs8de&eds=b2615fe6-bc85-4bb1-8886-c2c2118e098f \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "Accept: application/json"
+```
+
+A response similar to the following example is displayed:
+
+```
+[
+  {
+    "createdByUser": "string",
+    "createdAt": "2025-10-09T03:00:39.416Z",
+    "modifiedByUser": "string",
+    "modifiedAt": "2025-10-09T03:00:39.416Z",
+    "createdByUsername": "string",
+    "modifiedByUsername": "string",
+    "legalCaseId": "string",
+    "legalCaseName": "string",
+    "legalCaseDescription": "string",
+    "environmentId": "string",
+    "legalCaseReason": "string",
+    "recordsCount": 0
+  }
+]
+```
+
+For more information on the response body elements shown in these examples, see Record and Legal Case, respectively.

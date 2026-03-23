@@ -1,0 +1,21 @@
+---
+title: "Chrome Restricts Desktop Host"
+---
+
+---
+title: "Chrome Restricts Desktop Host"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/qen1653580320204"
+section: "Hyland Capture"
+---
+
+Issue: While using some versions of Chrome to establish a connection between Desktop Host and web applications configured to run on the HTTP protocol, the connection may not be established.
+
+Solution: To prevent cross-site request forgery (CSRF) attacks, Chrome has introduced some restrictions on versions 94 and above. Thus, requests to access private networks from insecure public websites are now deprecated. You can configure Chrome to access restricted private networks from insecure public networks by changing the block-insecure-private-network-requests preference. Alternately, contact your system administrator to have your web applications configured to use only the HTTPS protocol.
+
+For additional information, consult documentation from Chrome on private network access (PNA).
+
+To configure Chrome to access restricted private networks from insecure public networks:
+
+1.  Open a new tab in Chrome.
+2.  In the address bar, enter chrome://flags/#block-insecure-private-network-requests.
+3.  From the drop-down next to the Block insecure private network request preference, select Disabled.

@@ -1,0 +1,51 @@
+---
+title: "Actions"
+---
+
+---
+title: "Actions"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/uyl1676967429069"
+section: "Hyland Automate Modeler"
+---
+
+Actions are the operations a connector can take, for example sending a message on Slack and creating a channel in Slack are two different actions. A connector instance can execute any number of actions, however each service task can only execute one.
+
+Each action has a set of input parameters and output parameters. Input parameters are values sent from the process for the connector to execute, and output parameters are the values the connector sends back to the process after it has executed. The values sent as input and output parameters are defined using the Mapping type property on the service task and process variables.
+
+The properties for input and output parameters are:
+
+| Property | Required | Description |
+| --- | --- | --- |
+| Name | Required | The name of the parameter, for example: userId |
+| Description | Optional | A free text description of the parameter, for example: The ID of a Slack user |
+| Type | Required | The data type of the parameter, for example: String |
+| Required | Optional | Determines whether the parameter requires a value when being used, for example: true |
+
+An example of the JSON for the Slack connector SEND_MESSAGE action is:
+
+```
+"actions": {
+        "88296a50-f6cf-496e-b433-5d794788fc8f": {
+            "id": "88296a50-f6cf-496e-b433-5d794788fc8f",
+            "name": "SEND_MESSAGE",
+            "description": "Sends a standalone message to a Slack conversation. Conversations can be public or private channels, or direct messages.",
+            "inputs": [
+                {
+                    "id": "f7435a5c-20bd-46e4-9d26-901a9dabb87c",
+                    "name": "userId",
+                    "description": "Internal Slack user id. If present, the message will be sent as a direct message.",
+                    "type": "string"
+                },
+...
+            ],
+            "outputs": [
+                {
+                    "id": "c9daca61-6ecd-4dd2-b8b0-f1f99589cd52",
+                    "name": "slackError",
+                    "description": "If present, it describes the error occurred trying to send the message.",
+                    "type": "string"
+                },
+...
+            ]
+        },
+```

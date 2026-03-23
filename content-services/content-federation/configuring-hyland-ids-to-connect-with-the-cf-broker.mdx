@@ -1,0 +1,125 @@
+---
+title: "Configuring Hyland Ids To Connect With The Cf Broker"
+---
+
+---
+title: "Configuring Hyland IdS to Connect with the CF Broker"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/fub1751045325051"
+section: "Content Federation Services"
+---
+
+Hyland Identity Service (IdS) is required to authenticate and authorize requests from the Content Innovation Cloud (CIC) to OnBase through the Content Federation Services (CFS).
+
+CAUTION: This setup is only required for OnBase repositories. Note: The following steps assume initial setup has been completed for OnBase and focus on configuring settings specific to CFS communication. For more information on available configuration settings for Hyland IdS, see Configuring Hyland IdS in the Identity and Access Management Services documentation.
+To configure Hyland IdS to connect with the CF Broker:
+
+1.  Launch the Hyland IdS Administration client.
+2.  Log in to the Hyland IdS Administration client. The tenant configuration information is displayed. In a wide display, the tenant information is in the left pane. In a narrow display, the tenant information is at the top of the page.
+3.  In the SCIM Endpoint field, ensure the value entered is the URL of the Hyland SCIM sever endpoint on the API Server. This is the API Server URL with /onbase/SCIM appended to it. For example, if the root URL of the API Server is https://server.domain.com and the default application name was used, then the SCIM Endpoint value is https://server.domain.com/ApiServer/onbase/SCIM.Note:
+Make sure the use of HTTP or HTTPS matches the configuration of your domain in IIS. Hyland IdS must be configured for secure connections (HTTPS).
+
+4.  Click the Provider tab.
+5.  Click Add New. The Provider configuration page is displayed. It is divided into the Basic Settings and Protocol Settings areas.
+6.  Under Protocol Settings, from the Type drop-down list, select Token-Exchange. The specific settings for Token-Exchange providers are displayed.
+7.  Under Basic Settings, configure the following options:
+
+| Option | Description |
+| --- | --- |
+| Name | Enter a unique name for the provider. This value is required and cannot contain any slashes (/ or \). |
+| User Attribute Mapping | In the UserId field, enter sub.In the Username field, enter preferred_username. |
+| Strip domain from username | Select this option to remove the domain from the user name before it is passed for authentication.This setting controls whether to automatically strip the domain from user names that are passed as either domain\username or username@domain. This is useful when providers use a full domain and user name but the authenticating system only uses the user name. |
+| Enable User Provisioning | Select this option to synchronize the user attributes defined in the User Attribute Mapping section when the user logs in. |
+| User Provisioning Create Enabled | Select this option to allow creating a new user in the tenant resource if the user logging in is not found.If this option is not selected and the user logging in is not found, that user is not logged in and an error message is displayed. |
+| User Provisioning Update Enabled | Select this option to allow updating an existing user in the tenant resource if the user logging in is found.If this option is not selected, the incoming user information from the tenant is ignored and no updates are made to user information. |
+
+8.  Under Protocol Settings, configure the following options:
+-
+-
+
+-
+-
+| Option | Description |
+| --- | --- |
+| Subject Token Type | Select Identity Token. |
+| Issuer | Enter one of the following values depending on your region: US: https://auth.iam.experience.hyland.com/idp  EU: https://auth.app.hyland.eu/idp |
+| Cache Duration in Seconds | Enter the duration, in seconds, to retain the results of calls to locations in either the Issuer or JWKS URI setting.The default setting is 14400 seconds (4 hours). To prevent caching results, enter 0 (zero). |
+| JWKS Setting | Select JWKS URI. |
+| JWKS URI | Enter one of the following values depending on your region: US: https://auth.iam.experience.hyland.com/idp/.well-known/openid-configuration/jwks  EU: https://auth.app.hyland.eu/idp/.well-known/openid-configuration/jwks |
+
+9.  Click Save.
+10.  Click the Clients tab.
+11.  Click Add New. The Client configuration page is displayed.
+12.  In Client Details, under Basic Settings, configure the following options:
+
+-
+-
+
+-
+-
+-
+
+-
+-
+-
+| Option | Description |
+| --- | --- |
+| Client ID | The unique ID of the client connection.Note: This value should not be changed. For new client connections, the value is generated automatically when the client connection is saved. |
+| Client Name | The display name of the client connection, which is used for logging purposes.Note: This value is required. |
+| Client Description | A brief description of the client connection used to help identify the clients that can use it to connect. |
+| Protocol Type | Set to oidc (OpenID Connect standard) |
+| Redirect URLs | The allowed URLs to return tokens or authorization codes to.To add a new URL to the list, type the URL in the field and press Enter. To remove a configured URL, click the cancel symbol next to the URL value. Note the following:  URLs are not validated by the Hyland IdS Administration client. To enable native client applications (such as mobile or desktop clients) to receive loopback authentication redirects, include the loopback address http://127.0.0.1 in this list as well as in the Post Logout Redirect URLs list. Additional client configuration may be required; see the documentation for the client. |
+| Allowed Frame Ancestors | A list of the URIs allowed to produce a frame for the Hyland IdS to authenticate.This setting provides configuration values for the Content-Security-Policy HTTP response header's frame-ancestors directive. For more information, see the public specification for Content Security Policy (CSP). Note the following:  URI values must be origins only; do not include trailing slashes, paths, or queries. Wildcards and ports are allowed. As a best practice, use HTTPS instead of HTTP. |
+| Include X-Frame-Options | Select this option to include the X-Frame-Options HTTP response header to allow cross-domain communication using the ALLOW-FROM directive, such as authenticating embedded content in an iframe.Note: This option should only be used to support non-standard behavior in web browsers that do not fully support the Content Security Policy response header, including Internet Explorer and other older browsers. Note the following:  If this option is selected, you must also specify the parent domain URL in the Allowed Frame Ancestors setting. Only one domain value is supported when using X-Frame-Options; any additional domains beyond the first one entered will be ignored. Wildcards are not supported in the domain URL when using X-Frame-Options. |
+
+13.  In Authentication Restriction Settings, under Allowed Grant Types, select Token Exchange.
+14.  In Authentication Restriction Settings, configure the following options:
+-
+-
+
+| Option | Description |
+| --- | --- |
+| Allowed Scopes | Enter the following scopes:  mca   evolution |
+| Allowed Identity Providers | The external identity providers (IdPs) that can be used with this client. Select from the list of configured external IdPs in the drop-down list.Leave this value empty to allow all IdPs. The default value is empty (all external IdPs are allowed). |
+| User SSO Lifetime | The maximum time (in seconds) allowed since the user was last authenticated. |
+| Allow users to log in locally | Select to allow this client connection to use local accounts. If this option is deselected, this client connection can only use external IdPs. |
+| Allow clients to request a refresh token | Leave this option disabled. |
+| Allow issuing access tokens to browsers | Select to transmit access tokens through the browser.This option is not selected by default. |
+
+15.  Under Token, configure the following options:
+-
+-
+
+| Option | Description |
+| --- | --- |
+| Identity Token Lifetime | The lifetime of the identity token, in seconds. |
+| Access Token Lifetime | The lifetime of the access token, in seconds. |
+| Authorization Code Lifetime | The lifetime of the authorization code, in seconds. |
+| Absolute Refresh Token Lifetime | The maximum lifetime of a refresh token, in seconds. |
+| Sliding Refresh Token Lifetime | The sliding lifetime of a refresh token, in seconds. |
+| Refresh Token Usage | Whether or not the refresh-token handle is updated when the token is refreshed. Select ReUse to use the same handle or OneTime to update the handle. |
+| Refresh Token Expiration | Sets the expiration behavior of the refresh token. Select one of the following options:  Absolute: Forces the refresh token to expire at a fixed point in time that is defined by the Absolute Refresh Token Lifetime value.  Sliding: Renew the lifetime of the refresh token by an amount of time defined by the Sliding Refresh Token Lifetime value.  In either case, the length of time will not exceed the amount of time defined in the Absolute Refresh Token Lifetime value. |
+| Update access token claims upon refresh | Select this option to update the access token and its claims with a refresh-token request. |
+| Access Token Type | Set the type of access token. Select Reference if it is a reference token or Jwt if it is a self-contained JWT token. |
+| Include unique ID in JWT access token | Select this option to embed a unique ID from the claim in JWT access tokens. |
+| Include user claims in ID token | Select to include user claims with the id token. If this is not selected, the client is required to use the userinfo endpoint. |
+| Pairwise Subject Salt | Leave this value empty. |
+
+16.  Under Security, configure the following options:
+
+| Option | Description |
+| --- | --- |
+| Allowed Cors Origins | If a client has a cross-origin URL from Hyland IdS, meaning the client is under a different domain from the server, you can configure the URL of the client as an Allowed Cors Origin value.Note: You cannot configure a wildcard (*) as an origin value. This option is only required if cross-origin URLs are not already listed under the Redirect URLs or the Post Logout Redirect URLs options. Enter a URL origin value and press Enter to add it to the list. Note: Origin values are not validated by the Hyland IdS Administration client. Origin values must be entered using the following format, where my.domain is the domain name of the client and xxxx is the port number of the URL: https://my.domain.com:xxxx  Note: Port numbers are only required if the client is accessed with a port in the URL. To remove an origin, click the cancel symbol next to its value. |
+
+17.  Under Secret, select Client Secret must be present.
+18.  In Client Secrets, click Add New.
+19.  Configure the following options for the client secret:
+
+| Option | Description |
+| --- | --- |
+| Description | Optional: Enter a brief description to help identify the client secret. This is mostly for logging purposes. |
+| Value | Enter the Secret value configured for the CF Broker.The client secret value is created as part of registering the CF Broker as an application in the Content Innovation Cloud Administration Portal. For more information, see Registering the CF Broker in the Content Innovation Cloud. |
+| Expiration | The date after which the client secret Value has to be updated.Enter the date in M/D/YYYY format, or select it from the graphical calendar by clicking the calendar icon at the right end of the Expiration field. |
+| Type | Select Shared Secret. |
+
+20.  Click Save.
+21.  Recycle the application pool of Hyland IdS in IIS for the changes to take effect.

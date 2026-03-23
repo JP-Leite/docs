@@ -1,0 +1,38 @@
+---
+title: "Creating Standard Connectors"
+---
+
+---
+title: "Creating Standard Connectors"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/hvy1676966063922"
+section: "Hyland Automate Modeler"
+---
+
+Connectors are created as BPMN elements by dragging them into a process definition from the palette.
+
+To create a connector:
+
+1.  Open a process.
+2.  Click the rectangle with a plug button (Connectors) in the tool palette. A selection of available connector types is displayed.
+3.  Select the connector that you would like to add to your process. The available options are: REST, Salesforce, Slack, Twilio, Lambda, Comprehend, rekogniRekognition, DocuSign, Database Connectors, Textract, Transcribe, Microsoft Teams, Calendar.
+4.  At the prompt, choose one of the following options:
+- If this is the first time using the connector within the project, click Create a new instance and give it a name.
+- If the connector has already been used within the project and the tasks will share the same configuration patterns (for example, using the same SMTP provider to send an email), select an existing instance.
+5.  Drag the connector onto the diagram canvas. When dropped, the connector is selected and its properties are displayed in the Properties pane on the right.
+6.  Fill in the properties in the Properties pane:
+| Property | Required | Description |
+| --- | --- | --- |
+| ID | Required | Identifier of the connector. It is given automatically. |
+| Name | Optional | Optional name of the connector. When entered, it is displayed in the connector rectangle within the process diagram. |
+| Documentation | Optional | Description of the connector that can be useful for people working on the process. |
+| Multi Instance Type | Required | Option allowing to repeat the element within the process. For more information, see Multi-instance. The default setting is None. |
+| Implementation | Required | Name of the instance selected or given when creating the connector. |
+| Action | Required | Action that the connector will perform in the process. For more information, search for the connector you would like to add in this documentation. |
+
+Note:
+The connectors are granted as repository administrators by default, so they can access all files and folders in the repository.
+
+7.  Once the action is selected, select the Mapping type from the drop-down menu. For more information, see Mapping Process Variables.
+8.  To save the connector, click the Save process button at the top of the pane.
+
+If the connectors are created in the project but are not used in any process, they are not deployed into the final application.

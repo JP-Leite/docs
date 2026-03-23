@@ -1,0 +1,165 @@
+---
+title: "Exporting A Batch"
+---
+
+---
+title: "Exporting a Batch"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/equ1714079920736"
+section: "Hyland Capture"
+---
+
+Once you have acquired an access token (see Getting Started), you can start exporting batches and their metadata out of the Hyland Capture application.
+
+After a user has finished processing a batch, you can download a ZIP file containing the batch's metadata and PDF files of all documents in the batch. Optionally, you can download individual documents instead of the entire batch. Once you have finished downloading the batch documents and metadata, mark the exported batch as complete so it can be deleted in the application by background processes.
+
+Note: This tutorial makes calls to Export API endpoints. For full reference information on all available Export API endpoints, see Export.
+To export a batch:
+
+1.  Open Command Prompt or Terminal.
+2.  Retrieve a list of batches ready for download by entering a request similar to the following example:
+```
+curl -i -X GET [base_url]/api/export/batch/list?first=5 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "hxp_environment: test-ac7a0b36-4fca-3849-ga68-13e6h6385c8a" \
+  -H "hxp_app: hxc" \
+  -H "Accept: application/json"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of your Hyland Capture environment |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+A response that includes the list of retrieved batch IDs is displayed, as shown in the following example:
+
+```
+{
+  "Batches": [
+    {
+      "ID": "635e1123c43252b2sdjn3529"
+    },
+    {
+      "ID": "635e1123c43252b2sdjn3530"
+    },
+    {
+      "ID": "635e1123c43252b2sdjn3533"
+    },
+    {
+      "ID": "635e1123c43252b2sdjn3536"
+    },
+    {
+      "ID": "635e1123c43252b2sdjn3537"
+    }
+  ],
+  "TotalBatches": 5
+}
+```
+
+3.  Retrieve a download URL for the batch you want to export by entering a request similar to the following example, using the appropriate batch ID from the previous response:
+```
+curl -i -X GET [base_url]/api/export/batch?batchId=635e1123c43252b2sdjn3529 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "hxp_environment: test-ac7a0b36-4fca-3849-ga68-13e6h6385c8a" \
+  -H "hxp_app: hxc" \
+  -H "Accept: application/json"
+```
+
+A response that includes the download URL for the batch and IDs for the documents in the batch is displayed, as shown in the following example:
+
+```
+{
+  "BatchId": "string",
+  "BatchName": "string",
+  "ContentQueueId": "string",
+  "ContentQueueName": "string",
+  "DownloadUrl": "string",
+  "Checksum": "string",
+  "ChecksumAlgorithm": "string",
+  "DocumentIds": [
+    "663225c5cecd4546ecdc21f4",
+    "663225ce5d008d0cd044d200",
+    "663225d2af7e54ec1f32032a"
+  ],
+  "DeletedFiles": [
+    {
+      "FileId": "string",
+      "ContentType": "string",
+      "OriginalFileName": "string"
+    }
+  ]
+}
+```
+
+4.  To download individual documents instead of the entire batch, enter a request similar to the following example, using the appropriate document IDs from the previous response:
+```
+curl -i -X GET [base_url]/api/export/batch/documents?batchId=635e1123c43252b2sdjn3529&docId=663225c5cecd4546ecdc21f4 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "hxp_environment: test-ac7a0b36-4fca-3849-ga68-13e6h6385c8a" \
+  -H "hxp_app: hxc" \
+  -H "Accept: application/json"
+```
+
+A response that includes the download URL for each specified document is displayed, as shown in the following example:
+
+```
+{
+  "Documents": [
+    {
+      "Id": "663225c5cecd4546ecdc21f4",
+      "Name": "string",
+      "BatchName": "string",
+      "ContentQueueName": "string",
+      "DocumentClass": {
+        "Id": "string",
+        "Name": "string"
+      },
+      "FieldValues": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "DisplayValue": "string",
+          "SourceValue": "string",
+          "DataType": "Alphanumeric"
+        }
+      ],
+      "ExportedFiles": [
+        {
+          "FileName": "string",
+          "ContentType": "string",
+          "DownloadUrl": "string",
+          "Checksum": "string",
+          "ChecksumAlgorithm": "string",
+          "OriginalFiles": [
+            {
+              "Id": "string",
+              "FileName": "string",
+              "ContentType": "string",
+              "Rotation": "string",
+              "Skew": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+5.  To download a ZIP file containing the batch's metadata and PDF files of documents in the batch, navigate to the download URL returned in the previous response for the batch or individual documents.
+6.  Mark the exported batch as complete, or ready for deletion, by entering a request similar to the following example:
+```
+curl -i -X PATCH [base_url]/api/export/complete?batchId=635e1123c43252b2sdjn3529 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "hxp_environment: test-ac7a0b36-4fca-3849-ga68-13e6h6385c8a" \
+  -H "hxp_app: hxc"
+```
+
+For more information on the request parameters and response body elements shown in these examples, see Export.

@@ -1,0 +1,24 @@
+---
+title: "Configuring Guidewire Home"
+---
+
+---
+title: "Configuring Guidewire Home"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-PolicyCenter/oaf1767815823823"
+section: "Hyland for Guidewire PolicyCenter"
+---
+
+You must configure the planets in your Guidewire Home application for OAuth.
+
+To configure OAuth in Guidewire Home:
+
+1.  In Guidewire Home, navigate to Variables.
+2.  Add a new variable for each planet that you want to enable OAuth for.
+3.  Set the Application to Policy Center.
+4.  Set the Key to PLUGIN_AUTHENTICATIONVERIFIER_SUBJECTMAPPINGS_<sub>, with <sub> replaced with the Client ID you were provided by Guidewire.
+5.  Set the Value to the user name of the service user you want the CIC Document Upload feature to use.  Note: When the CIC Document Upload feature performs an action in Guidewire, it will be logged under this user. It is recommended that a dedicated service user is used.
+6.  In Guidewire Home, navigate to Planets.
+7.  Select your planet and navigate to Insurance Suite.
+8.  Select variables.
+9.  Navigate to the section for Policy Center and locate the DEPLOYMENT_ID variable.  Note: If the DEPLOYMENT_ID variable does not exist, you will have to add it using Guidewire Resource Notation (GRN). Refer to Guidewire's documentation for details on adding variables using GRN.
+10.  Restart the affected planets.

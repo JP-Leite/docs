@@ -1,0 +1,38 @@
+---
+title: "Rekognition"
+---
+
+---
+title: "Rekognition"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/rau1676969304075"
+section: "Hyland Automate Modeler"
+---
+
+The LABEL action is used by the Rekognition connector to execute Amazon Rekognition services to identify and label the objects in JPEG and PNG files that are less than 15mb in size.
+
+The Amazon Rekognition API that is called is the Detect Labels API.
+
+Files between 5mb and 15mb are uploaded to an Amazon S3 bucket before processing. The IAM user configured to run the Rekognition service requires:
+
+- Access to this bucket
+- Access to the Rekognition service itself
+- Permission to rekognition:DetectLabels
+
+The authentication for the Rekognition connector is set using the configuration parameters. For more details, see Rekognition Configuration Parameters.
+
+The input parameters of the Rekognition connector are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| file | Content | Required | A variable of type file to send for analysis. |
+| mediaType | String | Optional | The media type of the file to be analyzed, for example: /octect-stream |
+| maxLabels | Integer | Optional | The maximum number of labels to be return. The default value is 10. |
+| confidenceLevel | String | Optional | The level of confidence (0 – 10) to use in the analysis, for example: 0.75 |
+| timeout | Integer | Optional | The timeout period for calling the Rekognition service in milliseconds, for example: 910000 |
+
+The output parameters from the Rekognition analysis are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| awsResponse | JSON | Optional | The result of the analysis from the Rekognition service. |
+| labels | JSON | Optional | The result object containing the labels detected. |

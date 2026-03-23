@@ -1,0 +1,18 @@
+---
+title: "Start Message"
+---
+
+---
+title: "Start Message"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/tbf1676891969680"
+section: "Hyland Automate Modeler"
+---
+
+The action to send a start message will send a named message when an event criteria are met. The message can be caught by a message start event to start a process instance. The payload for the start message action is:
+
+| Property | Required | Description |
+| --- | --- | --- |
+| name | Required | The name of the message to send, for example: Message_077epax |
+| payloadType | Required | The type of payload. This is set to StartMessagePayload and cannot be changed. |
+| businessKey | Optional | A business key ID for the process instance. |
+| variables | Optional | Values from the trigger event can be sent as part of the message payload. |

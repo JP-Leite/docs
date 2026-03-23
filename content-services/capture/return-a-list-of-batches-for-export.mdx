@@ -1,0 +1,70 @@
+---
+title: "Return A List Of Batches For Export"
+---
+
+---
+title: "Return a List of Batches for Export"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/ynw1713979367928"
+section: "Hyland Capture"
+---
+
+Returns a list of available batches that are ready to exported from the application.
+
+## Base Request
+
+```
+GET /api/export/batch/list
+```
+
+## Query Parameters
+
+| Parameter | Description | Type | Required | Notes |
+| --- | --- | --- | --- | --- |
+| contentQueueId | Alphanumeric ID for the Content Queue by which to filter the available batches. | string | Optional | None |
+| first | The number of available batches by which to limit the search results. | integer | Optional | Valid values range from 1 to 1000. Default is 10. |
+
+## Headers
+
+See Export for headers details.
+
+## Sample Request
+
+```
+GET /api/export/batch/list?first=5
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+hxp_environment: test-ac7a0b36-4fca-3849-ga68-13e6h6385c8a
+hxp_app: hxc
+Accept: application/json
+```
+
+## Response Body
+
+| Element | Description | Type | Notes |
+| --- | --- | --- | --- |
+| Batches | List of the batches ready for export. | array | None |
+| ID | Alphanumeric ID of the batch. | string | None |
+| TotalBatches | The total number of batches ready to be exported. | integer | None |
+
+## Sample Response
+
+```
+{
+  "Batches": [
+    {
+      "ID": "string"
+    }
+  ],
+  "TotalBatches": 0
+}
+```
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns the list of batches that are ready to be exported. |
+| 404 | Not Found | The Content Queue with the specified ID could not be found. |

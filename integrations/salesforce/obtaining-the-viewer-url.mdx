@@ -1,0 +1,32 @@
+---
+title: "Obtaining The Viewer Url"
+---
+
+---
+title: "Obtaining the Viewer URL"
+source: "https://support.hyland.com/r/Current/Hyland-for-Salesforce/ygh1755109982947"
+section: "Hyland for Salesforce"
+---
+
+While configuring the settings on the Application Configuration page, you must enter a value for the Viewer URL field. This section contains information on how to configure and obtain the value for the Viewer URL.
+
+Each document captured using Hyland for Salesforce contains a unique ID. This unique ID is used to form a standard URL for each document displayed within the application.
+
+To obtain the value for the Viewer URL, you must use the Hyland Automate Administration application and configure the value.Note: For more information on how to use the Hyland Experience Studio Administration application, see the Admin Application chapter in the Hyland Automate Administration documentation.
+To obtain the Viewer URL:
+
+1.  Log in to the Studio Administration App.
+2.  From the left pane, expand Devops and select Application Instances.
+3.  Under the Application name column, search for hfs-configurations and select it.
+4.  Under the Workspace column, select Hyland For Salesforce HX Viewer and right-click it. A drop-down menu is displayed.
+5.  From the drop-down, select Copy link address and paste the copied value in a plain-text editor.
+6.  Append the following to the link address you copied:
+/#/default/documents/{doc_id}
+
+For example, if the link address you copied is https://example.com, then the complete link will be
+
+https://example.com/#/default/documents/{doc_id}
+
+Note: When the list of one or more documents are displayed in the application, the {doc_id} is populated with the unique ID for a document to form a URL specific to each document. Users can click this URL to open a document in a new tab of their browser.
+7.  Copy the entire link and paste it in the Viewer URL field on the Application Configurations page.
+For more information on how to configure this field and other settings on the Application Configurations page, see Configuring the Application Configurations.

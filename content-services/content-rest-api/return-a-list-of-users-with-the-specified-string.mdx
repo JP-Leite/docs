@@ -1,0 +1,71 @@
+---
+title: "Return A List Of Users With The Specified String"
+---
+
+---
+title: "Return a List of Users with the Specified String"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/mpq1694792407657"
+section: "Hyland Content REST API"
+---
+
+Returns a list of users whose first or last names contain the specified string.
+
+## Base Request
+
+```
+GET /api/user
+```
+
+## Query Parameters
+
+| Parameter | Description | Type | Required | Notes |
+| --- | --- | --- | --- | --- |
+| name | Part of the user name. | string | Required | None |
+
+## Headers
+
+[Mozilla developer documentation](https://developer.mozilla.org/)
+
+| Header Name | Description | Required | Values |
+| --- | --- | --- | --- |
+| Authorization | The access token | Required | Bearer [access_token] where [access_token] is a string generated when you complete authentication (see Getting Started) |
+| User-Agent | Identity of the client making the request to the server | Required | [product]/[version] where [product] is the name of the software you are using to make the request and [version] is the numbered version of the software (for example, MyCompanyProduct/1.0). For information on other types of values commonly included in user-agent request headers, see the User-Agent HTTP header reference section on the  website. |
+| Accept | The format of the data to be returned | Optional | application/vnd.hxcs.v1+json |
+
+## Sample Request
+
+```
+GET /api/user/?name=jones
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+Accept: application/vnd.hxcs.v1+json
+```
+
+## Response Body
+
+See User for response body details.
+
+## Sample Response
+
+```
+[
+  {
+    "id": "string",
+    "firstName": "string",
+    "lastName": "string",
+    "email": "string"
+  }
+]
+```
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns the list of users whose first or last names contain the specified string. |
+| 400 | Bad Request | The server could not process the request due to an apparent syntax error, such as a missing query parameter. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |

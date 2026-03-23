@@ -1,0 +1,51 @@
+---
+title: "Creating An Attach A Page To The Perceptive Document Process"
+---
+
+---
+title: "Creating an Attach a Page to the Perceptive Document Process"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ymq1724046395881"
+section: "Hyland Automate Modeler"
+---
+
+Both of the created forms will be used within the process.
+
+To create the process:
+
+1.  In the project, select New > Process. The Create Process dialog box is displayed.
+2.  Enter the Process name, for example binary-file-upload and select Create Process.
+3.  Click on the process editor background. From the right pane, select Edit Process Variables and use the Create process variable to add the following:
+1.   attachedFile variable: Select Variable type to content. Select Save and add new.
+2.   requestResult variable: Select Variable type to json. Select Save and go back to the process tab.
+4.  From the palette on the left, drag the Create User Task to the process editor and drop it next to the circle that signifies the process start.
+5.  Select the Create User Task. In the right pane:
+1.  Enter the task name, for example Attach file.
+2.  From the Form name, select the attach file form. In the example, it was called attach-file-form.
+3.  In the Output mapping section, find the Attach file parameter and select the attachedFile variable in the drop-down menu next to it.
+6.  From the palette on the left, drag the REST Connector and drop it into the process. In the Connector Editor Settings enter the connector name and click Apply. Place the connector next to the user task created in the previous step.
+7.  Select the REST connector. In the right pane:
+1.  Enter the task name, for example Add page.
+2.  From the Authentication drop-down menu, select the authentication created for this connector. In the example, it was called REST-auth.
+3.  From the Action drop-down menu, select POST.
+4.  In the Input mapping section, use the pencil button to edit the following parameters:
+```
+```
+
+| Parameter | Type | Value |
+| --- | --- | --- |
+| requestHeaders | Value | {
+    "content-type": "application/octet-stream",
+    "<Perceptive-document-id>"
+} |
+| requestPayload | binary Value | From the drop-down menu, select the attachedFile variable. |
+| restUrl | Value | https://<yourresturl>/document/<document_id>/<page> |
+
+5.  In the Output mapping section, find the restResult parameter and select the requestResult variable in the drop-down menu next to it.
+8.  From the palette on the left, drag the Create User Task to the process editor and drop it next to the REST connector. Select it and edit the following properties in the right-hand pane:
+1.  Enter the task name, for example Request result.
+2.  From the Form name, select the result form. In the example, it was called request-result-form.
+3.  In the Input mapping section, find the variables.requestResult parameter and select the requestResult variable in the drop-down menu next to it.
+9.  From the palette on the left, drag the End event and drop it next to the second user task.
+10.  Connect the process elements, by clicking them and selecting arrows.
+
+The process has now been created. It can be used to upload a single binary file (document) into an existing document within the Perceptive repository.

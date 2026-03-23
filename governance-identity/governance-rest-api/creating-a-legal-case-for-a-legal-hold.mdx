@@ -1,0 +1,94 @@
+---
+title: "Creating A Legal Case For A Legal Hold"
+---
+
+---
+title: "Creating a Legal Case for a Legal Hold"
+source: "https://support.hyland.com/r/Current/Hyland-Governance-REST-API/rip1760311178876"
+section: "Hyland Governance REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start creating and editing legal cases to be included in a legal hold process.
+
+Note: This tutorial makes calls to Legal Case API endpoints. For full reference information on all available Legal Case API endpoints, see Legal Case.
+To create a legal case:
+
+1.  Open Command Prompt or Terminal.
+2.  Enter a request similar to the following example to create a legal case:
+```
+curl -i -X POST [base_url]/api/legal-cases \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d "{\"legalCaseName\": \"My Legal Case\", \"legalCaseDescription\": \"The big case with the details\", \"legalCaseReason\": \"Pending litigation\"}"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the repository to which you are connecting your Governance solution |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+A response that includes the legal case's ID is displayed, as shown in the following example:
+
+```
+{
+  "createdByUser": "string",
+  "createdAt": "2025-10-12T23:17:37.417Z",
+  "modifiedByUser": "string",
+  "modifiedAt": "2025-10-12T23:17:37.417Z",
+  "createdByUsername": "string",
+  "modifiedByUsername": "string",
+  "legalCaseId": "57a3f856-4ce8-9105-7c2a-0153064b8453",
+  "legalCaseName": "My Legal Case",
+  "legalCaseDescription": "The big case with the details",
+  "environmentId": "string",
+  "legalCaseReason": "Pending litigation",
+  "recordsCount": 0
+}
+```
+
+3.  To retrieve the legal case's information at any point after creating it, use the legal case's ID as you enter a request similar to the following example:
+```
+curl -i -X GET [base_url]/api/legal-cases/57a3f856-4ce8-9105-7c2a-0153064b8453 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "Accept: application/json"
+```
+
+A response similar to the one in step 2 is displayed.
+
+4.  To update the legal case after creating it, use the legal case's ID as you enter a request similar to the following example:
+```
+curl -i -X PUT [base_url]/api/legal-cases/57a3f856-4ce8-9105-7c2a-0153064b8453 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d "{\"legalCaseName\": \"My Legal Case\", \"legalCaseDescription\": \"The even bigger case with more details\", \"legalCaseReason\": \"Pending litigation\"}"
+```
+
+A response similar to the following example is displayed:
+
+```
+{
+  "createdByUser": "string",
+  "createdAt": "2025-10-12T23:17:37.417Z",
+  "modifiedByUser": "string",
+  "modifiedAt": "2025-10-12T23:17:37.417Z",
+  "createdByUsername": "string",
+  "modifiedByUsername": "string",
+  "legalCaseId": "57a3f856-4ce8-9105-7c2a-0153064b8453",
+  "legalCaseName": "My Legal Case",
+  "legalCaseDescription": "The even bigger case with more details",
+  "environmentId": "string",
+  "legalCaseReason": "Pending litigation",
+  "recordsCount": 0
+}
+```
+
+For more information on the response body elements shown in these examples, see Legal Case.

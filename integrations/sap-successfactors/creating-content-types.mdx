@@ -1,0 +1,45 @@
+---
+title: "Creating Content Types"
+---
+
+---
+title: "Creating Content Types"
+source: "https://support.hyland.com/r/Current/Hyland-for-SAP-SuccessFactors/jcf1757935920192"
+section: "Hyland for SAP SuccessFactors"
+---
+
+This section, intended for system administrators, has information on creating a new Content Type that define the content you can use with Hyland for SAP SuccessFactors. The Content Types you create define the properties for the different file types that you can capture using Hyland for SAP SuccessFactors and are supported by it.
+
+To create a new Content Type, you must use the Hyland Automate Modeler application and ensure a Schema and a Mixin is configured. You can use built-in Content Types to use default metadata and properties, or create custom Content Types using Schemas and Mixins to define properties as required. Note: Before configuring a Content Type, you must configure a Schema and a Mixin. If you have not configured these, please complete the instructions under Creating a Schema and Creating a Mixin.
+For more information on content types, see the Content Types chapter in the Hyland Automate Modeler documentation.
+
+To create the Content Type required for Hyland for SAP SuccessFactors:
+
+1.  Sign in to the Hyland Automate Modeler application and open the project you created.
+If you have not created a project yet, please complete the instructions under Creating a Project.
+
+2.  Do one of the following to create the content type:
+- Click Create > Content Type.
+- Click the three dots next to the Content Types drop-down menu in the left-hand pane, then select Create.
+The Create Content Type window is displayed.
+3.  In the Content Type name field, type a name for the newly created Content Type.
+4.  Optional: In the Content Type description field, type a description.
+5.  From the drop-down Parent Content Type field, select SysFile.
+This creates a Content Type that behaves like a file within Hyland for SAP SuccessFactors. The default selection is None, which means that no Content Type properties will be inherited by the newly created Content Type.
+
+The created Content Type is opened in the application as a new tab.
+6.  Repeat the steps for other Content Types.
+7.  Once editing is done, use the Save Content Type cloud icon at the top bar to save the created content type. A window reading Content Type saved is displayed at the bottom. The new content type is created and saved.
+8.  From the Schemas section, select the sufa-employee Schema and click + next to it.
+This associates the Schema with the Content Type you created.
+
+Note: If you have not created a Schema, please complete the instructions under Creating a Schema.  The selected schema is displayed under Selected Items.
+9.  From the Mixins section, select sufa-lob-mixin Mixin and click + next to it.
+This associates the Mixin with the Content Type you created.
+
+Note: If you have not created a Mixin, please complete the instructions under Creating a Mixin.
+10.  Repeat the steps to associate a Schema and Mixin with all the Content Types you created.
+11.  Click Validate Content Type. If the Content Type is valid, a confirmation message is displayed.
+12.  Click Save Content Type. If the save is successful, a confirmation message is displayed.
+13.  From the top-right, click Validate and then click Release. A confirmation dialog box is displayed.
+14.  In the dialog box, enter comments and then click Confirm. A confirmation message is displayed.

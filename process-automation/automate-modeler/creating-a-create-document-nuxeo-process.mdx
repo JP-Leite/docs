@@ -1,0 +1,44 @@
+---
+title: "Creating A Create_Document Nuxeo Process"
+---
+
+---
+title: "Creating a CREATE_DOCUMENT Nuxeo Process"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/fop1724051336943"
+section: "Hyland Automate Modeler"
+---
+
+Once you have the authentication and the forms, you can create the process to connect all the elements into a working flow.
+
+To create the process:
+
+1.  In the project, select New > Process. The Create Process dialog box is displayed.
+2.  Enter the Process name, for example create-nuxeo-document and select Create Process.
+3.  Click on the process editor background. From the right pane, select Edit Process Variables and use the Create process variable to add the following:
+1.   metadata variable: Select Variable type to json. Select Save and add new.
+2.   outputDocumentId variable: Select Variable type to string. Select Save and go back to the process tab.
+4.  Select the start event in your process and select the previously creaated nuxeo-create-document-form from the Form name drop-down menu.
+5.  From the palette on the left, drag the Nuxeo connector to the process editor and drop it next to the circle that signifies the process start.
+6.  Select the Nuxeo connector. In the right pane:
+1.  Enter the task name, for example Create document.
+2.  Select the Nuxeo authentication. In this example, it was called Nuxeo-auth.
+3.  Select the CREATE_DOCUMENT action from the Action drop-down menu.
+7.  From the palette on the left, drag the Create User Task to the process editor and drop it next to the Nuxeo connector. Select it and edit the following properties in the right-hand pane:
+1.  Enter the task name, for example Display document id.
+2.  From the Form name, select the result form. In the example, it was called display-doc-id-form.
+3.  In the Input mapping section, find the created document id parameter and select the outputDocumentId variable in the drop-down menu next to it.
+8.  From the palette on the left, drag the End event and drop it next to the second user task.
+9.  Connect the process elements, by clicking them and selecting arrows.
+10.  Select the Nuxeo connector within the process again.
+1.  In the Input mapping section select the appropriate form fields from the created Source and Target Choice form:
+| Parameter | Value |
+| --- | --- |
+| content | Select the HxP Content to be Copied  from the drop-down menu. |
+| documentMetadata | Select the Nuxeo metadata from the drop-down menu. |
+| documentName | Select the Document name from the drop-down menu. |
+| documentType | Select the Document type from the drop-down menu. |
+| parentDocumentPath | Select the Parent document path from the drop-down menu. |
+
+2.  In the Output mapping section, select outputDocumentId from the outputDocumentId drop-down menu.
+
+The process has been created successfully aand can now be used to create new documents within the Nuxeo repository.

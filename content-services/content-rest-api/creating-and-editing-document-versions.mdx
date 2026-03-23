@@ -1,0 +1,74 @@
+---
+title: "Creating And Editing Document Versions"
+---
+
+---
+title: "Creating and Editing Document Versions"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/dze1742576145267"
+section: "Hyland Content REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start creating versions of documents in the repository and editing them, as needed. As certain versions become unnecessary or unwanted, you can also delete them.
+
+To create and edit versions of a document:
+
+1.  Create a custom content type and add the SysVersionable mixin in the Studio Modeler application (see [Creating Content Types](https://support.hyland.com/access/sources/dita/topic?dita:mapPath=akj1682520797508.ditamap&dita:ditavalPath=Hyland.ditaval&dita:topicPath=rvm1680078806701.dita) in the Hyland Automate Modeler documentation for more information).
+2.  Save and deploy the Automate project containing the custom content type you created.
+3.  Upload a document with your custom content type to the repository, using either the Content REST API (see Creating a Document) or the Workspace application (see [Uploading a File](https://support.hyland.com/access/sources/dita/topic?dita:mapPath=bei1679684179540.ditamap&dita:ditavalPath=Hyland.ditaval&dita:topicPath=omp1686773592183.dita) in the Hyland Workspace documentation for more information).
+4.  Open Command Prompt or Terminal.
+5.  Enter a request similar to the following example to create a version of the document you uploaded:
+```
+curl -i -X POST [base_url]/api/documents/[docId]/checkin \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Accept: application/vnd.hxcs.v1+json"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the Hyland Content repository |
+| [docId] | The alphanumeric ID for the document |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+For a sample response to this type of request, see Check In the Specified Document.
+
+6.  To modify the title and description of the document version you created, change the values of the sysver_title and sysver_description properties by entering a request similar to the following example:
+```
+curl -i -X PUT [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sysver_title\": \"InitVersion\", \"sysver_description\": \"My First Version\"}"
+```
+
+For response body details and a sample response to this type of request, see Document.
+
+7.  To set the stage for restoring a document version, edit the document with an unwanted change (for example, remove some metadata).
+8.  To restore the document version you created before making the unwanted change, enter a request similar to the following example:
+```
+curl -i -X POST [base_url]/api/documents/[versionId]/restore \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Accept: application/vnd.hxcs.v1+json"
+```
+
+where [versionId] is the alphanumeric ID for the version.
+
+For response body details and a sample response to this type of request, see Document.
+
+9.  To set the stage for deleting a previous document version, do the following:
+1.  Edit the document with new changes you want to keep.
+2.  Create a new version of the document.
+10.  To delete a previous document version that is no longer needed, enter a request similar to the following example:
+```
+curl -i -X DELETE [base_url]/api/documents/[docId] \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Accept: application/vnd.hxcs.v1+json"
+```
+
+For full reference information on all available Document API endpoints, see Document.

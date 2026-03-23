@@ -1,0 +1,33 @@
+---
+title: "Create A Calendar Event"
+---
+
+---
+title: "Create a Calendar Event"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/gvm1677245890221"
+section: "Hyland Automate Modeler"
+---
+
+The createTeamsEventCalendar action is used by the Calendar connector to create a calendar event in the Outlook calendar.
+
+The input parameters to create a calendar event are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| subject | String | Required | Subject of the calendar event |
+| text | String | Optional | Body of the calendar event |
+| startDate | DateTime | Required | Start Date / Time of the event |
+| minutes | Integer | Required | Duration in minutes of the event |
+| endDate | DateTime | Required | End Date / Time of the event |
+| attendees | Array<string> | Required | List of attendees email addresses |
+| location | String | Optional | Location of the event |
+| timeZone | String | Optional | Timezone of the event. In general, the timeZone property can be set to any of the  as well as the additional . Set to GMT Standard Time by default. |
+| onlineMeeting | Boolean | Optional | Adds an online Teams meeting to the event. |
+| attachments | Content | Optional | File to attach to the calendar event |
+
+[time zones supported by Microsoft Windows](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones)[time zones supported by the calendar API](https://docs.microsoft.com/en-us/graph/api/resources/datetimetimezone?view=graph-rest-1.0#additional-time-zones)
+The output parameters to create a calendar event in Microsoft Outlook are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | Response with the identifier returned by the Teams API |

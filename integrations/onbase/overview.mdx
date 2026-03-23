@@ -1,0 +1,55 @@
+---
+title: "OnBase Connector Overview"
+description: "Connect your OnBase content repository to Hyland Knowledge Discovery using the OnBase Connector for Content Intelligence."
+---
+
+## What is the OnBase Connector?
+
+The **OnBase Connector for Content Intelligence** bridges your OnBase content repository with Hyland's **Knowledge Discovery** — an AI-powered search engine that lets users find critical information using natural language queries.
+
+<CardGroup cols={2}>
+  <Card title="Natural Language Search" icon="magnifying-glass">
+    Users can ask questions in plain English and receive contextual answers drawn directly from OnBase documents.
+  </Card>
+  <Card title="Automatic Ingestion" icon="rotate">
+    The connector automatically collects and ingests documents that match your configured Document Types and date ranges — no manual exports required.
+  </Card>
+  <Card title="Selective Filtering" icon="filter">
+    Define which documents are ingested using Document Type and Keyword Value filters, ensuring only relevant content is processed.
+  </Card>
+  <Card title="Secure Integration" icon="lock">
+    Credentials are encrypted at rest using the built-in secret key management system. No plain-text passwords are stored in configuration files.
+  </Card>
+</CardGroup>
+
+---
+
+## How It Works
+
+<Steps>
+  <Step title="Install the Connector">
+    Download the connector package from [Hyland Community](https://community.hyland.com), run the PowerShell setup script, and deploy it on your Windows server.
+  </Step>
+  <Step title="Configure Credentials">
+    Enter your Content Innovation Cloud credentials (Client ID, Client Secret, Environment Key, Source ID, System Integration ID) and encrypt them securely using the CLI.
+  </Step>
+  <Step title="Configure Ingestion">
+    Edit `applicationConfig.json` to point to your OnBase Application Server, then optionally configure `filterSettings.json` to restrict which Document Types are ingested.
+  </Step>
+  <Step title="Start the Connector">
+    Run the `DeployOBConnector.ps1` script to start all IIS application pools. Knowledge Discovery will begin indexing your OnBase content automatically.
+  </Step>
+</Steps>
+
+---
+
+## Quick Navigation
+
+| Section | Description |
+| --- | --- |
+| [Prerequisites](/integrations/onbase/prerequisites) | Software requirements before installing the connector |
+| [Installing the Connector](/integrations/onbase/installing-the-connector) | Step-by-step installation guide |
+| [Configuring the Connector](/integrations/onbase/configuring-onbase-connector) | Required and optional configuration steps |
+| [Starting the Connector](/integrations/onbase/starting-the-onbase-connector) | How to start the connector after configuration |
+| [Using Knowledge Discovery](/integrations/onbase/using-knowledge-discovery) | How users access Knowledge Discovery from OnBase |
+| [Troubleshooting](/integrations/onbase/troubleshooting) | Common issues and resolutions |

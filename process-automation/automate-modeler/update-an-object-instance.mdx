@@ -1,0 +1,26 @@
+---
+title: "Update An Object Instance"
+---
+
+---
+title: "Update an Object Instance"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/qkl1677242915992"
+section: "Hyland Automate Modeler"
+---
+
+The UPDATE action is used by the Salesforce connector to update a Salesforce object.
+
+The input parameters to update an object are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| SObjectName | String | Required | The name of the Salesforce object to update, for example: Account |
+| SObjectId | String | Required | The Salesforce object ID, for example: accountId |
+| salesforcePayload | JSON | Required | The payload to send to Salesforce as a JSON map. See the  for valid fields to send. |
+
+[Salesforce API documentation](https://developer.salesforce.com/docs/api-explorer/sobject/Account)
+The output parameters from updating an object from Salesforce are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| salesforceStatus | String | Optional | The HTTP status code of the response |

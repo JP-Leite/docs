@@ -1,0 +1,25 @@
+---
+title: "Rest Connector"
+---
+
+---
+title: "REST Connector"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/fny1676645880519"
+section: "Hyland Automate Modeler"
+---
+
+The REST connector can be used to publish an endpoint that external systems such as GitHub can consume as part of a trigger. The trigger then monitors this webhook and will publish any events that match the specific criteria as part of a project.
+
+The input parameters for the INCOMING_WEBHOOK event is:
+
+| Parameter | Description |
+| --- | --- |
+| method | A list of HTTP methods that can trigger an action. Use the + icon on the right to add values to the array. |
+| path | The webhook path to monitor. The format begins https://<environment>.com/<project-name>/<connector-name>/events/ followed by a custom value, for example: https://hyland.com/finance-project/rest-connector-1/events/github |
+| condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
+| status | The status code to return to the external service. |
+| headers | The key value pairs that must match in order to publish the event. Use the + icon on the right to add a new row of header pairs. |
+| params | The request parameter key value pairs that must match in order to publish the event. Use the + icon on the right to add a new row of header pairs. |
+| body | The JSON body to send to the external service. |
+
+Note: The configuration parameters for the REST connector is used for sending a response to the external system from the webhook.

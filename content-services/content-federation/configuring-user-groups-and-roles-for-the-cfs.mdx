@@ -1,0 +1,66 @@
+---
+title: "Configuring User Groups And Roles For The Cfs"
+---
+
+---
+title: "Configuring User Groups and Roles for the CFS"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/gqm1754082036223"
+section: "Content Federation Services"
+---
+
+User groups for Content Federation Services (CFS) are created in the Content Innovation Cloud (CIC) Administration Portal. Then, the user groups are granted permissions for carrying out tasks and services based on the roles they need to fulfill.
+
+The steps presented here are separate from the steps required to configure service users for running the CF Broker. If your repository requires the CF Broker and you need information on configuring user groups for the CF Broker, see Registering an Application for the CF Broker.
+To configure user groups and roles for the CFS:
+
+1.  Create at least one user group in the CIC Administration Portal for internal (human) users requiring access to the Content Federation Admin Portal.
+For more information on creating and managing user groups in the CIC, see [User Groups and Roles](https://support.hyland.com/access?dita:topicPath=sjt1646250711186.dita) in the Content Innovation Cloud Administration Portal documentation.
+
+2.  Create at least one user group in the CIC Administration Portal for service users meant to carry out tasks related to the CFS.
+How many user groups you need depends on how many service tasks are required for your CFS deployment. For example, if you plan on mapping OnBase user accounts to CIC user accounts, you need to create a service user group for mapping users.
+
+For more information on creating and managing user groups in the CIC, see [User Groups and Roles](https://support.hyland.com/access?dita:topicPath=sjt1646250711186.dita) in the Content Innovation Cloud Administration Portal documentation.
+
+3.  Assign user rights to the CFS user groups based on the role of the users within each group.
+1.  In the CIC Administration Portal, select the Account tab under the banner. The Account Details page is displayed.
+2.  In the sidebar, under the name of your environment, select Applications. The Applications sidebar menu is displayed.
+3.  Select an application from the Applications sidebar to configure which users have rights to the selected application. The following table lists available applications.Note: The list of available applications may differ depending on your CFS subscription.
+| Application Name | Description |
+| --- | --- |
+| CFS Base Subscription |
+| Content Federation Admin Portal | Contains roles for internal (non-service) users who need to access to the Content Federation Admin Portal. |
+| Content Federation Brokers | Contains roles for service users connecting on behalf of the CF Broker |
+| CFS Content Subscription |
+| Content Federation Solution Administration | Contains roles for internal (non-service) users who need to access solutions related to CFS. |
+| Content Federation Content Consumer API | Contains roles required to use the Content Federated connector in Studio Modeler. |
+| CFS Federated Identity Subscription |
+| Content Federation User Sync Administration | Contains roles for internal (non-service) users who need to access User Mapping in the Content Federation Admin Portal. |
+| Content Federation User Sync Service | Contains roles for service users to map CIC users to OnBase users. |
+
+After selecting an application, the Overview tab for the selected application is displayed.
+4.  Click the User Rights tab. A list of user roles associated with the application is displayed.
+5.  Click Manage in the entry for the user role needed for your user groups. The following table lists user roles and their descriptions:Note: The user roles are organized by application. The list of available applications may differ depending on your CFS subscription.
+| Role | Description |
+| --- | --- |
+| Content Federation Admin Portal |
+| Content Federation Power User | Used by internal (non-service) users to access the Content Federation Admin Portal and make changes, such as adding connections or deleting brokers. |
+| Infrastructure Read Only Admin | Used by internal (non-service) users to access the Content Federation Admin Portal without rights to make changes. |
+| Content Federation Brokers |
+| Content Federation Broker | Used by service users connecting on behalf of the CF Broker. |
+| Content Federation Solution Administration |
+| Solutions Admin | Used by internal (non-service) users to access solutions related to CFS and make changes. |
+| Solutions Read Only Admin | Used by internal (non-service) users to access solutions related to CFS without rights to make changes. |
+| Content Federation Content Consumer API |
+| Content Federation Consumer | Used by users (internal and service) to access projects that contain the Content Federated connector in Studio Modeler. This user role also allows users to make changes related to the Content Federated connector, such as adding the connector to processes. |
+| Content Federation Read Only Consumer | Used by users (internal and service) to access projects that contain the Content Federated connector in Studio Modeler. This user role does not allow users to make changes. |
+| Content Federation Content Broker | Used by service users connecting on behalf of the CF Broker to allow information to be used for the Content Federated connector. |
+| Content Federation User Sync Administration |
+| User Sync Admin | Used by internal (non-service) users to access and use the User Mapping feature within the Content Federation Admin Portal. |
+| User Sync Read Only Admin | Used by internal (non-service) users to access the User Mapping page in the Content Federation Admin Portal. This user role does not allow for enabling or disabling the User Mapping feature. |
+| Content Federation User Sync Service |
+| Content Federation User Sync Broker | Used by service users to map CIC users to OnBase users. |
+
+The user group management dialog box for the selected user role is displayed.
+6.  Set all applicable user groups from the Unassigned list to the Assigned list.
+7.  Click Confirm. The selected user role is added to the user groups in the Assigned list.
+8.  Continue adding applicable user roles to your CFS user groups.

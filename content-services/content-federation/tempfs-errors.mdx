@@ -1,0 +1,65 @@
+---
+title: "Tempfs Errors"
+---
+
+---
+title: "TempFS Errors"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/lob1765980990813"
+section: "Content Federation Services"
+---
+
+The following table lists known errors related to the CF Broker interacting with the Temporary File Service (TempFS) and how to resolve the errors.
+
+```
+```
+
+-
+-
+
+-
+-
+-
+-
+-
+-
+-
+
+-
+-
+
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+
+-
+-
+-
+
+-
+-
+-
+-
+-
+-
+-
+-
+
+| Error Message | Cause | Resolution |
+| --- | --- | --- |
+| TempFileStorage.Client.TempFileStorageServiceException ---> TempFileStorage.Client.Api.ApiException`1[TempFileStorage.Client.Api.ProblemDetails]:
+Response when the user does not supply valid authorization credentials.
+
+Status: 401
+Response:
+{"status":401,"title":"Unauthorized","logref":"30b71ef4-43c6-464c-9fbc-8bba27f82582"}
+   at TempFileStorage.Client.Api.Client.<CreateMultiPartUploadAsync>d__24.MoveNext() | This error may be caused by one of the following: The TempFS is configured with the scope evolution and the scope configuration defined in the CF Broker's PluginConfig.json is only requesting mca. Different user credentials are being used in database connection strings for .config files. | Try each of the following: Open the PluginConfig.json file related to your CF Broker, and ensure that the Scope value is mca evolution. For more information on configuring the PluginConfig.json file, see Configuring the CF OnBase Plugin. Ensure that the same User Id is entered in the Database connection string for each of the following configuration files:  1_server.json   5_scim.json   5_tempfs.json   McaFCCRestOnBase\appsettings.json   identityservice\config\appsettings.json     If you made any changes based on the above recommendations, perform an IIS Reset and restart the CF Broker service after making the changes. |
+| The HTTP status code of the response was not expected (404).\n\nStatus: 404\nResponse: \n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>\r\n<title>404 - File or directory not found.</title> | The TempFS URL is not configured correctly in the CF MCA Adapter's appsettings.json file. | In the CF MCA Adapter's appsettings.json file, ensure that the Address field under TempFileStorage is "https://[FQDN]/ApiServer/tempfs where [FQDN] is the fully qualified domain name used for the TempFS. |
+| One of the following error messages is displayed in the Diagnostics Console:  MCAOnBaseWebApi tab: 500 Internal Server Error  ApiServer tab: Database has pending migrations. | A database has not been created for the TempFS. | Open your database instance in SQL Server Management Console, and ensure the following tables are present: hsitempfile._efmigrationhistory hsitempfile.namespaces hsitempfile.s3storagesystems hsitempfile.shorttermmultipartuploads hsitempfile.shortterms3multipartuploads hsitempfile.shorttermtempfiles hsitempfile.shorttermuploadparts hsitempfile.storagesystems hsitempfile.tenantsettings hsitempfile.uncstoragesystems  If any of the tables are missing, you may need to install the latest TempFS database schema. For more information, see Installing the Latest Temp File Service Database Schema in the API Server documentation related to your installed version of OnBase. |
+| Content with correlation id [ID] finished with status FAILED and message Error Retrieving Content, An unexpected error occurred at the broker | This error may be caused by one of the following: The TempFS is configured with the scope evolution and the scope configuration defined in the CF Broker's PluginConfig.json is only requesting mca. The TempFS URL is not configured correctly in the CF MCA Adapter's appsettings.json file. Different user credentials are being used in database connection strings for .config files. | Try each of the following: Open the PluginConfig.json file related to your CF Broker, and ensure that the Scope value is mca evolution. For more information on configuring the PluginConfig.json file, see Configuring the CF OnBase Plugin. In the CF MCA Adapter's appsettings.json file, ensure that the Address field under TempFileStorage is "https://[FQDN]/ApiServer/tempfs where [FQDN] is the fully qualified domain name used for the TempFS. Ensure that the same User Id is entered in the Database connection string for each of the following configuration files:  1_server.json   5_scim.json   5_tempfs.json   McaFCCRestOnBase\appsettings.json   identityservice\config\appsettings.json     If you made any changes based on the above recommendations, perform an IIS Reset and restart the CF Broker service after making the changes. |

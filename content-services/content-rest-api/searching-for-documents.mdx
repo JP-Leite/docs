@@ -1,0 +1,144 @@
+---
+title: "Searching For Documents"
+---
+
+---
+title: "Searching for Documents"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/jnw1677090169605"
+section: "Hyland Content REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start searching for documents in the Hyland Content repository and refining the search parameters to filter the results.
+
+Note: This tutorial makes calls to Query API endpoints. For full reference information on all available Query API endpoints, see Query.
+To search for documents:
+
+1.  Open Command Prompt or Terminal.
+2.  Create at least a few documents in the repository to adequately test your search (see Creating a Document). For example, enter the following requests to create three documents (Employment Contract, Life Insurance, and Property Insurance) at the root level of the repository:
+```
+curl -i -X POST [base_url]/api/documents/00000000-0000-0000-0000-000000000000 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \ 
+  -H "Content-Type: application/json" \
+  -d "{\"sys_primaryType\": \"SysFile\", \"sys_title\": \"Employment Contract\"}"
+```
+
+```
+curl -i -X POST [base_url]/api/documents/00000000-0000-0000-0000-000000000000 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \ 
+  -H "Content-Type: application/json" \
+  -d "{\"sys_primaryType\": \"SysFile\", \"sys_title\": \"Life Insurance\"}"
+```
+
+```
+curl -i -X POST [base_url]/api/documents/00000000-0000-0000-0000-000000000000 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \ 
+  -H "Content-Type: application/json" \
+  -d "{\"sys_primaryType\": \"SysFile\", \"sys_title\": \"Property Insurance\"}"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the Hyland Content repository |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+3.  To search for all documents in the repository, adapt the SELECT * FROM SysFile HXQL query into an API request by entering the following:
+```
+curl -i -X POST [base_url]/api/query \
+  -d "{\"repository\": \"default\", \"query\": \"SELECT * FROM SysFile\"}" \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \ 
+  -H "Content-Type: application/json"
+```
+
+A response that includes the number of documents in your repository is displayed. The following example shows a response for a repository containing only the three documents created in step 2:
+
+```
+{
+  "count": 3,
+  "documents": [
+    {
+      // properties of the "Employment Contract" document
+    },
+    {
+      // properties of the "Life Insurance" document
+    },
+    {
+      // properties of the "Property Insurance" document
+    }
+  ],
+  "limit": 0,
+  "offset": 0,
+  "query": "SELECT * from SysFile",
+  "repositoryId": "default",
+  "totalCount": 3,
+  "useElasticsearch": true
+}
+```
+
+4.  To search only for documents titled Employment Contract, adapt the SELECT * FROM SysFile WHERE sys_title = 'Employment Contract' HXQL query into an API request by entering the following:
+```
+curl -i -X POST [base_url]/api/query \
+  -d "{\"repository\": \"default\", \"query\": \"SELECT * FROM SysFile WHERE sys_title = \"Employment Contract\"\"}" \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \ 
+  -H "Content-Type: application/json"
+```
+
+A response similar to the following example is displayed. This example continues from the scenario of the three total documents created in step 2, resulting in only one document for this query:
+
+```
+{
+  "count": 1,
+  "documents": [
+    {
+      // properties of the "Employment Contract" document
+    }
+  ],
+  "limit": 0,
+  "offset": 0,
+  "query": "SELECT * from SysFile WHERE sys_title = \"Employment Contract\"",
+  "repositoryId": "default",
+  "totalCount": 1,
+  "useElasticsearch": true
+}
+```
+
+5.  To search only for documents with titles containing an Insurance suffix, adapt the SELECT * FROM SysFile WHERE sys_title Like '%Insurance' HXQL query into an API request by entering the following:
+```
+curl -i -X POST [base_url]/api/query \
+  -d "{\"repository\": \"default\", \"query\": \"SELECT * from SysFile WHERE sys_title Like \"%Insurance\"\"}" \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \ 
+  -H "Content-Type: application/json"
+```
+
+A response similar to the following example is displayed. This example continues from the scenario of the three total documents created in step 2, resulting in two documents for this query:
+
+```
+{
+  "count": 2,
+  "documents": [
+    {
+      // properties of the "Life Insurance" document
+    },
+    {
+      // properties of the "Property Insurance" document
+    }
+  ],
+  "limit": 0,
+  "offset": 0,
+  "query": "SELECT * from SysFile WHERE sys_title Like \"%Insurance\"",
+  "repositoryId": "default",
+  "totalCount": 2,
+  "useElasticsearch": true
+}
+```
+
+For more information on the response body elements shown in these examples, see Query.

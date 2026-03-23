@@ -1,0 +1,24 @@
+---
+title: "Coordinating The Cf Broker And Cf Onbase Plugin"
+---
+
+---
+title: "Coordinating the CF Broker and CF OnBase Plugin"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/jwv1742333350736"
+section: "Content Federation Services"
+---
+
+After the CF Broker and CF OnBase Plugin have been installed and configured, the CF OnBase Plugin information needs to be added to the CF Broker configuration settings so that the CF Broker and CF OnBase Plugin can communicate.
+
+To coordinate the CF Broker and CF OnBase Plugin:
+
+1.  Navigate to the CF Broker folder. By default, the folder is located in C:\Program Files\Hyland.
+2.  Open the appsettings.json file in a plain-text editor, such as Notepad.
+3.  Under Plugins, set values for the following parameters:
+| Plugins Parameter | Value |
+| --- | --- |
+| PluginId | The ID of the CF OnBase Plugin. Enter CE5D8997-08CC-4EBC-A4D5-A3EC9A25DBBD |
+| PluginPath | The absolute/complete file path to the DLL file that corresponds to the CF OnBase Plugin installation. For example, C:/Program Files/Hyland/Hyland Content Federation OnBase Plugin/Hyland.ContentFederation.Plugin.OnBase.dll |
+| PluginConfigPath | The absolute/complete file path to the plugin configuration file. For example, C:/Program Files/Hyland/Hyland Content Federation OnBase Plugin/PluginConfig/PluginConfig.json |
+
+4.  Save and close the appsettings.json file.

@@ -1,0 +1,68 @@
+---
+title: "Creating Content Types"
+---
+
+---
+title: "Creating Content Types"
+source: "https://support.hyland.com/r/Current/Hyland-for-Salesforce/rpb1756262450382"
+section: "Hyland for Salesforce"
+---
+
+This section, intended for system administrators, contains information on creating new Content Types that define the content you can use with Hyland for Salesforce. The Content Types you create define the properties for the different file types that are supported by Hyland for Salesforce.
+
+Use Hyland Automate Modeler to create new Content Types. You can use built-in Content Types to use default metadata and properties, or create custom Content Types using Schemas and Mixins to define properties as required.
+For more information on Content Types, see the Content Types chapter in the Hyland Automate Modeler documentation.
+
+To create the Content Type required for Hyland for Salesforce:
+
+1.  Sign in to the Hyland Automate Modeler application and open the hfs-configurations project.
+2.  Do one of the following to create the content type:
+- Click Create > Content Type.
+- Click the three dots next to the Content Types drop-down menu in the left-hand pane, then select Create.
+You can also upload a JSON file with the content type. For more instructions, see the Uploading Project Elements chapter in the Hyland Automate Modeler documentation.
+
+The Create Content Type window is displayed.
+
+3.  Enter the newly created content type name in the Content Type name field.
+4.  Add an optional description in the Content Type description field.
+5.  From the drop-down Parent Content Type field, select the parent content type. The parent content type properties will be inherited by the new content type. The default selection is None, which means that no content type properties will be inherited by the newly created content type.
+The default content types that come built-in in the Hyland Automate Modeler application are under the Default Content Types section. They are as follows:
+
+| System Content Type | Description |
+| --- | --- |
+| SysFile | Creates a content type that behaves like a file within your application. |
+| SysFolder | Creates a content type that behaves like a folder within your application. |
+
+Any custom-made content type can be selected under the Custom Content Types section.
+
+Note:
+If you select None as the Parent Content Type, you must add a Schema or a Mixin to it later. For more information on Schemas and Mixins, see the Schemas and Mixins chapters in the Hyland Automate Modeler documentation.
+
+6.  Click Create Content Type. The created content type is opened in the application as a new tab.
+7.  In the Schemas section, use the + icon to add schemas to your content type. If you used a parent content type that already had schemas assigned, they are listed as Inherited schemas in this section.
+If you want to remove an already added schema, use the - icon on the right.
+
+Note:
+You cannot remove the inherited schemas.
+
+For more information on schemas see the Creating and Configuring Schemas chapter in the Hyland Automate Modeler documentation.
+8.  In the Mixins section, use the + icon to add mixins to your content type. If you used a parent content type that already had mixins assigned, they are listed as Inherited mixins in this section.  Note:
+-
+Ensure the hfs-lob-mixin Mixin is added while selecting the Content Type. This enables the new Content Type to inherit the properties of this Mixin. These properties are required for Hyland for Salesforce.
+
+-
+You cannot remove the inherited mixins.
+
+If you want to remove an already added mixin, use the - icon on the right.
+
+The default mixins available in the system are:
+
+| Mixin | Description |
+| --- | --- |
+| SysFilish | Allows the content with this mixin to behave like a file and have its properties. |
+| SysFolderish | Allows the content with this mixin to behave like a folder and have its properties, including having child documents. |
+| SysFullTextIndexable | Allows the text within the content with this mixin to be fully indexable. |
+| SysVersionable | Allows the content with this mixin to be versioned. |
+
+For more information on mixins, see the Creating Mixins chapter in the Hyland Automate Modeler documentation.
+9.  Once editing is done, use the Save Content Type cloud icon at the top bar to save the created content type. A blue window reading Content Type saved is displayed at the bottom. The new content type is created and saved.

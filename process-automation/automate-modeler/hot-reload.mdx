@@ -1,0 +1,43 @@
+---
+title: "Hot Reload"
+---
+
+---
+title: "Hot Reload"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/gxa1769520484061"
+section: "Hyland Automate Modeler"
+---
+
+After the first initial Quick Run, the hot reload deploys a new runtime application version, including all of its components, such as connectors, UIs, or scripts. Therefore, the project release is transferred to the runtime bundle from where it is loaded. It does that without restarting any pod, which makes it faster than an upgrade.
+
+The following conditions have to be met to execute a hot reload:
+
+-
+A quick run application is already deployed, see Quick Run.
+
+-
+Both the deployed Quick Run application and the currently reloaded one have the same connectors.
+
+- There were no changes made to the content models since the Quick Run application was first deployed.
+
+In case of more detailed changes, see the following table to learn if the change can be executed as a hot reload:
+
+| Changed Component | Possibility of Hot Reload |
+| --- | --- |
+| Process | Yes |
+| Authentication | No |
+| Agent | Yes |
+| Connector | No |
+| Data Model | Yes |
+| Decision Table | Yes |
+| Files | No |
+| Script | Yes |
+| Trigger | No |
+| UI | No |
+| Form | Yes |
+| Form Widget | Yes |
+| Content Type | No |
+| Mixin | No |
+| Rendition | No |
+| Schema | No |
+| Security Policy | No |

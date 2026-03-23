@@ -1,0 +1,33 @@
+---
+title: "Pii Entities"
+---
+
+---
+title: "PII Entities"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/iqe1676970061854"
+section: "Hyland Automate Modeler"
+---
+
+The following are the different types of PII entities:
+
+- DetectPiiEntities
+- StartPiiEntitiesDetectionJob
+- DescribePiiEntitiesDetectionJob
+
+Depending on the size of the input the connector will process it in a different way.
+
+The DetectPiiEntities operation will be called if the supplied text file is smaller than a configurable limit, by default 5000 bytes. If the input file is larger than this then a different API must be used.
+
+The StartPiiEntitiesDetectionJob and DescribePiiEntitiesDetectionJob are used if the input file is larger than the AsynchDetectPIIEntities limit, by default 5000 bytes. The input file will be divided into a set of smaller files of a certain configured size. When dividing the original file, the engine ensures that it only includes full words and will not split on a non whitespace character.
+
+The divided files are then uploaded to Amazon S3 using the same key prefix for all files. When all of them have been uploaded an asynchronous entity detection job is started. This is then followed by a polling process to check the status of the job until it finishes or the timeout is reached.
+
+If the asynchronous job finishes successfully a compressed output file (output.tar.gz) with the result will be written by Amazon Comprehend. The file will be saved to the same bucket within a directory that is using the same key prefix. For more, see [Asynchronous Batch Processing](https://docs.aws.amazon.com/comprehend/latest/dg/how-async.html). The output file is downloaded from Amazon S3 and parsed into a BatchDetectPiiResult object. At the end of the process, all the resource files are cleaned, both locally and at Amazon S3.
+
+The StartDocumentClassificationJob operation is always performed asynchronously. It requires a custom model and the classifier ARN must be provided. You can provide the custom classification ARN in two ways:
+
+1.
+Use the AWS_COMPREHEND_CUSTOM_CLASSIFICATION_ARN environment variable when deploying the application.
+
+2.
+Use the customClassificationArn input variable in the connector action. If the variable is not provided the AWS_COMPREHEND_CUSTOM_CLASSIFICATION_ARN value is used.

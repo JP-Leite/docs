@@ -1,0 +1,22 @@
+---
+title: "Processes"
+---
+
+---
+title: "Processes"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/wjm1673531890262"
+section: "Hyland Automate Modeler"
+---
+
+Processes are the collection of components that are used to build and represent business processes using [BPMN 2.0 specification](https://www.omg.org/spec/BPMN/2.0/).
+
+There are three concepts associated with modeling processes to understand and differentiate between:
+
+-
+Diagrams are the container that process definitions are modeled in. A process diagram can contain multiple process definitions when pools are used to separate them.
+
+-
+Process definitions are the templates that a process follows, made up of BPMN elements and sequence flows. A process definition describes the business logic that will be followed repeatedly at runtime.
+
+-
+Process instances are specific running instances of a process definition. Each process instance will have a unique process instance ID but they can share the same process definition ID indicating which process definition was used to start the process instance. There can be any number of process instances running using the same process definition in an N:1 relationship.

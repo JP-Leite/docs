@@ -1,0 +1,36 @@
+---
+title: "Uninstalling The Onbase Connector"
+---
+
+---
+title: "Uninstalling the OnBase Connector"
+source: "https://support.hyland.com/r/Current/OnBase-Connector-for-Content-Intelligence/gip1751287636954"
+section: "OnBase Connector for Content Intelligence"
+---
+
+The OnBase Connector for Content Intelligence may be uninstalled by issuing a Powershell command using the UninstallOBConnector.ps1 file.
+
+Before executing the uninstall script, ensure that all applications utilizing or interacting with the OnBase Connector for Content Intelligence are properly closed. This prevents potential file access conflicts, ensures a clean uninstallation process, and avoids leaving residual files.
+To uninstall the OnBase Connector for Content Intelligence:
+
+1.  Locate the path to the folder where the UninstallOBConnector.ps1 file is located, such as C:\OnbaseConnectorSetUp\OnbaseConnector. By default, the UninstallOBConnector.ps1 file is located in the designated installation directory that was defined during the installation process.
+2.  Run Windows PowerShell with administrator privileges.
+3.  Enter cd and paste a path to the folder where the UninstallOBConnector.ps1 is located, such as:
+```
+cd C:\OnbaseConnectorSetUp\OnbaseConnector
+```
+
+4.  Press Enter.
+5.  For a default installation, copy the following command and paste it into the PowerShell window:
+```
+Powershell -file UninstallOBConnector.ps1
+```
+
+If OnBase Connector for Content Intelligence is hosted on a custom website, run the following command, replacing the MyCustomSite value with the name of your custom IIS website:
+
+```
+Powershell -file UninstallOBConnector.ps1 -WebSiteName "MyCustomSite"
+```
+
+Note: For more information on hosting OnBase Connector for Content Intelligence on a custom website using IIS Manager, see Hosting OnBase Connector on a Custom Website.
+6.  Press Enter. All OnBase Connector for Content Intelligence files are removed from the designated installation directory. All OnBase Connector for Content Intelligence pools are removed from the IIS Manager.

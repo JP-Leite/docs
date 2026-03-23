@@ -1,0 +1,26 @@
+---
+title: "Checking Cfs Connections"
+---
+
+---
+title: "Checking CFS Connections"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/dya1742402156525"
+section: "Content Federation Services"
+---
+
+The Content Federation Connection Manager allows you to check the status of CFS connections. Connections are tested automatically, and the status is updated each time the Content Federation Connection Manager page is loaded.
+
+To check the status of CFS connections:
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed. The Content Federation Connection Manager page shows a list of configured CFS connections with the most recently added connections at the top of the list. The connections are displayed with related information, including the Connection Name, Connection ID, Integration Name, Integration ID, and Status.
+4.  For more information on a particular connection, such as the Plugin ID or (for SharePoint) the names of objects in the Query Object List, click the Actions button (![Actions button](data:image/gif;base64,R0lGODlhDQAZAHcAACH5BAAAAAAALAAAAAANABkAh////0dFUUdLbUdRmWRLUZFRUZHJ8cv5/O3Jmfn50Pn5/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhHABUIHEiwoMGDCBMqXEgQAQEBBhAmKBAgwIADBydWvIjQIUSGIBV6jJiRokWMBjWe7PiQZMiXDVtKNMkxJU2UBkfC3MmzYEAAOw==)) and select Connection Info. The Connection details dialog box is displayed.
+
+In the connection list, the Status column displays the status of each CFS connection. The Status column is updated automatically each time the page is loaded. The following table describes the possible status values:
+| Status | Description |
+| --- | --- |
+| Connected | The connection is configured correctly and connected to the CF Broker. |
+| Disconnected | The connection is unsuccessful and disconnected from the CF Broker. |
+| Deleted | The connection has been removed from the CFS. |
+
+If the Status column displays Disconnected, or if the column displays Deleted and the connection was not deleted intentionally, check the Audit logs in the Automate Administration App to identify any potential errors. For more information, see Accessing CFS Content Connector Error Logs.

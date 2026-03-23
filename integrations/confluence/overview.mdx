@@ -1,0 +1,68 @@
+---
+title: "Overview"
+description: "Connect Hyland Content Intelligence to your Confluence workspace for seamless AI-powered knowledge discovery."
+---
+
+## What is the Confluence Connector?
+
+The Confluence Connector is a Hyland-built Atlassian app that bridges your organisation's structured and unstructured Confluence content with the **Hyland Knowledge Discovery** module inside Content Intelligence Cloud.
+
+Once installed and configured, the connector continuously feeds Confluence pages and blog posts into Content Intelligence — enabling your team to:
+
+- Ask natural language questions against your Confluence knowledge base
+- Invoke Knowledge Discovery AI agents that reason over live Confluence content
+- Automate ingestion so CIC always reflects your latest documentation
+
+<Info>
+  At this time, only **Confluence Pages** and **Blog Posts** can be ingested. Attachments, Jira links, and whiteboards are not yet supported.
+</Info>
+
+---
+
+## How it Works
+
+<Steps>
+  <Step title="Install the Hyland App">
+    A site administrator installs the **Hyland Content Intelligence** app from the Atlassian Marketplace using an installation link provided by your Hyland representative.
+  </Step>
+  <Step title="Configure the Connector">
+    Supply your HxI Environment ID, Client ID, Client Secret, and Atlassian API token in the connector settings panel.
+  </Step>
+  <Step title="Ingest Content">
+    Choose **Bulk Ingestion** for an initial load of existing pages, then enable **Auto Ingestion** to keep content in sync as it changes.
+  </Step>
+  <Step title="Query with AI">
+    Use Hyland Knowledge Discovery agents to search, summarise, and reason over your Confluence content from within CIC.
+  </Step>
+</Steps>
+
+---
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Auto Ingestion" icon="rotate" href="/integrations/confluence/auto-ingestion">
+    Content is automatically pushed to CIC every time a Confluence page or blog is updated — no manual intervention required.
+  </Card>
+  <Card title="Bulk Ingestion" icon="bolt" href="/integrations/confluence/bulk-ingestion">
+    Load large volumes of existing Confluence content into CIC in a single operation — ideal for initial onboarding.
+  </Card>
+  <Card title="Secure Authentication" icon="shield-halved" href="/integrations/confluence/atlassian-api-token-configuration">
+    Authentication is handled via Atlassian REST API tokens scoped to a specific user, keeping credentials isolated and auditable.
+  </Card>
+  <Card title="Simple Configuration" icon="gear" href="/integrations/confluence/configuring-confluence-connector">
+    A guided settings panel inside the Atlassian app walks you through every required field in minutes.
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+| Step | Guide |
+| --- | --- |
+| Install the app on your Atlassian site | [Installation →](/integrations/confluence/installation) |
+| Provide your HxI credentials | [Ingestion Configuration →](/integrations/confluence/ingestion-configuration) |
+| Set up your Atlassian API token | [API Token Configuration →](/integrations/confluence/atlassian-api-token-configuration) |
+| Perform an initial bulk load | [Bulk Ingestion →](/integrations/confluence/bulk-ingestion) |
+| Enable real-time sync | [Auto Ingestion →](/integrations/confluence/auto-ingestion) |

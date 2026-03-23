@@ -1,0 +1,24 @@
+---
+title: "Download_File"
+---
+
+---
+title: "DOWNLOAD_FILE"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/zlf1711369668457"
+section: "Hyland Automate Modeler"
+---
+
+The DOWNLOAD_FILE action is used to download a file from OnBase repository to the Hyland repository.
+
+The input parameters for DOWNLOAD_FILE are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | Content | Required | An existing file in the Hyland repository that the file from the OnBase repository will be downloaded to. |
+| documentId | String | Required | Identifier of a document in the OnBase repository which is going to be downloaded. |
+
+The output parameters from DOWNLOAD_FILE are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | String | Optional | Reference to a document that exists in the Hyland repository, to which the OnBase file will be downloaded. |

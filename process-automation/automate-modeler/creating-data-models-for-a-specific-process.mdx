@@ -1,0 +1,80 @@
+---
+title: "Creating Data Models For A Specific Process"
+---
+
+---
+title: "Creating Data Models for a Specific Process"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/itj1676903057995"
+section: "Hyland Automate Modeler"
+---
+
+Follow the steps in this section to create a Person data model that includes name, date of birth, and gender as its properties. This is only one example of a data model that can be created in Studio Modeler. You can create other models with various properties that fit your unique process.Note: You can also use references in your data model, for more see Using Ref in a Data Model.
+To create a data model:
+
+1.  Sign in to Studio Modeler and do the following:
+1.  Open the project in which you want to create a data model.
+2.  Click the three dots next to Data Models and then select Create.  Note: To upload an already defined data model, click the Upload instead. Any data model you upload must be written in JSON format.
+3.  Enter a name for the data model, for example: person
+4.  Enter a description for the data model, for example: This model provides the data structure for the object Person.
+5.  Click Create Data Model.
+2.  From the Type drop-down list, select object from the JSON schema types section. In this example, object is needed because the person data model will contain different fields.
+3.  Enter a meaningful Title. The text in the Title filed is displayed to users when they use a form with this data model.
+4.  To add a property to the Person object, click the + icon and do the following:
+1.  Enter Name in the first field of the new row.
+2.   Select the Required check box. This ensures that when a new person is added, the entry must include a name.
+3.  From the Type drop-down list, select string.
+4.  Enter a meaningful Title.
+5.  Click the + icon again and add another property to the Person object with the following values:
+| Parameter | Value |
+| --- | --- |
+| Name | DateOfBirth |
+| Required | Enabled |
+| Type | date |
+
+6.  Click the + icon again and add another property to the Person object with the following values:
+| Parameter | Value |
+| --- | --- |
+| Name | Gender |
+| Required | Enabled |
+| Type | enum |
+| Title | Gender |
+
+7.  Under the person.properties.Gender pane on the right, in the Enumerated values section, enter the gender definitions you want to include. Click the + button after each entry.  Note: Ensure that you have selected the correct data model property before modifying the values in the properties pane on the right. To select a property, click inside its Name field. Note:
+The title of the properties pane on the right is dynamically generated, as follows:
+
+[Data Model Name].properties.[Property Name]
+
+If you assign your data model or property a name other than the one in this example, this is reflected in the title of the properties pane.
+
+The following figure shows a data model with Female as a configured enumeration value. A value of Male has also been entered, but has not yet been saved by clicking the + button.
+8.  Click the Save icon. If you want to see the JSON file created from the data model, click the eye icon (Editors Menu) and select JSON Editor. Following the steps in this example, the JSON file has the following appearance:
+```
+{
+    "description": "This model provides the data structure for the object Person.",
+    "type": "object",
+    "properties": {
+        "Name": {
+            "type": "string",
+            "title": "Name of person"
+        },
+        "DateOfBirth": {
+            "$ref": "#/$defs/primitive/date"
+        },
+        "Gender": {
+            "enum": [
+                "Female",
+                "Male"
+            ],
+            "title": "Gender"
+        }
+    },
+    "title": "Person",
+    "required": [
+        "Name",
+        "Gender",
+        "DateOfBirth"
+    ]
+}
+```
+
+You have created a data model called Person that can be used in forms. Click the Menu Editors icon and select Preview to test the data model. After completing the displayed form, click Simulate on the right to view how the information you added to the data model appears in the JSON output.

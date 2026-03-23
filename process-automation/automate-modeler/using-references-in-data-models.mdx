@@ -1,0 +1,31 @@
+---
+title: "Using References In Data Models"
+---
+
+---
+title: "Using References in Data Models"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/gxi1676909154701"
+section: "Hyland Automate Modeler"
+---
+
+You can also use references when constructing your data model. Using the person data model from Creating Data Models for a Specific Process as an example, you can use reuse the defined reference in several properties of the data model. For example, a reference called ID (which could be an employee ID number), and might be constructed of a user name, and position could be reused in numerous properties. A reference cannot be used in other data models.
+
+To use references in a data model:
+
+1.  Open an existing data model. For this example, the person data model created in Creating Data Models for a Specific Process is used.
+2.  To add a reference, click the + icon below the data model as shown in the following figure.  Note: Do not click the upper + icon, which is for adding properties to the data model.
+3.  In the row that appears, do the following:
+1.  In the first field, enter ID as the name.
+2.  From the Type dropdown list, select object.
+3.  Enter a meaningful Title, such as ID number.
+4.  Click the + icon again to add another row to the references. Enter the following values:
+| Parameter | Value |
+| --- | --- |
+| Name | Username |
+| Type | object |
+| Title | Username |
+
+5.  To create a new data model property, click the + icon near the top of the interface.  Note: Do not click the lower + icon, which is for creating references.
+6.  Enter a Name for the new row and then select the Required check box.
+7.  From the Type dropdown list, select ref under the composition heading.
+8.  From the second Type drop-down list that appears, select the references block you want to use and then click Save.

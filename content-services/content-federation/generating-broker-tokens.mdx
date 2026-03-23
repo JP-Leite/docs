@@ -1,0 +1,26 @@
+---
+title: "Generating Broker Tokens"
+---
+
+---
+title: "Generating Broker Tokens"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/jnc1748893090601"
+section: "Content Federation Services"
+---
+
+In order for the CF Broker to communicate with the CF Gateway, you need to generate a token in the Content Federation Admin Portal. This token is then used in the BrokerRegistrationToken parameter of the CF Broker's appsettings.json file.
+
+To generate a token for use with the CF Broker:
+
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed.
+4.  Click the Token Management tab. The Active Tokens page is displayed, which shows a list of created and active tokens for CF Brokers.
+5.  Click Generate Token. The Generate Token dialog box is displayed.
+6.  Copy the token by doing one of the following:
+- Click the Copy button (![Copy button](data:image/gif;base64,R0lGODlhHQAjAHcAACH5BAAAAAAALAAAAAAdACMAh////0FHUk1TXlFXYlZcZ15jbbu/x97h6eLk7PHz+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAikABMIHEiwoMGDCBMqXMiwocOHECNKnCjRgIAAGDNqDEDgQEMEBTaK5OiR4QECHSkWPJlS5UCWHg0MGKlxgIGEMEHS3FgAAUKYMHGiLGkQ6FChLYsODfrz6EGjSZVGJQiVqFSrVJc6fbp1pdapWcEKrIoU68uvZs+KTUC26dqwacd2dRuX7Vyub5kq1HuVoc6dGXs2tAg4gICbLhMrXsy4seOBAQEAOw==)).
+- Click Copy Token & Close.
+CAUTION: Make sure to store the token after copying it. The token is no longer visible after the Generate Token dialog box is closed.
+7.  Enter the token as the value for the BrokerRegistrationToken parameter in the appsettings.json file of the CF Broker you need to connect. For more information on configuring the CF Broker's appsettings.json file, see Configuring the CF Broker.
+
+After the Generate Token dialog box is closed, the token's information is displayed in the list on the Active Tokens page. This information includes the time and date that the token expires.

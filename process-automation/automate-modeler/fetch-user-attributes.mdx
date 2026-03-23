@@ -1,0 +1,26 @@
+---
+title: "Fetch_User_Attributes"
+---
+
+---
+title: "FETCH_USER_ATTRIBUTES"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/cpc1722596989246"
+section: "Hyland Automate Modeler"
+---
+
+The FETCH_USER_ATTRIBUTES action is used to fetch the user attributes from an identity provider and display them in the Content Innovation Cloud.
+
+The input parameters for FETCH_USER_ATTRIBUTES are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| email | String | Optional | The email address of a user whose data will be fetched, for example john.doe@mail.com. |
+| userID | String | Optional | The user identifier of a user whose data will be fetched, for example 3c181535. |
+| username | String | Optional | The username of a user whose data will be fetched, for example johndoe. |
+
+Note: All parameters are mutually exclusive. If more than one input is provided, the connector uses the first one in the following order: username, email, userID.
+The output parameters for FETCH_USER_ATTRIBUTES are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| userAttributes | String | Optional | User attributes that are fetched to be displayed in the platform, such as identifier, first name, last name, username, email address. Only the attributes for which the values are present are returned. |

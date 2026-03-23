@@ -1,0 +1,32 @@
+---
+title: "Using Data Models In Processes"
+---
+
+---
+title: "Using Data Models in Processes"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ukx1676907957241"
+section: "Hyland Automate Modeler"
+---
+
+To use the data model you created in a project:
+
+1.  Click the + icon next to Processes and create a new process named person-process.
+2.  From the Connectors menu, select Create REST connector.
+3.  In the Connector Editor Settings window, select Create new instance. Enter rest-connector-person for the connector name and then click Apply.
+4.  Use an arrow to connect to the Rest connector object.
+5.  Select the Rest connector object and then click the Append task icon.
+6.  Select the second object and click the Change type icon and then select User Task.
+7.  Ensure the User task is still selected and then click Assignment in the Properties pane.
+8.  Select Identity and find the user you want to assign the task to and then click Assign.
+9.  Select the User task and click Append EndEvent.
+10.  Click anywhere in the whitespace to deselect the tasks and then click Edit Process Variables in the Properties pane.
+11.  Click the + symbol and enter a name for the Person variable.
+12.  From the Type drop-down list, select Data Models and then select the person data model. Click Update. The properties of your data model are displayed in the Process variables window.
+13.  Select the REST connector object and then from the Action drop-down list select Get. You are calling a service using the REST connector.
+14.  In the Output mapping section, set the Process variable for the restResult field to person  This means your person variable will be populated with the result, which means you can use the data within your person task.
+15.  Select the User task again. Create a new form from the Properties menu, name it person and then add a textbox to it.
+16.  In the Field Editor of the textbox, add a label entitled Name and then click Save.  Note: You must add a text box for each of the fields you created when you made the data model and you must label them accordingly.  You have created a user task that is using a form entitled person and that form contains a Name check box.
+17.  Go back to the process and select the user task and then edit the Process variable/Value field of the Name parameter located under input mapping.  Note: You must do this for all the fields you want on your form.
+18.  In the Edit variable mapping window, select Expression, add ${person.Name} and then click Update.  Note: You must do this for all the fields you want on your form.  You have added the value that the Name field will use on the form. You can use the autocompletion functionality to enter the expression.
+
+You now have a data model that is being used by a process that is processing complex objects.

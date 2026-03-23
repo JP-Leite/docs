@@ -1,0 +1,102 @@
+---
+title: "Comprehend"
+---
+
+---
+title: "Comprehend"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/vyj1676969284819"
+section: "Hyland Automate Modeler"
+---
+
+The Comprehend connector provides a standard mechanism to extract entities and Personally identifiable information (PII) entities from text in your documents. The ENTITY action is used by the Comprehend connector to execute Amazon Comprehend natural language processing (NLP) services and identify and analyze text from specific plain text files. The Comprehend connector supports default entity recognition, custom entity recognition, and custom document classification.
+
+The authentication for the Comprehend connector is set using the configuration parameters. For more details, see Comprehend Configuration Parameters.
+
+Note: The Comprehend connector can only receive either files or text but not both at the same time.
+The Comprehend connector can extract entities and PII from the following file formats:
+
+-  text/plain
+-  application/x-tar
+-  /zip
+-  /vnd.ms-outlook
+-  /pdf (max size in bytes: 26214400)
+-  /msword
+-  /vnd.ms-project
+-  /vnd.ms-outlook
+-  /vnd.ms-powerpoint
+-  /vnd.visio
+-  /vnd.ms-excel
+-  /vnd.openxmlformats-officedocument.spreadsheetml.sheet
+-  /vnd.ms-word.document.macroenabled.12
+-  /vnd.openxmlformats-officedocument.wordprocessingml.document
+-  /vnd.ms-word.template.macroenabled.12
+-  /vnd.openxmlformats-officedocument.wordprocessingml.template
+-  /vnd.ms-powerpoint.template.macroenabled.12
+-  /vnd.openxmlformats-officedocument.presentationml.template
+-  /vnd.ms-powerpoint.addin.macroenabled.12
+-  /vnd.ms-powerpoint.slideshow.macroenabled.12
+-  /vnd.openxmlformats-officedocument.presentationml.slideshow
+-  /vnd.ms-powerpoint.presentation.macroenabled.12
+-  /vnd.openxmlformats-officedocument.presentationml.presentation
+-  /vnd.ms-powerpoint.slide.macroenabled.12
+-  /vnd.openxmlformats-officedocument.presentationml.slide
+-  /vnd.ms-excel.addin.macroenabled.12
+-  /vnd.ms-excel.sheet.binary.macroenabled.12
+-  /vnd.ms-excel.sheet.macroenabled.12
+-  /vnd.openxmlformats-officedocument.spreadsheetml.sheet
+-  /vnd.ms-excel.template.macroenabled.12
+-  /vnd.openxmlformats-officedocument.spreadsheetml.template
+-  /x-cpio
+-  /java-archive
+-  /x-netcdf
+-  /msword
+-  /vnd.ms-word.document.macroenabled.12
+-  /vnd.openxmlformats-officedocument.wordprocessingml.document
+-  /vnd.ms-word.template.macroenabled.12
+-  /vnd.openxmlformats-officedocument.wordprocessingml.template
+-  /x-gzip
+-  /x-hdf
+-  text/html
+-  /vnd.apple.keynote
+-  /vnd.ms-project
+-  /vnd.apple.numbers
+-  /vnd.oasis.opendocument.chart
+-  /vnd.oasis.opendocument.image
+-  /vnd.oasis.opendocument.text-master
+-  /vnd.oasis.opendocument.presentation
+-  /vnd.oasis.opendocument.spreadsheet
+-  /vnd.oasis.opendocument.text
+-  /ogg
+-  /vnd.oasis.opendocument.text-web
+-  /vnd.oasis.opendocument.presentation-template
+-  /vnd.oasis.opendocument.spreadsheet-template
+-  /vnd.oasis.opendocument.text-template
+-  /vnd.apple.pages
+-  /pdf "maxSourceSizeBytes": 26214400,
+-  /vnd.ms-powerpoint.template.macroenabled.12
+-  /vnd.openxmlformats-officedocument.presentationml.template
+-  /vnd.ms-powerpoint.addin.macroenabled.12
+-  /vnd.ms-powerpoint.slideshow.macroenabled.12
+-  /vnd.openxmlformats-officedocument.presentationml.slideshow
+-  /vnd.ms-powerpoint
+-  /vnd.ms-powerpoint.presentation.macroenabled.12
+-  /vnd.openxmlformats-officedocument.presentationml.presentation
+-  /x-rar-compressed
+-  /rss+xml
+-  /rtf
+-  /vnd.ms-powerpoint.slide.macroenabled.12
+-  /vnd.openxmlformats-officedocument.presentationml.slide
+-  /vnd.sun.xml.writer
+-  text/xml
+-  /vnd.visio
+-  /xhtml+xml
+-  /vnd.ms-excel.addin.macroenabled.12
+-  /vnd.ms-excel
+-  /vnd.ms-excel.sheet.binary.macroenabled.12
+-  /vnd.ms-excel.sheet.macroenabled.12
+-  /vnd.openxmlformats-officedocument.spreadsheetml.sheet
+-  /vnd.ms-excel.template.macroenabled.12
+-  /vnd.openxmlformats-officedocument.spreadsheetml.template
+-  /x-compress
+-  text/csv
+-  /msword

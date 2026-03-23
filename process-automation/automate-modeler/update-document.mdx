@@ -1,0 +1,26 @@
+---
+title: "Update_Document"
+---
+
+---
+title: "UPDATE_DOCUMENT"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/pnp1718262042128"
+section: "Hyland Automate Modeler"
+---
+
+The UPDATE_DOCUMENT action is used to update a document within the Nuxeo repository.
+
+The input parameters for UPDATE_DOCUMENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | Content | Required | An existing file in the Hyland repository that will be copied into a document in the Nuxeo repository. |
+| documentId | String | Optional | Identifier of the document that exists in Nuxeo repository. |
+| documentMetadata | JSON | Optional | Document metadata that will be set for the document that will be created in Nuxeo repository. |
+| documentPath | String | Optional | Identifier of the document path that exists in Nuxeo repository. |
+
+The output parameters from UPDATE_DOCUMENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| outputDocumentId | String | Optional | The identifier of the document that was updated in the Nuxeo repository. |

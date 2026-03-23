@@ -1,0 +1,29 @@
+---
+title: "Prerequisites"
+---
+
+---
+title: "Prerequisites"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/vqi1757414558223"
+section: "Hyland Automate Modeler"
+---
+
+To use this tutorial, you need to prepare elements in advance.
+
+You need to have the following:
+
+1. An external software whose API can be configured to be used in combination with the Studio application.
+2. A primary process, see Creating Processes.
+3.
+Variables within the primary process which can handle data captured from the external source, see Creating Process Variables.
+
+In this tutorial, the external data used is student_name (variable type: String) and student_age (variable type: Integer).
+
+4.
+A form to capture and display the external data, see Creating Forms.
+
+In this tutorial, the form widgets used are: Text (corresponding with the student_name variable) and Integer (corresponding with the student_age variable). The widgets can be set to Read-only so the user won't interfere with the external data.
+
+5. A secondary, fully automated process which can capture the external data. This process cannot include any user tasks, or it won't be able to deliver the data automatically.
+
+Once the prerequisits are completed, you can proceed to the next step: Starting a Secondary Process when a Form is Opened.

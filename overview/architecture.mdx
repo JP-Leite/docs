@@ -1,0 +1,44 @@
+---
+title: "Architecture"
+description: "How CIC components connect — from Studio to Runtime to Repository."
+---
+
+## High-Level Architecture
+
+│                       │ deploy                           │
+│  ┌────────────────────▼────────────────────────────────┐ │
+│  │            Deployment Service                        │ │
+│  │       (apps, releases, env configs)                  │ │
+│  └────────────────────┬────────────────────────────────┘ │
+│                       │ run                              │
+│  ┌────────────────────▼───────┐  ┌─────────────────────┐ │
+│  │      Runtime Bundle        │  │   Query Service     │ │
+│  │  (process/task execution)  │  │   (search/audit)    │ │
+│  └────────────┬───────────────┘  └──────────┬──────────┘ │
+│               │ store                       │ read       │
+│  ┌────────────▼─────────────────────────────▼──────────┐ │
+│  │                  Repository                          │ │
+│  │     (documents, folders, versions, security)         │ │
+│  └─────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────┘
+```
+
+## Service URLs
+
+Each CIC environment exposes services at these base URLs:
+
+| Service | URL Pattern |
+|---|---|
+| **Runtime Bundle** | `https://{bpmHost}.studio.experience.hyland.com/{appName}/rb/` |
+| **Query Service** | `https://{bpmHost}.studio.experience.hyland.com/{appName}/query/` |
+| **Modeling Service** | `https://{bpmHost}.studio.experience.hyland.com/modeling-service/` |
+| **Deployment Service** | `https://{bpmHost}.studio.experience.hyland.com/deployment-service/` |
+| **Identity Adapter** | `https://{bpmHost}.studio.experience.hyland.com/identity-adapter-service/` |
+| **Repository** | `https://{ecmHost}.content.experience.hyland.com/` |
+
+<Tip>
+Get your `bpmHost` and `ecmHost` from **Studio Admin → Devops → Application Instances → Development Configuration**.
+
+- `APP_CONFIG_BPM_HOST` → `{bpmHost}.studio.experience.hyland.com`
+- `APP_CONFIG_ECM_HOST` → `{ecmHost}.content.experience.hyland.com`
+</Tip>

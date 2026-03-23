@@ -1,0 +1,66 @@
+---
+title: "Updating Confluence Connector"
+description: "Keep the Hyland Content Intelligence app up to date for the latest features and security patches."
+---
+
+## Checking for Updates
+
+Update information for the Hyland Content Intelligence app is available directly within Confluence. When a new version of the app is published, a notification and an **Update** button appear in the Atlassian app management panel.
+
+<Steps>
+  <Step title="Open App Management">
+    In Confluence, navigate to **Apps → Manage Apps** from the main navigation menu.
+  </Step>
+  <Step title="Locate Hyland Content Intelligence">
+    Scroll to or search for **Hyland Content Intelligence** in the installed apps list.
+  </Step>
+  <Step title="Review the Update">
+    If an update is available, the app entry will show the new version number alongside an **Update** button. Click **Update** to review release notes before proceeding.
+  </Step>
+  <Step title="Apply the Update">
+    Click the **Update** button to install the new version. Atlassian will apply the update in the background — ingestion will resume automatically once the update completes.
+  </Step>
+</Steps>
+
+---
+
+## Update Behaviour
+
+<CardGroup cols={2}>
+  <Card title="Configuration Preserved" icon="gear">
+    Your HxI credentials, API token, and Source ID are preserved across updates. You do not need to re-enter configuration after applying an update.
+  </Card>
+  <Card title="Minimal Downtime" icon="clock">
+    Updates are applied by Atlassian in the background. There is typically a brief interruption to Auto Ingestion during the update, but no pages are lost.
+  </Card>
+</CardGroup>
+
+<Info>
+  Atlassian may also apply **automatic updates** for minor patch releases. Check your Atlassian organisation's app update policy if you require manual approval for all updates.
+</Info>
+
+---
+
+## Staying Informed
+
+| Resource | Purpose |
+| --- | --- |
+| **Atlassian Marketplace** | View current app version, changelog, and release history |
+| **Hyland Support** | Report issues, request features, or access release documentation |
+| **Atlassian Manage Apps** | Check current installed version and update status |
+
+---
+
+## Troubleshooting
+
+<Accordion title="The Update button is not visible">
+  If no update is available, the **Update** button will not appear. Your installed version is current. Check the Atlassian Marketplace listing for the latest version and compare it with the version shown in **Manage Apps**.
+</Accordion>
+
+<Accordion title="Ingestion stopped after an update">
+  Navigate to **Apps → Hyland Content Intelligence → Settings** and confirm your credentials are still valid. In rare cases, a major update may require you to re-authorise the connector by re-saving your configuration.
+</Accordion>
+
+<Accordion title="I need to roll back to a previous version">
+  Atlassian does not support direct version rollback through the app management UI. Contact Hyland Support if you need assistance with a version-specific issue.
+</Accordion>

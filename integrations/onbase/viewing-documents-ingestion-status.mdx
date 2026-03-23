@@ -1,0 +1,111 @@
+---
+title: "Viewing Documents Ingestion Status"
+description: "Monitor the status of document batch and individual document ingestion using a SQLite database viewer."
+---
+
+The OnBase Connector stores document ingestion statuses in two **SQLite** databases. Use **DB Browser for SQLite** (or any SQLite viewer) to query ingestion status at the batch and document level.
+
+---
+
+## Databases Created After Deployment
+
+| Database | Location | Purpose |
+| --- | --- | --- |
+| `documentImport.db` | `<installDir>\ContIntOnbaseConnector.DocumentImport\` | Document batch status |
+| `jobRepository.db` | `<installDir>\ContIntOnbaseConnector.WebHost\` | Individual document ingestion status |
+
+---
+
+## Viewing Batch Status
+
+<Steps>
+  <Step title="Download DB Browser for SQLite">
+    Download and install **DB Browser for SQLite** from the [official website](https://sqlitebrowser.org/).
+  </Step>
+  <Step title="Open the documentImport Database">
+    Open **DB Browser for SQLite**, then navigate to your installation directory and open:
+
+    ```
+    <installDir>\ContIntOnbaseConnector.DocumentImport\documentImport.db
+    ```
+  </Step>
+  <Step title="Execute the Batch Status Query">
+    In the **Execute SQL** tab, run:
+
+    ```sql
+    SELECT
+      j.id
+      ,j.start_timestamp
+      ,j.end_timestamp
+      ,j.callback_uri
+      ,sc.name AS status
+      ,j.created_at
+      ,j.completed_at
+      ,j.total_batches
+      ,j.processed_batches
+      ,j.retry_count
+      ,j.error_message
+    FROM JOBS j
+    INNER JOIN STATUS_CODES sc
+      ON j.status_id = sc.id;
+
+    SELECT
+      db.id
+      ,db.job_id
+      ,db.document_count
+      ,db.document_ids
+      ,sc.name AS status
+      ,db.worker_id
+      ,db.created_at
+      ,db.updated_at
+      ,db.retry_count
+      ,db.error_message
+    FROM DOCUMENT_BATCHES db
+    INNER JOIN STATUS_CODES sc
+      ON db.status_id = sc.id;
+    ```
+
+    Results appear in the panel below.
+  </Step>
+</Steps>
+
+---
+
+## Viewing Individual Document Status
+
+<Steps>
+  <Step title="Open the jobRepository Database">
+    Open **DB Browser for SQLite**, then navigate to your installation directory and open:
+
+    ```
+    <installDir>\ContIntOnbaseConnector.WebHost\jobRepository.db
+    ```
+  </Step>
+  <Step title="Browse or Query Document Status">
+    In the **Browse Data** tab, use the **Table** dropdown to select `JOBS` and view document statuses.
+
+    For a more readable view, run this query in the **Execute SQL** tab:
+
+    ```sql
+    SELECT
+      j.job_id
+      , j.doc_id
+      , js.name AS status
+      , sn.name AS source
+      , en.name AS event
+      , j.batch_id
+      , j.created_date
+      , j.process_start_time
+      , j.process_end_time
+      , j.retry_count
+      , error_message
+    FROM JOBS j
+    INNER JOIN JOB_STATUS js
+      ON j.status_id = js.status_id
+    INNER JOIN EVENT_NAMES en
+      ON j.event_type_id = en.event_id
+    INNER JOIN SOURCE_NAMES sn
+      ON j.source_id = sn.source_id;
+    ```
+  </Step>
+</Steps>

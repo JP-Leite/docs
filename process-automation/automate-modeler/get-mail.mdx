@@ -1,0 +1,26 @@
+---
+title: "Get_Mail"
+---
+
+---
+title: "GET_MAIL"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/lxw1736843063745"
+section: "Hyland Automate Modeler"
+---
+
+The GET_MAIL action is used to fetch the message body and attachments from the Microsoft email services.
+
+The input parameters for GET_MAIL are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| messageId | String | Required | Identifier of the message that will be retrieved. It can be mapped to a variable, for more details see Mapping Process Variables for Microsoft Email Connector. |
+| saveRaw | Boolean | Optional | When set to true, the message and attachments are saved together as a raw .eml format. By default, the email body and attachment are saved in the content repository separately. |
+| targetContainer | Content | Required | Content or a content object for the container in the repoistory, where the message is saved. |
+
+The output parameters from GET_MAIL are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| attachments | Array<content> | Optional | Reference to the attachments array (only for the parsed mode.) |
+| message | Content | Optional | Reference to the email body or a raw email file. |

@@ -1,0 +1,27 @@
+---
+title: "Docgen Service"
+---
+
+---
+title: "Docgen Service"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/bop1704701998470"
+section: "Hyland Automate Modeler"
+---
+
+A Docgen service action is used to create content in the application.
+
+The payload for the action is:
+
+| Property | Required | Description |
+| --- | --- | --- |
+| metadata | Optional | Metadata that will be used by the template. |
+| outputFileName | Optional | Name of the output content. |
+| outputFormat | Optional | Format of the output content. You can select PDF or DOCX. The default format is PDF. |
+| targetFile | Optional | Content that will be overwritten by the result of the action. If the received value contains multiple contents, only the first of them will be overwritten. For example, "uri": "hxpr:/1234567890". |
+| targetFileMetadata | Optional | Metadata that will be assigned to the content resulted from the action. |
+| targetFileType | Optional | Type of the file resulted from the action. |
+| targetFolder | Optional | Parent folder, in which the output content will be saved. If the received value contains multiple targetFolder values, only the first of them will be used. |
+| targetFolderId | Optional | Idenfitier of the target folder, in which the resulting document will be saved. |
+| targetFolderPath | Optional | A relative path of the parent folder, in which the resulting document will be saved, for example /User Homes/hruser/invoices. |
+| template | Required | Template file used to generate the content. If the received value contains multiple template values, only the first of them will be used. For example, "uri": "hxpr:/1234567890". |
+| underscoreMetadata | Optional | Boolean parameter, which decides whether the received prefixed properties name contain the underscore (_) or a colon (:) to separate the namespace prefix from the property name. If set to true, the prefixes are separated with underscore. |

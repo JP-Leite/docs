@@ -1,0 +1,43 @@
+---
+title: "Submitting A Batch"
+---
+
+---
+title: "Submitting a Batch"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/kun1646248501233"
+section: "Hyland Capture"
+---
+
+Once you have reviewed and organized your captured documents, you can submit the batch for verification or export. This clears the batch from the document review layout and sends it to either the Hyland Capture Verify Data interface or an export package.
+
+To submit a batch:
+
+1.  Open the Hyland Capture application and log in (see Opening the Hyland Capture Application). The Hyland Capture Scan and Import interface is displayed, showing one of the following layouts:
+-
+If there are no pending batches, the document capture layout is displayed.
+
+-
+If there is a pending batch, the document review layout is displayed.
+
+Note:
+If you are already logged in to the Hyland Capture application and using the Verify Data interface, you must switch to the Scan and Import interface (see Switching the Interface).
+
+2.  If there are no pending batches, capture documents to create a new batch (see Capturing Documents). The document review layout is displayed.
+3.  Click Submit Batch in the lower-right corner of the layout. The document capture layout is displayed with one of the following notifications:
+-
+A green notification indicating the batch has been submitted successfully. This notification is automatically cleared after a few seconds.
+
+-
+A yellow notification indicating a subfolder cannot be created for a sweep process. This only applies to sweep processes configured to move the local copies of your source files after sweeping the files into the system. The notification may be displayed if you do not have rights to create subfolders in the sweep directory (contact your system administrator for assistance).
+
+The batch is submitted successfully, but the local source files remain in the original sweep directory. The notification is automatically cleared after a few seconds.
+
+-
+A red notification indicating the batch submission has failed. This may be caused by a temporary issue with server processing or authentication. While this notification is displayed, the document capture layout is disabled.
+
+4.  If the batch submission fails, click OK to close the red notification and enable the document capture layout. The batch is automatically resubmitted a few times over a five-minute period to give the temporary background issues a chance to clear. If the issues persist beyond this period, the batch is placed in a dormant status.  Note:
+If you refresh the page or reopen the Hyland Capture application, any pending failure notification is displayed again. You must click OK to close the message and enable the document capture layout.
+
+For information on verifying a successfully submitted batch, see Verify Data Usage Overview.
+
+For information on processing an export package into OnBase, see the Hyland Experience Capture Import Processor documentation.

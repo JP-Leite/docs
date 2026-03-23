@@ -1,0 +1,60 @@
+---
+title: "Creating A Source And Target Choice Form"
+---
+
+---
+title: "Creating a Source and Target Choice Form"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/nzs1724066477551"
+section: "Hyland Automate Modeler"
+---
+
+To allow the user to select source and target content details freely, a form needs to be created, with which the user can interact.
+
+To create the form:
+
+1.  In the project, select New > Form. The Create Form dialog box is displayed.
+2.  Enter the Form name, for examaple nuxeo-create-document-form. Remember it, it will be used later.
+3.  From the widget palette on the left, drag the Text widget and drop it to the form. It will be a field where the user can set the source file path.
+Select the widget and edit the following properties in the right pane:
+
+| Property | Value |
+| --- | --- |
+| Label | Enter the label of the text field, for example: Parent document path. |
+| Default value | Enter the default file path from the HxP repository, for example: /default-domain/workspaces/johndoe |
+
+4.  From the widget palette on the left, drag the second Text widget and drop it to the form. It will be a field where the user can set the document type.
+Select the widget and edit the following properties in the right pane:
+
+| Property | Value |
+| --- | --- |
+| Label | Enter the label of the text field, for example: Document type. |
+| Default value | Enter the default document type of a file that will be created in the Nuxeo repository, for example: Picture |
+
+5.  From the widget palette on the left, drag the third Text widget and drop it to the form. It will be a field where the user can set a document name.
+Select the widget and edit the following properties in the right pane:
+
+| Property | Value |
+| --- | --- |
+| Label | Enter the label of the text field, for example: Document name. |
+| Default value | Enter the default document type of a file that will be created in the Nuxeo repository, for example: MyDog.png |
+
+6.  From the widget palette on the left, drag the Multiline Text widget and drop it to the form. It will provide the metadata to be set in the Nuxeo repository for the uploaded file.
+Select the widget and edit the following properties in the right pane:
+
+| Property | Value |
+| --- | --- |
+| Label | Enter the label of the multiline text field, for example: Nuxeo metadata . |
+| Default value | Enter the default document type of a file that will be created in the Nuxeo repository, for example: {"dc:description": "HxP Picture"}. |
+
+7.  From the widget palette on the left, drag the Attach File widget and drop it to the form. It will provide the file to be uploaded to the Nuxeo repository.
+Select the widget and edit the following properties in the right pane:
+
+| Property | Value |
+| --- | --- |
+| Label | Enter the label of the multiline text field, for example: HxP Content to be Copied . |
+| File source | Select Local and Content Repository. |
+| Default folder | Enter the default folder to which the attached file will be copied, for example: /nuxeo-files. |
+
+8.  Save the form, using the cloud button in the top bar.
+
+The form is created. You can proceed to create the second form to present the user with results of Nuxeo content creation.

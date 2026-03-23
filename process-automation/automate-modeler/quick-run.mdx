@@ -1,0 +1,25 @@
+---
+title: "Quick Run"
+---
+
+---
+title: "Quick Run"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/izo1764063861487"
+section: "Hyland Automate Modeler"
+---
+
+A quick run feature enables an easy deployment and upgrade of a runtime application for the testing purposes, including all of the project components, such as connectors, UIs, or scripts. Once you select this option, the process from the project is started in a selected environment. You can go through it without making changes to the projects releaed on production.
+
+Note: To use this function, you must have the Administrator or DevOps role assigned for Studio Administration. For more information, seeHyland Automate Administration documentation.
+To use the Quick Run function:
+
+1.  Open the project you want to test.
+2.  Select the Quick Run option from the top bar.
+3.  Select an environment from the Environment drop-down menu.
+The quick run is executed in one of the existing environments on which the user is operating. There is no separate testing environment created as in the simulation approach.
+
+CAUTION: A quick run should not be performed on a customers production environment. It could interfere with running production apps.
+4.  Select Quick Run.
+5.  When prompted with a warning, select Run.  Note: It may take up to several minutes when the project is quick run for the first time. After the initial run, the project is deployed using the Hot Reload method within seconds.
+
+Once the project completed the validation, you can open its workspace and test it. It is marked with a Do not use for production label on the running process list in the Admin application to distinguish them from the regular processes.

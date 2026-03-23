@@ -1,0 +1,39 @@
+---
+title: "Creating A New Mapping"
+---
+
+---
+title: "Creating a New Mapping"
+source: "https://support.hyland.com/r/Current/Hyland-for-Salesforce/ifw1756654864244"
+section: "Hyland for Salesforce"
+---
+
+This section explains how to create a new mapping that allows system administrators to configure standard or custom Salesforce objects. These objects can be linked to one or more Content Types and associated Keywords, which uniquely identify each Content Type.
+
+To create a new mapping:
+
+1.  Open a web browser and log on to the Salesforce environment with your credentials. The Home page is displayed.
+2.  From the top-right of the Home page, click the App Launcher button.   ![](data:image/gif;base64,R0lGODlhJgAjAHcAACH5BAEAAAAALAAAAAAmACMAh/8A/wcHByoqKi0tLS8vL2dnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHZ2dnd3d3l5eXp6ent7e319fX9/f4CAgIGBgYKCgoWFhYmJiYqKio2NjZCQkJGRkZOTk5SUlJaWlpiYmJmZmZqampubm56enp+fn6CgoKGhoaOjo6Wlpampqaurq66urq+vr7GxsbS0tLi4uLm5ubq6ury8vL29vb6+vsHBwcPDw8TExMfHx8jIyMnJycrKysvLy9HR0dLS0tPT09vb29zc3N3d3d7e3t/f3+Dg4OLi4uPj4+Tk5Obm5ufn5+jo6Onp6erq6uvr6+zs7O3t7fHx8fPz8/T09PX19fb29vj4+Pn5+fr6+vv7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AAMIGEiwoMGDCBMGIECmocOHECNKnEhgwMSLGC8OsJixY8eNEb84SVIl4hQkT8JAxKJkyRaJIB9miTFhQQchYxqK6cFBQQUaXBweCcHgAQooEWM6zMHAQYQEG5w0PHJhgQQHD3w01DICQQQICVyAgai0IQkFEtIe+NEwx4G0EhCoaPjkQYS0DzBoIcvRYQm0aREAabgDAdwELOh+Tesgw8uHZcnwcNAAbAekZJZkUBChQYQgDbmYSAABggIYKiH3DV0DAwQQRRyOGeLhgQYcXhw2ORGBggsrSVfrtCIlS0QsUa7kfMhFCpXcwT1K1yh8uvXIZJTEWKEDy8MrN1T+zJDq0AuQFi+IiIn+EEmHBAgYuHiMJQUDBAo+kBdjIwKCBBUMxhdELygAwVURGNGQEFhJYJoMDVWRAQNpLQBCFwM+JAJgEhSgFRk4GAAXAik01AQDd0nwgAXGqUaggQgqSAaDDzioAIRkSEihBBZi6GJ778U3X0P13Zfffv39FyB7D2nHnXcOgSceeQ2Zh556TFqnJXZaeoSdGMS1+BByykHU3HMwCcdFa6/F1tBstd0GHRm79fZblpJRZhlmTGzW2WehjVbaaak5FNlfIwpY2GGJkfHEYlc5lqFDZ8G1VltvBTaXo3bhpdekbTX1VFRTVXVVVlt19VVYY/3o0EwwNd203E49/RTUVEQZhZmrDolEkkkoFUpkS4+B2qV0XB6L0QAMKTsdAQIlJO20CgUEADs=) ![App Launcher button]()   The App Launcher drop-down menu is displayed.
+3.  In the App Launcher search box, enter Solution Configuration. The search results are displayed.
+4.  Click Solution Configurations from the search results. The Solution Configurations login page is displayed.
+5.  Log on to the Hyland for Salesforce application if you aren't authenticated already. The Solution Configurations page is displayed.
+6.  From the left hand-pane, under Mappings, select an object and then select Mapping.  Note: Typically, a list of standard and custom Salesforce objects are displayed under Mappings. To add one or more objects before creating a new mapping, click Create from the top-right corner and then select an option from the Select Object drop-down list.
+7.  From the Select Content Type drop-down list, select a Content Type. The selected Content Type is associated with the Salesforce object.
+8.  From the Select Keyword drop-down list, select a property that you want to associate with the Content Type.  Note: Keywords that are already configured are displayed under Configurations.
+9.  Click Add Field. The select property is displayed under Property and enables you to configure settings for the property.
+10.  From the Input Source drop-down list, select one of the following options:
+
+| Option | Description |
+| --- | --- |
+| Salesforce Field | Allows you to choose a Salesforce field as your input, and its value is automatically used as the property value. |
+| Literal | Allows you to enter a property value based on the data type. This value is captured as part of the metadata used for identifying a captured file. For example, if the data type is Purchase Date, you can enter a date as the property value. |
+| User Name | Automatically uses the Salesforce User's Name as the property value while capturing documents. No user input is necessary. |
+| File Name | Automatically uses the file name of a captured file as the property value. No user input is necessary. For example, if you captured a file named Example.docx, this file name is used as the property value automatically. |
+| File Type | Automatically uses the file type of a captured file as the property value. No user input is necessary. For example, if you captured a file with the extension .jpg, this file type is used as property value automatically. |
+| Manual Entry | Allows you to enter a property value as required while capturing supported files. For example, you can enter an address as the property value if you selected this. |
+
+11.  From the Value field, enter a property value.
+You can specify property values in the Value field based on the type of Input Source. For instance, if the Input Source selected is Salesforce Field, you can choose an existing Salesforce field from the drop-down to map with this property.
+
+Note: If a date and time is entered as the value, it will be accepted in GMT (Greenwich Mean Time) values and not the user's local time. For example, if the entered date and time is 03 Sep 10:04 PM, it gets stored in the application as 03 Sep 10:04 PM GMT.
+12.  Review the information and click Update from the top-right corner. A confirmation message is displayed. The new mappings are saved.

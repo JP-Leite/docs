@@ -1,0 +1,42 @@
+---
+title: "Postgresql Delete"
+---
+
+---
+title: "PostgreSQL Delete"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/tbk1677232530967"
+section: "Hyland Automate Modeler"
+---
+
+The PostgreSQL DELETE action is used to execute a delete statement against a PostgreSQL database.
+
+The input parameters for a delete statement are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| query | String | Required | The query to execute against the database |
+| metadata | JSON | Optional | The list of parameters to pass to the query |
+
+The metadata parameter can be used to pass variables into the query parameter.
+
+For example, if the contents of metadata are:
+
+```
+{
+"type" : "mint"
+}
+```
+
+This can be used in the query parameter as:
+
+```
+DELETE FROM flavors
+WHERE flavor = {type};
+```
+
+Note: The { } are declared without quotations.
+The output parameters from a delete statement are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | Integer | Optional | The number of rows in the database that were affected by the statement |

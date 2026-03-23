@@ -1,0 +1,82 @@
+---
+title: "Authentication"
+description: "How to authenticate with Hyland CIC APIs using OAuth2 Bearer tokens."
+---
+
+## Overview
+
+All CIC APIs require an **OAuth2 Bearer token** issued by the Hyland Identity Provider (HxP IAM). You must include this token in the `Authorization` header of every request.
+
+## Authentication Methods
+
+<Tabs>
+  <Tab title="Client Credentials">
+    The recommended method for service-to-service integrations and automated tasks.
+    
+    <CodeGroup>
+    ```bash Request
+    curl -X POST "https://auth.iam.experience.hyland.com/idp/oauth2/token" \
+      -d "grant_type=client_credentials" \
+      -d "client_id=YOUR_CLIENT_ID" \
+      -d "client_secret=YOUR_CLIENT_SECRET" \
+      -d "scope=openid profile hxp environment_authorization"
+    ```
+
+    ```json Response
+    {
+      "access_token": "eyJ...",
+      "token_type": "Bearer",
+      "expires_in": 3600,
+      "scope": "openid profile hxp environment_authorization"
+    }
+    ```
+    </CodeGroup>
+  </Tab>
+  <Tab title="Manual (Development)">
+    For quick testing, you can grab a token from your browser's DevTools while logged into the CIC Studio or Admin Portal.
+    
+    1. Open **DevTools** (F12) → **Network** tab.
+    2. Click any API request (e.g., `query/v1/tasks`).
+    3. Copy the value of the `Authorization` header: `Bearer eyJ...`.
+  </Tab>
+</Tabs>
+
+## Using the Token
+
+Include the token in the `Authorization` header of your API requests.
+
+<CodeGroup>
+```bash cURL
+curl -H "Authorization: Bearer <your_token>" \
+  "https://{bpmHost}.studio.experience.hyland.com/{appName}/query/v1/tasks"
+```
+
+```javascript Node.js
+const response = await fetch(url, {
+  headers: {
+    'Authorization': `Bearer ${accessToken}`
+  }
+});
+```
+</CodeGroup>
+
+<Warning>
+  Tokens expire after **60 minutes**. Implement standard OAuth2 token caching and refresh logic in your production applications.
+</Warning>
+
+## Required Scopes
+
+Ensure your Client ID has the following scopes enabled in the Admin Portal:
+
+| Scope | Description |
+|---|---|
+| `openid` | Required for OpenID Connect |
+| `profile` | User identity information |
+| `hxp` | Access to the Hyland Experience Platform |
+| `environment_authorization` | Permission to access specific environments |
+| `offline_access` | Required if you need a refresh token |
+| `groups` | Access to user group memberships |
+
+<Note>
+  The OIDC discovery document is available at: `https://auth.iam.experience.hyland.com/idp/.well-known/openid-configuration`
+</Note>

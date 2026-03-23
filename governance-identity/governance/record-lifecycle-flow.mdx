@@ -1,0 +1,48 @@
+---
+title: "Record Lifecycle Flow"
+---
+
+---
+title: "Record Lifecycle Flow"
+source: "https://support.hyland.com/r/Current/Hyland-Governance/lxc1755600152904"
+section: "Hyland Governance"
+---
+
+Governance integrates with Hyland Experience Repository (HxPR) to manage records. Below you can find information on when records enter Governance and what triggers further status changes.
+
+A record enters retention after it is triggered. Triggers can occur immediately or based on a specific date. They can be based on the system's current date, the date the item was created, the date the item was last changed, or a custom date you set manually:
+
+| Trigger Type | Description |
+| --- | --- |
+| Immediate | The retention starts as soon as the document is uploaded. |
+| createdDate | The retention starts from the date the document was created. If the record is updated later, the retention period continues to count from the original creation date. This is a system property. |
+| modifiedDate | The retention starts from the last time the document was changed. This property is used for documents that evolve over time and need to be retained for a set period after their most recent updates. This is a system property. |
+| Custom Date Property | The retention starts on the date specified in this property. The custom date property field is created in Studio Modeler prior to creating a retention policy. The value for this property is set later in HxPR when HR or Record Manager updates the record. |
+
+Once retention is triggered, the system sets a retention start date and associates the records with its governing policy. During the retention period, the record is preserved and protected against unauthorized alteration or deletion until disposition actions are executed in accordance with the schedule.
+
+Mutual communication between Governance and HxPR allows for discovering new or updated records and bringing metadata from Governance to the repository and conversely. If the property with a cutoff date is used in the repository then this cutoff date is assigned in Governance. Governance creates a record and the system runs periodically to check and update record status. When the cutoff date matches the current date, the record is marked Under Retention.
+
+The following sequence shows the lifecycle of records:
+
+Ready - When the file upload is completed in HxPR and the cutoff date is in the future, the file is waiting until this date is reached and the record status is Ready. When a record reaches the cutoff date, the status changes to Under Retention.
+
+Under Retention - When a file is uploaded in the repository and reaches a cutoff date, then it enters retention. The records are processed by the system at intervals. If a file's cutoff date is in the past, it enters retention immediately. Records have the Under Retention status until the disposition date is reached. The disposition date is calculated from the cutoff date and the retention policy's duration.
+
+Reached Disposition - The retention duration can be infinite or set for a fixed period of time. When the disposition date is reached, the system moves the file to the Reached Disposition status.
+
+The following table shows a different trigger strategy (Immediate, Custom Date, System Fields):
+
+| Policy Type | Trigger Type | Retention Start Condition | Status Lifecycle | Edit Permissions | Delete Permissions |
+| --- | --- | --- | --- | --- | --- |
+| Content Type + Immediate | Immediate | A file enters retention after it is uploaded in the repository and the record is processed by the system at intervals. | UNDER RETENTION > REACHED DISPOSITIONAs soon as the file is uploaded, the record status becomes Under Retention. The cutoff date is set for the current date. | Not allowed | Not allowed |
+| When the record reaches the disposition date, the status changes to Reached Disposition. | Not allowed | Allowed |
+| Content Type + Custom Date Property | Property-based date: Custom | If the cutoff date is in the future, it is set to Ready status until that date is reached. | READY > UNDER RETENTION > REACHED DISPOSITIONWhen the file upload is completed in the repository and the cutoff date is in the future, the status is Ready . | Allowed | Allowed |
+| When the date is reached, the status changes to Under Retention. | Not allowed | Not allowed |
+| When the record reaches the disposition date, the status changes to Reached Disposition | Not allowed | Allowed |
+| If the cutoff date is in the past, it enters retention immediately. | UNDER RETENTION > REACHED DISPOSITIONIf the date is in the past, the status is Under Retention. | Not allowed | Not allowed |
+| When the record reaches the disposition date, the status changes to Reached Disposition. | Not allowed | Allowed |
+| Content Type + createdDate | Property-based date:System field | A file enters retention based on the creation date. | UNDER RETENTION > REACHED DISPOSITIONThe status is Under Retention. | Not allowed | Not allowed |
+| When the record reaches the disposition date, the status changes to Reached Disposition. | Not allowed | Allowed |
+| Content Type + modifiedDate | Property-based date: System field | A file enters retention based on the modification date. | UNDER RETENION > REACHED DISPOSITIONThe status is Under Retention. | Not allowed | Not allowed |
+| When the record reaches the disposition date, the status changes to Reached Disposition. | Not allowed | Allowed |

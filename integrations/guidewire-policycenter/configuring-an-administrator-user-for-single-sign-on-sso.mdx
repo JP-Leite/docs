@@ -1,0 +1,22 @@
+---
+title: "Configuring An Administrator User For Single Sign On Sso"
+---
+
+---
+title: "Configuring an Administrator User for Single Sign-On (SSO)"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-PolicyCenter/hlo1767796368282"
+section: "Hyland for Guidewire PolicyCenter"
+---
+
+You must configure an administrator user within PolicyCenter to work with single sign-on (SSO). See your Guidewire PolicyCenter documentation for detailed information on configuring users.
+
+PolicyCenter must be configured and deployed in the Guidewire cloud environment with a single sign-on (SSO) identity provider.
+To configure an administrator user for single sign-on (SSO):
+
+1.  Log in to PolicyCenter as an unrestricted user before enabling single sign-on (SSO).
+2.  If desired, create a new user that will serve as the single sign-on (SSO) administrator. The unrestricted user can also be used for this purpose if preferred.
+3.  Grant your chosen user single sign-on (SSO) administrative rights. In most cases the user will need to be granted the All Permissions role and the System Administrators group. For information on giving a PolicyCenter user single sign-on (SSO) administrative rights, see your Guidewire PolicyCenter documentation.
+4.  Log in to the Single Sign-On (SSO) Identify Provider Server as an administrator.
+5.  Create an account with the same user name as your PolicyCenter SSO administrator.
+6.  Assign the Single Sign-On (SSO) administrator user to the appropriate SSO group.
+7.  Enable Single Sign-On (SSO) for that user and save all changes.

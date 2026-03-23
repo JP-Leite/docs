@@ -1,0 +1,33 @@
+---
+title: "Send"
+---
+
+---
+title: "Send"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/mac1677153343519"
+section: "Hyland Automate Modeler"
+---
+
+The SEND action is used by the email service to send an email and optional attachments.
+
+The input parameters to send an email are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| to | String | Required | The email addresses to send to, for example: jane.doe@jdoe.com  Multiple addresses are separated by a comma. |
+| cc | String | Optional | A carbon copy list of email addresses. Multiple addresses are separated by a comma. |
+| bcc | String | Optional | A blind carbon copy list of email addresses. Multiple addresses are separated by a comma. |
+| subject | String | Optional | The subject line of the email, for example: Order No: 1234 |
+| attachments | Content | Optional | A variable of type file containing attachments to send with the email. |
+| charset | String | Optional | Sets the character set of the email, for example: UTF-8 |
+| html | String | Optional | The body of the email in HTML, for example: <p><b>Hello!</b></p> |
+| text | String | Optional | The body of the email in plain non-rich text. Can be sent in addition to html and will be used as a fall-back if HTML is not supported by the email client reading the email. |
+| template | Content | Optional | The body of the email generated from a template stored as a file variable. |
+| metadata | JSON | Optional | Metadata to be used by the template when generating the file to include process variables in the output. |
+
+The email address of the sender is configured basing on the customer account location. This address cannot be changed and it is set automatically to the following values:
+
+| Region | Sender email |
+| --- | --- |
+| United States | no-reply@experience.hyland.com |
+| European Union | no-reply@app.hyland.eu |

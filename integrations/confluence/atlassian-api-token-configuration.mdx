@@ -1,0 +1,89 @@
+---
+title: "Atlassian API Token Configuration"
+description: "Generate and configure an Atlassian REST API token so the Confluence Connector can authenticate on behalf of a service account."
+---
+
+## Why an API Token?
+
+The Confluence Connector authenticates against the Atlassian API using a **REST API token** tied to a specific user account. This token grants the connector read access to Confluence content without exposing your Atlassian password.
+
+<Warning>
+  Use a **dedicated service account** for this token rather than a personal account. If the user account is suspended or deleted, the connector will lose access and ingestion will stop.
+</Warning>
+
+---
+
+## Generating an Atlassian API Token
+
+<Steps>
+  <Step title="Sign In as the Service Account">
+    Log in to your Atlassian account (or switch to the service account) at [https://id.atlassian.com](https://id.atlassian.com).
+  </Step>
+  <Step title="Open API Token Settings">
+    Click your **profile avatar → Security → API tokens → Create API token**.
+  </Step>
+  <Step title="Name the Token">
+    Give the token a descriptive label such as `Hyland CIC Connector — Production` so it is easy to identify in the token list.
+  </Step>
+  <Step title="Copy the Token">
+    Atlassian displays the generated token **once**. Copy it immediately and store it in a secrets manager or secure vault. You will not be able to retrieve it again.
+  </Step>
+</Steps>
+
+---
+
+## Configuring the Token in the Connector
+
+Once you have your token, enter the following fields in the Confluence Connector settings panel:
+
+<Steps>
+  <Step title="Identify the User ID">
+    The **User ID** is the Atlassian Account ID of the service account. Retrieve it from:
+    - The Atlassian user profile URL: `https://your-domain.atlassian.net/people/{accountId}`
+    - The Confluence admin panel → **User management** → click the user
+  </Step>
+  <Step title="Enter Credentials">
+    In **Apps → Hyland Content Intelligence → Settings**, fill in the following fields:
+
+    | Field | Value |
+    | --- | --- |
+    | **User ID** | Atlassian Account ID of the service account |
+    | **API Token** | The REST API token generated in the previous section |
+  </Step>
+  <Step title="Save and Validate">
+    Save the settings. The connector will attempt an authentication check against the Atlassian API. A success message confirms the token is valid and the connector is authorised.
+  </Step>
+</Steps>
+
+---
+
+## Security Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Rotate Regularly" icon="rotate">
+    Rotate your API token periodically (every 90 days is common) and update the connector settings with the new token.
+  </Card>
+  <Card title="Minimum Permissions" icon="shield-halved">
+    The service account only needs **Confluence read access**. Avoid granting site administrator permissions to the service account.
+  </Card>
+  <Card title="Audit Tokens" icon="magnifying-glass">
+    Periodically review active API tokens in **Atlassian Account Settings → Security → API tokens** and revoke any that are no longer in use.
+  </Card>
+  <Card title="Store Securely" icon="lock">
+    Never paste the token into a Confluence page, email, or chat. Use a secrets manager or a secure vault.
+  </Card>
+</CardGroup>
+
+---
+
+## Troubleshooting
+
+<Accordion title="Validation fails after entering the token">
+  - Confirm the **User ID** is the Atlassian Account ID (not a username or email address).
+  - Confirm the **API Token** was copied without trailing spaces or line breaks.
+  - Verify the token is still active in **Atlassian → Security → API tokens**.
+</Accordion>
+
+<Accordion title="My token expired or was revoked">
+  Generate a new token following the steps above and update the **API Token** field in the connector settings. No reinstallation is required.
+</Accordion>

@@ -1,0 +1,30 @@
+---
+title: "Copy_Folder"
+---
+
+---
+title: "COPY_FOLDER"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/msm1713769644316"
+section: "Hyland Automate Modeler"
+---
+
+The COPY_FOLDER action is used to copy a folder and save it in the ACS repository.
+
+The input parameters for COPY_FOLDER are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| name | String | Optional | Name of the copied node. |
+| sourceFolder | Array<json>, JSON | Required | ACS folder to be copied. If the received value contains multiple references to folders, only the first of them will be used. |
+| sourceId | JSON | Optional | ACS node id of the node to be copied. For example, 775a8f2d-8123-49a7-ae1f-f3f49d4eae20. |
+| sourcePath | String | Optional | Path of the node to be copied. For example, /User Homes/hruser/invoices/invoice.txt. |
+| targetFolder | Array<json>, JSON | Optional | Folder in which to store the result copied. If the received value contains multiple references to folders, only the first of them will be used. |
+| targetFolderId | String | Optional | The nodeId of the folder to store the record in. For example 775a8f2d-8123-49a7-ae1f-f3f49d4eae20. |
+| targetFolderPath | String | Optional | Path of the folder to store the copied result. For example, /User Homes/hruser/. |
+
+The output parameters from COPY_FOLDER are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| response | Array<json> | Optional | Response for the calls. |
+| folder | Array<json> | Optional | A list of ACS nodes containing just one element corresponding to the copied folder. |

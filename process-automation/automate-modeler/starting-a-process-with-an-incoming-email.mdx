@@ -1,0 +1,23 @@
+---
+title: "Starting A Process With An Incoming Email"
+---
+
+---
+title: "Starting a Process with an Incoming Email"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/mbj1737380283102"
+section: "Hyland Automate Modeler"
+---
+
+An incoming Microsoft Email message can trigger the start of a process created in the Studio Modeler application.
+
+To configure such a trigger:
+
+1.  Create a trigger, see Creating Triggers.
+2.  Select the Event source to Connector events >  > Microsoft Email Connector > MESSAGE_RECEIVED. If you already configured a Microsoft Email connector, you can use the existing one for this trigger.
+3.  Optional: in the Input values section, you can add conditions that determine which emails are going to start the process. When adding a condition, you can use the Cloud Event Data (Event) section of the Variables tab to select contents of an incoming message. For more information on conditions, see Creating Conditions.
+4.  Optional: in the Input values section, you can add a Pattern to determine which emails are going to start the process. The pattern applies to the subject of an incoming message. The pattern should follow the regular expression (regex) structure. For example, to start a process with any incoming message from the "hyland.com" domain, use the following expression: (\W|^)[\w.\-]@hyland\.com(\W|$).
+5.  In the Action section, select Runtime actions > Process > Start process.
+6.  Select the process that you want to start from the processDefinitionKey drop-down menu.
+7.  Save the trigger.
+
+The process can be started from the configured incoming message after deployment. You can also map the variables from the incoming message into the process and use them for example in the Microsoft Email connector events. For more details, see Mapping Process Variables for Microsoft Email Connector.

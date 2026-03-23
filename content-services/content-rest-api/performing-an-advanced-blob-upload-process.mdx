@@ -1,0 +1,46 @@
+---
+title: "Performing An Advanced Blob Upload Process"
+---
+
+---
+title: "Performing an Advanced Blob Upload Process"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/pqy1710525267180"
+section: "Hyland Content REST API"
+---
+
+Once you have acquired and used an access token (see Getting Started), you can start performing an advanced blob upload process and attaching the blob to a document in the repository. After you create data for the upload ID, the data is only briefly stored in an internal storage space. To persist the blob in the repository, you must immediately use the newly created upload ID in a request to create or update a document in the repository.
+
+Note: This tutorial makes calls to Upload API endpoints. For full reference information on all available Upload API endpoints, see Upload.
+To perform an advanced blob upload process:
+
+1.  Open Command Prompt or Terminal.
+2.  Upload a blob to the repository by doing one of the following:
+- Create an upload object and provide the blob in chunks (see Uploading a Blob in Chunks).
+- Create an upload object and provide the whole blob in a single request (see Uploading a Blob in a Single Request).
+3.  Attach the blob to a document in the repository by using the newly created upload ID while making a call to one of the following endpoints:
+-  POST /api/documents/[docId] (see Create a Document in a Folder with the Specified ID for full reference information)
+-  POST /api/documents/path/[docPath] (see Create a Document in a Folder with the Specified Path for full reference information)
+-  PUT /api/documents/[docId] (see Update the Document with the Specified ID for full reference information)
+-  PUT /api/documents/path/[docPath] (see Update the Document with the Specified Path for full reference information)
+You can use the upload ID wherever a blob can be referenced in a JSON payload during the creation or update of a document in the repository. The JSON then uses a simple object with an upload ID as the blob payload in the blob property being considered for creation or update.
+
+The following example makes a call to the POST /api/documents/[docId] endpoint:
+
+```
+curl -i -X POST [base_url]/api/documents/00000000-0000-0000-0000-000000000000 \
+  -H "Authorization: Bearer [access_token]" \
+  -H "User-Agent: [product]/[version]" \  
+  -H "Content-Type: application/json" \
+  -d "{\"sys_title\": \"My File\", \"sysfile_blob\": {\"uploadId\": \"1234\"}, \"mybiz_image\": {\"uploadId\": \"5678\"}}"
+```
+
+where the placeholders represent the following:
+
+| Placeholder | Description |
+| --- | --- |
+| [base_url] | The URL of the Hyland Content repository |
+| [access_token] | The access token you retrieved when you completed authentication |
+| [product] | The name of the software you are using to make the request |
+| [version] | The numbered version of the software |
+
+For response body details and a sample response to this type of request, see Document.

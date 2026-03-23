@@ -1,0 +1,40 @@
+---
+title: "Registering New Security Types"
+---
+
+---
+title: "Registering New Security Types"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-ClaimCenter/tli1755281858571"
+section: "Hyland for Guidewire ClaimCenter"
+---
+
+If you want to add new security types beyond the ones already created by Guidewire, you will need to follow these steps to ensure the security policy is aware of them.
+
+You must have access to the following:
+- Access to Guidewire ClaimCenter’s source code.
+- The ability to redeploy ClaimCenter.
+- Administrator access to the Hyland Content Innovation Cloud.
+- A user group configured in the Single Sign-On platform to represent the new security type. This new user group must already be to be synced in the Hyland Content Innovation Cloud. For more information on configuring user groups with SSO, see Single-Sign On User Configuration.
+
+To register a new security type:
+
+1.  Open Guidewire ClaimCenter’s source code.
+2.  Open the ClaimCenter/modules/configuration/res/HFGWDocumentSecurityTypeMappings.properties file in a text editor such as Notepad.
+3.  Add a new line to the file and add a new key-value pair. The key is the document security code (exactly what is returned by document.getSecurityType() inside Guidewire ClaimCenter). The value is the GUID of the new user group in the Hyland Content Innovation Cloud that contains a list of all users allowed to view documents of this type.
+4.  Redeploy ClaimCenter.
+5.  Open the Studio Modeler application in the Hyland Content Innovation Cloud.
+6.  Click on the Guidewire ClaimCenter Workspace project. The project window is displayed.
+7.  Click the Calculate Document Security ID script in the Scripts section of the Process Automation pane on the left. The script is displayed.
+8.  Add a new var line at the top of the script for your custom security type, using the same format as the other security type var lines. For example: var SECURITYTYPE_Custom = "Custom";
+9.  Add a new case paragraph in the switch section that references your new var, using the same format as the other security type case paragraphs. For example:
+```
+case SECURITYTYPE_Custom:
+        variables.out_docSecurityID = variables.in_docSecurityGuidCustom;
+        break;
+```
+
+10.  Click Save (the cloud icon at the top bar of the pane) to save the project.
+11.  Select the Release action from the bar above the project window to release a new version of the project.
+12.  Open the Studio Admin application.
+13.  Navigate to Devops > Application Instances. The Application Instances page is displayed.
+14.  Find your Guidewire ClaimCenter Workspace project and click Upgrade to upgrade it and update the script in your application instance. See the Hyland Automate Modeler documentation for general information on upgrading a project.

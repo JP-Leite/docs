@@ -1,0 +1,17 @@
+---
+title: "Delete A Document Or Empty Folder"
+---
+
+---
+title: "Delete a Document or Empty Folder"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/rza1678223074563"
+section: "Hyland Content REST API"
+---
+
+Delete either a document or an empty folder by making API calls to the following endpoints in their listed order. See each endpoint's listed reference section for more information.
+
+1. To create a new document or folder, call POST /api/documents/path[docPath] (see Create a Document in a Folder with the Specified Path).
+2. To return the existing document or folder, call GET /api/documents/path[docPath] (see Return the Document with the Specified Path).
+3. Call one of the following endpoints:
+- To delete the document or folder, call DELETE /api/documents/path[docPath] (see Delete the Document with the Specified Path).
+- To delete the document or folder by its ID, call DELETE /api/documents/[docId] (see Delete the Document with the Specified ID).

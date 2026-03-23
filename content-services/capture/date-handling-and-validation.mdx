@@ -1,0 +1,42 @@
+---
+title: "Date Handling And Validation"
+---
+
+---
+title: "Date Handling and Validation"
+source: "https://support.hyland.com/r/Current/Hyland-Capture/fki1646248503152"
+section: "Hyland Capture"
+---
+
+The following criteria must be followed while performing extraction verification of documents with a date field.
+
+Automated date conversion: For numeric dates either entered, or pasted from the document (using rubber banding or selecting), you need to convert all dates into the MM/DD/YYYY format. The acceptable input formats with segmentation characters being slash (/), period (.), dash (-), are as follows:
+
+-
+M/D/YY, MM/D/YY, MM/DD/YY, MM/DD/YYYY
+
+-
+YY/M/D, YY/M/DD, YY/MM/DDYYYY/MM/DD
+
+-
+D/M/YY, DD/M/YY, DD/MM/YY, DD/MM/YYYY
+
+-
+Ambiguous dates, where it could be MM/DD or DD/MM need to be assumed as being MM/DD.
+
+The acceptable input formats without any segmentation characters are as follows:
+
+-
+A minimum of 6 digits is required
+
+-
+MMDDYY, MMDDYYYY
+
+-
+DDMMYY, DDMMYYYY
+
+-
+YYMMDD, YYYYMMDD
+
+-
+Ambiguous dates, where it could be MMDD or DDMM need to be assumed as being MMDD.

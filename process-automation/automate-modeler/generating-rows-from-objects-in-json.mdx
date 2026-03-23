@@ -1,0 +1,46 @@
+---
+title: "Generating Rows From Objects In Json"
+---
+
+---
+title: "Generating Rows from Objects in JSON"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/iyq1739193759305"
+section: "Hyland Automate Modeler"
+---
+
+n addition to arrays, the data table can also generate and display rows based on objects. This is useful when your data structure consists of an array of objects, where each object represents a row in the data table.
+
+For example, consider the following JSON data:
+
+```
+[
+    {
+        "file": {
+            "title": "Title 1",
+            "filename": "File name 1",
+            "properties": {
+                "filesize": 121,
+                "date": {
+                    "created": "12/04/2024",
+                    "received": "11/04/2024"
+                }
+            }
+        }
+    },
+    {
+        "file": {
+            "title": "Title 2",
+            "filename": "File name 2",
+            "properties": {
+                "filesize": 122,
+                "date": {
+                    "created": "12/05/2024",
+                    "received": "10/05/2024"
+                }
+            }
+        }
+    }
+]
+```
+
+In this scenario, each file object represents a row in the data table. You can specify the path to each property within the file object that you want to display in the data table. For example, in the schema definition, properties such as received can be accessed using path file.properties.date.created.

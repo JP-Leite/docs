@@ -1,0 +1,37 @@
+---
+title: "Connecting The Hyland For Sap Successfactors App With Sap Successfactors"
+---
+
+---
+title: "Connecting the Hyland for SAP SuccessFactors app with SAP SuccessFactors"
+source: "https://support.hyland.com/r/Current/Hyland-for-SAP-SuccessFactors/wji1758594180576"
+section: "Hyland for SAP SuccessFactors"
+---
+
+This section, intended for system administrators, explains how to configure your instance of SAP SuccessFactors to connect with the Hyland for SAP SuccessFactors app. To configure this, use the SAP SuccessFactors Custom Navigation link feature. For detailed information on Custom Navigation links, see the Custom Navigation Links and Creating a Custom Navigation Link chapters in SAP's documentation.
+
+Custom Navigation link is a SAP SuccessFactors feature that allows you to add hyperlinks to URLs of third-party, external applications, such as Hyland for SAP SuccessFactors or web pages. It supports URL tokens to pass user-specific information such as the USER_ID, LOGGED_IN_USER_ID, and EMPLOYEE_ID from SAP SuccessFactors to the external application via URL parameters.
+Hyland for SAP SuccessFactors integration enables users to view, upload, and modify documents. Employees can access their own files, while HR staff can manage documents for other employees. To establish user context, the application requires the USER_ID of the user whose documents are to be accessed and viewed. This identifier or USER_ID is passed from SAP SuccessFactors to Hyland for SAP successFactors using the Custom Navigation Link, ensuring seamless and secure data exchange.
+
+The Custom Navigation link you create launches the Hyland for SAP SuccessFactors portal using the credentials of the currently logged-on user. This ensures the user has the necessary privileges to view or modify documents.
+
+Note: Before configuring Custom Navigation links, please work with your SAP Administrator (in-house or Implementation Partner/Account Executive) to ensure the following:
+- Provisioning and the Configure Custom Navigation tool are enabled
+- Manage Action Search and Company System and Logo System Admin permissions are enabled.
+
+To configure the Custom Navigation link:
+
+1.  Log on to the SAP SuccessFactors portal. The Home page is displayed.
+2.  In the search bar, type Configure Custom Navigation.
+3.  Click Configure Custom Navigation. The Configure Custom Navigation page is displayed.
+4.  Locate an empty row and enter the following:
+| Column Name | Value |
+| --- | --- |
+| Menu Item Label | Enter View My Documents. This is how the link appears in the user interface. |
+| ID | Enter any text or characters, as long as each custom navigation link has a unique numeric value. |
+| Link Type | Select External Link – New Tab/Window. |
+| URL | Enter  https://sap.app-intel.experience.hyland.com/sufa/app/ef/@PERSON_USER_ID@/<environment-key>. This defines the destination of the custom link.Note: Ensure to replace the <environment-key> with the CIC environment key of the environment where you deployed your Content Model. If you don't have the the CIC environment key, please contact your system administrator. For more information on deploying a project after creating a Content Model, see Deploying a Project. |
+| Menu Location | Select Top Navigation. This defines where the custom link is visible. |
+| Permissions | Select All Employees excl Sandbox Recruiters and Onboarders (group).Note: To use other permissions as required, select the relevant roles or groups from the drop-down. For more information, see the Setting Up Permissions for a Custom Navigation Link chapter in SAP's documentation. |
+
+5.  Review the details and click Save.

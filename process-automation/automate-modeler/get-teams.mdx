@@ -1,0 +1,23 @@
+---
+title: "Get_Teams"
+---
+
+---
+title: "GET_TEAMS"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/ndx1677251245733"
+section: "Hyland Automate Modeler"
+---
+
+The GET_TEAMS action is used by the Teams connector and retrieves all of the visible teams of the organization.
+
+The input parameter to retrieve all of the visible teams is:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| teamName | String | Optional | Name of the team. If this property is null, the action will return all the teams. |
+
+The output parameter to retrieve all of the visible teams is:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| result | JSON | Optional | Response with the team name and the identifier returned by the Teams API |

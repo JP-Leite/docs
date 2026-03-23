@@ -1,0 +1,26 @@
+---
+title: "Create_Document"
+---
+
+---
+title: "CREATE_DOCUMENT"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/crq1711369009240"
+section: "Hyland Automate Modeler"
+---
+
+The CREATE_DOCUMENT action is used to create a document within OnBase.
+
+The input parameters for CREATE_DOCUMENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| content | Content | Required | An existing file in the Hyland repository that will be copied into a document that will be created in the OnBase repository. |
+| documentTypeId | String | Required | Document Type Number of the document type that will be created in the OnBase repository. |
+| fileTypeId | String | Required | File Type identifier of the file that will be created in the OnBase repository. |
+| keywords | json | Optional | Metadata in the form of OnBase document keywords that will be added to the document created in the repository. |
+
+The output parameters from CREATE_DOCUMENT are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| documentId | String | Optional | The identifier of the document that was created in the OnBase repository. |

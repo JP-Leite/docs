@@ -1,0 +1,47 @@
+---
+title: "Generate"
+---
+
+---
+title: "Generate"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/mnl1677147434526"
+section: "Hyland Automate Modeler"
+---
+
+The GENERATE action is used to create a new document using a template, store it in the repository and create it as a variable for reuse within the process.
+
+The input parameters to generate a document are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| formId | String | Optional | The id of the form used to generate the document. Only required to print a form with its submitted data. In case of multiple submission, the last one will be used. |
+| template | Content | Required | The template to use for generating the file stored as a file variable. |
+| metadata | JSON | Optional | Metadata to be used by the template when generating the file to include processing variables in the output. |
+| outputFileName | String | Optional | The name of the generated file, for example: onboarding-form |
+| outputFormat | String | Optional | The file type for the generated document. Possible values are DOCX and PDF. The default value if PDF. |
+| targetFileMetadata | Content-Metadata | Optional | Metadata to store the file with. This is a JSON object of key value pairs. See below for an example. |
+| underscoreMetadata | Boolean | Optional | If set to true, the input targetFileMetadata can have its namespace prefixes written with _ instead of :, for example cm_title instead of cm:title. This allows the JSON to be used in an expression, for example ${metadata.cm_title}, whereas ${metadata.cm:title} is not valid. |
+| targetFileType | Content-Type | Optional | The type to set for the generated file, for example: fin:invoice |
+| targetFile | Content | Requires one | A variable of type file that should be updated. |
+| targetFolder | Content | Requires one | A variable of type folder to store the new file in. |
+| targetFolderId | String | Requires one | The nodeId of the folder to store the new file in, for example:  775a8f2d-8123-49a7-ae1f-f3f49d4eae20 |
+| targetFolderPath | String | Requires one | The location path or relative path of the folder to store the new file in. For example, a location path of  /app:company_home/app:user_homes/cm:hruser  and a relative path of  /User Homes/hruser |
+
+Note:
+The underscoreMetadata can be set to true and the targetFileMetadata input can still use : with the connector successfully executing the action. If underscoreMetadata is set to false and targetFileMetadata uses _ then the connector will fail to execute the action.
+
+An example of the targetFileMetadata that can be stored with the document is:
+
+```
+{
+"ahr:contract-type": "Full Time",
+"ahr:full-name": "John Doe",
+"ahr:role": "Developer"
+}
+```
+
+The output parameters from generating a document are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| file | Content | Optional | The generated document available to be mapped to a variable. |

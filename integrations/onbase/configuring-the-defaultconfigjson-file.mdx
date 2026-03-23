@@ -1,0 +1,41 @@
+---
+title: "Configuring defaultConfig.json"
+description: "Configure the SystemIntegrationId and optional advanced logging settings in defaultConfig.json."
+---
+
+The `defaultConfig.json` file stores the **SystemIntegrationId** — the integration ID between the Content Intelligence Connector and OnBase. **This configuration is required.**
+
+The file is located at:
+```
+C:\OnbaseConnectorSetUp\Configuration\defaultConfig.json
+```
+
+---
+
+## Configuration Steps
+
+<Steps>
+  <Step title="Open the File">
+    Open `defaultConfig.json` in a plain text editor such as **Notepad**.
+  </Step>
+  <Step title="Update the SystemIntegrationId">
+    Locate the `OnbaseConnector.NucleusIntegration` section and update the following parameter:
+
+    | Property | Description | Example |
+    | --- | --- | --- |
+    | `SystemIntegrationId` | The system integration between the Content Intelligence Connector and OnBase. Created when registering a system integration in the CIC Administration Portal. | `"SystemIntegrationId": "ab705aaa-a0a3-46e3-ba44-328d0321f9fc"` |
+  </Step>
+  <Step title="Save the File">
+    Save `defaultConfig.json` and close the editor.
+  </Step>
+</Steps>
+
+<Info>
+  For optional logging configuration (log paths, severity levels, rolling intervals), see [Advanced Configuration](/integrations/onbase/advanced-configuration).
+</Info>
+
+---
+
+## Next Step
+
+[Encrypt the Secret Keys →](/integrations/onbase/encrypting-the-secret-keys)

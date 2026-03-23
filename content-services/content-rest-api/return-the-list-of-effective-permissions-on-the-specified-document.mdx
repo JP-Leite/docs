@@ -1,0 +1,93 @@
+---
+title: "Return The List Of Effective Permissions On The Specified Document"
+---
+
+---
+title: "Return the List of Effective Permissions on the Specified Document"
+source: "https://support.hyland.com/r/Current/Hyland-Content-REST-API/iuh1730476718483"
+section: "Hyland Content REST API"
+---
+
+Returns the full list of effective permissions for the given list of users on the specified document.
+
+## Base Request
+
+```
+GET /api/documents/[docId]/fulleffectivepermissions
+```
+
+where [docId] is the alphanumeric ID for the document.
+
+## Query Parameters
+
+| Parameter | Description | Type | Required | Notes |
+| --- | --- | --- | --- | --- |
+| usernames | List of the user IDs whose corresponding user permissions for the specified document will be retrieved. | array | Optional | If no user value is provided, all effective permissions on the specified document are returned (with no filtering for specific users). |
+
+## Headers
+
+[Mozilla developer documentation](https://developer.mozilla.org/)
+
+| Header Name | Description | Required | Values |
+| --- | --- | --- | --- |
+| Authorization | The access token | Required | Bearer [access_token] where [access_token] is a string generated when you complete authentication (see Getting Started) |
+| User-Agent | Identity of the client making the request to the server | Required | [product]/[version] where [product] is the name of the software you are using to make the request and [version] is the numbered version of the software (for example, MyCompanyProduct/1.0). For information on other types of values commonly included in user-agent request headers, see the User-Agent HTTP header reference section on the  website. |
+| HXCS-REPOSITORY | The repository ID | Optional | Any contributed repository name. Default is default. |
+| Accept | The format of the data to be returned | Optional | application/vnd.hxcs.v1+json |
+
+## Sample Request
+
+```
+GET /api/documents/[docId]/fulleffectivepermissions?usernames=['ff7b0360-3594-416c-b587-2fa4dd0839ce', 'ff7dr360-3594-616c-b587-2fa4dd0acdfce']
+
+Authorization: Bearer [access_token]
+User-Agent: MyCompanyProduct/1.0
+HXCS-REPOSITORY: default
+Accept: application/vnd.hxcs.v1+json
+```
+
+## Response Body
+
+| Element | Description | Type | Notes |
+| --- | --- | --- | --- |
+| fullEffectivePermissions | A pseudo-list giving access to the full, effective permissions on the document and accounting for inheritance from the parents. | array | None |
+| userId | Alphanumeric ID for the current user. | string | None |
+| userPermissions | A pseudo-list giving access to the permissions for the current user. | array | None |
+
+See Document for more information on the additional, more common elements listed in the body of the following sample response.
+
+## Sample Response
+
+```
+{
+  "sys_id": "string",
+  "fullEffectivePermissions": [
+    {
+      "userId": "string",
+      "userPermissions": [
+        "Write",
+        "Read",
+        "Delete",
+        "ManageSecurity",
+        "CreateVersion",
+        "ManageLock",
+        "DeleteChild",
+        "ReadWrite",
+        "ManageRetention",
+        "CreateChild",
+      ]
+    }
+  ]
+}
+```
+
+## Status Codes and Errors
+
+The following table lists the returned status codes.
+
+| Code | Description | Notes |
+| --- | --- | --- |
+| 200 | OK | Returns the full list of effective permissions for the given list of users on the specified document. |
+| 401 | Not Authorized | Authentication has failed or was not provided. |
+| 403 | Not Allowed | Access permissions are invalid or missing. |
+| 404 | Not Found | The document could not be found. |

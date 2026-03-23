@@ -1,0 +1,61 @@
+---
+title: "Configuring User Roles"
+---
+
+---
+title: "Configuring User Roles"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-ClaimCenter/kwf1757085286291"
+section: "Hyland for Guidewire ClaimCenter"
+---
+
+When a new environment is provisioned, certain user roles are created by default in the Hyland for Guidewire PolicyCenter, Hyland Experience Repository, and Guidewire Policy Center Workspace applications. You must manually add user groups to each of these roles.
+
+For general information on assigning roles to HxPR user groups, see the Content Innovation Cloud Administration Portal documentation.
+
+Note:
+The Hyland for Guidewire PolicyCenter Workspace is a dynamic Automate application. Therefore, its name may be displayed in a truncated form (for example, Guidewire policycente bf3kz).
+
+## Guidewire PolicyCenter Roles
+
+Within the Guidewire PolicyCenter application, you must assign the following roles to user groups:
+
+-
+-
+
+-
+-
+
+| Role | Description |
+| --- | --- |
+| Guidewire PolicyCenter Solution Administrator | This role should be assigned to Guidewire administrators only. The following user groups must be assigned to this role: Account Administrators Guidewire PC Solution Administrators |
+| Guidewire PolicyCenter Content User | This role should be assigned to all Guidewire users who do not need administrative access. The following user groups must be assigned to this role: Guidewire PC Content Users Guidewire PC Solution Administrators |
+
+## Hyland Experience Repository Roles
+
+Within the Hyland Experience Repository application, you must assign the following roles to user groups:
+
+-
+
+-
+
+-
+
+| Role | Description |
+| --- | --- |
+| HxPR Administrator | This role provides administrative access to the Hyland CIC Repository. The following user group must be assigned to this role: Account Administrators  In addition, the following user group may be assigned to this role:  Guidewire PC Solution Administrators  Note: If the Guidewire PC Solution Administrators group is not assigned to this role, it must be assigned to the HxPR Member role. |
+| HxPR Member | This role provides user access to the the Hyland CIC repository and access to the Policy Account folders where documents are stored. Access to the actual documents is then based on the Guidewire Security Type user group the user is assigned to. See Configuring User Groups for information on the Security Type user groups. The following user group must be assigned to this role: Guidewire PC Content Users  Note: If the Guidewire Solution Administrators group is not assigned to this role, it must be assigned to the HxPR Administrator role. |
+
+## Guidewire Policy Center Workspace Roles
+
+Within the Guidewire Policy Center Workspace application, you must assign the following roles to user groups:
+
+-
+-
+
+-
+-
+
+| Role | Description |
+| --- | --- |
+| User | This role provides user access to the workspace where the Content Model and Policy Account folder are located, as well as the ability to upload documents to PolicyCenter and view documents using the HX document viewer. The following user groups must be assigned to this role, and are assigned by default: Guidewire PC Content Users Guidewire PC Solution Administrators |
+| Administrator | This role provides administrator access to the workspace where the Content Model and Policy Account folder are located, as well as the ability to upload documents to PolicyCenter and view documents using the HX document viewer. The following user groups must be assigned to this role: Account Administrators Guidewire Solution Administrators |

@@ -1,0 +1,28 @@
+---
+title: "Lambda"
+---
+
+---
+title: "Lambda"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/shd1676969267689"
+section: "Hyland Automate Modeler"
+---
+
+The INVOKE action is used by the Lambda connector to invoke Amazon Web Services (AWS) Lambda functions.
+
+The authentication for the Lambda connector is set using the configuration parameters. For more details, see Lambda Configuration Parameters.
+
+The input parameters to invoke a Lambda function are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| function | String | Required | The name of the Lambda function to invoke, for example: lambda-2 |
+| payload | JSON | Optional | The payload that will be passed to the Lambda function as a JSON object. |
+
+The output parameters from invoking a Lambda function are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| lambdaPayload | JSON | Optional | The Lambda function results payload |
+| lambdaStatus | Integer | Optional | The Lambda function invocation status code |
+| lambdaLog | String | Optional | The log produced during the function invocation |

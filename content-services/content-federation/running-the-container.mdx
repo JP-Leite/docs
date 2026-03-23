@@ -1,0 +1,40 @@
+---
+title: "Running The Container"
+---
+
+---
+title: "Running the Container"
+source: "https://support.hyland.com/r/Current/Content-Federation-Services/jgp1763425578006"
+section: "Content Federation Services"
+---
+
+The OCI container needs to run for successful containerized deployment of the CF Broker.
+
+The following steps need to be taken before you can run the OCI container for the CF Broker:
+1. Docker Engine is installed and is in running state.
+2. If using Docker Desktop, navigate to Settings, under General tab, and ensure the following options are enabled:
+1.  Use the WSL 2 based engine
+2.  Use containerd for pulling and storing images
+For information on enabling containerd, see Enabling containerd for the Container.
+
+To run the OCI container:
+1.  Load the image downloaded from Community into Docker using the command docker load -i <broker-oci-image.tar.gz>. The confirmation is displayed in the command line, such as in the following example:
+```
+Loaded image: hyland-contentfederation-broker:3.0.0
+```
+
+2.  Run the command docker images --no-trunc. The output is displayed. The following table shows an example of the output:
+| REPOSITORY | TAG | IMAGE ID | CREATED | SIZE |
+| --- | --- | --- | --- | --- |
+| hyland-contentfederation-broker | 3.0.0 | sha256:2d2d19271f6c2a9eafafebfe20598bccdd85e76054653c6456180def0217e538 | 26 hours ago | 169MB |
+
+3.  Copy the IMAGE ID value against the respective image name.
+4.  Update the docker-compose.yml file with the IMAGE ID copied from step 3. The following example shows the IMAGE ID from the previous example placed in the docker-compose.yml file:
+```
+services:
+  hyland.contentfederation.broker:
+    image: sha256:2d2d19271f6c2a9eafafebfe20598bccdd85e76054653c6456180def0217e538
+```
+
+5.  Navigate to the directory where docker-compose.yml and docker-compose.override.yml files are located.
+6.  Run the command docker compose up. The console logs display that the container is starting.

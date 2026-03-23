@@ -1,0 +1,28 @@
+---
+title: "Trace"
+---
+
+---
+title: "TRACE"
+source: "https://support.hyland.com/r/Current/Hyland-Automate-Modeler/npz1677156942946"
+section: "Hyland Automate Modeler"
+---
+
+The TRACE action is used to send HTTP TRACE requests.
+
+The input parameters for TRACE are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| restUrl | String | Required | URL of the REST endpoint including the protocol and path, for example: http://hyland.com |
+| restUrlParams | JSON | Optional | JSON map of the URL parameter names and values to append to the URL. |
+| requestHeaders | JSON | Optional | A JSON map of the request header names and values. Values can be fixed values or variables. |
+| circuitBreaker | Boolean | Optional | Determines whether the circuit breaker is enabled, for example: true. |
+| timeout | Integer | Optional | The timeout period to wait for the service in milliseconds. The default timeout is 30 000. |
+
+The output parameters from TRACE are:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| restResult | JSON | Optional | The response from the REST service call. |
+| restStatus | Integer | Optional | The HTTP response status code from the REST service call. |

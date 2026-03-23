@@ -1,0 +1,58 @@
+---
+title: "Deploying The Integration"
+---
+
+---
+title: "Deploying the Integration"
+source: "https://support.hyland.com/r/Current/Hyland-for-Guidewire-PolicyCenter/osc1762962181408"
+section: "Hyland for Guidewire PolicyCenter"
+---
+
+This topic describes the steps required to deploy the Hyland for Guidewire PolicyCenter integration.
+
+To deploy the Hyland for Guidewire PolicyCenter, the following information from your CIC Repository is required:
+
+-
+CIC Repository Document Security Type Mapping - see Configuring Document Security for more information.
+
+-
+CIC Repository Content API Details
+
+To deploy the Hyland for Guidewire PolicyCenter:
+
+1.  Acquire the Hyland for Guidewire PolicyCenter installation package from Guidewire Marketplace and deploy it to a local environment.
+2.  Merge the Hyland for Guidewire integration files into the local environment.
+3.  Open the HFGWRuntimeProperties.xml file, which is located in the modules/configuration/config/runtimeproperties directory, using a text editor such as Notepad.
+4.  Modify the following runtime propertes as required:
+| <Name> | <Value> |
+| --- | --- |
+| Viewer_BaseUrl | Set this to the base URL for your HX Document Viewer. |
+| ContentApi_BaseUrl | Set this to the base URL for your CIC Repository Content API. |
+| ContentApi_ChunkSizeBytes | Set this to the chunk size used during document upload, in bytes. By default this is set to 5242880 bytes. |
+| ContentApi_MaxAttempts | Set this to the desired maximum number of retry attempts for document upload. By default this is set to 7. |
+| ContentApi_OAuthTokenUrl | Set this to the URL for your CIC Repository Content API OAuth Token. |
+| ContentApi_OAuthScopes | Set this to the scopes required for your CIC Repository Content API OAuth, with each scope separated by a space. For example: environment_authorization uceb hxp.nucleus.account |
+| ContentApi_TimeoutConnectMillis | Set this to the desired connection timeout in milliseconds. By default this is set to 5000. |
+| ContentApi_TimeoutReadMillis | Set this to the desired read timeout in milliseconds. By default this is set to 330000. |
+| DocSecurityType_null | Set this to the GUID for the null document security type. |
+| DocSecurityType_sensitive | Set this to the GUID for the sensitive document security type. |
+| DocSecurityType_unrestricted | Set this to the GUID for the unrestricted document security type. |
+| DocSecurityType_internalonly | Set this to the GUID for the internal-only document security type. |
+
+Note: The value of these runtime properties can also be updated later during within PolicyCenter. Once updated in PolicyCenter UI, a restart of PolicyCenter is not necessary. See Configuring PolicyCenter Runtime Properties for more information.
+5.  Save and close the HFGWRuntimeProperties.xml file.
+6.  Open the config.xml configuration file located in the modules/configuration/config directory using a text editor such as Notepad.
+7.  Update the following settings in the config.xml file:
+1.  Set the WebUIAJAXTimeout parameter to 3600.
+2.  Set the MaximumFileUploadSize parameter to 2000.
+3.  Set the MaximumTotalUploadSize parameter to 2000.
+4.  In the mimetypemapping section, add the following mimetype extensions:
+-  <mimetype extensions=".dotx" icon="word_mime" name="application/vnd.openxmlformats-officedocument.wordprocessingml.template"/>
+-  <mimetype extensions=".eml" icon="document" name="message/rfc822" />
+-  <mimetype extensions=".msg" icon="document" name="application/vnd.ms-outlook" />
+-  <mimetype extensions=".json" icon="html_mime" name="application/json" />
+- <mimetype extensions=".mp4" icon="video_mime" name="video/mp4" />
+-  <mimetype extensions=".hevc" icon="video_mime" name="video/hevc" />
+- <mimetype extensions=".heic" icon="image_mime" name="image/heic" />
+8.  Save and close the config.xml file.
+9.  Test your local PolicyCenter environment and check in the changes to Guidewire Bitbucket.

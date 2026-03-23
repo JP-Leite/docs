@@ -1,0 +1,75 @@
+---
+title: "Installing the Connector"
+description: "Step-by-step guide to installing the OnBase Connector for Content Intelligence on a Windows server."
+---
+
+Installing the OnBase Connector for Content Intelligence requires running a single PowerShell setup script and providing the installation path.
+
+<Info>
+  Before proceeding, ensure all [prerequisites](/integrations/onbase/prerequisites) are met, including ASP.NET Core Runtime 8, the Windows Hosting Bundle, and IIS Application Initialization.
+</Info>
+
+---
+
+## Installation Steps
+
+<Steps>
+  <Step title="Download the Connector Package">
+    Download the **Content Intelligence Connector for OnBase** from [Hyland Community](https://community.hyland.com).
+  </Step>
+  <Step title="Extract the Package">
+    Copy `OnBaseConnector.zip` to a designated directory (e.g., `C:\OnBaseConnectorSetUp\`).
+
+    Right-click the zip file and select **Extract Files**. An `OnBaseConnector` folder will be created.
+  </Step>
+  <Step title="Open Command Prompt as Administrator">
+    Run **Windows Command Prompt** (or PowerShell) with administrator privileges.
+  </Step>
+  <Step title="Navigate to the Installation Directory">
+    Use `cd` to navigate to the extracted folder:
+
+    ```bash
+    cd C:\OnbaseConnectorSetUp\OnbaseConnector
+    ```
+
+    Press **Enter**.
+  </Step>
+  <Step title="Run the Setup Script">
+    Copy and run the following command, replacing `<folder>` with the full path to your installation directory:
+
+    ```powershell
+    Powershell -file SetupObConnector.ps1 -installPath <folder>
+    ```
+
+    **Example:**
+    ```powershell
+    Powershell -file SetupObConnector.ps1 -installPath C:\OnBaseConnectorSetUp\OnBaseConnector
+    ```
+
+    Press **Enter** to execute.
+  </Step>
+  <Step title="Verify the Output">
+    The script creates the required folder structure in the installation directory. Confirm the output shows no errors before proceeding to configuration.
+  </Step>
+</Steps>
+
+---
+
+## What Gets Installed
+
+After the setup script completes, the following folders and services are created in your installation directory:
+
+| Component | Description |
+| --- | --- |
+| `ContIntOnbaseConnector.WebHost\` | The main web application, hosted in IIS |
+| `ContIntOnbaseConnector.Gateway\` | The gateway service managing event subscriptions |
+| `ContIntOnbaseConnector.CLI\` | Command-line interface for encryption and subscription management |
+| `ContIntOnbaseConnector.DocumentImport\` | Service that imports OnBase documents into Knowledge Discovery |
+| `ContIntOnbaseConnector.NucleusIntegration\` | Integration service connecting to Hyland CIC |
+| `Configuration\` | Folder containing `applicationConfig.json`, `defaultConfig.json`, and `filterSettings.json` |
+
+---
+
+## Next Step
+
+[Configure the OnBase Connector →](/integrations/onbase/configuring-onbase-connector)
