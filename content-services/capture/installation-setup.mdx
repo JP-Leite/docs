@@ -1,0 +1,241 @@
+---
+title: "Installation & Setup"
+---
+
+## Change Repair Or Remove An Installation For Windows
+
+After initial installation, the installer can be used to repair or remove components from a previous installation. Launch the installer and select the option for the action you want to perform:
+
+| Option | Description |
+| --- | --- |
+| Change | This option is unavailable for Desktop Host. |
+| Repair | Repair errors in the most recent installation of the application, such as missing and corrupt files, shortcuts, and registry entries. |
+| Uninstall | Removes all previously installed components. |
+
+## Desktop Host Installation Overview
+
+Desktop Host is a component that enables cross-platform desktop capabilities in web applications and module-specific functionality in the OnBase Web Client. To determine if a web application or module requires Desktop Host, see the installation or requirements documentation for that product. If an application or module requires it, Desktop Host should be installed on workstations used to access the web application or Web Client.
+
+Note:
+Desktop Host is supported in shared environment scenarios, but it is not supported in virtualized environment scenarios.
+
+This chapter contains information on installing, configuring, and troubleshooting Desktop Host.
+
+## Error During Installation On Windows
+
+Issue: While installing Desktop Host, the following error appears: Service 'Hyland Desktop Host Gateway' (Hyland.DesktopHost.Gateway) failed to start. Verify that you have sufficient privileges to start system services during Desktop Host installation.
+
+Solution: This error message commonly appears due to a permissions issue with the account running the Hyland.DesktopHost.Gateway process. You can open the Event Viewer to check detailed information about the error, and contact your system administrator.
+
+## General Visual C Requirements
+
+Both 32-bit and 64-bit versions of the Desktop Host require the Microsoft Visual C++ Redistributable Packages listed below. If not already present on your system, these packages are installed when the installer is executed to install Desktop Host.
+
+If you are using a 32-bit system, the following Microsoft Visual C++ Redistributable Package is required:
+
+-
+Microsoft Visual C++ 2019 Redistributable Package (x86)
+
+If you are using a 64-bit system, the following Microsoft Visual C++ Redistributable Package is required:
+
+-
+Microsoft Visual C++ 2019 Redistributable Package (x64)
+
+## Getting Started
+
+Before you can start using the Capture REST API, you must complete some basic authentication steps. Using your Hyland Experience Identity Provider (IdP) connection and service application credentials, you can retrieve an access token and use it to start making API calls. For more information on registering and assigning a service user to acquire service application credentials, see the service applications sections of the Hyland Experience Administration Portal documentation: [Service Applications](https://support.hyland.com/access/sources/dita/topic?dita:mapPath=nkc1646250723533.ditamap&dita:ditavalPath=Hyland.ditaval&dita:topicPath=xnw1667411154416.dita).
+
+To complete authentication:
+
+1.  Open Command Prompt or Terminal.
+2.  Enter the following request to retrieve an access token:
+```
+curl -i -X POST [idp_url]/idp/connect/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=client_credentials&client_id=[service_app_id]&client_secret=[service_app_secret]"
+```
+
+where [idp_url] is the URL to your Hyland Experience IdP connection, [service_app_id] is your Hyland Experience service application's auto-generated client ID, and [service_app_secret] is your service application's client secret.
+
+A response similar to the following example is displayed:
+
+```
+{
+  "access_token": "eyJhbGcirwbcQmQA",
+  "expires_in": 900,
+  "token_type": "Bearer",
+  "scope": "hxp hxp.integrations hxps openid"
+}
+```
+
+In this example, the eyJhbGcirwbcQmQA access token expires in 900 seconds (15 minutes).
+
+Note: Real access tokens are much longer than the simple, 16-character string used in the example token.
+3.  To test your access token, include it in a bearer authorization header when making a call to one of the Capture REST API's endpoints.
+For information on the Capture REST API's available endpoints, see Endpoints.
+
+For information on common next steps following authentication, see Exporting a Batch.
+
+## Installing Desktop Host
+
+This section describes installing Desktop Host using the graphical installer.
+
+See the following sections for specific instructions on these topics:
+
+-
+Microsoft Windows Requirements
+
+-
+Upgrade Considerations
+
+-
+Running the Windows Installer
+
+-
+Change, Repair, or Remove an Installation for Windows
+
+-
+Installing Silently from the Command Line
+
+-
+Uninstalling Silently from the Command Line
+
+Note:
+Before you run the Desktop Host installer, it is recommended that you configure a whitelist. See Whitelisting a Domain for complete information.
+
+## Installing Silently From The Command Line
+
+This section describes installing Desktop Host silently and optionally specifying the location of the custom config.json file during installation.
+
+Note: If you are upgrading Desktop Host, it is recommended that you uninstall the older version and then perform a silent installation. See Uninstalling Silently from the Command Line for complete information.
+This procedure installs the application to the default installation location at C:\ProgramData\Hyland\DesktopHost.
+
+If you are running the installer silently from the command line you must use the /silent switch.
+
+The /silent switch specifies the quiet mode and is required to suppress the GUI.
+
+CAUTION:
+Ensure that you use the 32-bit and 64-bit installers to install the application on 32-bit and 64-bit computers, respectively.
+
+To install Desktop Host silently:
+
+1.  Launch a command prompt with elevated privileges.
+2.  Navigate to the directory on your computer where the Desktop Host installer is located.
+3.  Enter the complete name of the installer executable (HylandDesktopHostSetup.x86.exe or HylandDesktopHostSetup.x64.exe) within double quotes, followed by a space.
+For example:
+
+"HylandDesktopHostSetup.x64.exe"
+
+4.  To specify the location of the custom config.json file, enter DH_CUSTOM_CONFIG_PATH="[path]" where [path] is the full path to the custom config.json file. The path must be a full absolute path (including the file name), within double quotes, and followed by a space.
+For example:
+
+"HylandDesktopHostSetup.x64.exe" DH_CUSTOM_CONFIG_PATH="C:\DesktopHostInstaller\bin\config.json"
+
+Note:
+If you specify the DH_CUSTOM_CONFIG_PATH parameter, the config.json file in the installation directory is overwritten. You can also skip this step and provide the configuration settings after installation is complete.
+
+5.  To specify the custom installation location for Desktop Host, enter DH_CUSTOM_INSTALL_DIR="[path]" where [path] is the full path to the custom installation directory. The path must be a full absolute path, within double quotes, and followed by a space.
+For example:
+
+"HylandDesktopHostSetup.x64.exe"
+
+DH_CUSTOM_INSTALL_DIR="C:\HylandDesktopHost"
+
+Note:
+If you specify the DH_CUSTOM_INSTALL_DIR parameter, the default installation directory for Desktop Host is overwritten with the path to the installation directory that you specify. You can skip this step if you want to install Desktop Host in the default installation directory.
+
+6.  Enter /silent and press Enter to execute the command.
+For example:
+
+"HylandDesktopHostSetup.x64.exe"
+
+DH_CUSTOM_INSTALL_DIR="C:\HylandDesktopHost"
+
+DH_CUSTOM_CONFIG_PATH="C:\DesktopHostInstaller\bin\config.json" /silent
+
+## Introduction
+
+The Hyland Capture application allows you to scan or sweep batch documents in a modern, web-based interface. After capturing the documents, you can review, organize, delete, classify, or recapture them as needed. Once you have verified the documents, you can export the batches from the application and import them into a repository for long-term storage.
+
+See the following sections for details on Hyland Capture support and requirements:
+
+-
+Browser Support
+
+-
+Operating System Support
+
+-
+Supported Bar Code Types
+
+-
+HxC Import Processor Compatibility
+
+-
+Licensing
+
+## Issue With Uninstalling Or Repairing Desktop Host
+
+Issue: While trying to uninstall or repair Desktop Host, it fails to work as expected and the following error message is shown: "There is a problem with this Windows Installer package. A program required for this install to complete could not be run. Contact your support personnel or package vendor".
+
+Solution: This error occurs due to specific files missing from the ..\bin folder. You can uninstall an existing instance of Desktop Host using the Microsoft Program Install and Uninstall troubleshooter utility and then reinstall it.
+
+To uninstall Desktop Host using the Microsoft Program Install and Uninstall troubleshooter utility:
+
+1.  Download the utility from Microsoft’s website and launch the program.
+2.  Click Next and then click Uninstalling from the next screen.
+3.  From the list of programs installed on your computer, select Desktop Host and then click Next.
+4.  On the next screen, click Yes, try uninstall.
+5.  Click Close to exit the troubleshooter utility.
+
+## Licensing
+
+A Hyland Capture site license is required to allow the members of your organization to access the application.
+
+## System Requirements
+
+## Microsoft Windows Requirements
+
+See the following sections for requirements information specific to Microsoft Windows.
+
+## Operating System Support
+
+The Hyland Capture application is supported on Microsoft Windows 10. For the best experience, ensure you have the latest updates installed on your workstation.
+
+## Browser Support
+
+The Hyland Capture application is supported on Google Chrome. For the best experience, use the latest version of the browser.
+
+Tip:
+It is recommended that you set your workstation's default browser as the same browser you use to open the Hyland Capture application. This allows the processing of in-progress batches to continue after you log out, and it allows for automatic authentication after your initial login.
+
+## Uninstalling Silently From The Command Line
+
+After installing Desktop Host silently, you can also remove it silently by performing the following steps:
+
+1.  Launch a command prompt with elevated privileges.
+2.  Navigate to the directory on your computer where the Desktop Host installer is located.
+3.  Enter the complete name of the installer executable (HylandDesktopHostSetup.x86.exe or HylandDesktopHostSetup.x64.exe) within double quotes, followed by a space.
+For example:
+
+"HylandDesktopHostSetup.x64.exe"
+
+4.  Enter /silent, followed by a space.
+For example:
+
+"HylandDesktopHostSetup.x64.exe" /silent
+
+5.  Enter /uninstall and press Enter to execute the command.
+For example:
+
+"HylandDesktopHostSetup.x64.exe" /silent /uninstall
+
+## Upgrade Considerations
+
+This section describes upgrading an installation of Desktop Host using the graphical installer.
+
+## Upgrading An Installation On Windows
+
+To upgrade Desktop Host, launch the latest Desktop Host installer by executing the installer. Before proceeding with an upgrade, it is recommended that you back up your existing configurations.
+
+Note: If you are installing Desktop Host on a shared environment that has multiple users logged on, it is recommended that all other users sign out of it and sign back in after installation is complete.

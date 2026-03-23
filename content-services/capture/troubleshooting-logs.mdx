@@ -1,0 +1,44 @@
+---
+title: "Troubleshooting & Logs"
+---
+
+## Issue With Executing Commands And Streaming
+
+Issue: While trying to execute a command or perform streaming capabilities using Hyland Desktop Host, it fails to work as expected and the following error message is found in the DesktopHostCore_Log.json file: "Message":" chunk Size violated size limit exceeded".
+
+Solution: Desktop Host is configured to exchange data and communicate with its underlying components through messages. You can configure the default message size for Desktop Host.
+
+To configure the message size for Desktop Host:
+
+1.  Open the config.json file in a plain-text editor with elevated privileges. In a typical installation, this file is in one of the following locations:
+- After Windows installation, the file is in C:\ProgramData\Hyland\DesktopHost\bin.
+- After macOS installation, the file is in /Library/Hyland/DesktopHost/bin.
+2.  In the file, add the following text:
+```
+{
+   "MaximumReceiveMessageSize": 128
+}
+```
+
+Note: If the size of any message exceeds the default value of 128 KB, the connection will discontinue. Though a lower value may enhance performance, it is not recommended.
+3.  Save the file and close the text editor.
+4.  Restart the computer.
+
+## Logging Out
+
+To log out of the Hyland Capture application:
+
+1.  Click the user menu icon in the upper-right corner of the interface to expand the user menu drop-down list.   ![](data:image/gif;base64,R0lGODlhJQAkAPf/AAAAAAAAAwMAAAAABgYAAAAACwADCgAADwsAAAoDAA8AAA8AAwADEwAAGQADHAMKEg4WFhMDABIKAxwDABYWDgAAIgADJwAALQAGLAMKJQADMQADPQMTOhYqPiIAACcDACUKAy0AACwGAC4TAzEDAD0DADMYBj8YBj4qFgAASwAPSwAPUAAPWgAPXwAVZgAZZgYhXxszRwAidgMncQMndgAnexg/dj5SUksAAEsPAFADAFoPAEczG18hBmYVAGYZAHEnA3YiAHYnA3snAHY/GEBAGVJSPgA9kwtLoyFJgT5qgjZ2tjp2thlrxSd2yyx2xix7yyJ20Cd70El2pV52pS2B3DaBxjaGyzGG3FSCsUuj6Vqp41au+Xa242vF/3bG9XbL+XbQ/4YxAJM9AKNLC7Z2Oo52U6V2Xst7LNB2ItB7J7GCVLGCX7GCasuGNtyBLdyGMdONRemjS+OpWvmuVuO2dvXGdvnLdv/Qdpubm4Hc/4bc/5Pp/53j+bHO76ju/67p/6P//7bj+bP5/7j//7/5/7////nchv/cge/Osfnjnf/pk//prvnjtv//o///qP/5s//5v///v8jk78jq9c7v+cb1/8v5/9D//9X//+/kyPXqyPnvzv/1xv/5y///0P//1eP5/+7////54///4f//7vX/////9fn/////+f///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAJQAkAAAI/wBVCRxIsKDBgwgTKlzIsKHDhxAjSpxIsSJBTmdQSAAA4EEHKpUsDmxEhADHARAomAQwwIagiqnmTACQIQslgpvWgADgYAsqianQEGDAJBTCUWUiDIDyE6IcBRi+MLQj4oAWiItKWABDMFWiPHn8NBV454OGPQ5LkQngZCyjHhw5wgBEUI0AJKIaIgrxotBASDto3jCyc8WfgZF+XNDTMA2AKgTfAJhhSWAnIACaRAYQhWGpMRXCDAQ1pAAXgnQQ1Mg0EI+HI3kVSvKRItDAT0FCE3TdgtDARzpcGFroCIcMTANJiTGNWjVrgbhrEzeOfCAcASr6CFSUIwAWgtFty7WmLV6gJyEADMTgkQAAjUsEgQtf+Fm3wFR1TsSNy6HLWNewMeQYZKoEZVIGSoBlhgksPWGKQJIRuNBeLAyiynUHWPHgQKfEEYF3qiS2WENqsXUICVYhJMcCUqhiF14OZVVBEQDAqFBZG/DhlAIANODFQlSlCFEqbihwwBJGHYRUBAdcMdZDMc2UwRSTNJWKJmyMwJNPFZG0EkoqnZTESyKpwkkbGnHkEUhltunmm3DGKeecEAUEADs=)
+2.  Select Log Out. The application is closed, and a confirmation message is displayed.
+
+## Resetting Your Password
+
+When you click Forgot Password in the Hyland Capture application's login dialog box, you are prompted to confirm your email address.
+
+To reset your password:
+
+1.  Confirm or update your Hyland Experience email address in the field provided and click Submit. An email with a link to reset your password is sent to the address you provide.
+2.  In the email sent from the Hyland Experience platform, click the reset password link. The reset password page is displayed.
+3.  Enter your new password in the New Password field.
+4.  Enter the password again in the Confirm New Password field.
+5.  Click Reset. A confirmation message is displayed. For information on logging in to the Hyland Capture application with your new password, see Opening the Hyland Capture Application.
