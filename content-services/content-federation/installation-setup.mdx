@@ -1,0 +1,443 @@
+---
+title: "Installation & Setup"
+---
+
+## Container Mount Points Table
+
+The table below lists the volume mount points available in the Broker OCI.
+
+| Volume Purpose | Description | Host Directory | Container Directory | Permissions | IsRequired? |
+| --- | --- | --- | --- | --- | --- |
+| Secrets volume | This volume is to be used to hold the required secrets. | ${APPDATA}/Microsoft/UserSecrets/ - Windows | /home/app/.microsoft/usersecrets/:ro | READ ONLY | YES |
+| Application Log Volume | This volume is used to write Broker log files. | ${BROKER_LOGS_HOST_PATH} | /app/logs | READ/WRITE | YES |
+| Plugin Configuration Volume | If using json files or KeyPerFile configuration options, this volume will contain the necessary configuration files. | ${ONBASE_PLUGIN_HOST_PATH} | /app/plugins/onbase  /app/plugins/fi   /app/plugins/alfresco   /app/plugins/nuxeo | READ ONLY | YES |
+| Protected Key File Path Volume | The keys.json file is required for all deployments. This volume will contain the keys.json file that stores encrypted Broker registration information. | ${BROKER_KEYS_HOST_PATH} | /app/keys | READ/WRITE | YES |
+| Certificates Volume | This volume will be used to store any needed certificates required for the deployment. Note that a certificate is required to communicate with MCA API. | ${CERTIFICATE_MOUNT_HOST_DIR_PATH} | /app/certificates | READ ONLY | YES |
+| Data Protection Key Persistence Volume | This volume will be used to store the .NET Data Protection Key file. | ${BROKER_DATAPROTECTIONKEYS_HOST_PATH} | /app/keys/data-protection | READ/WRITE | OPTIONAL |
+
+Example in docker-compose.override.yml:
+
+```
+volumes:
+      - ~/.microsoft/usersecrets:/home/app/.microsoft/usersecrets:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+      - ${BROKER_DATAPROTECTIONKEYS_HOST_PATH}:/app/keys/data-protection:rw
+      - ${BROKER_LOGS_HOST_PATH:-./logs}:/app/logs:rw
+      - ${BROKER_KEYS_HOST_PATH:-./keys}:/app/keys:rw
+      - ${ONBASE_PLUGIN_HOST_PATH}:/app/plugins/onbase:ro
+      - ${DATA_PROTECTION_KEYSTORE_HOST_PATH}:/app/certificates:ro
+      - ${PLUGIN_KEYPERFILE_DIR_PATH:-./keyperfile}:/app/keyperfile:rw
+      - ${BROKER_KEYPERFILE_DIR_PATH:-./keyperfile}:/run/secrets:rw
+```
+
+Ensure that the volume mount points function as expected, and that no further mount points are necessary.
+
+## Deploying Cf Broker In A Container
+
+An OCI image is required to run the CF Broker in containerized deployment.
+
+The containerized broker deployment is platform independent, and the CF broker can run on Windows, Linux, and Mac Operating systems.
+
+The following files are necessary for containerized broker deployment of the CF Broker:
+
+-  CF Broker OCI Image tar ball is available to download from Hyland Community.
+-  docker-compose.override.yml to override main configuration with user defined values.
+-  .env to specify environment variables and their corresponding values.
+-  docker-compose.yml to specify the image details.
+
+```
+services:
+  hyland.contentfederation.broker:
+    image: ${CONTAINER_REGISTRY_URI}/{BROKER-IMAGE-NAME}:${BROKER_IMAGE_TAG}   #For Images hosted in Container Regsitry
+=====OR=====
+services:
+  hyland.contentfederation.broker:
+    image: ${IMAGE ID SHA256}           #For Image tarballs loaded in Docker
+```
+
+For information on the container Mount Points, see Container Mount Points Table.
+
+For information on configuration values, see Configuration Values.
+
+For information on KeyPerFile Configuration, see KeyPerFile Configuration.
+
+For information on running the container, see Running the Container.
+
+## Deploying Content Federated Connectors
+
+Content Federated connectors are deployed as part of released projects created within Automate. Content Federated connectors are configured in the last step of the deployment process.
+
+Before a project can be deployed, you need to release the project. For more information on how to release a project in Automate, see Releasing Projects in the Hyland Automate Administration documentation.
+To deploy a project that contains a Content Federated connector:
+
+1.  Log in to the Automate Administration App.
+2.  In the left pane, select Devops > Project Releases. The Project Releases page is displayed.
+3.  Click the Options button (![Options button](data:image/gif;base64,R0lGODlhDQAZAHcAACH5BAAAAAAALAAAAAANABkAh////0dFUUdLbUdRmWRLUZFRUZHJ8cv5/O3Jmfn50Pn5/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhHABUIHEiwoMGDCBMqXEgQAQEBBhAmKBAgwIADBydWvIjQIUSGIBV6jJiRokWMBjWe7PiQZMiXDVtKNMkxJU2UBkfC3MmzYEAAOw==)) next to the project that includes a Content Federated connector.
+4.  Click Deploy. The Application Name page of the Deploy Application wizard is displayed.Note: For more information on the available options and fields in the Deploy Application wizard, see Deploying Projects in the Hyland Automate Administration documentation.
+5.  Configure the following fields:
+| Field | Description |
+| --- | --- |
+| Application Name | Enter a unique name for the project. |
+| Project Release | Select the release of the project you want to deploy. |
+| Environments | Select the environment in which the application is to be deployed. |
+
+6.  To enable development of custom UI applications, select Enable local development.
+7.  Click Next. The Validation page of the wizard is displayed.
+8.  Ensure the validation of the project is successful.
+9.  Click Next. The Admin Access page of the wizard is displayed.
+10.  To grant administrative access to the project, do one of the following:
+- To grant administrative access to individual users, select the users by entering their usernames in the Admin users field.
+- To grant administrative access to user groups, select the user groups by enter their user group names in the Admin groups field.
+11.  Click Next. The Manager Access page of the wizard is displayed.
+12.  To grant manager access to the project, do one of the following:
+- To grant manager access to individual users, select the users by entering their usernames in the Manager users field.
+- To grant manager access to user groups, select the user groups by entering their user group names in the Manager groups field.
+13.  Click Next. The User Access page of the wizard is displayed.
+14.  To grant user-level access to the project, do one of the following:
+- To grant user-level access to individual users, select the users by entering their usernames in the Users field.
+- To grant user-level access to user groups, select the user groups by entering their user group names in the User groups field.
+15.  Click Next. The Connectors page of the wizard is displayed.
+16.  Expand the editable fields by clicking Content Connector.
+17.  Configure fields based on whether the Content Federated connector in the project being deployed is connecting on behalf of an end user or through a service user. For more information, see Methods of User Configuration.
+- If the project contains a Content Federated connector that is connecting on behalf of (OBO) an end user, configure the following fields:
+| Field | Description |
+| --- | --- |
+| CONNECTOR_CONNECTION_IDENTIFIER | ID property associated with the CFS Connection in the Content Federation Admin Portal |
+| CONNECTOR_EXTERNAL_APPLICATION_ID | Not required for OBO |
+| CONNECTOR_EXTERNAL_APPLICATION_SECRET | Not required for OBO |
+
+- If the project contains a Content Federated connector that is connecting through a service user (SU), configure the following fields:
+| Field | Description |
+| --- | --- |
+| CFS_CONNECTION_IDENTIFIER | ID property associated with the CFS Connection in the Content Federation Admin Portal |
+| CONNECTOR_EXTERNAL_APPLICATION_ID | Identifier of the registered external application in the CIC |
+| CONNECTOR_EXTERNAL_APPLICATION_SECRET | Secret associated with the registered external application in the CIC |
+
+18.  Click Deploy. The project is deployed and made available to users.
+
+## Enabling Containerd For The Container
+
+The containerd program needs to be enabled in Docker to run the OCI container for the CF Broker.
+
+For a computer using Windows, the setting Use containerd for pulling and storing images is available from the Docker desktop application:
+
+![The Docker desktop setting "Use containerd for pulling and storing images" set to Enabled.](data:image/gif;base64,R0lGODlhngJWAHcAACH5BAAAAAAALAAAAACeAlYAh////wEAAAAACwAEGAAALAAAWgAIIQAIMgAFQgAIawAQQgAQVAIeUAAcewAscwAsigBEnABOpQBZhABZnABdtAwAMQcARwgIWggwSggwWwxJmAlnuhMCAAsAEBAAIRAzdBFRmxgAShhBexhRjBhj7xh1xhh5ziUFACFRlB1j7SkAKSkAMSkAOSkAWCllhCl1kCmCrSmG1imK3jEKADFdnDFhqTFlhDFljDFxazFxvTBw7jGGzjkAEDkAKTyW5UIcAEJ9tUgBAkoAGEoAKUum91YUAFIYOVKKdVGa1loAAFoAGFoAKVyP8lqy/mkPAGMkAGcqAGMyDWdyhWd0jmd5l2eFt2eVr2eWxWuYe2edzGWv52O2/2sgAG1zhWt7pWuHrmqMu2yayWuc1muZ82yk1G3E/3UyBXM0EHKVvm6ZxHWdrXSdzHWiz3Wt3HXA73kWAHtBGHtNMXxzl3p1pHp2hXuDpXuFt32r1nyk9XuzuHu15HvL/4SOOYOq9YS+74TP94osAIx0oI18hYySY4mWjYyjp4yw9o612Iy+5I7G8Yvb/pA4Ao5RIZRlGJRlhJN1hpNylZNypZJ5kJSHiJORhZOhmJOzwJO09pPO/p9GAJhPGJxRIZxdMZ15mKGQh5jG65vU85zW/5fk/6hYCaR+iKeFh6Oajaahkp+roKPU8abe/aXx/61ZAK1lMa261q/m/rVdALdiALVtIbCGha+FlLWMh7WMlLOakbCdsLaokLXp/bnw/7X//7txML15MbqUi7rc173k873m/sH0/8ZvDsZ5McaKUsSah8ShlcSopcaqw8TbsM55GNCDKc+GMc6OQsmdhdGiicmfmdGrk9Ctr87f587gxNDr9dDm/9H0/8v+/9aaUt6KKdutkN39/+WXPuenWua0lOS9nezw+Of+//CmS/K+dO3Ho+rHrPDSrPTu7fe6Y/TEnPXWnPXUrPTZu/rfsvX9/v+xWv/Ca/7NpP/XhP/XrP/bjP7mt/zowv/+tP77zP/73P785f788P///wj+AAEIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXMmypcuXMGPKnEmzps2bOHPq3Mmzp8+fQIMKHUq0qNGjSJMqXcq0qdOnUKNKnUq1qtWrWLNq3cq1q9evYMOKHUu2rNmzaNOqXcu2rdu3cOPKnUu3rt27ePPq3cu3r9+/gAMLHky4sOHDiBMrXsy4sePHkCNLnky5suXLmDNr3sy5s+fPoEOLHk26tOnTqFOrXs26tevXsGPLnk27tm278cak2M27t+8UY+LdHk5cbJ/fyH33Kc68eVYdyaOn0OG8unWo0qUv9UcNm0Z9SxT+FfTXK8ADbyG5ndeXpAmAfsrIpQQvviN8+RTTpbrOv2D26ArRN9A9KtSnkjwF8JIQez58F15B81Twh3DprdceAPfwUMZ8Dy7EDyAyPJThhhTFAgF+/fH3X3IBdohhgSwhqGBJAhIkz3kjqecNe+6xVKNCH4aY4pAnrbgcE721aCCB4u2zSQACoJCNQPnAEcAASFA4kD/GcBBABq8ItA8nUNYwJQCwwKBJAAe4gWYAcLqHTxRQ5iAfjwBwM0F5WA5kzg8BMICJQLC84MR55F15xBAG5glnAEJuM8OXqgjEjQSLJEhQoWaw6WaeFAiEp454MpnnnlciMdA2HAhwAxT+Qg7UTytefrALoWp6KlCiAyzaKABOQinlPSfAiaOklAp0Twt8BNCEqWmu2eaufB4RRI8DwRIqeFhM+gEwa/YJAJfFMhAKtYpeK9CfgQ4K7JNRnknkZP8tBwCSvCk5IIzEPJDNPoBsACwgO8TTjroEcbPAK/4U04A2/mSiwb+ARCAfLATo4U8zCWgDgIzAvlEwPkUQAcCoAmQJjgWiAFDPCn8AsM0Ft2LcxjgAfLMAKP34QsCvN6IHQDkKDOqMBavkmfI4WqK5c88FJM1NqCdfSOqFpnKTcjwrtzyPB1qow2qsAvWbjT+jRCAcxhpz7LHOPPv8q9kACxykQEQbjTT+hieAUA050Ga8ccc5I5BIz84WpG3VIFyDDxdYcs1yzgsD4MzDhR/uS+IvxzzzrXQHPC9l2dmLh2/6KgsjLCUI9I4r8ciDOQDMUC3mGyYD64gu97DQMoY9iAeLCcquIB7IAKhD4eKjql31FmgSHzL0wwv0YYMnuyhQ0ABcL1A/i4TIjfOKxyCqEyZPLarVFrqXtfPsUU/13QSpg/PHmlaPofHeZ/8r666D3d36B74QLStpLxKe9O7BPxCtD1uE2laHmvEAj+HJfsVTBP3wpL99vIF6rQPA65o2Osf0hgkAOM5uDCEQFSZpQS4ylTlOgIEvXMNSj4KT7fxXENl5DFj+TnAPLIRkKuTBg046rJp71KfED+UwcUNcH4l+tD0c6UMJexgIMULFRMXFihXio9qo2pdAUD2QfvQbCD9oBaf8EbFA7Jmi9gAwwxresHsOvGIWyxaqZc0IWm9UBJ6UqDgJ1kdHhCQXnH42SB45MYfuqaMNS0gv3qAwhSlgISZ/k7oyvmcacehAg7hxIoRQ8WOz42Ag8acgfCRhBxfbltXE2J7+bUpIcRTVHLmnx4HEgos7zFasMhHGB+aJjFmjZRPQ6MBNPeCGIItiAnPJw4L0A5SixGOIeimQX2KoBX9cXSAbeaFNGdJSVrRa5ZhEzmUCAnvWxCY8KWnC3thLGC3+ZNGCkpA7AMwDaf3ojkC+cZ5yRA0hHswdfLLRu9/dI3hoWiXI/CgQVshyicoEQNpIKM3+nZJ7BAyfGQ0izYSOdIw7whqMmIinWAhMmwT5UI+iGUiPai+g3snZeQb4zu+JlKJllCaT+LEI7A0yW+c8JnpUKZB6FIioRr3QRgmC04HiiJ717A0eBnI6fSaEGDuLRzqesIF49CMTIPBGP0Zxon04Ia370MQ887Swhj0sYiD41yIsFlHViaceLFBEPO4RBCSIjQMXPemF5tGBLLXDCC2TJuV4Jouf9fCq5dgZAJ6xty5uSrPOKMCt5IGAuCXuau5baUYjpIfDku2sGrj+RjuK4Ea/TrYflW3UWdO61lKyoqzxyCwoNrs3oALStnBDHATRlFRE4okYDgjGO8xg2eRuzj2MdSxkd6tWtqIIq4tBznJciJyFKNIAQMBPPhgBJxHcCgD4OEOZvjuuLgVABLoQE3sFQIMzCRVG/FhTiMwxqRE0Qm2jyigdJ3UALRAqVrzy1WWFJrNiZWC4I1WcC+jEgESgSwA4UBdqy8jScrJKADaAVUHy0SkGDCIESfuveCLMqBWz977vnaGmtmFhDBtXnLaNMMKQWk3nXiiubMKCELIo5B4RmE0OBsB62/te8DJmReUtjGRF4sHlFgUfNQYJmH9l5ctgmZNaJlv+R9bxgWBYTrRG+UZe13rVjcg5G3SmcJkxc2bUpTkkihTUUWZVq/zah40fMPSeMwOdPk9n0ZCO9EUu4egUXELSmM70Q7qKZXtp+tOgDrWoR03qUpv61KhOtapXzepWu/rVsI61rGdN61rb+ta4zrWud83rXvv618AOtrCvcz+OFDsw/iDhWZSHk2NXxdnEgYYUpj3tKpADGu4KyT4gEaaD0MMLepYItgny7XCTZNvdRkk/aJFugYzbI/SwNgCg0QacxJu++BDEFNrNEXzYgRz9mMWg8iGHYSzE3/QVE7cFku99Z6TcMwlHFgRyb4egGyEVh3hG8DEHj/GDFO4KBxn+YPJus1zc3dkGyck/UvKWrPwk6+Z3yzdScZ3UfCD0FgnCA57yg//7ICfPOVQkTnF5N+Tl5DY6Ry6ODzqMHAC/8PBLZj6WlUPDEoKQAhuE049fdIEK+IypJ6RAhf0AIB10kAIapkQPK/xCCl7IRtOnPShxpB0N6EF4298ed4G4I+13MCstKiGHV3RdCl/wRMoRjo86mOLrwBh73wFgd7Wj5/CJ18O4ptGFKZh9IPnIuheEMXcpDArtap9S4z1h7a5/Peygzzre5411rXPd61NAxHtogQo65B7lm++82Ss/+4HsHe5Tcv3vwzFtL2gjHHroRy3OFfBz/V0KgSfIPkr+Qfb9IBwA927848EOX8e/nkpZ/wI+V1+FaTT/h/OuNjn8wfkpHEI40CgEHbItfshLnu0TBwBE52/78AjTpgf7EAnwB35WwH1foHo/d30PWHqYIG1SYG384HVU8Anupn+Y0HZj9wXWkHVgoGeMZ35UEHnIJxDEd3lvl3nB53noB3ewR1W4p3sW2H7vR3/CN4OjR4GUd3fewHxwpw3fF3qIt351kAtf120teBC/MCjsoAZ24A370AlhIoFTwoNTEHjr1nv2V38ceBBPeHVZt3Xv8YKKR25WEIIjKAUlGIP3N28eCADXl31HYXVfYIWSUCnRsHXnAG4EcQyBBw9zMAz++FB49HcF8UAPVMAwx1BvTHeI/FAKHqZ3j+gPkQhfcqALlXg4s5B93RAG8RB6i/dviVgp3TAFqqCJI8dxw/CJANANaEAO+yAImhcOYEAO8CAHVSZ9HiYOYBAPTKeI08CIiWh2fxgPgUhh+yAJoOCK87aHz6iKpNiLwxBwaxAPvVgp46aLvOiLsCh9fkBumbiJo8iNBQd+8gZ9Alhv+RAIRtiJsohzbSBWHfd94ScH+9ENVeANyTiL/1iAwfiPAcmO9AUNmieAeyiL0FCLBJGKs8iK0kgPATiA/8ZzwKKA5igMmoiM/7ZtrbiJQbeQx7CN+dCH8waR3+aRv+AF2Vj+CuU4EIwnB6pIkcfwipRoibNYi7eYi7vYi7sAjJQ3jAaRjtgogAFYceAolEQpjMS4cLAoixWHcARJeQZJBx7WDch4iOR4EOFQb9AACrSwCxynDSKpifUWb1ZYCqEQcIXYBffIDs5nEFPJk9BAjSqZjqZIbqPnDy8Zk+UYDg2JlxCZiJ7Ik3m4cMDHc9t2KzE3ENtmcOMSDyInJoEwDBYpEER3cf5wP+6odxc5cZcJflkQmf1QCpUyb6dIDvoob5v5mZwZfbNwLvMWfdMnEMeQbf5QC3eAIhdXmvuQmd/3mLuXbvRglAg3bhqZbMcZmbfJmtJnm7tJcKmgbJuplJX+eZwIKYCa13jewA4jV5rZKRDRkAbF9pqu2XHAwm1n2Z6vkJzC8XGq8H3dSRAK+R5uKRDswIgzp56mGaDauXMCt5ELWJX5+HP3s5kl2Z7v1Q1i6S7ZSXTeGZGo+HMZN3Gy6Z3V5264SZ2Y0Ju/mRDOGZkUem/TqZsh6pvAuXAb6o5V+W/y2T2kUJ8Yam3WqWwDYQ9gcIXD0A2JkJ0LOnH24AXBQCGReXEJuIC7Apqax5wCl5qr2XITepHRt58A0J/x8G7kGYBGYXWDwnOlR3c0yZ44t5DoVqXw+R7I0AUHCF8yOprxR21VkKSM2XKMd6PysZn90KYHWJIFSG1SsJD+1nMLXTB6a5qf8Pl9Y2p6A0GE7welAzcJbrpv0OmO2Bao1KZ570CpxUdxcpoPlCoFDseUmhdzv3AuFih/soIMdFB2cLqn1vaeMUer7EahYvpz93mma4qQ/6mnAaqmBDooS0qEHyhvS4pw/tANaScFE9eg76md76amFUqTFyqrezpxfeqmgwqoBrip3WOoiGoQolqpYXKi1qapb8oP4opPF7etbxqj5ICrAgegndoFn6p9gbAMaNCIYRANmreszRqA6KBvXshua7qkBgGvg8qa7yFwQZdy1Ap9J3dv77aqF5hwQQGmD4sJkwl0kECZyRaWmKmZcnpx7LCH0SmanEn+mvUmKwgrpcBnra4JrJuZsuihkB16mzKrEOewi8H5ssOJiD/3sQZBD4yIn2FaoIQYlYaHsABwDE+KCT1rTb9AqAJKdE17cabKmXnAkSSrEIZohFWIkO+JbmfLbUg7nzVqnzfnofq5mlr6q9garHI6rAaadPJxloyHqJ15p5pntBDqsFlrpRZas3V7syqrs7XpoVVbED+bcFu7cOgKcKqJEJGLsourefK6tjRqo3X7PVd7EOtWCYEbCJNQKfjgt17aPaVAtQirpBxZEDgbnZLas1Qqpxx6uVnqnyH3skrBsRp5DFvHD7igZ01LcGZpjIyopijLiJX4nXHaspwYJuj+8AnQyZeC0JoAerPQWwqaR4u2iIuzWIL9kAywJ5IAkLlSybzxYJ/EGw/G64yQMFzvcH+S2pselg6Fp43qGCbj1g3mi77s8I+aiLVVqr9nV3jsiB7uCF90wAYMx8DXq0aWyI0dh26aOKv8KJCu2cH+aIuPUJAAqatsWRCKSpje4JA9170TZ4ixWAoTh7cKa3xgp4mkiHBFqla/8KyAq5soqZLTqrsPzHDX2p3eK7/g25PjG74DLAzqG7nOuSu1sL8MjK7oIcBqhb5RDLQLp6XR28CxepXiYJB6WsDecMDJQ0LRwIrjUgt1ucNdN3HdkAbkUImwGyayCzHHBsZLLKn+s0iKfWl8RJyLhelh75aI1suBUzwUwlug7Np5uid23ScQqLd2hSsQ7ke1fHcKMzy92rm+afeA0Il5a0izLpyGcOfJquwFlFCO29qFTXN947rJZ3d3EIgfkfx7BPEOoodPgIyEajAJsKt/vMycbSrLPGh55BaqWTfMxEoKzvfAOyvKiCcvUpZ1sCqAnVcIqCgHhHB+iRjO5JfNSRirYiLNC6ioXDiHdIvEGnoMX8fK3ycOXYCAs0txVDAJ1xyrPEgFqCBvtqyoGfh1YzjE1FutRoy48NzKrHx4rgzLyZx9tCwMGhl7UgDN2Zyu6hzLFJ12tWx6EM3K+6DOR5h+66e1p8uMd0j3bT+ki8LxzwENcLh3sHq8cEt6cyM9cYBsyhJbyHKIf9l2DqM8Jd3wdK3RDziTkquZGNHKcGaKFG8bFEotZSrJEPwAtUQxnEwaEuzQuq4mqmQ3yYrx1PAV1Ucx1UAh1lRA1ge3jUZBD1g7EtLAb8N213id13q913zd137914Ad2II92IRd2IZ92Iid2Iq92Izd2I792JAd2ZI92ZRd2ZZ92Zid2Zq92Zzd2Z792TkREAA7)
+For a computer using Linux, you need to add the setting "containerd-snapshotter": true to the daemon.json file.
+
+To enable containerd in Linux:
+
+1.  Navigate to the docker program folder.
+2.  Open the daemon.json file in a plain text editor.
+3.  Add the following feature configuration:
+```
+{
+  "features": {
+    "containerd-snapshotter": true
+  }
+}
+```
+
+4.  Save the daemon.json file.
+5.  Restart the Docker engine, which can be done using the following command:
+```
+sudo systemctl restart docker
+```
+
+## Installation Overview
+
+The Content Federation Services (CFS) application requires the installation and/or configuration of related components in order to connect to your content repository. The specific components required for using the CFS, such as the CF Broker and CF Plugin, differ depending on the type of content repository that you connect to the CFS.
+
+The following topics detail the requirements for installing and configuring CFS components.
+
+## Overview of Steps
+
+The following list represents a high-level overview of the steps needed to install the Content Federation Services (CFS) application. This overview includes notes where steps differ depending on your content repository.
+
+| Installation Step | Required for? |
+| --- | --- |
+| Prerequisite Requirements |  | All repositories |
+|  | Compatible Content and Data Source Systems | All repositories |
+|  | Microsoft .NET Core and .NET Framework | All repositories |
+|  | Temporary File Service (TempFS) | OnBase only |
+|  | Content Federation Metadata-Content Abstraction (CF MCA) Adapter | OnBase only |
+|  | Hyland Identity Service (IdS) | OnBase only |
+|  | Hyland Application Settings Utility (HASU) | All repositories |
+|  | Secure Environment Recommendations | All repositories |
+| Registering an Application for the CF Broker |  | OnBase, Alfresco, and Nuxeo |
+| Configuring User Groups and Roles for the CFS |  | All repositories |
+| Registering the CFS Consumer API in the Content Innovation Cloud |  | All repositories |
+| Adding a System Integration |  | All repositories |
+| Configuring an App Registration for SharePoint Integration |  | SharePoint only |
+| Configuring a New Connection |  | All repositories |
+|  | Acquiring Connection Information for SharePoint | SharePoint only |
+| Configuring Hyland IdS to Connect with the CF Broker |  | OnBase only |
+| Installing the CF Broker |  | OnBase, Alfresco, and Nuxeo |
+| Configuring the CF Broker |  | OnBase, Alfresco, and Nuxeo |
+| Installing the CF Plugin |  | OnBase, Alfresco, and Nuxeo |
+| Note: The CF Plugin must be installed on the same computer as the CF Broker. |
+|  | Installing the CF OnBase Plugin | OnBase repositories that are not mapping to CIC users |
+|  | Installing the CF Alfresco Plugin | Alfresco only |
+|  | Installing the CF Nuxeo Plugin | Nuxeo only |
+|  | Installing the CF FI Plugin | OnBase repositories that are mapping to CIC users |
+|  | Note: For information on mapping users, see User Mapping. |
+| Starting the CF Broker Service |  | OnBase, Alfresco, and Nuxeo |
+
+## Installing The Cf Alfresco Plugin
+
+The Content Federation Services (CFS) application uses a CF Plugin to enable communication with the content repository. An Alfresco content repository requires the CF Alfresco Plugin.
+
+CAUTION: Installing the CF Alfresco Plugin is only required for Alfresco repositories.
+The CF Alfresco Plugin installation files are available to download from Hyland Community.
+
+To install the CF Alfresco Plugin:
+
+1.  From Hyland Community, download the following files:
+| Operating system | File Name |
+| --- | --- |
+| Linux | alfresco-plugin-linux-x64-x.x.x.zip |
+| Windows | alfresco-plugin-win-x64-x.x.x.zip |
+
+2.  Extract from the .zip file and save the extracted files to a suitable location.
+Linux example: /home/dev-admin/Documents/docker-container-test/Hyland Content Federation Alfresco Plugin/
+
+Windows example: C:/Program Files/Hyland/Hyland Content Federation Alfresco Plugin
+
+The Alfresco Plugin is installed.
+3.  Create the following files and make sure they are saved to the same directory as the CF Alfresco Plugin installation files in step 2:
+
+| File | Description |
+| --- | --- |
+| docker-compose.yml | Specifies the image details |
+| docker-compose.override.yml | Overrides the main configuration with user-defined values |
+| .env | Specifies environment variables and their corresponding values |
+
+4.  Configure the docker-compose.yml, docker-compose.override.yml, and .env files with information based on your installation configuration. See Deploying CF Broker in a Container.
+5.  Configure the CF Alfresco Plugin settings to establish communication with the content repository. See Configuring the CF Alfresco Plugin.
+6.  Configure the CF Broker to coordinate communication with the CF Alfresco Plugin and the content repository. See Coordinating the CF Broker and CF Alfresco Plugin.
+7.  Configure KeyCloak for token authentication. See Configure KeyCloak for token exchange with Alfresco.
+8.  Repeat the installation steps for each Alfresco data source in your content repository.
+
+## Installing The Cf Broker
+
+The Content Federation Services (CFS) application uses the CF Broker to communicate between the Content Innovation Cloud and your content repository. One instance of the CF Broker needs to be installed for each repository instance.
+
+The CF Broker installation files are available to download from Hyland Community.
+To install the CF Broker:
+
+1.  Navigate to the folder where the CF Broker installation files were downloaded and open Hyland.ContentFederation.Broker.Installer.msi. The first page of the Hyland Content Federation Broker Setup wizard is displayed.
+2.  Click Next. The End-User License Agreement page is displayed.
+3.  After reading and accepting the terms in the license agreement, click Next. The Select Destination Location page is displayed.
+4.  To set the location for where the CF Broker is installed, do one of the following:
+- Enter the file location in the text field.
+- Browse to the location by clicking Browse.
+By default, the CF Broker is installed to the following location: C:\Program Files\Hyland\Hyland Content Federation Broker.
+5.  Click Next. The Ready to Install page is displayed.
+6.  Click Install.
+7.  After the installation is complete, click Finish.
+8.  Repeat the installation steps for each repository instance.
+
+## Installing The Cf Broker In Silent Mode
+
+You can use the Hyland.ContentFederation.Broker.Installer.msi to perform a silent installation by using the command prompt. Silent installation means that the installer runs without the GUI and without the need for user interaction.
+
+The CF Broker installation files are available to download from Hyland Community.
+To install the CF Broker in silent mode:
+
+1.  Open Command Prompt with the Run as administrator option. The Command Prompt window is displayed.
+2.  Navigate to the folder where the CF Broker installation files were downloaded.
+3.  Execute the following command to install the CF Broker in silent mode:
+```
+msiexec /i "Hyland.ContentFederation.Broker.Installer.msi" /q ACCEPT_EULA=1
+```
+
+The following table describes the switches within the command:
+
+| Command Switch | Description |
+| --- | --- |
+| /i | Triggers the installation |
+| /q   /silent   /quiet | Triggers the silent installation |
+| ACCEPT_EULA | Confirms End User License Agreement (EULA) acceptance during installation Setting this switch to 1, Y, y, YES, yes, TRUE, or true accepts the EULA. |
+| INSTALLFOLDER | Optional: Specifies the destination location for the installation By default, the CF Broker is installed to the following location: C:\Program Files\Hyland\Hyland Content Federation Broker. |
+
+## Installing The Cf Fi Plugin
+
+The Content Federation Services (CFS) application uses a CF Plugin to enable communication with the content repository. An OnBase content repository requires the CF Federated Identity (FI) Plugin to map users and their corresponding group associations to users in the Content Innovation Cloud (CIC).
+
+CAUTION: Installing the CF Plugin is only required for OnBase repositories. The CF FI Plugin installation files are available to download from Hyland Community.
+To install the CF FI Plugin:
+
+1.  Navigate to the folder where the CF FI Plugin installation files were downloaded and open Hyland.ContentFederation.FederatedIdentity.Plugin.Installer.msi. The first page of the Content Federation FI Plugin installation wizard is displayed.
+2.  Click Next. The End-User License Agreement page is displayed.
+3.  After reading and accepting the terms in the license agreement, click Next. The Destination Folder page is displayed.
+4.  To set the location for where the CF FI Plugin is installed, do one of the following:
+- Enter the file location in the text field.
+- Browse to the location by clicking Change.
+By default, the CF FI Plugin is installed to the following location: C:\Program Files\Hyland\Hyland Content Federation Federated Identity Plugin.
+5.  Click Next. The Ready to Install page is displayed.
+6.  Click Install.
+7.  After the installation is complete, click Finish.
+8.  Configure the CF FI Plugin settings to establish communication with the content repository. See Configuring the CF FI Plugin.
+9.  Create a new client in Hyland IdS to facilitate communication for user mapping. See Configuring Hyland IdS to Connect with the CF FI Plugin.
+10.  Configure the CF Broker to coordinate communication with the CF FI Plugin and the content repository. See Coordinating the CF Broker and CF FI Plugin.
+11.  Repeat the installation steps for each data source in your content repository.
+
+## Installing The Cf Fi Plugin In Silent Mode
+
+You can use the Hyland.ContentFederation.FederatedIdentity.Plugin.Installer.msi to perform a silent installation by using the command prompt. Silent installation means that the installer runs without the GUI and without the need for user interaction.
+
+The CF Federated Identity (FI) Plugin installation files are available to download from Hyland Community.
+To install the CF FI Plugin in silent mode:
+
+1.  Open Command Prompt with the Run as administrator option. The Command Prompt window is displayed.
+2.  Navigate to the folder where the CF FI Plugin installation files were downloaded.
+3.  Execute the following command to install the CF FI Plugin in silent mode:
+```
+msiexec /i "Hyland.ContentFederation.FederatedIdentity.Plugin.Installer.msi" /q ACCEPT_EULA=1
+```
+
+The following table describes the switches within the command:
+
+| Command Switch | Description |
+| --- | --- |
+| /i | Triggers the installation |
+| /q   /silent   /quiet | Triggers the silent installation |
+| ACCEPT_EULA | Confirms End User License Agreement (EULA) acceptance during installation. Setting this switch to 1, Y, y, YES, yes, TRUE, or true accepts the EULA. |
+
+4.  After the installer has completed, perform the following configuration steps:
+1.  Configure the CF FI Plugin settings to establish communication with the content repository. See Configuring the CF FI Plugin.
+2.  Create a new client in Hyland IdS to facilitate communication for user mapping. See Configuring Hyland IdS to Connect with the CF FI Plugin.
+3.  Configure the CF Broker to coordinate communication with the CF FI Plugin and the content repository. See Coordinating the CF Broker and CF FI Plugin.
+5.  Repeat the installation steps for each data source in your content repository.
+
+## Installing The Cf Nuxeo Plugin
+
+The Content Federation Services (CFS) application uses a CF Plugin to enable communication with the content repository. A Nuxeo content repository requires the CF Nuxeo Plugin.
+
+-
+User with the username (case-sensitive) same as per the claim: preferred_username from HxIAM token needs to be available in the Nuxeo server.
+
+- The code mentioned below needs to be added in the nuxeo.conf file in Nuxeo server.
+```
+nuxeo.jwt.secret=<128-bit signing key/GUID>
+nuxeo.oauth2.provider.enabled=true
+nuxeo.oauth2.client.registration.auto=true
+```
+
+See OAuth 2 in the Hyland Nuxeo documentation for the detailed configuration of the JWT flow.
+
+The CF Nuxeo Plugin installation files are available to download from Hyland Community.
+
+To install the CF Nuxeo Plugin:
+
+1.  From Hyland Community, download plugin-nuxeo-x.x.x-tarball.zip where x.x.x is the number of the latest available version of the CF Nuxeo Plugin.
+2.  Extract the file and save it in a suitable location. For example, save the extracted file to C:/Program Files/Hyland/Hyland Content Federation Nuxeo Plugin. The Nuxeo Plugin is installed.
+3.  Configure the CF Nuxeo Plugin settings to establish communication with the content repository. See Configuring the CF Nuxeo Plugin.
+4.  Configure the CF Broker to coordinate communication with the CF Nuxeo Plugin and the content repository. See Coordinating the CF Broker and CF Nuxeo Plugin.
+5.  Repeat the installation steps for each Nuxeo data source in your content repository.
+
+## Installing The Cf Onbase Plugin
+
+The Content Federation Services (CFS) application uses a CF Plugin to enable communication with the content repository. An OnBase content repository requires the CF OnBase Plugin.
+
+CAUTION: Installing the CF Plugin is only required for OnBase repositories. The CF OnBase Plugin installation files are available to download from Hyland Community.
+To install the CF OnBase Plugin:
+
+1.  Navigate to the folder where the CF OnBase Plugin installation files were downloaded and open Hyland.ContentFederation.OnBase.Plugin.Installer.msi. The first page of the Content Federation OnBase Plugin installation wizard is displayed.
+2.  Click Next. The End-User License Agreement page is displayed.
+3.  After reading and accepting the terms in the license agreement, click Next. The Destination Location page is displayed.
+4.  To set the location for where the CF OnBase Plugin is installed, do one of the following:
+- Enter the file location in the text field.
+- Browse to the location by clicking Change.
+By default, the CF OnBase Plugin is installed to the following location: C:\Program Files\Hyland\Hyland Content Federation OnBase Plugin.
+5.  Click Next. The Ready to Install page is displayed.
+6.  Click Install.
+7.  After the installation is complete, click Finish.
+8.  Configure the CF OnBase Plugin settings to establish communication with the content repository. See Configuring the CF OnBase Plugin.
+9.  Configure the CF Broker to coordinate communication with the CF OnBase Plugin and the content repository. See Coordinating the CF Broker and CF OnBase Plugin.
+10.  Repeat the installation steps for each OnBase data source in your content repository.
+
+## Installing The Cf Onbase Plugin In Silent Mode
+
+You can use the Hyland.ContentFederation.OnBase.Plugin.Installer.msi to perform a silent installation by using the command prompt. Silent installation means that the installer runs without the GUI and without the need for user interaction.
+
+The CF OnBase Plugin installation files are available to download from Hyland Community.
+To install the CF OnBase Plugin in silent mode:
+
+1.  Open Command Prompt with the Run as administrator option. The Command Prompt window is displayed.
+2.  Navigate to the folder where the CF OnBase Plugin installation files were downloaded.
+3.  Execute the following command to install the CF OnBase Plugin in silent mode:
+```
+msiexec /i "Hyland.ContentFederation.OnBase.Plugin.Installer.msi" /q ACCEPT_EULA=1
+```
+
+The following table describes the switches within the command:
+
+| Command Switch | Description |
+| --- | --- |
+| /i | Triggers the installation |
+| /q   /silent   /quiet | Triggers the silent installation |
+| ACCEPT_EULA | Confirms End User License Agreement (EULA) acceptance during installation Setting this switch to 1, Y, y, YES, yes, TRUE, or true accepts the EULA. |
+| INSTALLFOLDER | Optional: Specifies the destination location for the installation By default, the CF OnBase Plugin is installed to the following location: C:\Program Files\Hyland\Hyland Content Federation OnBase Plugin. |
+
+## Installing The Cf Plugin
+
+The Content Federation Services (CFS) application uses a CF Plugin to enable communication with the content repository. Which CF Plugin is needed depends on which kind of repository you are using and whether you plan on mapping users in your content repository to matching users in the Content Innovation Cloud (CIC).
+
+CAUTION: Installing the CF Plugin is not required for SharePoint repositories. Note: The CF Plugin must be installed on the same computer as the CF Broker.
+For more information on user mapping, see User Mapping.
+
+- For OnBase repositories that are not mapping users, use the CF OnBase Plugin. See Installing the CF OnBase Plugin.
+- For OnBase repositories that are mapping users to matching users in the CIC, use the CF Federated Identity (FI) Plugin. See Installing the CF FI Plugin.
+- For Alfresco repositories, use the CF Alfresco Plugin. See Installing the CF Alfresco Plugin.
+- For Nuxeo repositories, use the CF Nuxeo Plugin. See Installing the CF Nuxeo Plugin.
+
+## Introduction
+
+The Content Federation Services (CFS) allows connectivity from Content Innovation Cloud (CIC) components into content repositories installed within the customer data center. The CFS does this without modifications to existing network implementation in the customer’s data center. The CFS allows users to access content stored in their repositories from CIC applications, configure secure connections to their repositories, and leverage features available in the CIC.
+
+The Content Innovation Cloud (CIC) is an all-encompassing cloud services platform that allows your organization to create and manage personalized digital experiences for your customers, employees, and partners. Combining the best of advanced technologies, such as machine learning and artificial intelligence, and a modern user interface, the CIC offers a comprehensive suite of app-building tools and APIs that empower you to customize your cloud processes, content management, reporting, and integrations.
+
+## Requirements
+
+The following topics describe the prerequisites a user needs before installing the Content Federation Services (CFS) application:
+
+-  Compatible Content and Data Source Systems
+-  Microsoft .NET
+- (OnBase only) Temporary File Service
+- (OnBase only) Metadata-Content Abstraction (MCA) Adapter
+- (OnBase only) Hyland Identity Service (IdS)
+-  Hyland Application Settings Utility (HASU)
+-  Secure Environment Recommendations
+
+## Running The Container
+
+The OCI container needs to run for successful containerized deployment of the CF Broker.
+
+The following steps need to be taken before you can run the OCI container for the CF Broker:
+1. Docker Engine is installed and is in running state.
+2. If using Docker Desktop, navigate to Settings, under General tab, and ensure the following options are enabled:
+1.  Use the WSL 2 based engine
+2.  Use containerd for pulling and storing images
+For information on enabling containerd, see Enabling containerd for the Container.
+
+To run the OCI container:
+1.  Load the image downloaded from Community into Docker using the command docker load -i `<broker-oci-image.tar.gz>`. The confirmation is displayed in the command line, such as in the following example:
+```
+Loaded image: hyland-contentfederation-broker:3.0.0
+```
+
+2.  Run the command docker images --no-trunc. The output is displayed. The following table shows an example of the output:
+| REPOSITORY | TAG | IMAGE ID | CREATED | SIZE |
+| --- | --- | --- | --- | --- |
+| hyland-contentfederation-broker | 3.0.0 | sha256:2d2d19271f6c2a9eafafebfe20598bccdd85e76054653c6456180def0217e538 | 26 hours ago | 169MB |
+
+3.  Copy the IMAGE ID value against the respective image name.
+4.  Update the docker-compose.yml file with the IMAGE ID copied from step 3. The following example shows the IMAGE ID from the previous example placed in the docker-compose.yml file:
+```
+services:
+  hyland.contentfederation.broker:
+    image: sha256:2d2d19271f6c2a9eafafebfe20598bccdd85e76054653c6456180def0217e538
+```
+
+5.  Navigate to the directory where docker-compose.yml and docker-compose.override.yml files are located.
+6.  Run the command docker compose up. The console logs display that the container is starting.

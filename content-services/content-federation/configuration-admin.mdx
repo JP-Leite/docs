@@ -1,0 +1,969 @@
+---
+title: "Configuration & Admin"
+---
+
+## Adding A New Cfs Connection
+
+The Content Federation Connection Manager may be used to add new connections after the initial installation of the Content Federation Services (CFS) application. New connections are added through the Content Federation Admin Portal.
+
+To add a new CFS connection:
+
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed.
+4.  Click Add new connection. The New Connection wizard is displayed.
+5.  From the Select Integration field, select the system integration that corresponds to the software being used by the data source, such as OnBase.  Note: The options in the Select Integration field are created in the Content Innovation Cloud Administration Portal. For information on adding system integrations, see Adding a System Integration.
+6.  Click Next. The Configuration page is displayed.
+7.  In the Connection Name field, enter a unique, meaningful name for the connection.
+8.  In the Description field, enter a description of the connection.
+9.  Enter information in the following fields depending on the system integration selected in step 5.
+- If you selected an OnBase, Alfresco, or Nuxeo integration, skip to step 10.
+- If you selected a SharePoint integration, enter information in the following fields:Note: The information required for the following fields includes information accessible through Microsoft Azure. For more information on where and how to obtain this information, see Acquiring Connection Information for SharePoint.
+
+| Field | Value |
+| --- | --- |
+| Client ID | The Application (client) ID of the registered external application used by SharePoint The Application (client) ID value may be found in Microsoft Azure. |
+| Client Secret | The Secret associated with the registered external application used by SharePoint The Client Secret is created for a given Client ID in Microsoft Azure. |
+| Tenant | The Directory (tenant) ID of the tenant used by SharePoint The Directory (tenant) ID value may be found in Microsoft Azure. |
+| User Group | The ID of the user group containing all CIC users that need access to the documents in SharePoint |
+| Site ID | A unique identifier for the SharePoint site |
+| Query Object List | A list of SharePoint List IDs that are able to be queried or configured by CFS |
+
+10.  Click Create Connection. The Content Federation Connection Management page is displayed, and the new connection is available in the list of connections.
+11.  Check the newly configured CFS Connection to make sure it is connecting successfully. For more information, see Checking CFS Connections.
+
+## Adding A System Integration
+
+The Content Federation Services (CFS) application integrates with the software being used by the data source, such as OnBase. To integrate with the data source's software, CFS needs to have a system integration added and configured in the Content Innovation Cloud Administration Portal.
+
+To add a system integration:
+
+1.  Log in to the Content Innovation Cloud Administration Portal. For more information on how to log in to the Content Innovation Cloud Administration Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Select the External Systems tab under the banner.
+3.  In the sidebar, click System Integrations. The System Integrations page is displayed.
+4.  Click Add System Integration. The Add System Integration dialog box is displayed.
+5.  In the Name field, enter a name for the system integration.
+6.  From the System drop-down menu, select the software being used by the data source. You can choose from OnBase, Alfresco, and Nuxeo.  Note: A new integration needs to be created for each data source.
+7.  From the Environment drop-down menu, select the environment to which you would like to add the system integration.
+8.  Click Add System Integration. The system integration is created and available for use with CFS connections.
+
+## Adding A User In Keycloak
+
+1.  Log in to the KeyCloak Administration Console.
+2.  From the left pane, under Manage, click Users.
+3.  Click Add user. The Create user page is displayed.
+4.  Type the details, as required.
+5.  Click Create. The User details page of the newly created user is displayed.
+6.  To link the user with an identity provier, click the Identity provider links tab. A list of available identity providers is displayed.
+7.  Click Link Account next to the identity provider which needs to be linked with the user. The Link account wizard is displayed.
+8.  In the User Id field, type sub, which is the subject claim value of incoming HxIAM Token.
+9.  In the Username field, type the preferred_username claim value of the incoming HxIAM Token.
+10.  Click Link. The identity provider is linked with the user.Note: The user needs to have the appropriate permissions to access any folder in the Alfresco repository. For more information, see Accessing a Folder in an Alfresco Repository.
+
+## Additional Secure Environment Recommendations
+
+It is recommended that the Content Federation Services (CFS) components are installed using the following additional recommendations to help secure the installation environment. These recommendations should be followed as a minimum requirement for the Content Federation Services. The policies of your organization may have additional or more robust requirements that should also be followed.
+
+The recommendations listed in this topic are in addition to the default recommendations that apply to all Hyland products. For details on the default recommendations for all Hyland products, see Secure Environment Recommendations.
+
+- The CF Broker and CF Plugin should be deployed into a dedicated network segment. This should be separate from the segments where the OnBase system is deployed.
+- The network segment where the CF Broker is deployed has to be configured with HTTPS access to the OnBase MCA Adapter and Hyland IdS. This traffic must be contained within the customer data center.
+- The CF Broker should not be allowed to make direct calls on any other OnBase components.
+- The CF Broker must be able to make HTTPS calls into the Content Innovation Cloud (CIC).
+- Incoming HTTPS traffic to the CF Broker network segment is not needed. It is recommended that incoming HTTPS traffic to the CF Broker is disabled.
+- For the CFS to work, OnBase does not need to have the ability to call into CIC. If OnBase is already deployed in a way that does not allow it to make calls outside of the customer data centers, this configuration does not need to change.
+- Sensitive values in the CFS configuration files have to be encrypted using the Hyland Application Settings Utility. For more information, see Hyland Application Settings Utility in the API Server documentation.
+- For CIC communications from the broker:
+- Define a list of protocols and ports.
+- Define File System permissions to restrict updates to the installation directory to customer system administrators.
+- Define File System permissions to restrict access to generated log files. Restrict access to only system administrators that require access to perform their duties.
+- Define the Windows service account that the broker is running as to restrict system access.
+- When configuring CFS Connector (Service User) instances, configure one instance per Automate task with a dedicated CIC Service User and a corresponding dedicated OnBase Service User for each CFS Content Connector task within an Automate process. Set authorization permissions to the minimum necessary required to execute a given task.
+
+## Administration Overview
+
+The Content Federation Services (CFS) application uses the Content Federation Admin Portal, Automate, and Content Innovation Cloud Administration Portal to configure settings, check connections, and deploy CFS, among other administrative tasks.
+
+The following topics detail how to perform administrative tasks for CFS.
+
+## Alfresco Plugin Environment Variablekeyperfile Configuration Table
+
+The following Alfresco Plugin Configuration Environment Variables are supported in the container.
+
+The {PluginEnvPrefix} is configured within the Broker configuration, and each plugin within the ‘Plugins’ section must have a unique {PluginEnvPrefix}.
+
+| Configuration section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
+| --- | --- | --- | --- |
+| PluginConfiguration | The Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| PluginConfiguration | The URL for Alfresco API | {PluginEnvPrefix}PluginConfiguration__0__AlfrescoApiUrl | PluginConfiguration__0__AlfrescoApiUrl |
+| PluginConfiguration | The Alfresco Repository ID | {PluginEnvPrefix}PluginConfiguration__0__RepositoryId | PluginConfiguration__0__RepositoryId |
+| PluginConfiguration | The Alfresco Repository Name | {PluginEnvPrefix}PluginConfiguration__0__RepositoryName | PluginConfiguration__0__RepositoryName |
+| PluginConfiguration | The Alfresco Folder ID | {PluginEnvPrefix}PluginConfiguration__0__FolderId | PluginConfiguration__0__FolderId |
+| IdentityProviderOptions | The IdP Server URL | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__IdentityServerUrl | PluginConfiguration__0__IdentityProviderOptions__IdentityServerUrl |
+| IdentityProviderOptions | The IdP Client ID | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The IdP Client Secret | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The IdP Grant Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__GrantType | PluginConfiguration__0__IdentityProviderOptions__GrantType |
+| IdentityProviderOptions | The IdP Subject Token Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType | PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType |
+| IdentityProviderOptions | The IdP Requested Token Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__RequestedTokenType | PluginConfiguration__0__IdentityProviderOptions__RequestedTokenType |
+| PluginConfiguration | Max results returned in a search | {PluginEnvPrefix}PluginConfiguration__0__SearchMaxPageSize (default 2000) | PluginConfiguration__0__SearchMaxPageSize (default 2000) |
+| PluginConfiguration | Alfresco aspects to exclude from returned nodes | {PluginEnvPrefix}PluginConfiguration__0__ExcludedAspects (default [“cm:auditable”] ) | PluginConfiguration__0__ExcludedAspects (default [“cm:auditable”] ) |
+
+## Cf Broker Environment Variable Keyperfile Configuration Table
+
+The following Broker Configuration Environment Variables/KeyPerFile are supported in the container.
+
+| Config Section | Configuration Value Purpose | Environment Variable | KeyPerFile name |
+| --- | --- | --- | --- |
+| Serilog | Minimum Log Level | FCC_CFBROKER_Serilog__MinimumLevel | Serilog__MinimumLevel |
+| Serilog | Log Path | FCC_CFBROKER_Serilog__logPath | Serilog__logPath |
+| Serilog | Rolling Interval | FCC_CFBROKER_Serilog__RollingInterval | Serilog__RollingInterval |
+| Serilog | Formatter | FCC_CFBROKER_Serilog__Formatter | Serilog__Formatter |
+| GatewayConfiguration | Region | FCC_CFBROKER_GatewayConfiguration__Region | GatewayConfiguration__Region |
+| GatewayConfiguration | Gateway Registration Key | FCC_CFBROKER_GatewayConfiguration__GatewayRegistrationKey | GatewayConfiguration__GatewayRegistrationKey |
+| GatewayConfiguration | Gateway Signing Key | FCC_CFBROKER_GatewayConfiguration__GatewaySigningKey | GatewayConfiguration__GatewaySigningKey |
+| GatewayConfiguration | Broker Registration Token | FCC_CFBROKER_GatewayConfiguration__BrokerRegistrationToken | GatewayConfiguration__BrokerRegistrationToken |
+| GatewayConfiguration | Gateway API Server URL | FCC_CFBROKER_GatewayConfiguration__GatewayApiServerUrl | GatewayConfiguration__GatewayApiServerUrl |
+| GatewayConfiguration | Websocket Server URL | FCC_CFBROKER_GatewayConfiguration__WebsocketServerUrl | GatewayConfiguration__WebsocketServerUrl |
+| GatewayConfiguration | Number of Websockets | FCC_CFBROKER_GatewayConfiguration__NumberOfWebsockets | GatewayConfiguration__NumberOfWebsockets |
+| GatewayConfiguration | Broker Name | FCC_CFBROKER_GatewayConfiguration__BrokerName | GatewayConfiguration__BrokerName |
+| GatewayConfiguration | Keys.json path | FCC_CFBROKER_GatewayConfiguration__ProtectedKeyFilePath | GatewayConfiguration__ProtectedKeyFilePath |
+| GatewayConfiguration | HxIAM Client ID | FCC_CFBROKER_GatewayConfiguration__Credentials__ClientId | GatewayConfiguration__Credentials__ClientId |
+| GatewayConfiguration | HxIAM Client Secret | FCC_CFBROKER_GatewayConfiguration__Credentials__ClientSecret | GatewayConfiguration__Credentials__ClientSecret |
+| GatewayConfiguration | Scopes | FCC_CFBROKER_GatewayConfiguration__Credentials__Scopes | GatewayConfiguration__Credentials__Scopes |
+| GatewayConfiguration | HxIAM Authentication Server URL | FCC_CF_BROKER_GatewayConfiguration__Credentials__AuthenticationServeraUrl | GatewayConfiguration__Credentials__AuthenticationServeraUrl |
+| GatewayConfiguration | Retry Interval (Milliseconds) | FCC_CFBROKER_GatewayConfiguration__GatewayApiRetrySettings__RetryIntervalInMilliseconds | GatewayConfiguration__GatewayApiRetrySettings__RetryIntervalInMilliseconds |
+| GatewayConfiguration | Number of Retries | FCC_CFBROKER_GatewayConfiguration__GatewayApiRetrySettings__NumberOfRetries | GatewayConfiguration__GatewayApiRetrySettings__NumberOfRetries |
+| PluginConfiguration | Validate plugin signature | FCC_CFBROKER_PluginConfiguration__Plugins__0__isSigningValidationRequired | PluginConfiguration__Plugins__0__isSigningValidationRequired |
+| PluginConfiguration | Signer details Common Name | FCC_CFBROKER_PluginConfiguration__Plugins__0__SignerDetails__CommonName | PluginConfiguration__Plugins__0__SignerDetails__CommonName |
+| PluginConfiguration | Signer details Organization | FCC_CFBROKER_PluginConfiguration__Plugins__0__SignerDetails__Organization | PluginConfiguration__Plugins__0__SignerDetails__Organization |
+| PluginConfiguration | Plugin ID | FCC_CFBROKER_PluginConfiguration__Plugins__0__PluginId | PluginConfiguration__Plugins__0__PluginId |
+| PluginConfiguration | Plugin Path | FCC_CFBROKER_PluginConfiguration__Plugins__0__PluginPath | PluginConfiguration__Plugins__0__PluginPath |
+| PluginConfiguration | Plugin configuration path | FCC_CFBROKER_PluginConfiguration__Plugins__0__PluginConfigPath | PluginConfiguration__Plugins__0__PluginConfigPath |
+| PluginConfiguration | KeyPerFile directory path | FCC_CFBROKER_PluginConfiguration__Plugins__0__KeyPerFileDirectoryPath | PluginConfiguration__Plugins__0__KeyPerFileDirectoryPath |
+
+## Configuration Values
+
+Configuration values can be supplied in 3 different ways:
+
+- Environment variables
+- KeyPerFiles
+- Configuration file
+
+If the container is configured with multiple configuration values, the value that is used is chosen in this order of precedence: Environment Variables > KeyPerFiles > Configuration file.
+
+## Configuring A Content Federated Connector
+
+Content Federated connectors are configured as part of a project within the Studio Modeler application.
+
+The steps in this topic only cover processes specific to Content Federated connectors within a project, and the steps assume that you are familiar with creating projects in the Studio Modeler application. For more information on using the Studio Modeler application, see Projects in the Hyland Automate Modeler documentation.
+To configure a Content Federated connector in a project:
+
+1.  Sign in to the Studio Modeler application and open the project that you would like to include a Content Federated connector.
+2.  Open the process that you would like to include a Content Federated connector.
+3.  In the Tool palette, click the Connectors button (![Connectors button](data:image/gif;base64,R0lGODlhIAAcAHcAACH5BAAAAAAALAAAAAAgABwAh////xEYJxEYOhEYQhEYSREYUBEYahEYcREcNREcahEcfxEfNREfcREmQhEmZBEmahEmcRE0jBE7kxFGjBFJahFJmhFcrhgYJxgYNSAYJyAYOiAcJyBVeCBVpyBptSYcJyYmLiYwQi8YJy9MVTaR3T4YJz4wVT5chT5wpz54uz6V3UQcJ0RneE0mJ01prlQYJ1QtJ1Sp6lyp3Vyp5WMYJ2MmJ2pnXWq4+HK/+HlcVXlwanmRrnm/6nnE8YFJLoHE6oHR+IhwmojR+JA/J5BJLpC43Z9VOp9wVZ/V+KZcJ6ZfOqbg+Kbn+Kbt+K2cjK2tta3n+K3q+LX4+Lx4Orx4Sbz4+MWDUMW4p8Xq+MXt8cv0+NOKSdORXdOgZNPq+NPx+NP0+NP4+NqRUNqVUNq4muOnZOP05empaum4henEjOn0+On4+PHRmvHt+PHx+PH0+PH4+Pi/f/jEf/jRjPjVmvjVp/jntfjqwvjq1vjtrvjt6vjt8fjx1vj0tfj01vj05fj06vj4u/j43fj46vj48fj4+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AAsJHEiwoMGDCBMqXCiQUBuGECNKnEhRIZ4jGwJo3MixIwIUXhTWaSGAxY4nKFOqTOnExgcHSBAKGgIBSkQ9bwrZqRFBy0E5GHBEZLNiApZCcS7cOCjmgBSFf5QEWHAhwIMlhQLRIMHUKUJAV3xwZBBFoFauBps+NUhoSscAEsKY3dp1rUE+RDoqqDIXbUG1BffAQePCjFSNVweerUuQzooRGmYUGkQlAAEhBBen9Tpwi8YKYO4EycIlhZrMdDevHWSFIwUYHcAc1PyX8xwRHRMwQUibIOBCfWh0JNCDd+raa7tk2ChAhpuEvQeOMdCkUBmNHHSY4LEwzwsVB286xyjkx4iH0xDPDABycFCSAj8opilhYQ1CvAEahNjPv79/EAFU8IVChJCRg38I9ndCEXBU5OCDEEYYEAA7)). A selection of available connector types is displayed.
+4.  Click the Create Content Federated connector button (![Create Content Federated connector button](data:image/gif;base64,R0lGODlhHgAcAHcAACH5BAAAAAAALAAAAAAeABwAh////woKChISEiAgICUlJT09PT4+PkJCQkZGRkdHR0lJSUpKSktLS1FRUVJSUlNTU1RUVFVVVVlZWVtbW1xcXF1dXV5eXl9fX2BgYGJiYmNjY2VlZWxsbG9vb3BwcHFxcXR0dHV1dXZ2dnd3d3h4eHl5eXt7e3x8fH5+foCAgIWFhYqKipKSkpqamp2dnaCgoKGhoaampqioqKqqqqurq6ysrK+vr7CwsLOzs7m5ubq6ury8vMvLy8/Pz9LS0tPT09XV1dnZ2dvb29zc3N/f3+Hh4eLi4uPj4+Xl5ebm5ujo6Orq6uvr6+zs7O3t7fLy8vPz8/T09Pb29vf39/j4+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AKkIHEiwoMGDCBMqXMiwocOHEAU2mTjRoQMTJzJmlHBDIBECBARMcGjBYJIPBElIkOLwAsEoOpB0GKiS5ZAXDF0O3KBiwkwqNakMMcCCYYUGCoDMCEFFhgcqU1YKJdowAI4kCxJEoaLk55SpRRtKoCIFgRCBXQkOIGDAQEMGVFDQGNgDBMEfeH80jKGxb5GIBGv01YjkyOCMNhg6+Eqwx4kSPgpOecAQw5K+MZR44NBE4JMIFaZgqExlh47TQTRzpgJlg4QMSEYvxICk7wvVTZw84NFiBBXZCnUS7MqByQocOXxTEZ4Qg5EDBaKnwA1Bg4iBwBMyR9uheJAnBLcWH0RweAIMFxQGm1gAuL379/Djy0cYEAA7)).
+5.  At the prompt, choose one of the following options:
+- If this is the first time using the Content Federated connector within the project, click Create a new instance and give it a name.
+- If the connector has already been used within the project and the tasks will share the same configuration patterns, select an existing instance.
+6.  Drag the connector onto the diagram canvas. When dropped, the connector is selected and its properties are displayed in the Properties pane on the right.
+7.  Fill in the properties in the Properties pane:
+| Property | Required | Description |
+| --- | --- | --- |
+| ID | Required | Identifier of the connector. It is given automatically by the Modeler application. |
+| Name | Optional | Optional name of the connector. When entered, it is displayed in the connector rectangle within the process diagram. |
+| Documentation | Optional | Description of the connector that can be useful for people working on the process. |
+| Asynchronous Continuation | Optional | An option to execute the event in the background, using a separate transaction that runs concurrently to other transactions. |
+| Multi Instance Type | Required | Option allowing to repeat the element within the process. The default setting is None. |
+| Implementation [Connector name] | Required | Name of the instance selected or given when creating the connector. |
+| Action | Required | Action that the connector will perform in the process. For more information on available actions, see Available Actions. |
+
+Note: Connectors are treated as repository administrators by default, which means they can access all files and folders in the repository.
+8.  Once the action is selected, from the Mapping type drop-down menu, select a mapping type.
+9.  Depending on your method of user configuration for the Content Federated connector, do one of the following. For information on how to determine which configuration to use, see Methods of User Configuration.
+- If the Content Federated connector is connecting through a service user (SU), skip to step 13.
+- If the Content Federated connector is connecting on behalf of (OBO) an end user, define the value for the task parameter.
+1.  Under Input mapping, click the Edit icon in the task parameter entry. The Edit variable mapping dialog box is displayed.
+2.  Click the Value tab.
+3.  In the Task with assigned form drop-down menu, select the preceding task that contains the action being requested by the user. This allows the task to run on behalf of the end user that performed the action. For example, if the preceding task is Select Type, the Content Federated connector requires that the task input parameter is set to Select Type.
+4.  Click Update.
+10.  Access the Content Federated connector's configuration parameters by doing one of the following:
+- Click the tab labeled [Connector name].
+- From the left sidebar, click Connectors > [Connector name].
+The Connector Details page for the Content Federated connector is displayed.
+11.  Under Configuration parameters, enter values for the parameters in the Value field below the descriptions. The following table lists the configuration parameters and what value to put in their Value field:
+
+| Parameter Name | Value to Input |
+| --- | --- |
+| CONNECTOR_CONNECTION_IDENTIFIER | Input the Connection ID of the CFS connection being used for the connector. This value may be found in the Connection ID field in the Connection details dialog box in the Content Federation Admin Portal. See Checking CFS Connections. |
+| CONNECTOR_EXTERNAL_APPLICATION_ID | Input the Application ID. The Application ID is created when registering the CFS Consumer API, and it is available in the Content Innovation Cloud (CIC) Administration Portal under External Applications. For more information, see Registering the CFS Consumer API in the Content Innovation Cloud. |
+| CONNECTOR_EXTERNAL_APPLICATION_SECRET | Input the application Secret. This Secret value is created when registering the CFS Consumer API in the Content Innovation Cloud (CIC) Administration Portal. For more information, see Registering the CFS Consumer API in the Content Innovation Cloud. |
+
+12.  To save the connector, click the Save connector button (![Save connector button](data:image/gif;base64,R0lGODlhHgAYAHcAACH5BAAAAAAALAAAAAAeABgAh////xEYJxMaKRUcKhYdKxcdLBkgLxohLxsiMB4lMyAmNSEnNSIoNiQqOCUrOScuOykwPSwyQDE3RDQ6RjY8STk/Sz1DTz5DUERKVkVLVklOWkpPW0xRXFBVYFFXYVNYY15jbWNocmVqc2ltd2tveG5zfG9zfXJ2f3l9hXp+h3yAiIGFjYWIkIiMk42QmI6RmZCTmpGUm5KVnJSXnpeaoaOlq6SmrKyutK2vtK6wtbCyt7GzuLK1urS3u7a4vbe5vry+wsHDx8PFycfJzMrLz83O0c7P0tbX2tfY29jZ29rb3dzd4N/g4uDh4+Lj5ePk5uXm5+bn6Ojo6unp6+rq7Orr7O3u7/Hx8vLy8/Pz9PT09fX19vb29/f39/j4+Pr6+/v7/Pz8/P7+/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AAEIHEiwoMGDCBMqXMiwocOHECMiFJMkhQUJInRskTgQSocAIEMSsBFGopMJARK4WCIFSAaQMcRA1OIhwIYpBMPQECDAh0MoJRYEaIDEoBgUATBcYciDAEgEMASKmWHBicAjCgoQWVhEQYARVgZOBVnBahYNICkEkWk0RAASX8TOCBmgLIAUERCAnHHQy4MBQwj2MFFzKIkVVQSGeRHgQBaDWQ48YGLwB0gOWgp2+RDgiUEuDAwYqXw5c8EWAZQYDMMhAAu2A6Ps2CEETEEwIAI0OYgjgIAaJRmKySGgAJaDX1SAhDDChPPn0J1fAHkCdsEwNxzQ3c6dgIy4CsUQWJFCvrz58lTAc1zPvj3DgAA7)) below the tab list.
+13.  To save the process and the connector's place in the process:
+1.  Select the process by doing one of the following:
+- Click the tab labeled [Process name], where [Process Name] is the process selected in step 2.
+- From the left sidebar, click Processes > [Process Name], where [Process Name] is the process selected in step 2.
+2.  Click the Save process button (![Save process button](data:image/gif;base64,R0lGODlhHgAYAHcAACH5BAAAAAAALAAAAAAeABgAh////xEYJxMaKRUcKhYdKxcdLBkgLxohLxsiMB4lMyAmNSEnNSIoNiQqOCUrOScuOykwPSwyQDE3RDQ6RjY8STk/Sz1DTz5DUERKVkVLVklOWkpPW0xRXFBVYFFXYVNYY15jbWNocmVqc2ltd2tveG5zfG9zfXJ2f3l9hXp+h3yAiIGFjYWIkIiMk42QmI6RmZCTmpGUm5KVnJSXnpeaoaOlq6SmrKyutK2vtK6wtbCyt7GzuLK1urS3u7a4vbe5vry+wsHDx8PFycfJzMrLz83O0c7P0tbX2tfY29jZ29rb3dzd4N/g4uDh4+Lj5ePk5uXm5+bn6Ojo6unp6+rq7Orr7O3u7/Hx8vLy8/Pz9PT09fX19vb29/f39/j4+Pr6+/v7/Pz8/P7+/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AAEIHEiwoMGDCBMqXMiwocOHECMiFJMkhQUJInRskTgQSocAIEMSsBFGopMJARK4WCIFSAaQMcRA1OIhwIYpBMPQECDAh0MoJRYEaIDEoBgUATBcYciDAEgEMASKmWHBicAjCgoQWVhEQYARVgZOBVnBahYNICkEkWk0RAASX8TOCBmgLIAUERCAnHHQy4MBQwj2MFFzKIkVVQSGeRHgQBaDWQ48YGLwB0gOWgp2+RDgiUEuDAwYqXw5c8EWAZQYDMMhAAu2A6Ps2CEETEEwIAI0OYgjgIAaJRmKySGgAJaDX1SAhDDChPPn0J1fAHkCdsEwNxzQ3c6dgIy4CsUQWJFCvrz58lTAc1zPvj3DgAA7)) below the tab list.
+
+If the Content Federated connector is created in a project but not used in any process, it is not deployed into the file application. You need to create a process, include the project with the Content Federated connector, and release the process before it can be deployed. For more information about working with processes in Automate, see Processes in the Hyland Automate Modeler documentation.
+
+## Configuring A New Connection
+
+To use the Content Federation Services (CFS) application, you must configure a new connection in the Content Federation Admin Portal. You may access the Content Federation Admin Portal through the Content Innovation Cloud User Portal.
+
+Users do not create their own accounts for the Content Federation Admin Portal. An account is created and credentials are sent to new users as part of onboarding when first signing up for a CFS subscription.
+To configure a new connection in the Content Federation Admin Portal:
+
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed.
+4.  Click Add new connection. The New Connection wizard is displayed.
+5.  From the Select Integration field, select the system integration that corresponds to the software being used by the data source, such as OnBase.  Note: The options in the Select Integration field are created in the Content Innovation Cloud Administration Portal. For information on adding system integrations, see Adding a System Integration.
+6.  Click Next. The Configuration page is displayed.
+7.  In the Connection Name field, enter a unique, meaningful name for the connection.
+8.  In the Description field, enter a description of the connection.
+9.  Enter information in the following fields depending on the system integration selected in step 5.
+- If you selected an OnBase, Alfresco, or Nuxeo integration, skip to step 10.
+- If you selected a SharePoint integration, enter information in the following fields:Note: The information required for the following fields includes information accessible through Microsoft Azure. For more information on where and how to obtain this information, see Acquiring Connection Information for SharePoint.
+
+| Field | Value |
+| --- | --- |
+| Client ID | The Application (client) ID of the registered external application used by SharePoint The Application (client) ID value may be found in Microsoft Azure. |
+| Client Secret | The Secret associated with the registered external application used by SharePoint The Client Secret is created for a given Client ID in Microsoft Azure. |
+| Tenant | The Directory (tenant) ID of the tenant used by SharePoint The Directory (tenant) ID value may be found in Microsoft Azure. |
+| User Group | The ID of the user group containing all CIC users that need access to the documents in SharePoint |
+| Site ID | A unique identifier for the SharePoint site |
+| Query Object List | A list of SharePoint List IDs that are able to be queried or configured by CFS |
+
+10.  Click Create Connection. The Content Federation Connection Manager page is displayed, and the new connection is available in the list of connections.
+
+Once the CF Broker and applicable CF Plugin are installed, configured, and running, you may return to the Content Federation Connection Manager page and check the configured CFS Connection to make sure it is connecting successfully. For more information, see Checking CFS Connections.
+
+## Configuring An App Registration For Sharepoint Integration
+
+In order to integrate the Content Federation Services (CFS) application with a SharePoint content repository, you need to create an app registration for the CFS to use to connect with SharePoint. Then, you need to grant permissions for the app registration.
+
+To configure an app registration for integrating SharePoint with the CFS.
+
+1.  In Microsoft Azure, create a new app registration.  Note: For more detailed information on how to use Microsoft Azure, see the Microsoft Azure documentation available on Microsoft Learn at [https://learn.microsoft.com/en-us/azure/](https://learn.microsoft.com/en-us/azure/).  After the app registration is created, the information is displayed on the Overview page.
+2.  From the sidebar, click API permissions. The Configured permissions list is displayed.
+3.  Click Add a permission. The Request API permissions sidebar is displayed.
+4.  Select the Microsoft APIs tab.
+5.  Select Microsoft Graph.
+6.  Select Application Permissions. A list of permission headings is displayed.
+7.  Expand the Sites permission heading.
+8.  Select Sites.FullControl.All.
+9.  Click Add permissions. The Sites.FullControl.All permission name is displayed under the Microsoft Graph permissions in the Configured permissions list. The Status field states that the permission is not yet granted for your CFS tenant.
+10.  Click Add a permission. The Request API permissions sidebar is displayed.
+11.  Select the Microsoft APIs tab.
+12.  Select SharePoint.
+13.  Select Application Permissions. A list of permission headings is displayed.
+14.  Expand the Sites permission heading.
+15.  Select the following permissions:
+- Sites.FullControl.All
+- Sites.Manage.All
+- Sites.Read.All
+- Sites.ReadWrite.All
+- Sites.Selected
+16.  Click Add permissions. The permission names are displayed under the SharePoint permissions in the Configured permissions list. The Status field states that the permission is not yet granted for your CFS tenant.
+17.  Click Grant admin consent. The Grant admin consent confirmation dialog box is displayed.
+18.  Click Yes. The required permissions are set for the CFS Consumer API.
+
+## Configuring Hyland Ids To Connect With The Cf Broker
+
+Hyland Identity Service (IdS) is required to authenticate and authorize requests from the Content Innovation Cloud (CIC) to OnBase through the Content Federation Services (CFS).
+
+CAUTION: This setup is only required for OnBase repositories. Note: The following steps assume initial setup has been completed for OnBase and focus on configuring settings specific to CFS communication. For more information on available configuration settings for Hyland IdS, see Configuring Hyland IdS in the Identity and Access Management Services documentation.
+To configure Hyland IdS to connect with the CF Broker:
+
+1.  Launch the Hyland IdS Administration client.
+2.  Log in to the Hyland IdS Administration client. The tenant configuration information is displayed. In a wide display, the tenant information is in the left pane. In a narrow display, the tenant information is at the top of the page.
+3.  In the SCIM Endpoint field, ensure the value entered is the URL of the Hyland SCIM sever endpoint on the API Server. This is the API Server URL with /onbase/SCIM appended to it. For example, if the root URL of the API Server is https://server.domain.com and the default application name was used, then the SCIM Endpoint value is https://server.domain.com/ApiServer/onbase/SCIM.Note:
+Make sure the use of HTTP or HTTPS matches the configuration of your domain in IIS. Hyland IdS must be configured for secure connections (HTTPS).
+
+4.  Click the Provider tab.
+5.  Click Add New. The Provider configuration page is displayed. It is divided into the Basic Settings and Protocol Settings areas.
+6.  Under Protocol Settings, from the Type drop-down list, select Token-Exchange. The specific settings for Token-Exchange providers are displayed.
+7.  Under Basic Settings, configure the following options:
+
+| Option | Description |
+| --- | --- |
+| Name | Enter a unique name for the provider. This value is required and cannot contain any slashes (/ or \). |
+| User Attribute Mapping | In the UserId field, enter sub.In the Username field, enter preferred_username. |
+| Strip domain from username | Select this option to remove the domain from the user name before it is passed for authentication.This setting controls whether to automatically strip the domain from user names that are passed as either domain\username or username@domain. This is useful when providers use a full domain and user name but the authenticating system only uses the user name. |
+| Enable User Provisioning | Select this option to synchronize the user attributes defined in the User Attribute Mapping section when the user logs in. |
+| User Provisioning Create Enabled | Select this option to allow creating a new user in the tenant resource if the user logging in is not found.If this option is not selected and the user logging in is not found, that user is not logged in and an error message is displayed. |
+| User Provisioning Update Enabled | Select this option to allow updating an existing user in the tenant resource if the user logging in is found.If this option is not selected, the incoming user information from the tenant is ignored and no updates are made to user information. |
+
+8.  Under Protocol Settings, configure the following options:
+-
+-
+
+-
+-
+| Option | Description |
+| --- | --- |
+| Subject Token Type | Select Identity Token. |
+| Issuer | Enter one of the following values depending on your region: US: https://auth.iam.experience.hyland.com/idp  EU: https://auth.app.hyland.eu/idp |
+| Cache Duration in Seconds | Enter the duration, in seconds, to retain the results of calls to locations in either the Issuer or JWKS URI setting.The default setting is 14400 seconds (4 hours). To prevent caching results, enter 0 (zero). |
+| JWKS Setting | Select JWKS URI. |
+| JWKS URI | Enter one of the following values depending on your region: US: https://auth.iam.experience.hyland.com/idp/.well-known/openid-configuration/jwks  EU: https://auth.app.hyland.eu/idp/.well-known/openid-configuration/jwks |
+
+9.  Click Save.
+10.  Click the Clients tab.
+11.  Click Add New. The Client configuration page is displayed.
+12.  In Client Details, under Basic Settings, configure the following options:
+
+-
+-
+
+-
+-
+-
+
+-
+-
+-
+| Option | Description |
+| --- | --- |
+| Client ID | The unique ID of the client connection.Note: This value should not be changed. For new client connections, the value is generated automatically when the client connection is saved. |
+| Client Name | The display name of the client connection, which is used for logging purposes.Note: This value is required. |
+| Client Description | A brief description of the client connection used to help identify the clients that can use it to connect. |
+| Protocol Type | Set to oidc (OpenID Connect standard) |
+| Redirect URLs | The allowed URLs to return tokens or authorization codes to.To add a new URL to the list, type the URL in the field and press Enter. To remove a configured URL, click the cancel symbol next to the URL value. Note the following:  URLs are not validated by the Hyland IdS Administration client. To enable native client applications (such as mobile or desktop clients) to receive loopback authentication redirects, include the loopback address http://127.0.0.1 in this list as well as in the Post Logout Redirect URLs list. Additional client configuration may be required; see the documentation for the client. |
+| Allowed Frame Ancestors | A list of the URIs allowed to produce a frame for the Hyland IdS to authenticate.This setting provides configuration values for the Content-Security-Policy HTTP response header's frame-ancestors directive. For more information, see the public specification for Content Security Policy (CSP). Note the following:  URI values must be origins only; do not include trailing slashes, paths, or queries. Wildcards and ports are allowed. As a best practice, use HTTPS instead of HTTP. |
+| Include X-Frame-Options | Select this option to include the X-Frame-Options HTTP response header to allow cross-domain communication using the ALLOW-FROM directive, such as authenticating embedded content in an iframe.Note: This option should only be used to support non-standard behavior in web browsers that do not fully support the Content Security Policy response header, including Internet Explorer and other older browsers. Note the following:  If this option is selected, you must also specify the parent domain URL in the Allowed Frame Ancestors setting. Only one domain value is supported when using X-Frame-Options; any additional domains beyond the first one entered will be ignored. Wildcards are not supported in the domain URL when using X-Frame-Options. |
+
+13.  In Authentication Restriction Settings, under Allowed Grant Types, select Token Exchange.
+14.  In Authentication Restriction Settings, configure the following options:
+-
+-
+
+| Option | Description |
+| --- | --- |
+| Allowed Scopes | Enter the following scopes:  mca   evolution |
+| Allowed Identity Providers | The external identity providers (IdPs) that can be used with this client. Select from the list of configured external IdPs in the drop-down list.Leave this value empty to allow all IdPs. The default value is empty (all external IdPs are allowed). |
+| User SSO Lifetime | The maximum time (in seconds) allowed since the user was last authenticated. |
+| Allow users to log in locally | Select to allow this client connection to use local accounts. If this option is deselected, this client connection can only use external IdPs. |
+| Allow clients to request a refresh token | Leave this option disabled. |
+| Allow issuing access tokens to browsers | Select to transmit access tokens through the browser.This option is not selected by default. |
+
+15.  Under Token, configure the following options:
+-
+-
+
+| Option | Description |
+| --- | --- |
+| Identity Token Lifetime | The lifetime of the identity token, in seconds. |
+| Access Token Lifetime | The lifetime of the access token, in seconds. |
+| Authorization Code Lifetime | The lifetime of the authorization code, in seconds. |
+| Absolute Refresh Token Lifetime | The maximum lifetime of a refresh token, in seconds. |
+| Sliding Refresh Token Lifetime | The sliding lifetime of a refresh token, in seconds. |
+| Refresh Token Usage | Whether or not the refresh-token handle is updated when the token is refreshed. Select ReUse to use the same handle or OneTime to update the handle. |
+| Refresh Token Expiration | Sets the expiration behavior of the refresh token. Select one of the following options:  Absolute: Forces the refresh token to expire at a fixed point in time that is defined by the Absolute Refresh Token Lifetime value.  Sliding: Renew the lifetime of the refresh token by an amount of time defined by the Sliding Refresh Token Lifetime value.  In either case, the length of time will not exceed the amount of time defined in the Absolute Refresh Token Lifetime value. |
+| Update access token claims upon refresh | Select this option to update the access token and its claims with a refresh-token request. |
+| Access Token Type | Set the type of access token. Select Reference if it is a reference token or Jwt if it is a self-contained JWT token. |
+| Include unique ID in JWT access token | Select this option to embed a unique ID from the claim in JWT access tokens. |
+| Include user claims in ID token | Select to include user claims with the id token. If this is not selected, the client is required to use the userinfo endpoint. |
+| Pairwise Subject Salt | Leave this value empty. |
+
+16.  Under Security, configure the following options:
+
+| Option | Description |
+| --- | --- |
+| Allowed Cors Origins | If a client has a cross-origin URL from Hyland IdS, meaning the client is under a different domain from the server, you can configure the URL of the client as an Allowed Cors Origin value.Note: You cannot configure a wildcard (*) as an origin value. This option is only required if cross-origin URLs are not already listed under the Redirect URLs or the Post Logout Redirect URLs options. Enter a URL origin value and press Enter to add it to the list. Note: Origin values are not validated by the Hyland IdS Administration client. Origin values must be entered using the following format, where my.domain is the domain name of the client and xxxx is the port number of the URL: https://my.domain.com:xxxx  Note: Port numbers are only required if the client is accessed with a port in the URL. To remove an origin, click the cancel symbol next to its value. |
+
+17.  Under Secret, select Client Secret must be present.
+18.  In Client Secrets, click Add New.
+19.  Configure the following options for the client secret:
+
+| Option | Description |
+| --- | --- |
+| Description | Optional: Enter a brief description to help identify the client secret. This is mostly for logging purposes. |
+| Value | Enter the Secret value configured for the CF Broker.The client secret value is created as part of registering the CF Broker as an application in the Content Innovation Cloud Administration Portal. For more information, see Registering the CF Broker in the Content Innovation Cloud. |
+| Expiration | The date after which the client secret Value has to be updated.Enter the date in M/D/YYYY format, or select it from the graphical calendar by clicking the calendar icon at the right end of the Expiration field. |
+| Type | Select Shared Secret. |
+
+20.  Click Save.
+21.  Recycle the application pool of Hyland IdS in IIS for the changes to take effect.
+
+## Configuring Hyland Ids To Connect With The Cf Fi Plugin
+
+When using the CF Federated Identity (FI) Plugin, Hyland Identity Service (IdS) is required to authenticate user credentials being mapped from OnBase to the Content Innovation Cloud (CIC). A client separate from the one created for the CF Broker is required.
+
+CAUTION: This setup is only required for OnBase repositories that are using the CF FI Plugin, not the CF OnBase Plugin. Note: The following steps assume initial setup has been completed for OnBase and focus on configuring settings specific to CFS communication. For more information on available configuration settings for Hyland IdS, see Configuring Hyland IdS in the Identity and Access Management Services documentation.
+To configure Hyland IdS to connect with the CF FI Plugin:
+
+1.  Launch the Hyland IdS Administration client.
+2.  Log in to the Hyland IdS Administration client. The tenant configuration information is displayed. In a wide display, the tenant information is in the left pane. In a narrow display, the tenant information is at the top of the page.
+3.  In the SCIM Endpoint field, ensure the value entered is the URL of the Hyland SCIM sever endpoint on the API Server. This is the API Server URL with /onbase/SCIM appended to it. For example, if the root URL of the API Server is https://server.domain.com and the default application name was used, then the SCIM Endpoint value is https://server.domain.com/ApiServer/onbase/SCIM.Note:
+Make sure the use of HTTP or HTTPS matches the configuration of your domain in IIS. Hyland IdS must be configured for secure connections (HTTPS).
+
+4.  Click the Clients tab.
+5.  Click Add New. The Client configuration page is displayed.
+6.  In Client Details, under Basic Settings, configure the following options:
+
+-
+-
+
+-
+-
+-
+
+-
+-
+-
+| Option | Description |
+| --- | --- |
+| Client ID | The unique ID of the client connection.Note: This value should not be changed. For new client connections, the value is generated automatically when the client connection is saved. |
+| Client Name | The display name of the client connection, which is used for logging purposes.Note: This value is required. |
+| Client Description | A brief description of the client connection used to help identify the clients that can use it to connect. |
+| Protocol Type | Set to oidc (OpenID Connect standard) |
+| Redirect URLs | The allowed URLs to return tokens or authorization codes to.To add a new URL to the list, type the URL in the field and press Enter. To remove a configured URL, click the cancel symbol next to the URL value. Note the following:  URLs are not validated by the Hyland IdS Administration client. To enable native client applications (such as mobile or desktop clients) to receive loopback authentication redirects, include the loopback address http://127.0.0.1 in this list as well as in the Post Logout Redirect URLs list. Additional client configuration may be required; see the documentation for the client. |
+| Allowed Frame Ancestors | A list of the URIs allowed to produce a frame for the Hyland IdS to authenticate.This setting provides configuration values for the Content-Security-Policy HTTP response header's frame-ancestors directive. For more information, see the public specification for Content Security Policy (CSP). Note the following:  URI values must be origins only; do not include trailing slashes, paths, or queries. Wildcards and ports are allowed. As a best practice, use HTTPS instead of HTTP. |
+| Include X-Frame-Options | Select this option to include the X-Frame-Options HTTP response header to allow cross-domain communication using the ALLOW-FROM directive, such as authenticating embedded content in an iframe.Note: This option should only be used to support non-standard behavior in web browsers that do not fully support the Content Security Policy response header, including Internet Explorer and other older browsers. Note the following:  If this option is selected, you must also specify the parent domain URL in the Allowed Frame Ancestors setting. Only one domain value is supported when using X-Frame-Options; any additional domains beyond the first one entered will be ignored. Wildcards are not supported in the domain URL when using X-Frame-Options. |
+
+7.  In Authentication Restriction Settings, under Allowed Grant Types, select Client Credentials.
+8.  In Authentication Restriction Settings, configure the following options:
+
+| Option | Description |
+| --- | --- |
+| Allowed Scopes | Enter the scopes iam.user-catalog and iam.user-catalog.read. |
+| Allowed Identity Providers | The external identity providers (IdPs) that can be used with this client. Select from the list of configured external IdPs in the drop-down list.Leave this value empty to allow all IdPs. The default value is empty (all external IdPs are allowed). |
+| User SSO Lifetime | The maximum time (in seconds) allowed since the user was last authenticated. |
+| Allow users to log in locally | Select to allow this client connection to use local accounts. If this option is deselected, this client connection can only use external IdPs. |
+| Allow clients to request a refresh token | Leave this option disabled. |
+| Allow issuing access tokens to browsers | Select to transmit access tokens through the browser.This option is not selected by default. |
+
+9.  Under Token, configure the following options:
+-
+-
+
+| Option | Description |
+| --- | --- |
+| Identity Token Lifetime | The lifetime of the identity token, in seconds. |
+| Access Token Lifetime | The lifetime of the access token, in seconds. |
+| Authorization Code Lifetime | The lifetime of the authorization code, in seconds. |
+| Absolute Refresh Token Lifetime | The maximum lifetime of a refresh token, in seconds. |
+| Sliding Refresh Token Lifetime | The sliding lifetime of a refresh token, in seconds. |
+| Refresh Token Usage | Whether or not the refresh-token handle is updated when the token is refreshed. Select ReUse to use the same handle or OneTime to update the handle. |
+| Refresh Token Expiration | Sets the expiration behavior of the refresh token. Select one of the following options:  Absolute: Forces the refresh token to expire at a fixed point in time that is defined by the Absolute Refresh Token Lifetime value.  Sliding: Renew the lifetime of the refresh token by an amount of time defined by the Sliding Refresh Token Lifetime value.  In either case, the length of time will not exceed the amount of time defined in the Absolute Refresh Token Lifetime value. |
+| Update access token claims upon refresh | Select this option to update the access token and its claims with a refresh-token request. |
+| Access Token Type | Set the type of access token. Select Reference if it is a reference token or Jwt if it is a self-contained JWT token. |
+| Include unique ID in JWT access token | Select this option to embed a unique ID from the claim in JWT access tokens. |
+| Include user claims in ID token | Select to include user claims with the id token. If this is not selected, the client is required to use the userinfo endpoint. |
+| Pairwise Subject Salt | Leave this value empty. |
+
+10.  Under Security, configure the following options:
+
+| Option | Description |
+| --- | --- |
+| Allowed Cors Origins | If a client has a cross-origin URL from Hyland IdS, meaning the client is under a different domain from the server, you can configure the URL of the client as an Allowed Cors Origin value.Note: You cannot configure a wildcard (*) as an origin value. This option is only required if cross-origin URLs are not already listed under the Redirect URLs or the Post Logout Redirect URLs options. Enter a URL origin value and press Enter to add it to the list. Note: Origin values are not validated by the Hyland IdS Administration client. Origin values must be entered using the following format, where my.domain is the domain name of the client and xxxx is the port number of the URL: https://my.domain.com:xxxx  Note: Port numbers are only required if the client is accessed with a port in the URL. To remove an origin, click the cancel symbol next to its value. |
+
+11.  Under Secret, select Client Secret must be present.
+12.  In Client Secrets, click Add New.
+13.  Configure the following options for the client secret:
+
+| Option | Description |
+| --- | --- |
+| Description | Optional: Enter a brief description to help identify the client secret. This is mostly for logging purposes. |
+| Value | Enter the ClientSecret value configured for the CF FI Plugin.For more information, see Configuring the CF FI Plugin. |
+| Expiration | The date after which the client secret Value has to be updated.Enter the date in M/D/YYYY format, or select it from the graphical calendar by clicking the calendar icon at the right end of the Expiration field. |
+| Type | Select Shared Secret. |
+
+14.  Click Save.
+15.  Recycle the application pool of Hyland IdS in IIS for the changes to take effect.
+
+## Configuring The Cf Alfresco Plugin
+
+After the CF Alfresco Plugin is installed, the CF Alfresco Plugin application settings need to be configured to communicate with the content repository.
+
+CAUTION: When upgrading the CF Alfresco Plugin to a new version, values in the PluginConfig.json file are not retained, so you need to reconfigure parameters in the file. For this reason, save a backup of the values in the PluginConfig.json file before upgrading the CF Alfresco Plugin.
+To configure the CF Alfresco Plugin:
+
+1.  Navigate to the folder where the CF Alfresco Plugin is installed.
+2.  Open the PluginConfig folder.
+3.  Open the PluginConfig.json file in a plain-text editor, such as Notepad.
+4.  Set values for the following parameters:
+
+| PluginConfig.json Parameter | Value |
+| --- | --- |
+| IntegrationId | The value obtained from the Integration ID field during the registration of CFS in the Content Innovation Cloud Administration Portal For more information, see Adding a System Integration. |
+| AlfrescoApiUrl | The base URL of Alfresco Content Services instance being connected. |
+| RepositoryId | Unique identifier of the Alfresco Content Repository. Enter value: -default- |
+| RepositoryName | Display name for the repository. Enter value: alfresco |
+| FolderId | The target folder node ID in Alfresco where you want to create content.  Note: If this field is empty, the contents are created in the root folder. |
+| SearchMaxPageSize | The Upper limit that the user wants to set while searching for contents in Alfresco. By default the value is 2000 in the configuration file. |
+| ExcludedAspects | A List of aspects in Alfresco that user wants to exclude from GetContentTypeById or GetContentPropertiesById actions.  By default the cm:auditable aspect is mentioned in the configuration file. |
+
+5.  Under IdentityProviderOptions, enter information that corresponds to the KeyCloak identity provider for the Alfresco data source. The following table describes the information needed for each parameter. For more information on KeyCloak configuration, see Configure KeyCloak for token exchange with Alfresco.
+
+| IdentityProviderOptions Parameter | Value to Enter |
+| --- | --- |
+| IdentityServerUrl | The Alfresco KeyCloak Provider URL.  For example https://hostname.example.com/auth/realms/``<realmName>``/protocol/ |
+| ClientId | The client identifier created in KeyCloak for authenticating the Alfresco APIs. |
+| ClientSecret | The secret of the client identifier created in KeyCloak. |
+| GrantType | The value urn:ietf:params:oauth:grant-type:token-exchange, which allows for exchanging an Content Innovation Cloud token with an Alfresco access token. |
+| SubjectTokenType | The value urn:ietf:params:oauth:token-type:jwt, which represents the type of token that is being exchanged. |
+| RequestedTokenType | The value urn:ietf:params:oauth:token-type:access_token, which represents the type of token being requested from Alfresco. |
+
+6.  Save and close the PluginConfig.json file.
+
+## Configuring The Cf Broker
+
+After the CF Broker is installed, the CF Broker application settings need to be configured to communicate with Content Innovation Cloud authentication (CIC) server.
+
+CAUTION: When upgrading the CF Broker to a new version, values in the appsettings.json file are not retained, so you need to reconfigure parameters in the file. For this reason, save a backup of the values in the appsettings.json file before upgrading the CF Broker.
+To configure the CF Broker:
+
+1.  Navigate to the Hyland Content Federation Broker folder. By default, the folder is located in C:\Program Files\Hyland.
+2.  Open the appsettings.json file in a plain-text editor, such as Notepad.
+3.  In the GatewayConfiguration object, set values for the following parameters:
+
+-
+-
+
+| appsettings.json Parameter | Value |
+| --- | --- |
+| Region | A value that corresponds to the geographical region where your CIC services are hosted and to where your CF Broker is connecting.Enter one of the following values depending on the region in which your CIC services are hosted:   US: For deployments in the United States  EU: For deployments in Europe  The default value for Region is US. |
+| BrokerName | A unique, human-readable name used to identify the registered broker instance. |
+| ProtectedKeyFilePath | The path to a .json file that stores the encrypted CF Broker's key pair and the gateway's public key.Note: Users need to give proper permissions to the LOCAL SERVICE account to this path for the Broker service to access it. |
+| BrokerRegistrationToken | The bootstrap token generated in the Content Federation Admin Portal that allows a negotiated key exchange to occur between the CF Broker and the CF Gateway.For more information on how to generate a token for the CF Broker, see Generating Broker Tokens. |
+
+4.  In the Credentials object, set values for the following parameters:
+| appsettings.json Parameter | Value |
+| --- | --- |
+| ClientId | The identifier of the registered external application in the CIC. |
+| ClientSecret | The Secret associated with the registered external application in the CIC. |
+
+For information on the Credentials values, which are obtained during registration, see Registering the CF Broker in the Content Innovation Cloud.
+5.  In the DataProtection Object, set values for the following parameters:
+
+| appsettings.json Parameter | Value |
+| --- | --- |
+| KeyPersistencePath | Directory Location on the machine where .NET Data Protection keys needs to be persisted. Note: LOCAL SERVICE account needs read/write access to this location. |
+| KeyStorePath | Certificate File Location on the machine that is to be used to encrypt/decrypt CF Broker's protected key pairs. This certificate needs to have a private key. Note: Currently, only PFX certificates are supported. If this field is blank, the .NET Data Protection key is generated and stored in an unencrypted format at the KeyPersistencePath location. |
+| KeyStorePassword | Password for the certificate. If this field is blank, the .NET Data Protection key is generated and stored in an unencrypted format at the KeyPersistencePath location. |
+| KeyLifeTimeInDays | The time period (in days) beyond which the certificate expires. CF Broker cannot encrypt or decrypt the protected key pairs using the certificate. No value less than 7 is supported in this field. Note: The default value is 0, which indicates that the certificate expires after 90 days. |
+
+6.  Optional: Configure the settings for CF Broker error log files.
+1.  In the Serilog object, under MinimumLevel, set the Default value to the lowest-severity information that is logged. By default, the value is set to Warning. The following table describes valid values for log levels:CAUTION: Do not set the Default value to any value other than one of the values described in the following table. An invalid Default value may cause the CF Broker to crash or fail to start.
+| Log Level Value | Description |
+| --- | --- |
+| Fatal | Logs that describe an unrecoverable application, system crash, or catastrophic failure that requires immediate attention |
+| Error | Logs that highlight when the current flow of execution is stopped due to a failure. These logs indicate a failure in the current activity, but not an application-wide failure. |
+| Warning | Logs that highlight an abnormal or unexpected event in the application flow but do not otherwise cause the application to stop |
+| Information | Logs that track the general flow of the application |
+| Debug | Logs that are used for interactive investigation during development |
+| Verbose | Logs that contain the most detailed messages and may include sensitive data CAUTION: Verbose logs should never be enabled in a production environment unless instructed by your first line of support. |
+
+2.  In the Serilog object, under WriteTo, change the path value to the file path where the error log will be stored. By default, the file path for the error log is %PROGRAMDATA%/Hyland/logs/CF Broker/Hyland.ContentFederation.Broker.json.
+7.  Save and close the appsettings.json file.
+8.  Encrypt the ClientSecret value. For more information, see Encrypting the ClientSecret.
+
+## Configuring The Cf Fi Plugin
+
+After the CF FI Plugin is installed, the CF FI Plugin application settings need to be configured to communicate with the content repository.
+
+CAUTION: When upgrading the CF FI Plugin to a new version, values in the PluginConfig.json file are not retained, so you need to reconfigure parameters in the file. For this reason, save a backup of the values in the PluginConfig.json file before upgrading the CF FI Plugin.
+To configure the CF FI Plugin:
+
+1.  Navigate to the folder where the CF FI Plugin is installed. By default, the folder is located in C:\Program Files\Hyland\Hyland Content Federation Federated Identity Plugin.
+2.  Open the PluginConfig folder.
+3.  Open the PluginConfig.json file in a plain-text editor, such as Notepad.
+4.  Set values for the following parameters:
+
+| PluginConfig.json Parameter | Value |
+| --- | --- |
+| IntegrationId | The value obtained from the Integration ID field during the registration of CFS in the Content Innovation Cloud Administration Portal For more information, see Adding a System Integration. |
+| ScimEndpoint | The URL of the OnBase API Server SCIM service. For example, https://hostname.example.com/``<ApiServerApplicationName>``/onbase/SCIM/v2 |
+
+5.  Under IdentityProviderOptions, enter information that corresponds to the Hyland Identity Service (IdS) identity provider for the OnBase data source. The following table describes the information needed for each parameter.  Note: Some information in the IdentityProviderOptions is related to Hyland IdS. For more information on Hyland IdS, see Hyland Identity Service (IdS) in the Identity and Access Management Services documentation.
+
+| IdentityProviderOptions Parameter | Value to Enter |
+| --- | --- |
+| Address | The Hyland IdS URLFor example, https://hostname.example.com/<IdSApplicationName> |
+| ClientId | The client identifier created in Hyland IdS for authenticating with the OnBase SCIM serviceNote: The client configured in the ClientId parameter must whitelist all of the scopes listed in the Scopes parameter to successfully perform the token exchange. |
+| ClientSecret | The secret of the client identifier created in Hyland IdS |
+| Scope | A space-separated list of the scopes required to authenticate with the OnBase SCIM service.For example, iam.user-catalog iam.user-catalog.read |
+
+6.  Save and close the PluginConfig.json file.
+
+## Configuring The Cf Nuxeo Plugin
+
+After the CF Nuxeo Plugin is installed, the CF Nuxeo Plugin application settings need to be configured to communicate with the content repository.
+
+CAUTION: When upgrading the CF Nuxeo Plugin to a new version, values in the PluginConfig.json file are not retained, so you need to reconfigure parameters in the file. For this reason, save a backup of the values in the PluginConfig.json file before upgrading the CF Nuxeo Plugin.
+To configure the CF Nuxeo Plugin:
+
+1.  Navigate to the folder where the CF Nuxeo Plugin is installed. By default, the folder is located in C:\Program Files\Hyland.
+2.  Open the PluginConfig folder.
+3.  Open the PluginConfig.json file in a plain-text editor, such as Notepad.
+4.  Set values for the following parameters:
+
+| PluginConfig.json Parameter | Value |
+| --- | --- |
+| Authority | Issuer of the Hx IAM token. For example, https://auth.iam.dev.experience.hyland.com/idp. |
+| NuxeoServerApiUrl | Nuxeo API base URL of the Nuxeo server instance being connected. For example, https://cfs.beta.nuxeocloud.com/nuxeo/api/v1/ |
+| NuxeoFolderId | Target folder node ID in Nuxeo where user wants to create a content.  Note: This is a mandatory field if the user needs to create a document. If the user has no need to create a document, it is optional. |
+| TokenEndpoint | The Identity provider’s token endpoint. For example, Nuxeo server authentication endpoint:https://cfs.beta.nuxeocloud.com/nuxeo/oauth2/token. |
+| ClientId | Client-Id value of the Client, as set in the Nuxeo Server. |
+| ClientSecret | Client-secret value of the Client, as set in the Nuxeo Server |
+| JwtSecretSigningKey | 128-bit signing key from the nuxeo.conf file in Nuxeo server: nuxeo.jwt.secret. |
+| ClockskewInMinutes | Optional: Permissible adjustment for clock skew (or timing skew) in minutes. The valid range is 1-5 minutes. By default, this value is set to 5 minutes. |
+| ExpirationInMinutes | Optional: Time (in minutes) after which the JWT assertion expires. The valid range is 1-10 minutes. By default, this value is set to 10 minutes. |
+
+5.  Save and close the PluginConfig.json file.  Note: Use the Hyland Application Settings Utility (HASU) to encrypt in case CF Broker is deployed on premise or KeyPerFile configuration (to securely store in a different location in case the CF Broker is containerized) to protect the ClientSecret and JwtSecretSigningKey parameters. Download the HASU Command Line Utility from Hyland Community. For more information on the HASU, see Hyland Application Settings Utility in the OnBase API Server documentation.
+
+## Configuring The Cf Onbase Plugin
+
+After the CF OnBase Plugin is installed, the CF OnBase Plugin application settings need to be configured to communicate with the content repository.
+
+CAUTION: When upgrading the CF OnBase Plugin to a new version, values in the PluginConfig.json file are not retained, so you need to reconfigure parameters in the file. For this reason, save a backup of the values in the PluginConfig.json file before upgrading the CF OnBase Plugin.
+To configure the CF OnBase Plugin:
+
+1.  Navigate to the folder where the CF OnBase Plugin is installed. By default, the folder is located in C:\Program Files\Hyland.
+2.  Open the PluginConfig folder.
+3.  Open the PluginConfig.json file in a plain-text editor, such as Notepad.
+4.  Set values for the following parameters:
+
+| PluginConfig.json Parameter | Value |
+| --- | --- |
+| McaServerUrl | The Server URL of the MCA Adapter For example, https://hostname.example.com/``<McaApplicationName>``/ |
+| IntegrationId | The value obtained from the Integration ID field during the registration of CFS in the Content Innovation Cloud Administration Portal For more information, see Adding a System Integration. |
+
+5.  Optional: Configure MCA session cookie cleanup by editing the values of the EnableOnBaseSessionCookieCleanUp and OnBaseSessionCookieHeader parameters.
+Each time a user makes a request to OnBase, MCA stores a cookie in the OnBase database. If frequent requests are made, the resulting large number of cookies could affect the performance of CFS. Enabling MCA session cookie cleanup prevents the buildup of cookies that result from MCA requests.
+
+The following table outlines the settings related to MCA session cookie cleanup:
+
+| PluginConfig.json Parameter | Description | Default Value |
+| --- | --- | --- |
+| EnableOnBaseSessionCookieCleanUp | Set the value to true to automatically remove the cookies that result from a request to OnBase.Setting the value to false or leaving the value empty leaves the cookies that are generated by requests to OnBase. | true |
+| OnBaseSessionCookieHeader | Set the value to what you want to appear in the Set-Cookie header for any MCA HTTP operation. | Cookie.Session.OnBase.Hyland |
+
+6.  Under IdentityProviderOptions, enter information that corresponds to the Hyland Identity Service (IdS) identity provider for the OnBase data source. The following table describes the information needed for each parameter.  Note:
+Some information in the IdentityProviderOptions is related to Hyland IdS and the CF MCA Adapter.
+
+For more information on Hyland IdS, see Hyland Identity Service (IdS) in the Identity and Access Management Services documentation. For more information about the CF MCA Adapter, see the Content Federation Metadata and Content Abstraction documentation.
+
+| IdentityProviderOptions Parameter | Value to Enter |
+| --- | --- |
+| Address | The Hyland IdS URLFor example, https://hostname.example.com/<IdSApplicationName> |
+| ClientId | The client identifier created in Hyland IdS for authenticating with the CF MCA AdapterNote: The client configured in the ClientId parameter must whitelist all of the scopes listed in the Scopes parameter to successfully perform the token exchange. |
+| ClientSecret | The secret of the client identifier created in Hyland IdS |
+| GrantType | The value urn:ietf:params:oauth:grant-type:token-exchange, which allows for exchanging an Content Innovation Cloud token with an OnBase token |
+| SubjectTokenType | The value urn:ietf:params:oauth:token-type:access_token, which represents the type of token that is being exchanged |
+| Scope | The value mca evolution, which represents a space-separated list of the scopes required to connect to the CF MCA Adapter and the Temporary File Service (TempFS) |
+| IdPTenant | The Id or the Tenant Name of the tenant used by Hyland IdS to connect to OnBaseThe Id value may be found in the tenant information in the idsconfig.json file for Hyland IdS. By default, this file is located in C:\Program Files\Hyland\identityservice\config. The Tenant Name value may be found in the Hyland IdS Administration client. |
+
+7.  Save and close the PluginConfig.json file.
+
+## Configuring User Groups And Roles For The Cfs
+
+User groups for Content Federation Services (CFS) are created in the Content Innovation Cloud (CIC) Administration Portal. Then, the user groups are granted permissions for carrying out tasks and services based on the roles they need to fulfill.
+
+The steps presented here are separate from the steps required to configure service users for running the CF Broker. If your repository requires the CF Broker and you need information on configuring user groups for the CF Broker, see Registering an Application for the CF Broker.
+To configure user groups and roles for the CFS:
+
+1.  Create at least one user group in the CIC Administration Portal for internal (human) users requiring access to the Content Federation Admin Portal.
+For more information on creating and managing user groups in the CIC, see [User Groups and Roles](https://support.hyland.com/access?dita:topicPath=sjt1646250711186.dita) in the Content Innovation Cloud Administration Portal documentation.
+
+2.  Create at least one user group in the CIC Administration Portal for service users meant to carry out tasks related to the CFS.
+How many user groups you need depends on how many service tasks are required for your CFS deployment. For example, if you plan on mapping OnBase user accounts to CIC user accounts, you need to create a service user group for mapping users.
+
+For more information on creating and managing user groups in the CIC, see [User Groups and Roles](https://support.hyland.com/access?dita:topicPath=sjt1646250711186.dita) in the Content Innovation Cloud Administration Portal documentation.
+
+3.  Assign user rights to the CFS user groups based on the role of the users within each group.
+1.  In the CIC Administration Portal, select the Account tab under the banner. The Account Details page is displayed.
+2.  In the sidebar, under the name of your environment, select Applications. The Applications sidebar menu is displayed.
+3.  Select an application from the Applications sidebar to configure which users have rights to the selected application. The following table lists available applications.Note: The list of available applications may differ depending on your CFS subscription.
+| Application Name | Description |
+| --- | --- |
+| CFS Base Subscription |
+| Content Federation Admin Portal | Contains roles for internal (non-service) users who need to access to the Content Federation Admin Portal. |
+| Content Federation Brokers | Contains roles for service users connecting on behalf of the CF Broker |
+| CFS Content Subscription |
+| Content Federation Solution Administration | Contains roles for internal (non-service) users who need to access solutions related to CFS. |
+| Content Federation Content Consumer API | Contains roles required to use the Content Federated connector in Studio Modeler. |
+| CFS Federated Identity Subscription |
+| Content Federation User Sync Administration | Contains roles for internal (non-service) users who need to access User Mapping in the Content Federation Admin Portal. |
+| Content Federation User Sync Service | Contains roles for service users to map CIC users to OnBase users. |
+
+After selecting an application, the Overview tab for the selected application is displayed.
+4.  Click the User Rights tab. A list of user roles associated with the application is displayed.
+5.  Click Manage in the entry for the user role needed for your user groups. The following table lists user roles and their descriptions:Note: The user roles are organized by application. The list of available applications may differ depending on your CFS subscription.
+| Role | Description |
+| --- | --- |
+| Content Federation Admin Portal |
+| Content Federation Power User | Used by internal (non-service) users to access the Content Federation Admin Portal and make changes, such as adding connections or deleting brokers. |
+| Infrastructure Read Only Admin | Used by internal (non-service) users to access the Content Federation Admin Portal without rights to make changes. |
+| Content Federation Brokers |
+| Content Federation Broker | Used by service users connecting on behalf of the CF Broker. |
+| Content Federation Solution Administration |
+| Solutions Admin | Used by internal (non-service) users to access solutions related to CFS and make changes. |
+| Solutions Read Only Admin | Used by internal (non-service) users to access solutions related to CFS without rights to make changes. |
+| Content Federation Content Consumer API |
+| Content Federation Consumer | Used by users (internal and service) to access projects that contain the Content Federated connector in Studio Modeler. This user role also allows users to make changes related to the Content Federated connector, such as adding the connector to processes. |
+| Content Federation Read Only Consumer | Used by users (internal and service) to access projects that contain the Content Federated connector in Studio Modeler. This user role does not allow users to make changes. |
+| Content Federation Content Broker | Used by service users connecting on behalf of the CF Broker to allow information to be used for the Content Federated connector. |
+| Content Federation User Sync Administration |
+| User Sync Admin | Used by internal (non-service) users to access and use the User Mapping feature within the Content Federation Admin Portal. |
+| User Sync Read Only Admin | Used by internal (non-service) users to access the User Mapping page in the Content Federation Admin Portal. This user role does not allow for enabling or disabling the User Mapping feature. |
+| Content Federation User Sync Service |
+| Content Federation User Sync Broker | Used by service users to map CIC users to OnBase users. |
+
+The user group management dialog box for the selected user role is displayed.
+6.  Set all applicable user groups from the Unassigned list to the Assigned list.
+7.  Click Confirm. The selected user role is added to the user groups in the Assigned list.
+8.  Continue adding applicable user roles to your CFS user groups.
+
+## Creating A Cf Broker User Group
+
+For the CF Broker to communicate, a service user must be created in the Content Innovation Cloud Administration Portal for each instance of the CF Broker. If multiple instances and service users are required, the service users need to be organized in a user group.
+
+At least one service user needs to be created before the user group can be created. For information on how to create a service user for the CF Broker, see Creating Service Users for the CF Broker.
+To create a CF Broker service user group:
+
+1.  Log in to the Content Innovation Cloud Administration Portal.
+2.  Select the Identity tab under the banner.
+3.  In the sidebar, click User Groups. The User Groups page is displayed.
+4.  Click Add New User Group. The Add New User Group page is displayed.
+5.  In the User Group Name field, enter a name for the user group.
+6.  Under Group Type, select Internal.
+7.  Under Users, in the Unassigned table, click the service users created for the CF Broker. Assigned users are displayed in the Assigned table. You may also filter the list of users by entering text in the search field above the Unassigned table. Using the Select All option after filtering the list of available users allows you to assign multiple users to the user group at once.
+8.  Click Add User Group. The CF Broker service user group is added to the list on the User Groups page.
+9.  Ensure the CF Broker service user group has the necessary user rights. For more information, see Assigning User Roles to CF Broker User Groups.
+
+## Creating A Client In Keycloak
+
+Clients are entities that can request Keycloak to authenticate a user through an access token. For KeyCLoak to perform token exchange, a client must be created in the KeyCloak Administration Console.
+
+To create a client in KeyCloak:
+
+1.  Log in to the KeyCloak Administration Console.
+2.  From the left pane, under Manage, click Clients. The Clients page is displayed.
+3.  Click the Create client button. The Create client page is displayed.
+4.  Under General Settings, from the Client Type list, select OpenID Connect.
+5.  In the Client ID field enter the client ID.
+6.  In the Name field enter the client name.
+7.  In the Description field enter a brief decription of the client.
+8.  In the Always display in UI field, click the switch to set the client visibility in the user interface from Off to On.
+9.  Click Next. The Capability config screen appears.
+10.  In the Client authentication field, click the switch to set the client authentication capability from Off to On.
+11.  In the Authorization field, click the switch to set the client authorization capability from Off to On.
+12.  In the Authentication flow field, select Standard Token Exchange and Service Account Roles.
+13.   Click Next. The Login settings screen appears.
+14.  Click Save. The client is created successfully and the Client details page is displayed.
+15.  Click the Permissions tab. The Permissions screen is displayed.
+16.  In the Permissions enabled field, click the switch to set the permission for the new client interface Off to On. The Permission list is displayed.
+17.  From the Permisson list, select token-exchange.  The permission details are displayed.
+18.  From the Policies list, select Create client policy.  The Choose a policy type wizard appears.
+19.  Click Client. The Create client policy page appears.
+20.  In the Name field, enter the name for the policy.
+21.  In the Description field, enter a brief description of the policy.
+22.  From the Clients list, select the client that was created.
+23.  In the Logic field, select Positive.
+24.  Click Save. The client policy is saved.Note:
+Navigate to the Credentials tab of the newly-created client to find the Client Secret value which is needed for configuring the Alfresco Plugin.
+
+## Creating An Identity Provider In Keycloak
+
+An identity provider (IdP) is a service that authenticates a user.
+
+To create an identity provider:
+
+1.  Log in to the KeyCloak Administration Console.
+2.  From the left pane, under Configure, click Identity providers. The Identity providers page is displayed.
+3.  From the Add provider list, select OpenID Connect v1.0. The Add OpenID Connect provider page is displayed.
+4.  Configure the following fields:
+| Field | Description |
+| --- | --- |
+| Alias | Type a short name for the identity provier. |
+| Display Name | Type a display name for the identity provier. |
+| Display Order | Type the display order for the identity provier. |
+
+5.  In the Use discovery endpoint field, click the switch to set the use of discovery endpoint from Off to On.
+6.  In the Discovery endpoint field, enter the appropriate details to connect to OpenID Connect.
+7.  Click Show metadata to view the details of the Authorization URL, Token URL, Logout URL, User Info URL and Issuer fields.
+8.  Configure the following:
+| Field | Description |
+| --- | --- |
+| Client ID | Type the client identifier as registered with the identity provider. |
+| Client secret | Type the client secret value as registered with the identity provider. |
+
+9.  Click Add. The identity provider is created successfully and the Provider details page of the identity provider is displayed.Note:
+After the Identity Provider is successfully created, the value of User Info URL field needs to be erased.
+
+10.  Click Advanced.
+11.  In the Disable type claim check field, click the switch to set the use of type claim check from Off to On.
+12.  Click Save.
+13.  Click the Permissions tab. The Permissions screen is displayed.
+14.  In the Permissions enabled field, click the switch to set the use of permissions from Off to On.
+15.  To view the permissions of the client associated with theidentity provider, click token-exchange. A screen with the permission details of the client is displayed.
+16.  Edit the details, if required.
+17.  Click Save.  The client details page is displayed.
+18.  Click the policies tab.  The Policies screen is displayed.
+19.  From the list of policies, click the client policy previously created during creating a client. The Policy details screen is displayed.
+20.  Edit the details, if required.
+21.  Click Save.  The changes are updated.
+
+## Creating Service Users For The Cf Broker
+
+For the CF Broker to communicate, a service user must be created in the Content Innovation Cloud Administration Portal for each instance of the CF Broker.
+
+To create service users for the CF Broker:
+
+1.  Log in to the Content Innovation Cloud Administration Portal.
+2.  Select the Identity tab under the banner.
+3.  In the sidebar, select Users > Service Users. The Users page for service users is displayed.
+4.  Click Create Service User. The Create New User wizard is displayed.
+5.  In the Username field, enter a username for the service user.
+6.  Click Next. The User Groups page is displayed.
+7.  Do one of the following:
+- If you have not yet created a user group for CF Broker service users, skip to step 8.
+- If you have created a user group for CF Broker service users, in the Unassigned table, click the user group created for CF Broker service users. The user group is displayed in the Assigned table.
+8.  Click Next. The Register New Client page is displayed.
+9.  Skip registering the new client and click Next. The Review page is displayed.
+10.  Review the settings for the CF Broker service user. To return to a previous step, do one of the following:
+- Select the page containing the previous step from the left pane of the wizard.
+- Click Previous Step until you reach the step you need to review.
+11.  Click Create. The service user is created, and the Summary page is displayed.
+12.  Click Close. The CF Broker service user is added to the list on the Users page for service users.
+13.  If you did not add the service user to a user group in step 7, proceed to Creating a CF Broker User Group.
+
+## Disabling User Mapping
+
+The Content Federation Admin Portal allows you to check the status of user mapping for system integrations registered for the Content Federation Services (CFS) application. Then, you may disable user mapping between a system integration and the Content Innovation Cloud (CIC). This may be done to prevent access or to correct the set attributes and then re-enable user mapping.
+
+To disable user mapping:
+
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed.
+4.  Click the User Mapping tab. The User Mapping page is displayed, which shows a list of system integrations and their user mapping status. If a system integration has user mapping enabled, the Last Synchronized column displays when user information was last synchronized between OnBase and the CIC. For system integrations that have user mapping enabled, the Next Synchronization column displays when user information is scheduled to synchronize between OnBase and the CIC.
+5.  In the User Mapping column, click the switch to set user mapping from enabled (![User Mapping Switch in the Enabled position](data:image/gif;base64,R0lGODlhJAAYAHcAACH5BAAAAAAALAAAAAAkABgAh////yonTDkxrTkxtTkxvUIxtT40ukIxxkE1y0Ix1kIx3kI5hEQ8i0Q8k0M8nUQ9qEI6rUM5tkQ6vUM4xkQ5z0Q41kU43EI550VBekY/h0Y/lUo5nEg9tUc8vUc6xEg6z0c42Eg620o95UhGdUdEeUhCgUlCjkhBnUhAp0lAsUtCtUxBxUs/zUtIfU1JjlBNeVFLpU9HsFJItFNKxFJIzlZL01ZUclpK1lpTrFpUs1hQvVlPz11S2VxbcVpZgF5ZpmBW12BV52NS72BegGResWJbvGRcy2JZ1Wde3GBgfmJggmdis2pnmGpjzWti3mtj52hof25qsnBst3FsvHRuxHNq5HVr9HZ1mnZytHt3vnlxxHhx13t023x05ndu8H19lX9/n4F/rYN+tIR7vYF9wod9/4WBrYWAtISBu4SAxox7/46H9I+LyY2J15OO0paP35SM95eVrpSU1peS45iXu5qS4ZiS7Z2U/6CdwJyZzJyc1qWcxqGb16Wc3qSjs6aj36ml6amn1ayo5K2l762m/6yq1q2t3q2t57Sw77av/7KxvLW1z7m09Lu1/7y6zry707696cS+/cTE2sTD68nE/MzI/8zN2tHL/9HP9tfR/9LT39jX99bW/97W993Y/9zd59/d+ODd/+Hh7uXh/+jq7ejo9Ojn/u7q/+/v7/Dx9/Dw//L0+fP0/vXy//X3+vb3/vr8/fz5//v+9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AF8JHDgw1StWrAgqHKhqocOFqk6ZmkixokVVDVmtcsWRo0NTmP6kyRJFiskpKFOilIIFTZ5JEze6GsgqlatVqia5KQJBgs+fEiZMACrBgIQIKnKQgdSQYMJXqgpFQSGBQoWrWCuIsHCVQhArZcp4AaICxY88pgQ2ZaUqEI4IE6xmvWqhboUgdyJ5GmUqFKU7R1TAYNMU6qtIOKqGmDt3wpFIp17FegVAcqtITVCcQERw1JaqjLNSiJCjEmUAqFNXpoTjgRHTr1o12gEidNYJKASp3v0KFgBAKFbcafXK1JoJFUAoX64cq4QlkX2rfgVKEikAp4h0qBLq1aguyLv+yr26vIOb0wQBgALz5VNlNxGQmM7kJO5c5so7IJqO2tQVKJZUBgAjEfDQyCuX1HcffiB0EMlkqSjiCHVKJKGJK6lFEkENB2ZSxQSLYcVgg4yg5oofNuAxRA/uASALaohEsEMkr4QC3mJcJcdgB29QJlAcAdhQCmqyyCJQGxIcYZopdtBAV10jepCDKZW9koojoKSGIQCh5LBCF6MIFMkOVtVlwYgfpFCHKrsBsCUAqsyRwgyEEFfcGixUYCaaLMggyCmqzVSZKYLo0AEXnjBEn1wWhBACgx90gAMfYe5myh9vzUAjQ6pUAgQCFIAQQo74fbCCClrwgQkoIP1BRQxuEMyQiJ1qxZZJFxBE4JMHK3jgqwcSdNABByiY0MILL7TgggYOFNFIZK/MxFBxgTBRggkaNHDCtido4G0DDGRQAgYkjDCCD3RsQqtAsNRqpSiP4GHGGWLUK8YZ9NqLbxh0LPKJTA8FLLBDHQnkSkAAOw==)) to disabled (![User Mapping Switch in the Disabled position](data:image/gif;base64,R0lGODlhJAAYAHcAACH5BAAAAAAALAAAAAAkABgAh////25tenBvfHFwfXFxfXJwfnJxfXJxfnJyfnNyf3Nzf3RzgHR0gHR3fnV0gXV1gXV4gXZ1gnZ5gXd2g3d3g3d5gnd6gnh2hHh3hHh6g3h7g3h8g3l4hXl8hHp5hnp8hXt5h3t6h3t9hnt+hnx7iH18iX18in1/iX6Ah36Ain6BiH9+i3+Bin+Bi4B/jICBi4CDioGAjYKBjoOFkIOGjYSDkISDkYSGkIWEkYWHkYaHkomLkomMkoqJlouJl4uKl4yOmI2LmY2OmI6Mmo+Om4+QmpGPnZGQnZGSnZGUmpKQnpKVm5ORn5SSoJSWnJSWnZWVoJWWoZWXnpaWoZeYo5iYpJmZpJmZpZmapZmappqbppqcopqdo5ubp5ycp5ycqJydqJ2dqZ2fpZ6eqqCdrKGfraGhraKkqqOhr6Sisaems6eprqmnta2suK6wta6wtq+su6+uu7SxwLSxwbSzwLWywba4vbe5vbm2xbm3xbq3xru4x726yb27yb6/xL+8y8C8zMC+zMG9zcG+zcK/zsPEyMPFycTB0MTD0MXD0cXD0sbD0sbE0sfF08jF1MrI1svI18vJ183K2c7K2s7L2s/L28/M29DN3NLP3tPP39TS4NTV2dXR4dXS4dbT49fU49jZ3dnV5NnV5tnW5trW5tvX59zY6N3Z6d3Z6t7a6t7b6t7f49/b69/b7N/g4+Dc7ODg5OHc7eHd7eHd7uLf7uLi5uLj5uPf7+Pf8OPk5+Tg8OTg8eXg8eXh8ebi8ubi8+bj8ufj8+fj9Ojj9Ojk9Onk9enl9erl9urm9uvm9+vn9+vr7+zo+O3o+e7p+u/v8/Dr/PDs/PHs/fHx9PHy9fb2+Pb3+Pf3+vn4+vn5+/n5/Pr6/fv7/vz8/vz8//39//7+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+ALUJHKiNGzgACBMqXJgQHDeCEAduA6DNVqEzTjJq3LjxTCFb2gBsizjQG4BNTjoUwQLmS5crVWLKnBlFyIYnmwB4I/ntmhsJYyyNOoUqVrBo0popXbq0WCpIWiC4ufYNYjdrW1pAYlWHiQwMK4aw4USsl66zaHX1CoasGCMWXKx1kwjgzYtSlX4QGLDAAYMDAmzwKZu2cC9mnVK8ESnwpIVIlUoMiDChsuUDF/YQK8yZ2aIKOQtikxImlY8BllNXPhDjkjHOaXsZyyIFm8FaGi7NIUBZdeoBZX6ZhX32WKQMtQ4aKiLKCOoJERxIl/5gdY1Pw4ifDaYKiCGEZ7z+lIrBoLKHEOjRg8AwwQEHSMi06+JljMoZhEnMlIoQfYUcQn8EOEgeOCwwwQCHKCOfLs58kQRCW4xhCgkOROBBEEoYoaESRJDAXwSOxKfdLspgsQVCd0BByg8IQJfAATDGSJkCLmBSjHy+0ILEHQiBkoInaQjgm2oDNDGLL/IVo8kJoADwzTQ00JGJCQkMWdkCFAQionbJxEHDNFUB4IcIpsxRgIG+OSAAGmrJZ0woH/hBkTbdVLOEFcLAQYEBC1AW3QEOkPFKMPIRA8wUS1QzV2O5oBDGLY4cEUICARzAQQ963LIZbL34kowsWqiQy5wDAbDKDjko0sokguAByCRjuEDTTDK01korMpsFcgMPrpBKEADUrCGCDm0gQokkjzSSyLLMNtuHGjOMsAY1vkL0DQCw2CEGDA106+2338Ighh2wOEkSRAhl88wy7LbrrrvPZIPQuedy8829+Oar7zcPnRsQADs=)) for the listed system integration. User mapping is disabled, and user information is not synchronized between the system repository and the CIC.
+
+## Enabling User Mapping
+
+The Content Federation Admin Portal allows you to check the status of user mapping for system integrations registered for the Content Federation Services (CFS) application. Then, you may enable user mapping between a system integration and the Content Innovation Cloud (CIC). Enabling user mapping allows Knowledge Discovery agents to access user information from a system integration outside of the CIC.
+
+To enable user mapping:
+
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed.
+4.  Click the User Mapping tab. The User Mapping page is displayed, which shows a list of system integrations and their user mapping status. If a system integration has user mapping enabled, the Last Synchronized column displays when user information was last synchronized between OnBase and the CIC. For system integrations that have user mapping enabled, the Next Synchronization column displays when user information is scheduled to synchronize between OnBase and the CIC.
+5.  In the User Mapping column, click the switch to set user mapping from disabled (![User Mapping Switch in the Disabled position](data:image/gif;base64,R0lGODlhJAAYAHcAACH5BAAAAAAALAAAAAAkABgAh////25tenBvfHFwfXFxfXJwfnJxfXJxfnJyfnNyf3Nzf3RzgHR0gHR3fnV0gXV1gXV4gXZ1gnZ5gXd2g3d3g3d5gnd6gnh2hHh3hHh6g3h7g3h8g3l4hXl8hHp5hnp8hXt5h3t6h3t9hnt+hnx7iH18iX18in1/iX6Ah36Ain6BiH9+i3+Bin+Bi4B/jICBi4CDioGAjYKBjoOFkIOGjYSDkISDkYSGkIWEkYWHkYaHkomLkomMkoqJlouJl4uKl4yOmI2LmY2OmI6Mmo+Om4+QmpGPnZGQnZGSnZGUmpKQnpKVm5ORn5SSoJSWnJSWnZWVoJWWoZWXnpaWoZeYo5iYpJmZpJmZpZmapZmappqbppqcopqdo5ubp5ycp5ycqJydqJ2dqZ2fpZ6eqqCdrKGfraGhraKkqqOhr6Sisaems6eprqmnta2suK6wta6wtq+su6+uu7SxwLSxwbSzwLWywba4vbe5vbm2xbm3xbq3xru4x726yb27yb6/xL+8y8C8zMC+zMG9zcG+zcK/zsPEyMPFycTB0MTD0MXD0cXD0sbD0sbE0sfF08jF1MrI1svI18vJ183K2c7K2s7L2s/L28/M29DN3NLP3tPP39TS4NTV2dXR4dXS4dbT49fU49jZ3dnV5NnV5tnW5trW5tvX59zY6N3Z6d3Z6t7a6t7b6t7f49/b69/b7N/g4+Dc7ODg5OHc7eHd7eHd7uLf7uLi5uLj5uPf7+Pf8OPk5+Tg8OTg8eXg8eXh8ebi8ubi8+bj8ufj8+fj9Ojj9Ojk9Onk9enl9erl9urm9uvm9+vn9+vr7+zo+O3o+e7p+u/v8/Dr/PDs/PHs/fHx9PHy9fb2+Pb3+Pf3+vn4+vn5+/n5/Pr6/fv7/vz8/vz8//39//7+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+ALUJHKiNGzgACBMqXJgQHDeCEAduA6DNVqEzTjJq3LjxTCFb2gBsizjQG4BNTjoUwQLmS5crVWLKnBlFyIYnmwB4I/ntmhsJYyyNOoUqVrBo0popXbq0WCpIWiC4ufYNYjdrW1pAYlWHiQwMK4aw4USsl66zaHX1CoasGCMWXKx1kwjgzYtSlX4QGLDAAYMDAmzwKZu2cC9mnVK8ESnwpIVIlUoMiDChsuUDF/YQK8yZ2aIKOQtikxImlY8BllNXPhDjkjHOaXsZyyIFm8FaGi7NIUBZdeoBZX6ZhX32WKQMtQ4aKiLKCOoJERxIl/5gdY1Pw4ifDaYKiCGEZ7z+lIrBoLKHEOjRg8AwwQEHSMi06+JljMoZhEnMlIoQfYUcQn8EOEgeOCwwwQCHKCOfLs58kQRCW4xhCgkOROBBEEoYoaESRJDAXwSOxKfdLspgsQVCd0BByg8IQJfAATDGSJkCLmBSjHy+0ILEHQiBkoInaQjgm2oDNDGLL/IVo8kJoADwzTQ00JGJCQkMWdkCFAQionbJxEHDNFUB4IcIpsxRgIG+OSAAGmrJZ0woH/hBkTbdVLOEFcLAQYEBC1AW3QEOkPFKMPIRA8wUS1QzV2O5oBDGLY4cEUICARzAQQ963LIZbL34kowsWqiQy5wDAbDKDjko0sokguAByCRjuEDTTDK01korMpsFcgMPrpBKEADUrCGCDm0gQokkjzSSyLLMNtuHGjOMsAY1vkL0DQCw2CEGDA106+2338Ighh2wOEkSRAhl88wy7LbrrrvPZIPQuedy8829+Oar7zcPnRsQADs=)) to enabled for the listed system integration. A dialog box is displayed the prompts you for additional information.
+6.  In the CIC User Attribute field, enter the attribute that corresponds to what identifies a user in the CIC. Supported values for this field are userName and email.
+7.  In the Integration User Attribute field, enter the attribute that corresponds to what identifies a user in the selected system repository. Supported values for this field are userName and email.
+8.  Click Turn On. The User Mapping column switch becomes enabled (![User Mapping Switch in the Enabled position](data:image/gif;base64,R0lGODlhJAAYAHcAACH5BAAAAAAALAAAAAAkABgAh////yonTDkxrTkxtTkxvUIxtT40ukIxxkE1y0Ix1kIx3kI5hEQ8i0Q8k0M8nUQ9qEI6rUM5tkQ6vUM4xkQ5z0Q41kU43EI550VBekY/h0Y/lUo5nEg9tUc8vUc6xEg6z0c42Eg620o95UhGdUdEeUhCgUlCjkhBnUhAp0lAsUtCtUxBxUs/zUtIfU1JjlBNeVFLpU9HsFJItFNKxFJIzlZL01ZUclpK1lpTrFpUs1hQvVlPz11S2VxbcVpZgF5ZpmBW12BV52NS72BegGResWJbvGRcy2JZ1Wde3GBgfmJggmdis2pnmGpjzWti3mtj52hof25qsnBst3FsvHRuxHNq5HVr9HZ1mnZytHt3vnlxxHhx13t023x05ndu8H19lX9/n4F/rYN+tIR7vYF9wod9/4WBrYWAtISBu4SAxox7/46H9I+LyY2J15OO0paP35SM95eVrpSU1peS45iXu5qS4ZiS7Z2U/6CdwJyZzJyc1qWcxqGb16Wc3qSjs6aj36ml6amn1ayo5K2l762m/6yq1q2t3q2t57Sw77av/7KxvLW1z7m09Lu1/7y6zry707696cS+/cTE2sTD68nE/MzI/8zN2tHL/9HP9tfR/9LT39jX99bW/97W993Y/9zd59/d+ODd/+Hh7uXh/+jq7ejo9Ojn/u7q/+/v7/Dx9/Dw//L0+fP0/vXy//X3+vb3/vr8/fz5//v+9////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AF8JHDgw1StWrAgqHKhqocOFqk6ZmkixokVVDVmtcsWRo0NTmP6kyRJFiskpKFOilIIFTZ5JEze6GsgqlatVqia5KQJBgs+fEiZMACrBgIQIKnKQgdSQYMJXqgpFQSGBQoWrWCuIsHCVQhArZcp4AaICxY88pgQ2ZaUqEI4IE6xmvWqhboUgdyJ5GmUqFKU7R1TAYNMU6qtIOKqGmDt3wpFIp17FegVAcqtITVCcQERw1JaqjLNSiJCjEmUAqFNXpoTjgRHTr1o12gEidNYJKASp3v0KFgBAKFbcafXK1JoJFUAoX64cq4QlkX2rfgVKEikAp4h0qBLq1aguyLv+yr26vIOb0wQBgALz5VNlNxGQmM7kJO5c5so7IJqO2tQVKJZUBgAjEfDQyCuX1HcffiB0EMlkqSjiCHVKJKGJK6lFEkENB2ZSxQSLYcVgg4yg5oofNuAxRA/uASALaohEsEMkr4QC3mJcJcdgB29QJlAcAdhQCmqyyCJQGxIcYZopdtBAV10jepCDKZW9koojoKSGIQCh5LBCF6MIFMkOVtVlwYgfpFCHKrsBsCUAqsyRwgyEEFfcGixUYCaaLMggyCmqzVSZKYLo0AEXnjBEn1wWhBACgx90gAMfYe5myh9vzUAjQ6pUAgQCFIAQQo74fbCCClrwgQkoIP1BRQxuEMyQiJ1qxZZJFxBE4JMHK3jgqwcSdNABByiY0MILL7TgggYOFNFIZK/MxFBxgTBRggkaNHDCtido4G0DDGRQAgYkjDCCD3RsQqtAsNRqpSiP4GHGGWLUK8YZ9NqLbxh0LPKJTA8FLLBDHQnkSkAAOw==)), and user information is synchronized between the CIC and OnBase based on the values entered in CIC User Attribute and Integration User Attribute fields.
+
+For example, the user Kelly Smith is identified in the CIC by her email address and in OnBase by her username. If email is entered in the CIC User Attribute field and userName is entered in the Integration User Attribute field, when user mapping is enabled, Knowledge Discovery is able to map Kelly's accounts by matching her email address in the CIC with her username in OnBase.
+
+## Environment Variablekeyperfile Configuration
+
+The following Environment Variable/KeyPerFile Configuration tables provide more information on the configuration values supported by the container for different repositories:
+
+-  CF Broker Environment Variable/ KeyPerFile Configuration Table
+-  OnBase Plugin Environment Variable/KeyPerFile Configuration Table
+-  Alfresco Plugin Environment Variable/KeyPerFile Configuration Table
+-  Nuxeo Plugin Environment Variable/KeyPerFile Configuration Table
+-  Federated Identity Plugin Environment Variable Configuration
+
+## Federated Identity Plugin Environment Variable Configuration
+
+The following Federated Identity Plugin Configuration Environment Variables are supported in the container.
+
+The {PluginEnvPrefix} is configured within the Broker configuration, and each plugin within the ‘Plugins’ section must have a unique {PluginEnvPrefix}.
+
+| Configuration Section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
+| --- | --- | --- | --- |
+| PluginConfiguration | The SCIM endpoint URL | {PluginEnvPrefix}PluginConfiguration__0__ScimEndpoint | PluginConfiguration__0__ScimEndpoint |
+| PluginConfiguration | The Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| IdentityProviderOptions | The IdP Address | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Address | PluginConfiguration__0__IdentityProviderOptions__Address |
+| IdentityProviderOptions | The IdP Client ID | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The IdP Client Secret | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The IdP Scope | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Scope | PluginConfiguration__0__IdentityProviderOptions__Scope |
+
+## Keyperfile Configuration
+
+The following files are required to set the KeyPerFile configuration:
+
+-  FCC_CFBROKER_KEYPERFILE_DIR - the environment variable to set the KeyPerFile directory for the broker.
+-  FCC_CFBROKER_PluginConfiguration__Plugins__0__KeyPerFileDirectoryPath - as the plugin file.
+
+## Methods Of User Configuration
+
+There are 2 ways of configuring the Content Federated connector: on behalf of (OBO) an end user and through a service user (SU).
+
+**On Behalf Of an end user (OBO)**
+When connecting OBO, the Content Federated connector enables running connector actions on behalf of an end user. This means that that user’s authorization rules are applied within the customer’s content repository. The CF Broker creates an audit record indicating that the content repository is being accessed on behalf of a specific end user. An HxP End User is mapped to a corresponding content repository end user. The audit record will contain both user identifiers. The Content Federated connector can be configured to assume the end user identity from any Automate user task executed earlier in the Automate process flow.
+**Through a Service User (SU)**
+When connecting SU, the Content Federated connector enables running connector actions under the identity of a CIC Service Account that is mapped to a corresponding Service User Account within the customer’s target repository. The authorization permissions are applied as per mapped Service User Account settings. The audit record will indicate content repository access under the service account identity. Both CIC and repository System User Accounts will be included in the audit record.
+A Content Federated connector instance is configured as part of a project in Automate, and then it is deployed as part of a process to Hyland Workspace. It is possible to create multiple Content Federated connector instances within a single Automate process. It is recommended to create a dedicated Content Federated connector instance for every task within a given Automate process.
+
+Note: For OnBase users, if configuring the Content Federated connector SU, it is important to ensure that a corresponding OnBase Service User account is created in OnBase for each Automate task that uses the Content Federated connector. Each corresponding OnBase Service User needs to have the minimum access necessary to perform the associated Automate task.
+
+## Nuxeo Plugin Environment Variablekeyperfile Configuration Table
+
+The following Nuxeo Plugin Configuration Environment Variables are supported in the container.
+
+The {PluginEnvPrefix} is configured within the Broker configuration, and each plugin within the ‘Plugins’ section must have a unique {PluginEnvPrefix}.
+
+| Configuration Section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
+| --- | --- | --- | --- |
+| PluginConfiguration | The Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| PluginConfiguration | The Nuxeo API Server URL | {PluginEnvPrefix}PluginConfiguration__0__NuxeoServerApiUrl | PluginConfiguration__0__NuxeoServerApiUrl |
+| IdentityProviderOptions | The Client ID of the client configured within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The Client secret of the client configured within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The JWT secret signing key configured in the nuxeo.conf file within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__JwtSecretSigningKey | PluginConfiguration__0__IdentityProviderOptions__JwtSecretSigningKey |
+
+## Onbase Plugin Environment Variablekeyperfile Configuration Table
+
+The following OnBase Plugin Configuration Environment Variables are supported in the container.
+
+The {PluginEnvPrefix} is configured within the Broker configuration, and each plugin within the ‘Plugins’ section must have a unique {PluginEnvPrefix}.
+
+| Config Section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
+| --- | --- | --- | --- |
+| PluginConfiguration | The URL for MCA | {PluginEnvPrefix}PluginConfiguration__0__McaServerUrl | PluginConfiguration__0__McaServerUrl |
+| PluginConfiguration | Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| IdentityProviderOptions | The URL for IDP (Hyland IdS in case of OnBase) | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Address | PluginConfiguration__0__IdentityProviderOptions__Address |
+| IdentityProviderOptions | The IdP Client ID | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The IdP Client Secret | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The IdP Grant Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__GrantType | PluginConfiguration__0__IdentityProviderOptions__GrantType |
+| IdentityProviderOptions | The IdP Subject Token Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType | PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType |
+| IdentityProviderOptions | The IdP Scope | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Scope | PluginConfiguration__0__IdentityProviderOptions__Scope |
+| IdentityProviderOptions | The IdP Tenant | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__IdPTenant | PluginConfiguration__0__IdentityProviderOptions__IdPTenant |
+
+## Secure Environment Recommendations
+
+The following recommendations are intended to help secure the installation environment and apply to all product installations. These recommendations should be followed as a minimum requirement for all Hyland products. The policies of your organization may have additional or more robust requirements that should also be followed.
+
+Hyland products may have additional recommendations described in the specific documentation for that product. In some cases, the recommendations may change or may only apply when using certain Hyland products together in a solution.
+
+- Use TLS for all HTTP traffic, including private network segments. TLS ciphers have to be maintained to stay current over time.
+- Use Secure FTP instead of standard FTP for all FTP traffic.
+- End-to-end encryption is recommended for all data in transport, independent of a network segment. Note that some regulatory compliance requirements may require end-to-end encryption.
+- Change all default passwords before activation of the production system. This applies to Hyland products as well as third-party products used by Hyland products (such as a database server).
+- Authorization rules should be configured and tested before activation of the production system. This applies to Hyland products as well as to file system folders and database user accounts.
+- Use database encryption for all sensitive data persisted in the database.
+- Use file system encryption for all sensitive data and content persisted on the file system.
+- Enable encryption when available as part of a subsystem configuration. For example, since ODBC provides the capability to use strong encryption for data, it is recommended to have that option enabled.
+
+## Side-Channel Risks
+
+Consider the following to mitigate side-channel risks:
+
+- Ensure the latest application and operating system patches are applied.
+- Ensure the latest firmware patches are applied for any hardware on-premises.
+
+## User Mapping
+
+The Content Federation Services (CFS) application allows users to map user accounts from OnBase to matching user accounts in the Content Innovation Cloud (CIC). This allows agents in Knowledge Discovery to access accurate OnBase user information, such as User Groups, and it ensures that CIC users are only able to read or view OnBase content to which they have access. Mapping OnBase users to CIC users is available on the User Mapping tab, which is part of the Content Federation Admin Portal.
+
+The following topics describe how to perform actions on the User Mapping tab:
+
+-  Enabling User Mapping
+-  Disabling User Mapping

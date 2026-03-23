@@ -1,0 +1,124 @@
+---
+title: "Security & Authentication"
+---
+
+## Assigning User Roles To Cf Broker User Groups
+
+After creating a user group for CF Broker users, the user group needs to have certain user roles assigned to it.
+
+The following user roles are required for CF Broker service users to connect and update information:
+
+| Role | Description |
+| --- | --- |
+| Content Federation Broker | This role allows the CF Broker to synchronize data with the data source system, such as OnBase. |
+| Content Federation Content Broker | This role allows the CF Broker to communicate with the consumer API and the Content Federated connector in Automate. |
+
+To assign user roles to a CF Broker user group:
+
+1.  Log in to the Content Innovation Cloud Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  Make sure the correct environment is displayed in the sidebar. To change the environment, do the following:
+1.  Click the Options button (![Options button](data:image/gif;base64,R0lGODlhDQAZAHcAACH5BAAAAAAALAAAAAANABkAh////0dFUUdLbUdRmWRLUZFRUZHJ8cv5/O3Jmfn50Pn5/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhHABUIHEiwoMGDCBMqXEgQAQEBBhAmKBAgwIADBydWvIjQIUSGIBV6jJiRokWMBjWe7PiQZMiXDVtKNMkxJU2UBkfC3MmzYEAAOw==)) next to the environment name in the sidebar.
+2.  Select the environment you want to manage.
+4.  In the sidebar, under the name of your environment, select Applications. The Applications sidebar menu is displayed.
+5.  Assign the Content Federation Broker user role to the CF Broker user group.
+1.  From the Applications sidebar, click Content Federation Brokers. The Content Federation Brokers application page is displayed.
+2.  Click the User Rights tab. A list of user roles associated with the application is displayed.
+3.  In the entry for the Content Federation Broker Role, click Manage. The Content Federation Broker User Groups dialog box is displayed.
+4.  In the Search Unassigned User Groups field, enter part or all of the name of the CF Broker user group and then select the CF Broker user group from the Unassigned list. The CF Broker user group is moved to the Assigned list.
+5.  Click Confirm. The Content Federation Broker role is assigned to the CF Broker user group.
+6.  Assign the Content Federation Content Broker user role to the CF Broker user group.
+1.  From the Applications sidebar, click Content Federation Content Consumer API. The Content Federation Content Consumer API application page is displayed.
+2.  Click the User Rights tab. A list of user roles associated with the application is displayed.
+3.  In the entry for the Content Federation Content Broker Role, click Manage. The Content Federation Content Broker User Groups dialog box is displayed.
+4.  In the Search Unassigned User Groups field, enter part or all of the name of the CF Broker user group and then select the CF Broker user group from the Unassigned list. The CF Broker user group is moved to the Assigned list.
+5.  Click Confirm. The Content Federation Content Broker role is assigned to the CF Broker user group.
+
+## Checking Tokens
+
+The Content Federation Admin Portal allows you to check the status of tokens used for connecting CF Brokers to the CF Gateway.
+
+To check active tokens:
+
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed.
+4.  Click the Token Management tab. The Active Tokens page is displayed, which shows a list of created and active tokens for CF Brokers.
+
+In the Active Tokens list, the Status column displays the status of each token. The following table describes the possible status values:
+| Status | Description |
+| --- | --- |
+| Active | The token is active and may be used to connect to the CFS. |
+| Expired | The token has passed the Expires On date and cannot be used to connect to the CFS. |
+
+## Deleting Tokens
+
+Once a token has expired, you may remove it from the Active Tokens list in the Content Federation Admin Portal.
+
+To delete a token:
+
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed.
+4.  Click the Token Management tab. The Active Tokens page is displayed, which shows a list of created and active tokens for CF Brokers.
+5.  Click the Actions button (![Actions button](data:image/gif;base64,R0lGODlhDQAZAHcAACH5BAAAAAAALAAAAAANABkAh////0dFUUdLbUdRmWRLUZFRUZHJ8cv5/O3Jmfn50Pn5/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhHABUIHEiwoMGDCBMqXEgQAQEBBhAmKBAgwIADBydWvIjQIUSGIBV6jJiRokWMBjWe7PiQZMiXDVtKNMkxJU2UBkfC3MmzYEAAOw==)) next to the token you would like to delete.
+6.  Select Delete Token. The Delete Token dialog box is displayed.
+7.  Click Delete. The token is deleted and removed from the Active Tokens list.
+
+## Encrypting The Clientsecret
+
+The ClientSecret value can be encrypted and decrypted using the Hyland Application Settings Utility (HASU).
+
+To encrypt the ClientSecret value:
+
+1.  Open Windows Powershell.
+2.  Navigate to the Hyland.Application.Settings.Utility.win-x64.1.2.2 folder.
+3.  Enter the following command, where [PathToBuild] is the path to the build folder and [Secret] is the ClientSecret value:  Note: Do not include the Hyland Content Federation Broker folder in the [PathToBuild].
+```
+\Hyland.Application.Settings.Utility.exe write -a [PathToBuild] --file "Hyland Content Federation Broker\appsettings.json" -p GatewayConfiguration:Credentials:ClientSecret -f -v [Secret] --encrypt
+```
+
+4.  Run the command.
+5.  Ensure that the new ClientSecret entry in the appsettings.json file is in the correct position.
+6.  Save the appsettings.json file.
+
+## Generating Broker Tokens
+
+In order for the CF Broker to communicate with the CF Gateway, you need to generate a token in the Content Federation Admin Portal. This token is then used in the BrokerRegistrationToken parameter of the CF Broker's appsettings.json file.
+
+To generate a token for use with the CF Broker:
+
+1.  Log in to the Content Innovation Cloud User Portal. For more information on how to log in to the Content Innovation Cloud User Portal, see Sign-in Options in the Content Innovation Cloud Administration Portal documentation.
+2.  Ensure the appropriate environment is selected.
+3.  Under Applications, click Content Federation Admin Portal. The Content Federation Connection Manager page is displayed.
+4.  Click the Token Management tab. The Active Tokens page is displayed, which shows a list of created and active tokens for CF Brokers.
+5.  Click Generate Token. The Generate Token dialog box is displayed.
+6.  Copy the token by doing one of the following:
+- Click the Copy button (![Copy button](data:image/gif;base64,R0lGODlhHQAjAHcAACH5BAAAAAAALAAAAAAdACMAh////0FHUk1TXlFXYlZcZ15jbbu/x97h6eLk7PHz+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAikABMIHEiwoMGDCBMqXMiwocOHECNKnCjRgIAAGDNqDEDgQEMEBTaK5OiR4QECHSkWPJlS5UCWHg0MGKlxgIGEMEHS3FgAAUKYMHGiLGkQ6FChLYsODfrz6EGjSZVGJQiVqFSrVJc6fbp1pdapWcEKrIoU68uvZs+KTUC26dqwacd2dRuX7Vyub5kq1HuVoc6dGXs2tAg4gICbLhMrXsy4seOBAQEAOw==)).
+- Click Copy Token & Close.
+CAUTION: Make sure to store the token after copying it. The token is no longer visible after the Generate Token dialog box is closed.
+7.  Enter the token as the value for the BrokerRegistrationToken parameter in the appsettings.json file of the CF Broker you need to connect. For more information on configuring the CF Broker's appsettings.json file, see Configuring the CF Broker.
+
+After the Generate Token dialog box is closed, the token's information is displayed in the list on the Active Tokens page. This information includes the time and date that the token expires.
+
+## Hyland Application Settings Utility Hasu
+
+The Hyland Application Settings Utility (HASU) is a command-line utility for writing and encrypting specified sections of JSON configuration files. The HASU is supported by the Content Federation Services (CFS), allowing for encrypting and decrypting sensitive values, such as the ClientSecret value.
+
+Download the HASU Command Line Utility from Hyland Community. For more information on the HASU, see Hyland Application Settings Utility in the OnBase API Server documentation.
+
+## Hyland Identity Service Ids
+
+For OnBase repositories, Hyland Identity Service (IdS) 5.1.0 (or later) is required to authenticate and authorize requests from the Content Innovation Cloud (CIC) to OnBase through the Content Federation Services (CFS).
+
+For more information on how to install and configure Hyland IdS, see the Identity and Access Management Services documentation for the version of Hyland IdS you are using.
+
+## Token Management
+
+The Content Federation Services (CFS) application allows users to generate tokens that are used by the CF Broker to connect to the CF Gateway. Users may also check the status of existing tokens and delete tokens on the Token Management tab. The Token Management tab is part of the Content Federation Admin Portal.
+
+The following topics describe how to perform actions on the Token Management tab:
+
+-  Token Management
+-  Generating Broker Tokens
+-  Deleting Tokens

@@ -1,0 +1,203 @@
+---
+title: "Connectors & Integrations"
+---
+
+## Accessing A Folder In An Alfresco Repository
+
+The user needs to be given appropriate permissions to access a folder in an Alfresco repository.
+
+To access a folder in an Alfresco repository:
+1.  Log in to the Alfresco repository.
+2.  Navigate to the folder where the user needs to create content.
+3.  From the context menu, click Manage Permissions. The Manage Permissions page is displayed.
+4.  Click Add User/Group. A list of available users is displayed.
+5.  Select the user you want to add to the folder and click the Collaborator button. The user is granted access to the folder.
+
+## Acquiring Connection Information For Sharepoint
+
+To configure a connection between the Content Federation Services (CFS) application and a SharePoint content repository, you need to provide connection information in the Content Federation Admin Portal. This connection information may be found through Microsoft Azure.
+
+To acquire connection information for SharePoint integrations with the CFS:
+
+1.  Access Microsoft Azure to view your Tenant and Client ID and generate your Client Secret.  Note: For more detailed information on how to use Microsoft Azure, see the Microsoft Azure documentation available on Microsoft Learn at [https://learn.microsoft.com/en-us/azure/](https://learn.microsoft.com/en-us/azure/).
+2.  In Microsoft Azure, open the App registrations page.
+3.  Open the app registration created and configured for integration with the CFS. For more information on configuring an app registration for SharePoint integration, see Configuring an App Registration for SharePoint Integration.
+4.  On the Overview page, note the value in the Application (client) ID field. This value is what is entered in the Client ID field when configuring the connection in the Content Federation Admin Portal.
+5.  Note the value in the Directory (tenant) ID field. This value is what is entered in the Tenant field when configuring the connection in the Content Federation Admin Portal.
+6.  From the sidebar, click Certificates & secrets. The Certificates & secrets page is displayed.
+7.  Click the Client secrets tab.
+8.  Click New client secret. The Add a client secret sidebar is displayed.
+9.  In the Description field, enter a name for the client secret.
+10.  From the Expires drop-down, select the length of time until the client secret expires.
+11.  Click Add. The client secret entry is displayed on the Client secrets tab, and the client secret value is displayed in the Value column.
+12.  Note the Value of the client secret you have just created. This value is used for the Client Secret field when configuring the connection in the Content Federation Admin Portal.  Note: The Value isn't shown again after the current Microsoft Azure session has ended.
+
+## Cf Mca Adapter Errors
+
+The following table lists known errors related to the CF Broker interacting with the Content Federation Metadata-Content Abstraction (CF MCA) Adapter and how to resolve the errors.
+
+Tip: It is recommended that you keep the Diagnostics Console open on the computer where the CF MCA Adapter Application Pool is running. This allows you to see the root cause of the error in the error logs under the McaOnBaseWebApi tab.
+-
+-
+
+| Error Message | Cause | Resolution |
+| --- | --- | --- |
+| System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 100 seconds elapsing. | An HTTP exception when the user tries to retrieve data after any application pool is recycled once or multiple times. | Trigger the specific Consumer API again and wait for the response. |
+| "Message":"[FileService.cs : DownloadFileFromPresignedUrlAsync] File download failed","Details":"StatusCode: NotFound, Reason: Not Found" | When using the CREATE_CONTENT action, the presigned URL used in the request payload is invalid. | Ensure the presigned URL is correct. You may output a presigned URL using the GET_CONTENT_PARTS action of the Content Federated Connector. |
+| "Message":"[FileService.cs : DownloadFileFromPresignedUrlAsync] File download failed","Details":"StatusCode: Forbidden, Reason: Forbidden" | When using the CREATE_CONTENT action, the presigned URL used in the request payload has expired. | Ensure the presigned URL is up to date. You may output a presigned URL using the GET_CONTENT_PARTS action of the Content Federated Connector. |
+| "Exception":"System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception.\r\n ---> System.Security.Authentication.AuthenticationException: The remote certificate is invalid according to the validation procedure: RemoteCertificateNameMismatch, RemoteCertificateChainErrors | The CF Broker cannot validate the MCA Server’s certificate while calling any MCA Web API. | Try each of the following: On the computer where the CF Broker is running, export the self-signed certificate into the instance where the CF Broker is experiencing the error. Use a Root Certificate Authority that is trusted across your entire domain. |
+
+## Cfs Connections Content Federated Connectors And The Cfs Consumer Api
+
+To better understand the Content Federation Services (CFS) application, this topic goes over what a CFS Connection is, what a Content Federated connector is, the available Content Federated connector configurations, and how these features interact with the CFS Consumer API.
+
+** CFS Connections**
+The CFS uses connections (CFS Connections) that are configured in the Content Federation Admin Portal. CFS Connections link the Content Innovation Cloud (CIC) and a specific content repository instance deployed within the customer's data center.
+**Content Federated Connector**
+The Content Federated connector is a component within Automate that uses a CFS Connection to perform actions on content and data within the customer's content repository instance. A Content Federated connector is applied to and configured in Automate Modeler to work with automation solutions. For more information on Automate processes, modeling, and use of connectors, see the Hyland Automate Modeler documentation.
+There are 2 ways of configuring the Content Federated connector: on behalf of (OBO) an end user and through a service user (SU).
+-  On Behalf Of an end user (OBO): When connecting OBO, the Content Federated connector enables running connector actions on behalf of an end user. This means that that user’s authorization rules are applied within the customer’s content repository. The CF Broker creates an audit record indicating that the content repository is being accessed on behalf of a specific end user. An HxP End User is mapped to a corresponding content repository end user. The audit record will contain both user identifiers. The Content Federated connector can be configured to assume the end user identity from any Automate user task executed earlier in the Automate process flow.
+-  Through a Service User (SU): When connecting SU, the Content Federated connector enables running connector actions under the identity of an HxP Service Account that is mapped to a corresponding Service User Account within the customer’s target repository. The authorization permissions are applied as per mapped Service User Account settings. The audit record will indicate content repository access under the service account identity. Both CIC and repository System User Accounts will be included in the audit record.
+
+** CFS Consumer API**
+The CFS Consumer API provides CIC solutions with a set of content operations that can be performed over a CFS Connection. A Content Connector provides a low-code way to use the CFS Consumer API to perform operations.
+
+## Configure Keycloak For Token Exchange With Alfresco
+
+KeyCloak integrates with the Content Federation Services (CFS) application as an external application. For Alfresco, KeyCloak is required to establish connection between Content Innovation Cloud (CIC) and Alfresco systems through token exchange.
+
+Note:
+Before configuring KeyCloak, ensure that the Legacy Token Exchange (version 1) is enabled for the keycloak server: kc.features = preview,token-exchange,admin-fine-grained-authz:v1.
+
+Configuring KeyCloak for token exchange with Alfresco requires the following actions to be taken:
+
+1.  Creating a Client in KeyCloak
+2.  Creating an Identity Provider in KeyCloak
+3.  Adding a User in KeyCloak
+
+## Coordinating The Cf Broker And Cf Alfresco Plugin
+
+After the CF Broker and CF Alfresco Plugin have been installed and configured, the CF Alfresco Plugin information needs to be added to the CF Broker configuration settings to enable communication between them.
+
+To coordinate the CF Broker and CF Alfresco Plugin:
+
+1.  Navigate to the CF Broker folder. By default, the folder is located in C:\Program Files\Hyland.
+2.  Open the appsettings.json file in a plain-text editor, such as Notepad.
+3.  Under Plugins, set values for the following parameters:
+| Plugins Parameter | Value |
+| --- | --- |
+| PluginId | The ID of the CF Alfresco Plugin. Enter e2b7c8a2-4f3d-4e6a-9b1e-2c8f7a1d2b3c |
+| PluginPath | The absolute/complete file path to the DLL file that corresponds to the CF OnBase Plugin installation. For example, C:/Program Files/Hyland/Hyland Content Federation Alfresco Plugin/Hyland.ContentFederation.Plugin.Alfresco.dll |
+| PluginConfigPath | The absolute/complete file path to the plugin configuration file. For example, C:/Program Files/Hyland/Hyland Content Federation Alfresco Plugin/PluginConfig/PluginConfig.json |
+
+4.  Save and close the appsettings.json file.
+
+## Coordinating The Cf Broker And Cf Nuxeo Plugin
+
+After the CF Broker and CF Nuxeo Plugin have been installed and configured, the CF Nuxeo Plugin information needs to be added to the CF Broker configuration settings to enable communication between them.
+
+To coordinate the CF Broker and CF Nuxeo Plugin:
+
+1.  Navigate to the CF Broker folder.
+2.  Open the appsettings.json file in a plain-text editor, such as Notepad.
+3.  Under Plugins, set values for the following parameters:
+
+```
+```
+
+```
+```
+
+| Plugins Parameter | Value |
+| --- | --- |
+| PluginId | The ID of the CF Nuxeo Plugin. Enter 9b630dcc-7e26-40e2-b46d-2b6197b9cb36. |
+| PluginPath | The absolute/complete file path to the DLL file that corresponds to the CF Nuxeo Plugin installation. For example, C:/Program Files/Hyland/Hyland Content Federation Nuxeo Plugin/Hyland.ContentFederation.Plugin.Nuxeo.dll |
+| PluginConfigPath | The absolute/complete file path to the plugin configuration file. For example, C:/Program Files/Hyland/Hyland Content Federation Nuxeo Plugin/PluginConfig/PluginConfig.json |
+
+## Coordinating The Cf Broker And Cf Onbase Plugin
+
+After the CF Broker and CF OnBase Plugin have been installed and configured, the CF OnBase Plugin information needs to be added to the CF Broker configuration settings so that the CF Broker and CF OnBase Plugin can communicate.
+
+To coordinate the CF Broker and CF OnBase Plugin:
+
+1.  Navigate to the CF Broker folder. By default, the folder is located in C:\Program Files\Hyland.
+2.  Open the appsettings.json file in a plain-text editor, such as Notepad.
+3.  Under Plugins, set values for the following parameters:
+| Plugins Parameter | Value |
+| --- | --- |
+| PluginId | The ID of the CF OnBase Plugin. Enter CE5D8997-08CC-4EBC-A4D5-A3EC9A25DBBD |
+| PluginPath | The absolute/complete file path to the DLL file that corresponds to the CF OnBase Plugin installation. For example, C:/Program Files/Hyland/Hyland Content Federation OnBase Plugin/Hyland.ContentFederation.Plugin.OnBase.dll |
+| PluginConfigPath | The absolute/complete file path to the plugin configuration file. For example, C:/Program Files/Hyland/Hyland Content Federation OnBase Plugin/PluginConfig/PluginConfig.json |
+
+4.  Save and close the appsettings.json file.
+
+## Metadata Content Abstraction Mca Adapter
+
+For OnBase repositories, the Content Federation Metadata-Content Abstraction (CF MCA) Adapter component is required for CFS to interact with OnBase.
+
+The CF MCA Adapter exposes a repository-agnostic content and metadata model. This allows client applications to interact with content and metadata in a repository and translate repository-specific concepts, such as Document Types in OnBase, into more generic concepts that can be applied across multiple platforms.
+
+Note: Any changes to OnBase Configuration, such as associating a Document Type to a Document Type Group, needs the MCA Application Pool to be recycled before the changes are reflected in CFS. Recycling the Application Pool may be done manually through IIS Manager or by running the command iisreset.
+For specific steps on installing and using the CF MCA Adapter, see the Content Federation Metadata and Content Abstraction documentation.
+
+## Cryptography Compatibility
+
+When using the CF MCA Adapter with OnBase, in OnBase Configuration, the Cryptography Settings must be configured so that Version Compatibility is set to Version 24 or lower for Hyland.FCC.Mca.Onbase.WebApi v24.1.0 or Version 25 or lower for Hyland.FCC.Mca.Onbase.WebApi v25.1.0. The Cryptography Settings are found under Utils > Cryptography. For more information on cryptography settings in OnBase, see Changing the Encryption Suite and Version Compatibility in the System Administration documentation.
+
+CAUTION: If Version Compatibility is already set to a version greater than what is recommended, do not set Version Compatibility to a version lower than that set version. Contact Hyland Support for assistance.
+
+## Microsoft Net
+
+The Content Federation Services (CFS) application requires all of the following components of Microsoft .NET:
+
+- Microsoft .NET 8.0 Core Hosting Bundle
+- Microsoft .NET Framework 4.8.1Note: Since CFS requires Microsoft .NET Framework 4.8.1, CFS only supports operating systems that are compatible with Microsoft .NET Framework 4.8.1. For information on which operating systems are compatible with Microsoft .NET Framework 4.8.1, see .NET Framework system requirements on Microsoft Learn ([https://learn.microsoft.com/](https://learn.microsoft.com/)).
+
+The .NET Core Hosting Bundle and .NET Framework can be obtained from the Microsoft Download .NET page at [https://dotnet.microsoft.com/download](http://www.microsoft.com/downloads).
+
+## Onbase Terms And Cfs Terms
+
+When defining actions in the Content Federated connector, the CFS terms used to describe the actions have equivalents in OnBase.
+
+The following table lists CFS terms, corresponding OnBase terms, and any notes about the terms:
+
+| CFS Term | OnBase Term | Notes |
+| --- | --- | --- |
+| Content | Document | Content includes binary data and metadata |
+| Logical Part | Binary File | This refers to files, such as images and PDFsNote: CFS returns all binary files as PDF when requested from the CIC. |
+| Revision | Document Revision |  |
+| Rendition | Document Rendition |  |
+| Content Type | Document Type |  |
+| Content Type Group | Document Type Group |  |
+| Simple Field | Keyword |  |
+| Simple Field ID | [None] | Enter -1. OnBase does not have an equivalent for this field. Entering -1 ensures functionality if simpleFieldId is used. |
+| Simple Field Type | Keyword Type |  |
+| Simple Field Type ID | Keyword Type Number |  |
+| Complex Field | Keyword Group | Includes single-instance and Multi-Instance Keyword Groups (MIKG) |
+| Complex Field Type | Keyword Type Group |  |
+
+## Registering The Cfs Consumer Api In The Content Innovation Cloud
+
+The Content Federation Services (CFS) application communicates with Automate to use Content Federated Connectors. To communicate with Automate, the CFS Consumer API needs to have a system integration added and configured in the Content Innovation Cloud Administration Portal.
+
+To register an external application for use by the CFS Consumer API:
+
+1.  Log in to the Content Innovation Cloud Administration Portal.
+2.  Select the External Systems tab under the banner.
+3.  In the sidebar, click External Applications. The External Applications page is displayed.
+4.  Click Create External Application. The Create External Application wizard is displayed.
+5.  Select Service Application as the application profile.
+6.  Click Next Step. The Application Name page is displayed.
+7.  In the Application Name field, enter a name for the application, such as FC-CFS API.
+8.  Click Next Step. The User Mapping page is displayed.
+9.  From the Mapped Service User drop-down list, select the service user to map to the CFS application. For more information on configuring service users for the CFS, see Configuring User Groups and Roles for the CFS.
+10.  Click Next Step. The Allowed Scopes page is displayed.
+11.  Select cf-consumer-api, cfs-content-consumer-api, and environment_authorization. The Environment drop-down menu is displayed.
+12.  From the Environment drop-down menu, select the environment that CFS should be restricted to. The Application drop-down menu is displayed.
+13.  From the Application drop-down menu, select Content Federation Content Consumer API.
+14.  Click Next Step. The Review page is displayed.
+15.  Review the settings for the CFS application. To return to a previous step, do one of the following:
+- Select the page containing the previous step from the left pane of the wizard.
+- Click Previous Step until you reach the step you need to review.
+16.  Click Create External Application. The CFS application is registered, and the Summary page displays the autogenerated application ID and client secret for the external application.
+17.  Copy the Application ID and Secret values to a secure location.  CFS requires these values to obtain access tokens from the Content Innovation Cloud. Specifically, these values are used for the CONNECTOR_EXTERNAL_APPLICATION_ID and CONNECTOR_EXTERNAL_APPLICATION_SECRET parameters when configuring Content Federated Connectors. For more information, see Configuring a Content Federated Connector.Note: The Secret value isn't shown again after the Create External Application wizard is closed. If necessary, you can reset the secret as described in Resetting the Secret for an External Application in the Content Innovation Cloud Administration Portal documentation.
