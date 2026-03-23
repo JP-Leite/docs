@@ -1597,6 +1597,62 @@
               "source": "specs/identity-adapter.json",
               "directory": "api/identity"
             }
+          },
+          {
+            "group": "Content Intelligence API",
+            "pages": [
+              {
+                "group": "Agent API",
+                "pages": [
+                  "api-reference/content-intelligence-api/AgentAPI/agent-api",
+                  "api-reference/content-intelligence-api/AgentAPI/delete-agent",
+                  "api-reference/content-intelligence-api/AgentAPI/get-agent-avatar",
+                  "api-reference/content-intelligence-api/AgentAPI/get-agent-by-id",
+                  "api-reference/content-intelligence-api/AgentAPI/get-agent-version",
+                  "api-reference/content-intelligence-api/AgentAPI/get-agents",
+                  "api-reference/content-intelligence-api/AgentAPI/get-avatar-batch",
+                  "api-reference/content-intelligence-api/AgentAPI/get-guardrails",
+                  "api-reference/content-intelligence-api/AgentAPI/get-models",
+                  "api-reference/content-intelligence-api/AgentAPI/get-static-avatars",
+                  "api-reference/content-intelligence-api/AgentAPI/integrations-get-agent-by-id",
+                  "api-reference/content-intelligence-api/AgentAPI/integrations-get-agents",
+                  "api-reference/content-intelligence-api/AgentAPI/integrations-post-agent-question",
+                  "api-reference/content-intelligence-api/AgentAPI/post-agent",
+                  "api-reference/content-intelligence-api/AgentAPI/post-agent-question",
+                  "api-reference/content-intelligence-api/AgentAPI/put-agent"
+                ]
+              },
+              {
+                "group": "Question & Answer API",
+                "pages": [
+                  "api-reference/content-intelligence-api/QnaAPI/01-start-conversation",
+                  "api-reference/content-intelligence-api/QnaAPI/02-get-conversations",
+                  "api-reference/content-intelligence-api/QnaAPI/03-get-conversation-by-id",
+                  "api-reference/content-intelligence-api/QnaAPI/04-update-conversation",
+                  "api-reference/content-intelligence-api/QnaAPI/05-continue-conversation",
+                  "api-reference/content-intelligence-api/QnaAPI/06-get-conversation-messages",
+                  "api-reference/content-intelligence-api/QnaAPI/07-get-conversation-message",
+                  "api-reference/content-intelligence-api/QnaAPI/08-submit-conversation-feedback",
+                  "api-reference/content-intelligence-api/QnaAPI/09-get-question-answer",
+                  "api-reference/content-intelligence-api/QnaAPI/10-get-question-answer",
+                  "api-reference/content-intelligence-api/QnaAPI/11-put-question-feedback",
+                  "api-reference/content-intelligence-api/QnaAPI/12-get-question-history",
+                  "api-reference/content-intelligence-api/QnaAPI/13-get-question-feedback-breakdown",
+                  "api-reference/content-intelligence-api/QnaAPI/question-answer-api"
+                ]
+              },
+              {
+                "group": "Semantic Search API",
+                "pages": [
+                  "api-reference/content-intelligence-api/SemanticAPI/add-metadata-file",
+                  "api-reference/content-intelligence-api/SemanticAPI/add-object-chunks",
+                  "api-reference/content-intelligence-api/SemanticAPI/get-filtered-metadata-values",
+                  "api-reference/content-intelligence-api/SemanticAPI/get-metadata-types",
+                  "api-reference/content-intelligence-api/SemanticAPI/get-metadata-values",
+                  "api-reference/content-intelligence-api/SemanticAPI/semantic-api"
+                ]
+              }
+            ]
           }
         ]
       }
