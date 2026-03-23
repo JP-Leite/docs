@@ -1,0 +1,458 @@
+---
+title: "Configuration & Administration"
+---
+
+## Adding Default User Groups Within Sso Identity Provider
+
+When using a corporate identity provider (e.g., Okta) for Single Sign-On, an administrator may manage default user groups directly within the identity provider server. This topic describes how to ensure that CIC user group assignments synchronize with the corporate identity provider.
+
+To synchronize CIC user group assignments with the corporate identity provider:
+
+1.  Within the corporate identity provider, create the following user groups. For more information on creating user groups, refer to your corporate identity provider's documentation.
+- Guidewire PC Content Users
+- Guidewire PC Doc Security - None
+- Guidewire PC Doc Security - Sensitive
+- Guidewire PC Doc Security - Unrestricted
+- Guidewire PC Doc Security - Internal Only
+2.  Within the corporate identity provider, add all applicable users to the new user groups.
+3.  Log in to the the CIC Administration Portal and ensure that the corresponding user groups with the same name are marked as External. For more information, see the Content Innovation Cloud Administration Portal documentation. The next time a user logs in, their user group assignment within CIC will be synchronized with what is configured within the corporate identity provider.Tip: It is recommended to set the Guidewire PC Solution Administrators user groups to Internal and administer that user group exclusively within the CIC Administration Portal.
+
+## Configuring An Administrator User For Single Sign On Sso
+
+You must configure an administrator user within PolicyCenter to work with single sign-on (SSO). See your Guidewire PolicyCenter documentation for detailed information on configuring users.
+
+PolicyCenter must be configured and deployed in the Guidewire cloud environment with a single sign-on (SSO) identity provider.
+To configure an administrator user for single sign-on (SSO):
+
+1.  Log in to PolicyCenter as an unrestricted user before enabling single sign-on (SSO).
+2.  If desired, create a new user that will serve as the single sign-on (SSO) administrator. The unrestricted user can also be used for this purpose if preferred.
+3.  Grant your chosen user single sign-on (SSO) administrative rights. In most cases the user will need to be granted the All Permissions role and the System Administrators group. For information on giving a PolicyCenter user single sign-on (SSO) administrative rights, see your Guidewire PolicyCenter documentation.
+4.  Log in to the Single Sign-On (SSO) Identify Provider Server as an administrator.
+5.  Create an account with the same user name as your PolicyCenter SSO administrator.
+6.  Assign the Single Sign-On (SSO) administrator user to the appropriate SSO group.
+7.  Enable Single Sign-On (SSO) for that user and save all changes.
+
+## Configuring Credentials In Policycenter
+
+Once the service user is created and configured, the credentials must be saved for use in PolicyCenter.
+
+To configure credentials in PolicyCenter, you must create a new secret with information from your CIC service user. See your Guidewire PolicyCenter documentation for information on creating a secret in Guidewire.
+
+When you add your secret in PolicyCenter, include the following information:
+
+- Set the key to uceb.api.auth
+- Set the value to the Client ID and Client Secret of the CIC service user created for use with your PolicyCenter integration. Use a colon to separate the two values. For example, if the service user's Client ID is abc12345 and the service user's Client Secret is xyz67890, the value should be set to abc12345:xyz67890
+
+## Configuring Document Security
+
+The document security feature allows documents stored in the CIC repository to mirror the document security settings in Guidewire PolicyCenter. This means that if a user cannot view a document in Guidewire PolicyCenter they will also not be able to view the document within the Hyland Content Innovation Cloud.
+
+See the following topics for more information on configuring document security for Hyland for Guidewire PolicyCenter:
+
+-  Configuring the GUID
+-  Registering New Security Types
+-  Single Sign-On Configuration
+
+## Configuring External System Settings
+
+You must configure the external system settings with the appropriate scopes, environment, and application for your solution.
+
+To configure the external system settings:
+
+1.  Log in to the CIC Administration Portal using the assigned administrator account of your CIC instance.
+2.  Click the External Systems tab in the top menu.
+3.  Click External Applications in the left pane. The External Applications page is displayed.
+4.  Click on the external application that was used when the service user was created. For example: PolicyCenter_Backend_Client. See Creating a Service User for information on creating a service user. The application's page is displayed.
+5.  Click the Allowed Scopes drop-down list and select all desired scopes for your solution. The following scopes are required:
+- environment_authorization
+- hxp.nucleus.account
+- uceb
+6.  If you have an Environment-level application, an Environment drop-down is displayed below the Allowed Scopes drop-down list. Click on the drop-down list and select the desired environment.
+7.  If you have an Account-level application, an Application drop-down is displayed below the Allowed Scopes drop-down list. Click on the drop-down list and select Hyland for Guidewire PolicyCenter.
+8.  Click Save.
+9.  Click Close. You are returned to the External Applications page.
+
+## Configuring Guidewire Home
+
+You must configure the planets in your Guidewire Home application for OAuth.
+
+To configure OAuth in Guidewire Home:
+
+1.  In Guidewire Home, navigate to Variables.
+2.  Add a new variable for each planet that you want to enable OAuth for.
+3.  Set the Application to Policy Center.
+4.  Set the Key to PLUGIN_AUTHENTICATIONVERIFIER_SUBJECTMAPPINGS_`<sub>`, with `<sub>` replaced with the Client ID you were provided by Guidewire.
+5.  Set the Value to the user name of the service user you want the CIC Document Upload feature to use.  Note: When the CIC Document Upload feature performs an action in Guidewire, it will be logged under this user. It is recommended that a dedicated service user is used.
+6.  In Guidewire Home, navigate to Planets.
+7.  Select your planet and navigate to Insurance Suite.
+8.  Select variables.
+9.  Navigate to the section for Policy Center and locate the DEPLOYMENT_ID variable.  Note: If the DEPLOYMENT_ID variable does not exist, you will have to add it using Guidewire Resource Notation (GRN). Refer to Guidewire's documentation for details on adding variables using GRN.
+10.  Restart the affected planets.
+
+## Configuring New Users For Single Sign On Sso
+
+After configuring an administrator user for SSO, you must configure all other user accounts you wish to use SSO. See your Guidewire PolicyCenter documentation for detailed information on configuring users.
+
+To configure new users for SSO:
+
+1.  Log in to PolicyCenter as the administrator user configured for SSO. See Configuring the Single Sign-On Identity Provider Server for information on configuring an administrator user for SSO.
+2.  Create a new user with the necessary information, desired role, and group. For information on creating new users in PolicyCenter, see your Guidewire PolicyCenter documentation.   Note: Ensure that the user name for each new user is in the format of an email address with the correct email domain enabled for Single Sign-On (SSO).
+3.  Log in to the SSO Identify Provider as an administrator.
+4.  Create a new account with the same user name in your SSO Identify Provider. For information on creating new users in your SSO Identify Provider, see your SSO Identity Provider's documentation.
+5.  Assign each of the new users created in step 2 to the appropriate SSO group. Enable SSO for those users and save all changes.
+
+## Configuring Oauth 20
+
+You must configure your Hyland for Guidewire PolicyCenter solution to use OAuth 2.0.
+
+See the following sections for more information:
+
+-  Configuring the CIC Document Upload Feature
+-  Configuring Guidewire Home
+-  Troubleshooting
+
+## Configuring Policycenter Runtime Properties
+
+Runtime properties are configurable values in PolicyCenter that ensure proper integration with the Hyland CIC Platform. These values are unique to your environment and may need to be modified. A PolicyCenter Administrator can modify these values directly in PolicyCenter.
+
+See the following topics for more information:
+
+-  Updating Runtime Properties
+-  Obtaining the Viewer Base URL Value
+
+## Configuring The Cic Document Upload Feature
+
+The CIC Document Upload feature is configured using Hyland Automate. See the Hyland Automate Administration for general information on configuring document upload.
+
+You will need to contact Guidewire Cloud Operations and request an InsuranceSuite REST API registration with Guidewire Hub using service with service account mapping auth flow. Guidewire will provide you with a Client ID, Client Secret, scope, and Auth Server URI. These values are required as you configure your solution for OAuth 2.0.Note: If the Auth Server URI provided by Guidewire does not end in /v1/token, manually add /v1/token to the URI. The modified URI is the value you will need for the following procedures.
+To configure CIC Document Upload for your Hyland for Guidewire PolicyCenter solution:
+
+Choose one of the following:
+- For a new deployment:
+1. In the Studio Admin application, navigate to Project Releases and locate the CIC Document Upload project.
+2. Click the vertical ellipsis to the right of the project. ![](data:image/gif;base64,R0lGODlhHAAqAHcAACH5BAEAAAAALAAAAAAcACoAh/8A/wAAABEYJxEcShEfgjccJ3UfJ3zE8cr///DEiP//z////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAikAAMIHEiwoMGDARYoXMiwocOGAh9KnKgwIsWLDC1ixKhxI8WOHiWCDOlwJMmMCU+KTKmyJMuWKC8mKDDgwEWTCxUYECCAAIKPLx3q5OkTqEyaNo3ChBh0Kc6FM2vebMpwaM+fE58usFo0K1WGUZN6XcqUbEyKYadS5Ip15dqdV5VOTCvXrFaSd0Pm9bh3Y1+OX1X+VWu2YuCTg+uSTewVoePHAQEAOw==) ![A screenshot of the vertical ellipsis button]()
+3. Select Deploy. The Deploy Application wizard is displayed.
+4. Perform project deployment as normal until the Authentications page is displayed. See the Hyland Automate Administration for general information on deploying a project.
+5. On the Authentications page, enter the Client ID provided by Guidewire in the Client id field.
+6. Enter the Client Secret provided by Guidewire in the Client secret field.
+7. Enter the Auth Server URI provided by Guidewire in the Endpoint field. Note: If the Auth Server URI provided by Guidewire does not end in /v1/token, manually add /v1/token to the URI.
+8. Enter the scope values provided by Guidewire in the Scope field, using a space to separate each individual scope.
+9. Click Next and continue project deployment as normal. See the Hyland Automate Administration for general information on deploying a project.
+- For an existing deployment:
+1. In the Studio Admin application, navigate to Application Instances and locate the CIC Document Upload application.
+2. Click the vertical ellipsis to the right of the application. ![](data:image/gif;base64,R0lGODlhHAAqAHcAACH5BAEAAAAALAAAAAAcACoAh/8A/wAAABEYJxEcShEfgjccJ3UfJ3zE8cr///DEiP//z////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAikAAMIHEiwoMGDARYoXMiwocOGAh9KnKgwIsWLDC1ixKhxI8WOHiWCDOlwJMmMCU+KTKmyJMuWKC8mKDDgwEWTCxUYECCAAIKPLx3q5OkTqEyaNo3ChBh0Kc6FM2vebMpwaM+fE58usFo0K1WGUZN6XcqUbEyKYadS5Ip15dqdV5VOTCvXrFaSd0Pm9bh3Y1+OX1X+VWu2YuCTg+uSTewVoePHAQEAOw==) ![A screenshot of the vertical ellipsis button]()
+3. Select Upgrade. The Upgrade wizard is displayed.
+4. Select the Authentications tab.
+5. Enter the Client ID provided by Guidewire in the Client id field.
+6. Enter the Client Secret provided by Guidewire in the Client secret field.
+7. Enter the Auth Server URI provided by Guidewire in the Endpoint field. Note: If the Auth Server URI provided by Guidewire does not end in /v1/token, manually add /v1/token to the URI.
+8. Enter the scope values provided by Guidewire in the Scope field, using a space to separate each individual scope.
+9. Configure any other details as needed, then click Upgrade.
+
+## Configuring The Guid
+
+You must configure theGuidewire PolicyCenter Workspace project so that it contains the GUIDs for the Hyland Content Innovation Cloud’s security user groups.
+
+You must have:
+-
+Administrator access to Guidewire PolicyCenter
+
+-
+Administrator access to the Hyland Content Innovation Cloud.
+
+To update PolicyCenter with the required GUIDs:
+
+1.  Log in to the CIC Administration Portal.
+2.  Navigate to Identity > User Groups. The User Groups pane is displayed.
+3.  Click the Guidewire Doc Security - None user group.
+4.  Copy the GUID for the user group, which is displayed at the end of the URL in the address bar. For example, if the URL in the address bar is https://test.hyland.com/identity/user-groups/12345678-abcd-1234-abcde-12345789abc, the GUID you should copy is 12345678-abcd-1234-abcde-12345789abc.
+5.  Update the DocSecurityType_null runtime property with the copied GUID. See Configuring PolicyCenter Runtime Properties for more information.
+6.  Repeat these steps for the other security types (Guidewire PC Doc Security - Sensitive, Guidewire PC Doc Security - Unrestricted, and Guidewire PC Doc Security - Internal only), matching the name of the user group with the key in the mappings file.
+7.  Open the Studio Modeler application in the Hyland Content Innovation Cloud.
+8.  Click on the Guidewire PolicyCenter Workspace project. The project window is displayed.
+9.  Click the Upload doc to Guidewire CC process in the Process Automation pane on the left. The project page is displayed.
+10.  Click Edit Process Variables in the Properties pane on the right. The Process variables page is displayed.
+11.  Locate the docSecurityGuidNone variable and click the corresponding Edit variable button. The Edit variable page is displayed.
+12.  In the Default value section, enter the GUID for the user group copied in step 4 in the Provide a value field.
+13.  Click Save. The Process variables page is displayed.
+14.  Locate the docSecurityGuidSensitive variable and click the corresponding Edit variable button. The Edit variable page is displayed.
+15.  In the Default value section, enter the GUID for the user group copied in step 4 in the Provide a value field.
+16.  Click Save. The Process variables page is displayed.
+17.  Locate the docSecurityGuidUnrestricted variable and click the corresponding Edit variable button. The Edit variable page is displayed.
+18.  In the Default value section, enter the GUID for the user group copied in step 4 in the Provide a value field.
+19.  Locate the docSecurityGuidInternal variable and click the corresponding Edit variable button. The Edit variable page is displayed.
+20.  In the Default value section, enter the GUID for the user group copied in step 4 in the Provide a value field.
+21.  Click Save. The Process variables page is displayed.
+22.  Click Save (the cloud icon at the top bar of the pane) to save the project.
+23.  Select the Release action from the bar above the project window to release a new version of the project.
+24.  Open the Studio Admin application.
+25.  Navigate to Devops > Application Instances. The Application Instances page is displayed.
+26.  Find your Guidewire PolicyCenter Workspace project and click Upgrade to upgrade it and update the variable in your application instance. See the Hyland Automate Modeler documentation for general information on upgrading a project.
+
+## Configuring The Guidewire Cloud Platform For Policycenter
+
+After deploying Hyland for Guidewire PolicyCenter, you must add a new secret for the CIC repository to PolicyCenter. See your Guidewire PolicyCenter documentation for detailed information on adding a secret.
+
+When adding your new secret for the CIC Repository Content API Credential, set the Key to uceb.api.auth and the Value to the Client Id and the Client Secret for your service user, separated by a colon. For example: application_id:application_secret. See Creating a Service User for information on obtaining these values.
+
+## Configuring The Service User
+
+A service user is required to facilitate communication between Guidewire ClaimCenter and the Hyland CIC Platform.
+
+See the following sections for information on configuring the service user:
+
+-  Creating a Service User
+-  Configuring External System Settings
+-  Configuring Credentials in PolicyCenter
+
+## Configuring The Single Sign On Identity Provider Server
+
+Configuration of your Single Sign-On Identity Provider Server will vary depending on the Identity Provider Server you are using. Some URL and ID values are required during configuration and can only be obtained from the Content Innovation Cloud Administration Portal. For information on acquiring these values, see the Metadata for SAML Identity Providers topic in the Content Innovation Cloud Administration Portal documentation.
+
+## Configuring User Groups
+
+When a new environment is provisioned, several user groups are created by default. Do not delete or edit the default user groups unless directed to by a Hyland Administrator. If you need to create a new user group, see the Content Innovation Cloud Administration Portal documentation. Users must be manually added to these user groups. For general information on assigning users to HxPR user groups, see the Content Innovation Cloud Administration Portal documentation.
+
+The following user groups exist by default:
+
+| User Group Name | Description |
+| --- | --- |
+| Account Administrators | This user group provides configuration rights in the CIC Administration Portal allowing for general platform administration. |
+| Guidewire PC Content Users | This user group allows users to upload documents both from within Guidewire PolicyCenter and from within the Hyland CIC Platform. Note: Access to content may be further restricted by Document Security configuration settings. For more information on Document Security, refer to Configuring Document Security. |
+| Guidewire PC Solution Administrators | This user group provides configuration rights for backend processes such as document upload. |
+| Guidewire Doc Security - None | This user group corresponds to the PolicyCenter Security Type that is a blank field. PolicyCenter users who are a part of this group can view documents that have been uploaded with the Security Type none. If no specific permissions are set to the Unrestricted Security Type in Guidewire PolicyCenter, users who are assigned to the Guidewire Doc Security - None user group will also be able to view documents uploaded under the Unrestricted security type. CIC users assigned to the Guidewire Doc Security - None user group can only view documents uploaded under the Security Type none. When a document is uploaded to the Guidewire Doc Security - None Security Group, the guid of this user group is added to the Document Security Type ID property for the document. |
+| Guidewire Doc Security - Sensitive | This user group corresponds to the Sensitive Security Type set in Guidewire PolicyCenter. PolicyCenter users assigned to this user group can view documents uploaded to the None, Unrestricted and Sensitive Security Types. CIC users assigned to the Guidewire Doc Security - Sensitive user group can only view documents uploaded under the Security Type Sensitive |
+| Guidewire Doc Security - Unrestricted | This user group corresponds to the Unrestricted Document Security Type in Guidewire PolicyCenter. PolicyCenter users assigned to this user group can view documents uploaded under the Unrestricted Document and None Security Types.CIC users assigned to the Guidewire Doc Security - Unrestricted user group can only view documents uploaded under the Security Type Unrestricted.  When a document is uploaded to the Guidewire Doc Security - Unrestricted Security Group, the guid of this user group is added to the Document Security Type ID property for the document. |
+| Guidewire Doc Security - Internal only | This user group corresponds to the Internal only Document Security Type in Guidewire PolicyCenter. PolicyCenter users assigned to this user group can view documents uploaded under the Internal only Security Type.CIC users assigned to the Guidewire Doc Security - Internal only user group can view documents uploaded under the Security Type Internal only.  When a document is uploaded to the Guidewire Doc Security - Internal only Security Group, the guid of this user group is added to the Document Security Type ID property for the document. |
+
+## Configuring User Roles
+
+When a new environment is provisioned, certain user roles are created by default in the Hyland for Guidewire PolicyCenter, Hyland Experience Repository, and Guidewire Policy Center Workspace applications. You must manually add user groups to each of these roles.
+
+For general information on assigning roles to HxPR user groups, see the Content Innovation Cloud Administration Portal documentation.
+
+Note:
+The Hyland for Guidewire PolicyCenter Workspace is a dynamic Automate application. Therefore, its name may be displayed in a truncated form (for example, Guidewire policycente bf3kz).
+
+## Guidewire PolicyCenter Roles
+
+Within the Guidewire PolicyCenter application, you must assign the following roles to user groups:
+
+-
+-
+
+-
+-
+
+| Role | Description |
+| --- | --- |
+| Guidewire PolicyCenter Solution Administrator | This role should be assigned to Guidewire administrators only. The following user groups must be assigned to this role: Account Administrators Guidewire PC Solution Administrators |
+| Guidewire PolicyCenter Content User | This role should be assigned to all Guidewire users who do not need administrative access. The following user groups must be assigned to this role: Guidewire PC Content Users Guidewire PC Solution Administrators |
+
+## Hyland Experience Repository Roles
+
+Within the Hyland Experience Repository application, you must assign the following roles to user groups:
+
+-
+
+-
+
+-
+
+| Role | Description |
+| --- | --- |
+| HxPR Administrator | This role provides administrative access to the Hyland CIC Repository. The following user group must be assigned to this role: Account Administrators  In addition, the following user group may be assigned to this role:  Guidewire PC Solution Administrators  Note: If the Guidewire PC Solution Administrators group is not assigned to this role, it must be assigned to the HxPR Member role. |
+| HxPR Member | This role provides user access to the the Hyland CIC repository and access to the Policy Account folders where documents are stored. Access to the actual documents is then based on the Guidewire Security Type user group the user is assigned to. See Configuring User Groups for information on the Security Type user groups. The following user group must be assigned to this role: Guidewire PC Content Users  Note: If the Guidewire Solution Administrators group is not assigned to this role, it must be assigned to the HxPR Administrator role. |
+
+## Guidewire Policy Center Workspace Roles
+
+Within the Guidewire Policy Center Workspace application, you must assign the following roles to user groups:
+
+-
+-
+
+-
+-
+
+| Role | Description |
+| --- | --- |
+| User | This role provides user access to the workspace where the Content Model and Policy Account folder are located, as well as the ability to upload documents to PolicyCenter and view documents using the HX document viewer. The following user groups must be assigned to this role, and are assigned by default: Guidewire PC Content Users Guidewire PC Solution Administrators |
+| Administrator | This role provides administrator access to the workspace where the Content Model and Policy Account folder are located, as well as the ability to upload documents to PolicyCenter and view documents using the HX document viewer. The following user groups must be assigned to this role: Account Administrators Guidewire Solution Administrators |
+
+## Creating A Service User
+
+You must create a service user to facilitate communication between Guidewire PolicyCenter and the Hyland CIC Platform.
+
+Before creating the service user, appropriate user groups must be configured. For more information on configuring user groups, see Configuring User Groups.
+To create the service user:
+
+1.  Log in to the CIC Administration Portal using the assigned administrator account of your CIC instance.
+2.  Click the Identity tab in the top menu. The Users  page is displayed.
+3.  In the left pane, expand the Users drop-down and click Service Users. The Users page is filtered to only display service users.
+4.  Click Create Service User. The Create Service User wizard is displayed.
+5.  Enter a user name in the Username field, then click Next Step. The User Groups (optional) page is displayed.
+6.  Move all desired user groups to the Assigned field by clicking on them. The following groups are required:
+- Guidewire PC Content Users
+- Guidewire PC Doc Security - None
+- Guidewire PC Doc Security - Sensitive
+- Guidewire PC Doc Security - Unrestricted
+- Guidewire PC Doc Security - Internal only
+7.  Click Next Step. The Register New Client (Optional) page is displayed.
+8.  In the Application Name field, enter the name of the external system. For example: PolicyCenter_Backend_Client.
+9.  Click Next Step. The Review page is displayed.
+10.  Review your changes, then click Create Service User. The Summary page is displayed.
+11.  Copy the Client Id and the Client Secret into a secure password store.  CAUTION: The Client Secret will not be displayed again once this page is closed. If you lose the Client Secret, you will need to reset the Client Secret in the CIC Administration Portal and change its stored value in PolicyCenter.
+12.  Click Close. The service account is created and added to the Users list.
+
+## Creating An Identity Provider In Cic
+
+You must create an identity provider within the CIC Administration Portal which corresponds to the Single Sign-On (SSO) Identity Provider Server that will be used to authenticate in Guidewire PolicyCenter.
+
+To create an identity provider within the CIC Administration Portal:
+
+1.  Log in to the CIC Administration Portal.
+2.  Navigate to Identity > Identity Providers. The Identity Providers page is displayed.
+3.  Click Add Identity Provider. The Add Identity Provider wizard is displayed.
+4.  Type the name for the Identity Provider Client in the Identity Provider Name field.
+5.  Type the entityID for your Identity Provider Server in the Entity Id field. See the Identity Provider Server documentation for details on finding this value.
+6.  Type the metadata URL for your Identity Provider Server in the Metadata URL field. See the Identity Provider Server documentation for details on finding this value.
+7.  Select RSA-SHA256 from the Minimum Assertion Signature Algorithm drop-down.
+8.  Click Next Step. The Bindings page is displayed.
+9.  Enable the Override authentication request binding option and select Redirect from the first Binding Type drop-down.
+10.  Enable the Override assertion binding option and select Post from the second Binding Type drop-down.
+11.  Click Next Step. The Claim Type Mapping page is displayed.
+12.  Enter the required details for the identity provider you are adding. Ensure that the claim names match in the Service Provider Application of the selected Identity Provider Server.
+13.  Click Next Step. The Email Domains page is displayed.
+14.  Enable the email domain(s) corresponding to the Single Sign-On (SSO) Identity Provider Server that will be used to authenticate in Guidewire PolicyCenter. If the domain does not appear in the list, click the Add Email Domain button to add the domain to the list. Guidewire PolicyCenter will use the selected email domain to route federation to a particular Single Sign-On (SSO) Identity Provider Server and within the Hyland CIC Platform.
+15.  Click Next Step. The Settings page is displayed.
+16.  Select Enabled.
+17.  Click Next Step. The Review page is displayed.
+18.  Review the information displayed and click Add Identity Provider. The identity provider is added to the Identity Providers list.
+19.  Create a new User Group in CIC whose name matches the SSO domain. For full details on how to create a User Group, see Configuring User Groups.
+
+## Creating An Sso User Group
+
+When using Single Sign-On within Hyland for Guidewire, any relevant user group within the Identity Provider Server must also be added in CIC.
+
+To create a SSO-linked User Group:
+
+1.  Log in to the CIC Administration Portal.
+2.  Click on Identity > User Groups. The User Groups pane is displayed.
+3.  Click Add New User Group. The Add New User Group page is displayed.
+4.  In the User Group Name field, enter the name of the group that is already configured in your Single Sign-On (SSO) Identity Provider Server for use with Guidewire PolicyCenter.
+5.  Select a Group Type of External.
+6.  Click Add User Group.
+7.  Provide the new user group necessary permissions by assigning them to appropriate role from the Accounts tab. Ensure at a minimum that the SSO user group is assigned to the Hyland Experience Repository as an HxPR Member role. For information on configuring user roles for Hyland for Guidewire PolicyCenter, see Configuring User Roles.
+
+## Creating The Documents Folder
+
+Before any documents can make it into the CIC repository from Guidewire, a special folder needs to be added to the repository to ensure documents are stored correctly.
+
+The CIC environment needs to be fully provisioned and the Guidewire PolicyCenter Workspace project needs to be deployed.
+To create the documents folder:
+
+1.  Log in to the Studio Admin application.
+2.  Navigate to DevOps > Application Instances. See the Hyland Automate Administration documentation for general information on using the Admin application. The Application Instances page is displayed.
+3.  Find the Guidewire PolicyCenter Workspace project and click the workspace link for that project. The Workspace application is displayed.
+4.  Click the drop-down arrow next to the New File Upload button and click Create Folder. The Create New Folder dialog box is displayed.
+5.  Enter hfgw-pc-documents in the Folder Name field.
+6.  Enter SysFolder in the Folder Category field.
+7.  Click Create Folder. The new folder is added to the repository.
+8.  Click the check box next to the newly created hfgw-pc-content-model folder.
+9.  Click the vertical ellipsis button in the top bar and then click Permissions.   ![Screenshot of the vertical ellipsis button highlighted](data:image/gif;base64,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)   The Manage access permissions pane is displayed.
+10.  In the User Group Access Levels section, set the Guidewire PC Content Users user group to Read and Write.
+11.  In the User Group Access Levels section, set the Guidewire PC Solution Administrators user group to Everything.
+12.  Click Save.
+
+## Single Sign On Configuration
+
+You must create the following user groups in your single sign-on platform: Guidewire Doc Security - None, Guidewire Doc Security - Sensitive, Guidewire Doc Security - Unrestricted, and Guidewire Doc Security - Internal Only. These user groups will match the user groups in the Hyland Content Innovation Cloud which are created by default during environment provisioning.
+
+Because the user groups in the Hyland Content Innovation Cloud are configured with a Group Type of external, they will be controlled by your single sign-on platform. You must then assign users to the document security user groups based on their roles and permissions. For example, if a user should be able to view Sensitive documents in Guidewire PolicyCenter, then they will need to be added to the Guidewire Doc Security - Sensitive user group in your SSO platform. See your SSO platform's documentation for detailed information on creating user groups and assigning users.
+
+## Single Sign On User Configuration
+
+This section outlines the steps required to create and update users for PolicyCenter with a Single Sign-On (SSO) identity provider enabled.
+
+See the following topics for more information:
+
+-  Creating an Identity Provider in CIC
+-  Configuring the Single Sign-On Identity Provider Server
+-  Configuring an Administrator User for Single Sign-On (SSO)
+-  Configuring New Users for Single Sign-On (SSO)
+-  Updating Existing Users for Single Sign-On (SSO)
+
+## Updating Existing Users For Single Sign On Sso
+
+After configuring an administrator user for SSO, you must configure all other user accounts you wish to use SSO. For information on updating existing users in PolicyCenter, see your Guidewire PolicyCenter documentation.
+
+To configure existing users for SSO:
+
+1.  Log in to PolicyCenter as the administrator user configured for SSO. See Configuring an Administrator User for Single Sign-On (SSO) for information on configuring an administrator user for SSO.
+2.  Search for the users that require updating.
+3.  Update the user name for each existing user to use the format of an email address with the correct email domain enabled for SSO.
+4.  Update any additional information for each existing user as required, then click on the Update button to save each user.
+5.  Log in to the SSO Identify Provider as an administrator.
+6.  For each configured user account, create a new account with the same user name in your SSO Identify Provider. For information on creating new users in your SSO Identify Provider, see your SSO Identity Provider's documentation.
+7.  Assign each of the users modified in step 3 to the appropriate SSO group.
+8.  Enable SSO for those users and save all changes.
+
+## Updating Runtime Properties
+
+Updating runtime properties can be performed within Guidewire PolicyCenter. See your Guidewire PolicyCenter documentation for information on updating runtime properties.
+
+The following properties are used by Hyland for Guidewire PolicyCenter:
+
+| Property Name | Description | Value |
+| --- | --- | --- |
+| ContentApi_BaseUrl | This property stores the URL that connects PolicyCenter to the instance of UCEB, which is the backend that connects Guidewire to the CIC repository. Do not modify this property unless directed to do so by a Hyland Administrator. | https://api.uceb.app-intel.experience.hyland.com |
+| ContentApi_ChunkSizeBytes | This property controls the size (in bytes) of the chunks that are created when uploading a document to the CIC repository. You should only edit this property if you experience network performance issues. | The default value is 5242880. You cannot set this value lower than 5000000 or higher than 10000000. |
+| ContentApi_MaxAttempts | This property controls the number of times Hyland for Guidewire PolicyCenter will attempt to send document upload information from PolicyCenter to the CIC repository before marking the upload as failed. You should only edit this property if you experience network performance issues. | The default value is 7. You cannot set this value lower than 1 or higher than 10. |
+| ContentApi_OAuthScopes | This property stores the authentication scopes that are required to obtain an access token. You should only edit this property if you experience authentication issues. | environment_authorization uceb hxp.nucleus.account Note: It is recommended to remove the hxpr scope if it is listed here. This scope is intended for System Administrators and should not be used within the PolicyCenter application. |
+| ContentApi_OAuthTokenUrl | This property stores the authentication URL that is required to obtain an access token. You should only edit this property if you experience authentication issues. | https://auth.iam.experience.hyland.com/idp/connect/token |
+| ContentApi_TimeoutConnectMillis | This property controls the amount of time (in milliseconds) that Hyland for Guidewire PolicyCenter will attempt to establish a connection to the document content repository before marking the upload as failed. You should only edit this property if you experience network performance issues. | The default value is 5000. You cannot set this value lower than 500 or higher than 10000. |
+| ContentApi_TimeoutReadMillis | This property controls the amount of time (in milliseconds) that Hyland for Guidewire PolicyCenter will attempt to read the connection response from the document content repository before marking the upload as failed. You should only edit this property if you experience network performance issues. | The default value is 330000. You cannot set this value lower than 500 or higher than 600000. |
+| Viewer_BaseUrl | This property stores the URL of your HX Document Viewer, which allows users to view documents stored in your CIC repository from a link within PolicyCenter. This property must be updated every time a new release is deployed in the Hyland CIC Platform. | This URL is unique to your environment. See Obtaining the Viewer Base URL Value for more information. |
+| DocSecurityType_null | This property sets the unique ID of the related User Group in CIC: Guidewire PC Doc Security - None. This property will only be edited if there is a User Group change in CIC. | This value is unique to the User Group deployed in each environment. |
+| DocSecurityType_Sensitive | This property sets the unique ID of the related User Group in CIC: Guidewire PC Doc Security - Sensitive. This property will only be edited if there is a User Group change in CIC. | This value is unique to the User Group deployed in each environment. |
+| DocSecurityType_unrestricted | This property sets the unique ID of the related User Group in CIC: Guidewire PC Doc Security - Unrestricted. This property will only be edited if there is a User Group change in CIC. | This value is unique to the User Group deployed in each environment. |
+| DocSecurityType_internalonly | This property sets the unique ID of the related User Group in CIC: Guidewire PC Doc Security - Internal Only. This property will only be edited if there is a User Group change in CIC. | This value is unique to the User Group deployed in each environment. |
+
+## Viewing Document Properties
+
+When a document is uploaded to the Hyland CIC platform, it contains specific properties which are accessible by clicking the Information button within the HX document viewer. The information stored in these properties is determined based on the values selected when the document is uploaded.
+
+The following properties are available in the Main Properties section:
+
+- Category
+- Contributors
+- Created
+- Creator
+- Filename
+- File Size
+- Last Contributor
+- Last Modified
+- Mime Type
+- Path
+- Title
+
+The following properties are available in the Other Properties section:
+
+- Account_Number
+- Author
+- Doc_Name
+- Document_Security_Type
+- Document_Type
+- File_Type
+- IS_FROM_GUIDEWIRE
+- Policy_Number
+- Status
+- Sys ID
+- User_I_D
+
+Note: Because a service user account is used to upload Guidewire documents to the Hyland CIC platform, the following properties remain blank by default:
+- Creator
+- Last Contributor
+- Contributors
+
+The Guidewire user who uploaded the document is stored in the User_I_D property in the Other Properties section.

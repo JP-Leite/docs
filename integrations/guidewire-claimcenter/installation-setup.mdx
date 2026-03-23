@@ -1,0 +1,141 @@
+---
+title: "Installation & Setup"
+---
+
+## Configuration Overview
+
+This topic describes the procedures required to configure the Hyland for Guidewire ClaimCenter solution.
+
+See the following sections:
+
+-  Creating the Documents Folder
+-  Configuring User Groups
+-  Configuring the Service User
+-  Single-Sign On User Configuration
+-  Configuring ClaimCenter Runtime Properties
+-  Configuring OAuth 2.0
+-  Connecting CIC Document Upload to ClaimCenter
+
+## Deploying The Integration
+
+This topic describes the steps required to deploy the Hyland for Guidewire ClaimCenter integration.
+
+To deploy the Hyland for Guidewire ClaimCenter, the following information from your CIC Repository is required:
+
+-
+CIC Repository Document Security Type Mapping - see Configuring Document Security for more information.
+
+-
+CIC Repository Content API Details
+
+To deploy the Hyland for Guidewire ClaimCenter:
+
+1.  Acquire the Hyland for Guidewire ClaimCenter installation package from Guidewire Marketplace and deploy it to a local environment.
+2.  Merge the Hyland for Guidewire integration files into the local environment.
+3.  Open the HFGWDocumentSecurityTypeMappings.properties mapping file located in the modules/configuration/res directory using a text editor such as Notepad.
+4.  Update the HFGWDocumentSecurityTypeMappings.properties file as required to configure document security. See Configuring Document Security for more information. For example:
+```
+null=<GUID for 'Guidewire Doc Security - None'>
+sensitive=<GUID for 'Guidewire Doc Security - Sensitive'>
+unrestricted=<GUID for 'Guidewire Doc Security - Unrestricted'>
+```
+
+5.  Save and close the HFGWDocumentSecurityTypeMappings.properties file.
+6.  Open the HFGWRuntimeProperties.xml file, which is located in the modules/configuration/config/runtimeproperties directory, using a text editor such as Notepad.
+7.  Modify the following runtime propertes as required:
+| `<Name>` | `<Value>` |
+| --- | --- |
+| Viewer_BaseUrl | Set this to the base URL for your HX Document Viewer. |
+| ContentApi_BaseUrl | Set this to the base URL for your CIC Repository Content API. |
+| ContentApi_ChunkSizeBytes | Set this to the chunk size used during document upload, in bytes. By default this is set to 5242880 bytes. |
+| ContentApi_MaxAttempts | Set this to the desired maximum number of retry attempts for document upload. By default this is set to 7. |
+| ContentApi_OAuthTokenUrl | Set this to the URL for your CIC Repository Content API OAuth Token. |
+| ContentApi_OAuthScopes | Set this to the scopes required for your CIC Repository Content API OAuth, with each scope separated by a space. For example: environment_authorization uceb hxp.nucleus.account |
+| ContentApi_TimeoutConnectMillis | Set this to the desired connection timeout in milliseconds. By default this is set to 5000. |
+| ContentApi_TimeoutReadMillis | Set this to the desired read timeout in milliseconds. By default this is set to 330000. |
+
+Note: The value of these runtime properties can also be updated later during within ClaimCenter. Once updated in ClaimCenter UI, a restart of ClaimCenter is not necessary. See Configuring ClaimCenter Runtime Properties for more information.
+8.  Save and close the HFGWRuntimeProperties.xml file.
+9.  Open the config.xml configuration file located in the modules/configuration/config directory using a text editor such as Notepad.
+10.  Update the following settings in the config.xml file:
+1.  Set the WebUIAJAXTimeout parameter to 3600.
+2.  Set the MaximumFileUploadSize parameter to 2000.
+3.  Set the MaximumTotalUploadSize parameter to 2000.
+4.  In the mimetypemapping section, add the following mimetype extensions:
+-  <mimetype extensions=".dotx" icon="word_mime" name="application/vnd.openxmlformats-officedocument.wordprocessingml.template"/>
+-  <mimetype extensions=".eml" icon="document" name="message/rfc822" />
+-  <mimetype extensions=".msg" icon="document" name="application/vnd.ms-outlook" />
+-  <mimetype extensions=".json" icon="html_mime" name="application/json" />
+- <mimetype extensions=".mp4" icon="video_mime" name="video/mp4" />
+-  <mimetype extensions=".hevc" icon="video_mime" name="video/hevc" />
+- <mimetype extensions=".heic" icon="image_mime" name="image/heic" />
+11.  Save and close the config.xml file.
+12.  Test your local ClaimCenter environment and check in the changes to Guidewire Bitbucket.
+
+## Documentation Notice
+
+The information and software described in this document are furnished only under a separate agreement and may only be used or copied according to the terms of such agreement. It is against the law to copy the software except as specifically allowed in such agreement. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright law, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Hyland Software, Inc. and/or one of its affiliates.
+
+Hyland, OnBase, Alfresco, Nuxeo, Content Innovation Cloud, and other product or brand names are registered and/or unregistered trademarks of Hyland Software, Inc. and its affiliates in the United States and other countries. All other trademarks, service marks, trade names and products of other companies are the property of their respective owners.
+
+© 2026 Hyland.
+
+The information in this document may contain technology as defined by the Export Administration Regulations (EAR) and could be subject to the Export Control Laws of the U.S. Government including for the EAR and trade and economic sanctions maintained by the Office of Foreign Assets Control as well as the export controls laws of your entity’s local jurisdiction. Transfer of such technology by any means to a foreign person, whether in the United States or abroad, could require export licensing or other approval from the U.S. Government and the export authority of your entity’s jurisdiction. You are responsible for ensuring that you have any required approvals prior to export.
+
+DISCLAIMER: This documentation contains available instructions for a specific Hyland product or module. This documentation is not specific to a particular customer or industry. All data, names, and formats used in this document’s examples are fictitious unless noted otherwise. This document may reference websites operated by third parties. In such a case, Hyland has no control or liability for the content of such third-party websites. The inclusion of such a link shall not constitute an endorsement or affiliation with such a third-party website; the reference is provided for information purposes only. If you have questions about discrepancies in this document, please contact Hyland. Hyland customers are responsible for making their own independent assessment of the information in this documentation. This documentation: (a) is for informational purposes only, (b) is subject to change without notice, (c) is confidential information of Hyland Software, Inc. and its affiliates, and (d) does not create any commitments or assurances by Hyland. This documentation is provided “as is” without representation or warranty of any kind. Hyland expressly disclaims all implied, express, or statutory warranties. Hyland’s responsibilities and liabilities to its customers are controlled by the applicable Hyland agreement. This documentation does not modify any agreement between Hyland and its customers.
+
+**Document Name**
+Hyland for Guidewire ClaimCenter
+**Department/Group**
+Documentation
+**Revision Number**
+Current
+
+## Installation Overview
+
+This topic describes the procedures required to deploy Hyland for Guidewire ClaimCenter.
+
+See the following sections:
+
+-  Deploying the Integration
+-  Configuring the Guidewire Cloud Platform for ClaimCenter
+-  Configuring Document Security
+
+## Overview
+
+Hyland for Guidewire ClaimCenter streamlines insurance processes and improves access to information, while automating previously manual tasks. For example, a user of an ECM repository (such as the Content Innovation Cloud) could capture and store insurance claim-related documents in the CIC repository electronically, linking them to the associated claims data within Guidewire. Insurance personnel can instantly access these documents directly from Guidewire, improving decision-making and eliminating the need to search through multiple applications, file shares, or paper records. Guidewire ClaimCenter users can also upload documents into an ECM repository for long-term storage without needing to leave the ClaimCenter application they are familiar with.
+
+With Hyland for Guidewire ClaimCenter, insurance adjusters have instant access to the information they need to accurately investigate and settle a claim, increasing efficiency and reducing the risk of costly claims leakage. Documents such as claims photos, first notice of loss documents, and medical documentation are only a click away, thereby accelerating the claims process, reducing bottlenecks, and facilitating timely decisions. By automatically generating acknowledgment letters and requests for additional information, Hyland for Guidewire ClaimCenter enables adjusters to focus on higher-value initiatives such as interviewing key individuals and examining the important documents surrounding a claim.
+
+## Registering New Security Types
+
+If you want to add new security types beyond the ones already created by Guidewire, you will need to follow these steps to ensure the security policy is aware of them.
+
+You must have access to the following:
+- Access to Guidewire ClaimCenter’s source code.
+- The ability to redeploy ClaimCenter.
+- Administrator access to the Hyland Content Innovation Cloud.
+- A user group configured in the Single Sign-On platform to represent the new security type. This new user group must already be to be synced in the Hyland Content Innovation Cloud. For more information on configuring user groups with SSO, see Single-Sign On User Configuration.
+
+To register a new security type:
+
+1.  Open Guidewire ClaimCenter’s source code.
+2.  Open the ClaimCenter/modules/configuration/res/HFGWDocumentSecurityTypeMappings.properties file in a text editor such as Notepad.
+3.  Add a new line to the file and add a new key-value pair. The key is the document security code (exactly what is returned by document.getSecurityType() inside Guidewire ClaimCenter). The value is the GUID of the new user group in the Hyland Content Innovation Cloud that contains a list of all users allowed to view documents of this type.
+4.  Redeploy ClaimCenter.
+5.  Open the Studio Modeler application in the Hyland Content Innovation Cloud.
+6.  Click on the Guidewire ClaimCenter Workspace project. The project window is displayed.
+7.  Click the Calculate Document Security ID script in the Scripts section of the Process Automation pane on the left. The script is displayed.
+8.  Add a new var line at the top of the script for your custom security type, using the same format as the other security type var lines. For example: var SECURITYTYPE_Custom = "Custom";
+9.  Add a new case paragraph in the switch section that references your new var, using the same format as the other security type case paragraphs. For example:
+```
+case SECURITYTYPE_Custom:
+        variables.out_docSecurityID = variables.in_docSecurityGuidCustom;
+        break;
+```
+
+10.  Click Save (the cloud icon at the top bar of the pane) to save the project.
+11.  Select the Release action from the bar above the project window to release a new version of the project.
+12.  Open the Studio Admin application.
+13.  Navigate to Devops > Application Instances. The Application Instances page is displayed.
+14.  Find your Guidewire ClaimCenter Workspace project and click Upgrade to upgrade it and update the script in your application instance. See the Hyland Automate Modeler documentation for general information on upgrading a project.

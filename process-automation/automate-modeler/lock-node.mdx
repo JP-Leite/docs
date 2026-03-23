@@ -8,8 +8,8 @@ The input parameters for LOCK_NODE are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| file | Array<json>, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
-| folder | Array<json>, JSON | Optional | ACS folder to be updated. If the received value contains multiple references to folders, only the first of them will be used. |
+| file | Array`<json>`, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
+| folder | Array`<json>`, JSON | Optional | ACS folder to be updated. If the received value contains multiple references to folders, only the first of them will be used. |
 | lifetime | String | Required | Lifetime of the lock. Possible values are: EPHEMERAL or PERSISTENT. |
 | lockType | String | Required | Lock type. Possible values are FULL, ALLOW_OWNER_CHANGES or ALLOW_ADD_CHILDREN. |
 | nodeId | String | Optional | Node ID of the file or folder in ACS. Example: a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
@@ -20,4 +20,4 @@ The output parameters from LOCK_NODE are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| response | Array<json> | Optional | Response for the calls. |
+| response | Array`<json>` | Optional | Response for the calls. |

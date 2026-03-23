@@ -1,0 +1,201 @@
+---
+title: "Document Operations"
+---
+
+## Connecting Cic Document Upload To Claimcenter
+
+You must configure your CIC Document Upload feature to connect to your Guidewire instance within the Studio Modeler application. See the Hyland Automate Modeler documentation for general information on using the Studio Modeler application.
+
+To configure your CIC Document Upload feature to connect to your Guidewire instance:
+
+1.  In the Studio Modeler application, click on the CIC Document Upload project. The project window is displayed.
+2.  Click the Upload doc to Guidewire CC process in the Process Automation pane on the left. The project page is displayed.
+3.  Click Edit Process Variables in the Properties pane on the right. The Process variables page is displayed.
+4.  Locate the gwRestAPI variable and click the corresponding Edit variable button. The Edit variable page is displayed.
+5.  In the Default value section, enter the url for your Guidewire instance in the Provide a value field. For example: https://your-instance.guidewire.net:443/rest/claim/v1
+6.  Click Save. The Process variables page is displayed.
+7.  Click Close. The project page is displayed.
+8.  Click Save (the cloud icon at the top bar of the pane) to save the project.
+9.  Select the Release action from the bar above the project window to release a new version of the project.
+10.  Open the Studio Admin application.
+11.  Navigate to Devops > Application Instances. The Application Instances page is displayed.
+12.  Find your CIC Document Upload project and click Upgrade to upgrade it and update the variable in your application instance. See the Hyland Automate Modeler documentation for general information on upgrading a project.
+
+## Obtaining The Viewer Base Url Value
+
+In most cases the Viewer_BaseUrl runtime property will need to be edited. The URL required for this property can be obtained from your Hyland for Guidewire ClaimCenter application within the Studio Admin application.
+
+To obtain the base viewer URL, perform the following steps:
+
+1.  Using the assigned administrator account of your CIC instance, log in to the CIC Administration Portal.
+2.  Click Studio Admin. The Studio Admin application is displayed.
+3.  Navigate to DevOps > Application Instances. See the Hyland Automate Administration documentation for general information on using the Studio Admin application.
+4.  Find your Hyland for Guidewire ClaimCenter application and click the HX Viewer link in the Workspace column. A new page is displayed with the HX viewer URL in the address bar. This URL represents the base of the Viewer_BaseUrl runtime property. For example: https://key-abcdefg-123a-456789.studio.experience.hyland.com/guidewire-claimcente-aaaa-0000/ui/hx-viewer-abcde/#/
+5.  Copy the URL displayed in the address bar.
+6.  Append /default/documents/ to the base URL.  For example: https://key-abcdefg-123a-456789.studio.experience.hyland.com/guidewire-claimcente-aaaa-0000/ui/hx-viewer-abcde/#/default/documents/
+7.  Set the Viewer_BaseUrl runtime property to the modifed URL. See Updating Runtime Properties for more information.
+
+## Uploading A Document To An Ecm Repository From Guidewire
+
+Depending on how your system is configured, you may be able to upload documents into your ECM repository directly from Guidewire.
+
+To upload a document to your ECM repository from Guidewire, follow these steps:
+
+1.  Open a claim within your Guidewire application.
+2.  Click Actions > New Document > Upload Documents. The Upload Documents workspace is displayed.
+3.  Add a document file to the Upload Documents workspace by doing one of the following:
+-
+Drag and drop the file into the workspace.
+
+-
+Click Add Files and browse to the file.
+
+- Copy the file and paste it into the Paste Files Here field.
+4.  Complete the following fields. When the document is uploaded, the contents of the ClaimCenter fields will be passed to the CIC repository and stored in the corresponding CIC property.:
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+| Guidewire ClaimCenter Field | Description | CIC Property |
+| --- | --- | --- |
+| Name | Enter the name of the document.Note: This field is required. | Doc Name |
+| File Type | Select the file type of the document being imported into your ECM repository. The following file types are supported:   .avi   .bmp   .csv   .doc   .docx   .dotx   .eml   .gif   .hevc   .heic   .jpg   .mdi   .mov   .mp4   .mpeg   .mpg   .msg   .pdf   .png   .png   .pp   .pps   .pptx   .ps   .rtf   .rtx   .tif   .tiff   .txt   .wav   .wma   .xls   .xls   .xlsx   .xml   .zip   Note: This field is required. | File Type |
+| Related To | Select the type of Guidewire object the document is related to. By default this is set to Claim.Note: This field is required. | N/A |
+| Status | Select the status of the document.Note: This field is required. | Status |
+| Security Type | Select the level of security that applies to the document. Note: If you select Sensitive document, only users that are assigned to that security type will be able to view the document within Guidewire ClaimCenter. See your Guidewire documentation for more information on security types. Note: This field is required. | Document Security Type |
+| Document Type | Select the ECM repository Document Type associated with the document. Note: This field is required. | Document Type |
+| Author | Enter the author associated with the document. | Author |
+| Description | Enter a description for the document. | Description |
+| Recipient | Enter the recipient of the document | Recipient |
+| Claim Number | Enter the claim number of the document | Claim Number |
+| User ID | Enter the user ID associated with the document | User ID |
+| N/A | This CIC property does not correspond to a ClaimCenter field and is automatically set to the GUID of the selected Security Type when a document is uploaded to CIC from ClaimCenter. | Document Security ID |
+| N/A | This CIC property does not correspond to a ClaimCenter field and is automatically set to true when a document is uploaded to CIC from ClaimCenter. | Is From Guidewire |
+
+5.  Complete any other fields as needed.
+6.  Click Update. The document is uploaded and the Summary page is displayed. For information on viewing the uploaded document, see Viewing Documents in ClaimCenter or Viewing Documents in CIC.
+
+## Uploading A Document To Guidewire Claimcenter From A Cic Repository
+
+You can upload documents to Guidewire ClaimCenter directly from your CIC repository. See the Hyland Workspace documentation for general information on uploading a document to the CIC repository.
+
+To upload a document to Guidewire ClaimCenter from a CIC repository:
+
+1.  Navigate to the Workspace application created after deploying the project.
+2.  Upload a document to CIC manually, or by using a specific claim folder.
+- To upload a document manually:
+1. Log in to your CIC application and open Workspace.
+2. Click the My Tasks > Start Process button. The New Process window is displayed.
+3. Select the Upload doc to Guidewire CC process and click the Start Process button. If necessary, a new folder named unassigned will be created to temporarily store the document being uploaded.
+4. Navigate to Queued Tasks and select the Upload Document/Set Metadata task. A form is displayed.
+5. Click the Claim button. The form fields become editable.
+6. Click the Attach button. The Select a file window is displayed.
+7. Select the Local storage tab and upload a document by dragging and dropping the file into the folder or by clicking the Upload button.
+8. Click Attach.
+9. Enter text in all desired fields. Required fields are marked with an asterisk.
+- To upload a document to a specific claim folder:
+1. Log in to your CIC application and open Workspace.
+2. Open the hfgw-cc-documents folder.
+3. Open the folder for the desired claim number.
+4. Upload a document by dragging and dropping the file into the folder or by clicking the File Upload > Upload File button. An Uploading file window is displayed.
+5. Select the document from the Unassigned Content Type list. The Location & Category pane is displayed on the right.
+6. Select hfgw-cc-claim-doc-type from the Content Type drop-down list and click Save.
+7. Click Submit. The file is uploaded and a new task is created.
+8. Navigate to Queued Tasks and select the Upload Document/Set Metadata task. A form is displayed.
+9. Click the Claim button. The form fields become editable.
+10. Enter text in all desired fields. Required fields are marked with an asterisk. The Claim Number field is automatically populated with the claim number from the selected folder.Note: The SysFile and hfgw-cc-claim-doc-type content types are supported for this type of upload.
+3.  Click Complete. The document is uploaded to the CIC repository and is also viewable within Guidewire ClaimCenter. For information on viewing the uploaded document, see Viewing Documents in ClaimCenter or Viewing Documents in CIC.
+
+## Viewing Documents In Cic
+
+You can view the ClaimCenter documents stored in your ECM repository directly from the CIC platform. See the Hyland Workspace documentation for detailed information on retrieving and viewing documents within the CIC platform.
+
+To view ClaimCenter documents in CIC:
+
+1.  Launch the Guidewire Workspace within the Hyland CIC Platform.
+2.  If prompted to log in, enter the appropriate credentials. If your solution is configured to use single sign-on (SSO), you can log in using your ClaimCenter credentials. If your solution is not configured to use single sign-on (SSO), you can log in using your Hyland CIC Platform credentials.
+3.  Open the folder with name that matches the claim number for the document you want to view.
+4.  Within the folder, click the claim document you wish to view. The document is displayed in a separate window in the HX document viewer. For information on working with a document within your CIC repository, see the CIC documentation.
+5.  Optional: If you want to show or hide the document's properties, click the click the information button in the upper right corner of the viewer. For more information on document properties, see Viewing Document Properties.
+6.  Optional: If you want to download the document, click the download button in the upper right corner of the viewer.
+
+## Viewing Documents In Claimcenter
+
+Depending on how your system is configured, you may be able to view documents using your ECM repository's document viewer from the ClaimCenter Document Results List.
+
+To view a document stored in your ECM repository using the ClaimCenter Document Results List:
+
+1.  Open a claim within the ClaimCenter application.
+2.  Click the Documents tab.  A list of related documents in your ECM repository is displayed in ClaimCenter.
+3.  Click the name of the document you want to view. The document is displayed in a separate window in your ECM repository's document viewer. For information on working with a document within your ECM repository, see your ECM repository's documentation.Note: Depending on your system's configuration, you may be prompted to log in using your ECM repository credentials (for example, your CIC credentials). If single sign-on is configured for your solution, you may only need to enter the email address for your CIC user to log in.
+4.  Optional: If you want to show or hide the document's properties, click the click the information button in the upper right corner of the viewer. For more information on document properties, see Viewing Document Properties.
+5.  Optional: If you want to download the document, click the download button in the upper right corner of the viewer.

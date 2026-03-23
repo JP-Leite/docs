@@ -1,0 +1,243 @@
+---
+title: "Installation & Setup"
+---
+
+## Creating And Deploying Content Types
+
+This section has information on how to create and configure Content Types using the Hyland Automate Modeler application and then deploy these Content Types using the Hyland Automate Administration application.
+
+See the following sections for specific instructions on these topics:
+
+-
+Creating Content Types
+
+-
+Upgrading a Project
+
+-
+Deploying a Project
+
+## Deploying A Project
+
+This section has information on deploying the hfs-configurations project you released earlier to the subscribed Content Innovation Cloud (CIC) environments. To deploy a new release, you must use the Hyland Automate Administration application.
+
+Released projects can be deployed from the Project Releases menu in Hyland Automate Administration. Click the three dots adjacent to the hfs-configurations project and select Deploy.
+
+When deploying a released project, the user is presented with various configuration settings that may vary depending on the contents of the project.
+
+Tip: Projects are referred to as applications when they are deployed.
+For more information on these various configuration settings, see the Deploying Projects chapter in the Hyland Automate Administration documentation.
+
+Select the Previous and Next buttons to navigate between the configuration pages. The current step is highlighted, and the completed steps are marked with a tick.
+
+After completing the required configuration settings, click Deploy to close the configuration wizard and deploy the application.
+
+## Documentation Notice
+
+The information and software described in this document are furnished only under a separate agreement and may only be used or copied according to the terms of such agreement. It is against the law to copy the software except as specifically allowed in such agreement. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright law, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Hyland Software, Inc. and/or one of its affiliates.
+
+Hyland, OnBase, Alfresco, Nuxeo, Content Innovation Cloud, and other product or brand names are registered and/or unregistered trademarks of Hyland Software, Inc. and its affiliates in the United States and other countries. All other trademarks, service marks, trade names and products of other companies are the property of their respective owners.
+
+© 2026 Hyland.
+
+The information in this document may contain technology as defined by the Export Administration Regulations (EAR) and could be subject to the Export Control Laws of the U.S. Government including for the EAR and trade and economic sanctions maintained by the Office of Foreign Assets Control as well as the export controls laws of your entity’s local jurisdiction. Transfer of such technology by any means to a foreign person, whether in the United States or abroad, could require export licensing or other approval from the U.S. Government and the export authority of your entity’s jurisdiction. You are responsible for ensuring that you have any required approvals prior to export.
+
+DISCLAIMER: This documentation contains available instructions for a specific Hyland product or module. This documentation is not specific to a particular customer or industry. All data, names, and formats used in this document’s examples are fictitious unless noted otherwise. This document may reference websites operated by third parties. In such a case, Hyland has no control or liability for the content of such third-party websites. The inclusion of such a link shall not constitute an endorsement or affiliation with such a third-party website; the reference is provided for information purposes only. If you have questions about discrepancies in this document, please contact Hyland. Hyland customers are responsible for making their own independent assessment of the information in this documentation. This documentation: (a) is for informational purposes only, (b) is subject to change without notice, (c) is confidential information of Hyland Software, Inc. and its affiliates, and (d) does not create any commitments or assurances by Hyland. This documentation is provided “as is” without representation or warranty of any kind. Hyland expressly disclaims all implied, express, or statutory warranties. Hyland’s responsibilities and liabilities to its customers are controlled by the applicable Hyland agreement. This documentation does not modify any agreement between Hyland and its customers.
+
+**Document Name**
+Hyland for Salesforce
+**Department/Group**
+Documentation
+**Revision Number**
+Current
+
+## Installing The Hyland For Salesforce Package
+
+This section contains information on how to install the Hyland for Salesforce package.
+
+To install the Hyland for Salesforce package:
+
+1.  Open a web browser and copy paste the following URL in the address bar:
+https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04tV1000000R4SXIA0
+
+Note: If you are installing to a sandbox organization, replace the above URL with the following: https://test.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04tV1000000R4SXIA0
+2.  Log on to Salesforce with your credentials. The Install Hyland for Salesforce page is displayed.
+3.  From the Install Hyland for Salesforce page, select from the available options:
+
+| Option | Description |
+| --- | --- |
+| Install for Admins Only | Allows you to install the Hyland for Salesforce package for system administrators only. |
+| Install for All Users | Allows you to install the Hyland for Salesforce package for all users. |
+| Install for Specific Profiles | Allows you to install the Hyland for Salesforce package for specific profiles. |
+
+4.  Click Install.
+5.  After installation is complete, click Done.
+
+## Introduction
+
+Hyland for Salesforce provides a web-based solution to manage critical, unstructured content by utilizing Hyland's modern Content Innovation Cloud and Enterprise Content Management (ECM) capabilities with Salesforce's Customer Relationship Management (CRM) capabilities.
+
+Hyland for Salesforce enables you to access and manage your documents directly from Salesforce. You can perform key tasks such as capturing, viewing, and configuring Hyland Content or your documents with contextual information (or Keyword Values) to categorize them meaningfully and retrieve them. These tasks can be easily accomplished with a few clicks in a pane within Salesforce so that they become an extension of the Salesforce object, providing greater efficiency in managing your records.
+
+## Key Features
+
+Hyland for Salesforce offers the following features:
+
+-
+Accelerate user productivity and adoption by eliminating switching between Hyland's Content Innovation Cloud and Salesforce.
+
+-
+Enable seamless importing of documents through an intuitive drag-and-drop interface for supported files.
+
+-
+Access vital documents instantly from any location.
+
+-
+Enhance retrieval options by configuring and associating properties with supported files.
+
+-
+Reduce processing delays and loss of information, as the risk of duplicating critical documents to associate them with Salesforce objects is mitigated.
+
+-
+Expedite and improve business decision-making by delivering immediate access to relevant documents.
+
+-
+Improve data accuracy and reduce re-keying of information by pulling data directly from Hyland's Content Innovation Cloud.
+
+-
+Link one document to multiple Salesforce objects.
+
+## Registering Hyland For Salesforce As An External Application
+
+This section has information on how to register Hyland for Salesforce as an external web server application to enable integration with the Content Innovation Cloud, and obtain the Application ID and Secret. The Application ID and Secret are required to configure the External Auth Identity Provider in Salesforce.
+
+Note: For more information on creating an External Application using the Content Innovation Cloud Administration Portal, see the External Systems chapter in the Content Innovation Cloud Administration Portal documentation.
+To register Hyland for Salesforce as an external application:
+
+1.  Open the Content Innovation Cloud Administration Portal.
+2.  Select the External Systems tab under the banner. The External Applications page is displayed.
+3.  Click Create External Application. The Create External Application wizard is displayed.
+4.  Select Web Server Application.  Note: Remember to register Hyland for Salesforce as a web server application as it calls Content Innovation Cloud APIs in the context of an interactive (human) user.
+5.  Click Next Step. The Application Name page is displayed.
+6.  Enter a name for the application in the Application Name field, and then click Next Step. The Redirect URIs page is displayed.
+7.  On the Redirect URIs page, enter the following URIs as applicable for your environment:
+- Developer or Enterprise org: https://login.salesforce.com/services/extidp/callback
+- Sandbox org: https://test.salesforce.com/services/extidp/callback
+After a user signs in successfully to Hyland for Salesforce, they are redirected to one of these URIs.
+
+8.  Click Next Step. The Post Logout Redirect URIs page is displayed.
+9.  On the Post Logout Redirect URIs page, enter the following URIs, as applicable for your environment:
+- Developer or Enterprise org: https://login.salesforce.com/services/extidp/callback
+- Sandbox org: https://test.salesforce.com/services/extidp/callback
+After a user logs out successfully from Hyland for Salesforce, they are redirected to one of these URIs.
+
+10.  Click Next Step. The Allowed Scopes page is displayed
+11.  From the Allowed Scopes drop-down list, select the following scopes:
+iam.scim openid profile profile.attributes hfs hxp environment_authorization offline_access uceb hxp.nucleus.account
+
+Hyland for Salesforce is allowed to request a grant for the scopes you specify.
+
+Note: For more information on each of these scopes, see the Scopes for External Applications chapter in the Content Innovation Cloud Administration Portal documentation.
+12.  From the Environment drop-down list, select the environment Hyland for Salesforce should be restricted to. The Application drop-down list is displayed.
+13.   From the Application drop-down list, select the subscribed application to link to Hyland for Salesforce.
+14.  Click Next Step. The Review page is displayed.
+15.  Review the settings for the external application.
+To return to a previous step, either select the step from the left side of the wizard, or click Previous Step.
+
+16.  Click Create External Application to confirm the settings and register the external application. The Summary page displays the auto-generated Application ID and Client Secret for the external application.
+17.  Copy the Application ID and Secret values to a secure location.
+Hyland for Salesforce requires these values in order to obtain access tokens from the Content Innovation Cloud.
+
+Note: The secret value will not be shown again after the Create External Application wizard is closed. If necessary, you can reset the secret as described under Resetting the Secret for an External Application chapter in the Content Innovation Cloud Administration Portal documentation.
+18.  Click Close to return to the External Applications page.
+
+## Supported Files
+
+This section contains a list of different file formats supported by Hyland for Salesforce. You can upload and import to capture each of these file types.
+
+Note: For additional information on these file formats, see Common file name extensions in Windows in Microsoft's documentation.
+| File Format | File Extension |
+| --- | --- |
+| JPG image | .jpg or .JPG |
+| JPG (JFIF) image | .jfif or .JFIF |
+| JPEG image | .jpeg or .JPEG |
+| JPE image | .jpe or .JPE |
+| Bitmap image | .bmp or .BMP |
+| PNG image | .png or .PNG |
+| GIF image | .gif or .GIF |
+| TIFF image | .tiff or .TIFF |
+| WebP image | .webp or .WEBP |
+| Plain text | .txt or .TXT |
+| HTML document | .html or .HTML |
+| CSS stylesheet | .css or .CSS |
+| JSON file | .json or .JSON |
+| XML file | .xml or .XML |
+| PDF document | .pdf or .PDF |
+| Microsoft Word document | .docx or .DOCX, .doc or .DOC |
+| Microsoft Excel spreadsheet | .xlsx or .XLSX, .xls or .XLS |
+| Microsoft PowerPoint presentation | .pptx or .PPTX, .ppt or .PPT |
+| ZIP archive | .zip or .ZIP |
+| MP3 audio | .mp3 or .MP3 |
+| OGG audio | .ogg or .OGG |
+| WAV audio | .wav or .WAV |
+| MP4 video | .mp4 or .MP4 |
+| WebM video | .webm or .WEBM |
+| AVI video | .avi or .AVI |
+| TIFF/TIF image | .tiff or .TIFF, .tif or .TIF |
+| CSV file | .csv or .CSV |
+| PostScript file | .ps or .PS |
+| Rich Text format | .rtf or .RTF, .rtx or .RTX |
+| PowerPoint Slide show | .pps or .PPS |
+| Microsoft Word template | .dotx or .DOTX |
+| Windows Media Audio | .wma or .WMA |
+| Microsoft document imaging format | .mdi or .MDI |
+| MPEG video | .mpg or .MPG, .mpeg or .MPEG |
+| Apple QuickTime movie | .mov or .MOV |
+| Email message | .eml or .EML |
+
+## Uninstalling Hyland For Salesforce
+
+This section contains information on how to uninstall the Hyland for Salesforce.
+
+To uninstall Hyland for Salesforce, you must remove the Document List View component or  hfsRecordDLPage from the record detail pages of any Salesforce objects configured during installation and uninstall the Hyland for Salesforce package.
+
+See the following sections for specific instructions on these topics:
+
+-
+Removing Document List View Component
+
+-
+Uninstalling the Hyland for Salesforce Package
+
+## Uninstalling The Hyland For Salesforce Package
+
+This section contains information on how to uninstall the Hyland for Salesforce package.
+
+To uninstall the Hyland for Salesforce package:
+
+1.  Open a web browser and log on to the Salesforce environment with your credentials. The Home page is displayed.
+2.  From the top-right, click Setup. The Home page is displayed in a new browser tab.
+3.  In the Quick Find box, type Installed Packages and then click Installed Packages from the search results displayed on the left. The Installed Packages page is displayed.
+4.  Search for Hyland For Salesforce.
+5.  Under the Custom Object Data section, select the following options:
+-
+Do not save a copy of this package's data after uninstall
+
+-
+Yes, I want to uninstall this package and permanently delete all associated components.
+
+6.  Click Uninstall.
+
+## Upgrading A Project
+
+This section, intended for system administrators, explains how to upgrade the hfs-configurations project and include new Content Types you ce. Use Hyland Automate Administration to prepare the new release.
+The upgrade process displays the same configuration as deploying a project with an additional section of Runtime Version, which shows the Runtime Version of the updated application. The only field that cannot be changed when upgrading is the application name.
+
+Note: For more information on upgrading an application, see the Upgrading chapter in the Hyland Automate Administration documentation.
+To upgrade a project:
+
+1.  Log in to the Hyland Automate Administration App.
+2.  Expand Devops from the left pane and select Application Instances.
+3.  Click the three dots next to hfs-configurations.
+4.  Select Upgrade.
+5.  Select the details you want to upgrade and click Upgrade.  Note: Regularly updating your project to the latest runtime version is a best practice. For specific instructions on how to update the runtime versions of applications, see the Updating the Runtime Version of Applications chapter in the Hyland Automate Administration documentation.

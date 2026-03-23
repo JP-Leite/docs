@@ -26,8 +26,8 @@ The input parameters for a received Slack message are:
 | Parameter | Description |
 | --- | --- |
 | condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
-| pattern | A regular expression that selects which messages trigger an action. Java catching group syntax can be used to create groups from the pattern as variables, for example: Order Number (?`<orderNumber>`.+) The variables can then be used in echo and echoError, for example: ${orderNumber} Note: This parameter is required. |
-| echo | A message sent to the user of the message that is matched, for example: Your reference number is ${orderNumber}. |
+| pattern | A regular expression that selects which messages trigger an action. Java catching group syntax can be used to create groups from the pattern as variables, for example: Order Number (?`<orderNumber>`.+) The variables can then be used in echo and echoError, for example: $`{orderNumber}` Note: This parameter is required. |
+| echo | A message sent to the user of the message that is matched, for example: Your reference number is $`{orderNumber}`. |
 | echoError | A message sent to the user of the message that is matched if an error occurs when publishing the event, for example: There was a problem publishing that event. |
 | channelTypes | The channel types to be monitored in Slack, such as direct-message,public-channel or mention. |
 
@@ -37,8 +37,8 @@ Note: Groups found in matchGroups can be used within a trigger action variable u
 
 To use Slack as a trigger the Slack bot needs to subscribe to events.
 
-1.  Use the following URL to configure the events:  https://api.slack.com/apps/`<app_id>`/event-subscriptions
-2.  Enter the following as the Request URL for Slack to post HTTP requests to:  https://<cluster-name>/<application-name>/connector/<connector-name>/slack/events
+1.  Use the following URL to configure the events:  `https://api.slack.com/apps/<app_id>/event-subscriptions`
+2.  Enter the following as the Request URL for Slack to post HTTP requests to:  https://`<cluster-name>`/`<application-name>`/connector/`<connector-name>`/slack/events
 Where:
 
 -  cluster-name is the name of the cluster running Studio Modeler.
@@ -56,8 +56,8 @@ Where:
 The Slack connector requires a Slack application and a Slack bot in order to function. The application and bot need to be configured correctly.
 
 1.  Use the [Slack website](https://api.slack.com/apps) to create an application.  Note: Log in as a workspace administrator to create an application.
-2.  Use the following URL to create a bot in the application you created:  https://api.slack.com/apps/<app_id>/bots
-3.  Use the following URL to configure the scope and permissions of the application and bot:  https://api.slack.com/apps/<app_id>/oauth
+2.  Use the following URL to create a bot in the application you created:  `https://api.slack.com/apps/<app_id>/bots`
+3.  Use the following URL to configure the scope and permissions of the application and bot:  `https://api.slack.com/apps/<app_id>/oauth`
 The required [scope and permissions](https://api.slack.com/scopes) are:
 
 - app_mentions:read
@@ -73,7 +73,7 @@ The required [scope and permissions](https://api.slack.com/scopes) are:
 - chat:write.public
 - im:read
 - im:write
-4.  Use the following URL to obtain the Slack bot token and signing secret:  https://api.slack.com/apps/<app_id>/oauth
+4.  Use the following URL to obtain the Slack bot token and signing secret:  `https://api.slack.com/apps/<app_id>/oauth`
 
 ## Microsoft Teams
 
@@ -229,7 +229,7 @@ The output parameters from GET_MAIL are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| attachments | Array<content> | Optional | Reference to the attachments array (only for the parsed mode.) |
+| attachments | Array`<content>` | Optional | Reference to the attachments array (only for the parsed mode.) |
 | message | Content | Optional | Reference to the email body or a raw email file. |
 
 ## Twilio
@@ -251,8 +251,8 @@ The input parameters for receiving an SMS are:
 | Parameter | Description |
 | --- | --- |
 | condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
-| pattern | A regular expression that selects which messages trigger an action. Java catching group syntax can be used to create groups from the pattern as variables, for example: Order Number (?`<orderNumber>`.+) The variables can then be used in echo and echoError, for example: ${orderNumber} |
-| echo | A message sent to the original sender of the text that is matched, for example: Your reference number is ${orderNumber}. |
+| pattern | A regular expression that selects which messages trigger an action. Java catching group syntax can be used to create groups from the pattern as variables, for example: Order Number (?`<orderNumber>`.+) The variables can then be used in echo and echoError, for example: $`{orderNumber}` |
+| echo | A message sent to the original sender of the text that is matched, for example: Your reference number is $`{orderNumber}`. |
 | echoError | A message sent to the original sender if an error occurs when publishing the event, for example: There was a problem publishing that event. |
 
 Note: Groups found in matchGroups can be used within a trigger action variable using the syntax ${matchGroups.group}, for example: ${matchGroups.orderNumber}

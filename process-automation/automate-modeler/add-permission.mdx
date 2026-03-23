@@ -12,20 +12,4 @@ The payload for the action is:
 | Property | Required | Description |
 | --- | --- | --- |
 | content | Required | The content parameter holding the reference to a content, or the content object which the permissions are going to be added. If the received value contains multiple references to content objects, only the first of them will be used. |
-| permissions | Required | The permissions to be added to the users or groups. For example:  {
-    "permission": "Read",
-    "granted": true,
-    "group": {
-      "id": "1234567890",
-      "name": "hr"
-    }
-  },
-  {
-    "permission": "Read",
-    "granted": true,
-    "group": {
-      "id": "9876543210",
-      "name": "sales"
-    }
-  }
-] |
+| permissions | Required | The permissions to be added to the users or groups. For example: `[ { "permission": "Read", "granted": true, "group": { "id": "1234567890", "name": "hr" } }, { "permission": "Read", "granted": true, "group": { "id": "9876543210", "name": "sales" } } ]` |

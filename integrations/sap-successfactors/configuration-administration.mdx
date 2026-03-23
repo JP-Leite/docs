@@ -1,0 +1,407 @@
+---
+title: "Configuration & Administration"
+---
+
+## Adding An Identity Provider
+
+Use the Add Identity Provider wizard to add an external identity provider to your Content Innovation Cloud account.
+
+If your account requires custom attributes for user profiles, please contact your Hyland support representative. Custom user attributes must be added to your account before they can be mapped for an external identity provider.Note: When configuring an Identity Provider, you must enter specific preconfigured values. These values are generated when you create a new Entra ID application for SAP IAS. If you don’t have these values, use placeholder (dummy) values. Remember to replace the dummy values with the correct ones later. For more information on creating a new Entra ID application for SAP IAS, see Creating an Entra ID application for SAP IAS.
+To add an external identity provider:
+
+1.  Open the SuccessFactors.
+2.  Select the Identity tab below the application header. The Users page is displayed.
+3.  In the sidebar, click Identity Providers. The Identity Providers page is displayed.
+4.  Click Add Identity Provider in the upper-right corner of the page. The Add Identity Provider wizard is displayed.
+5.  On the Information page, enter the following information:
+
+| Setting | Description |
+| --- | --- |
+| Identity Provider Name | The friendly name for this identity provider. The Content Innovation Cloud sign-in page displays this value as an authentication option for users whose email domains are assigned to this identity provider. |
+| Entity ID | The globally unique SAML identifier of the identity provider. To obtain this, use the App Federation Metadata Url details available while creating a new Entra ID application. For more information, see Creating an Entra ID application for SAP IAS and Quickstart: Create and assign a user account chapter in the Application management documentation for Microsoft Entra ID |
+| Metadata URL | The URL from which SAML metadata will be collected.  SAML metadata must be provided through an internet-accessible URL. You cannot import the metadata as a file. To obtain this, use the App Federation Metadata Url details available while creating a new Entra ID application. For more information, see Creating an Entra ID application for SAP IAS and Quickstart: Create and assign a user account chapter in the Application management documentation for Microsoft Entra ID |
+| Minimum Assertion Signature Algorithm | The minimum signature algorithm allowed to process an assertion. Select RSA-SHA256. |
+
+6.  Click Next Step.
+7.  On the Bindings page, specify whether this identity provider should override the default binding for authentication requests or assertions.
+| Setting | Description |
+| --- | --- |
+| Override authentication request binding | Select to override the default binding for authentication requests. The default request binding is HTTP Redirect. |
+| Binding Type | Select Redirect. |
+| Override assertion binding | Select to request a specific binding for SAML assertions. |
+| Binding Type | Select Post. |
+
+8.  Click Next Step.
+9.  On the Claim Type Mapping page, enter the SAML attribute for each claim type.
+Only claim types marked with an asterisk are required.
+
+10. **Optional: ** Map custom user attributes as needed.  Note: Custom user attributes must be added to your Content Innovation Cloud account before they can be mapped. Contact your Hyland support representative if your account requires custom user attributes.
+1.  On the Claim Type Mapping page, select the Custom Attributes tab.
+2.  Click Map Custom Attribute. If this option is not available, then there are no custom user attributes available to map.
+3.  Select a custom user attribute from the Attribute drop-down list.
+4.  In the Source Claim Name field, enter the name of the attribute as specified in SAML assertions from this identity provider. This value is case sensitive.
+5.  Map additional custom user attributes as needed.
+11.  Click Next Step.
+12.  On the Email Domains page, specify the email domains allowed to authenticate using this identity provider.
+-
+Select one or more existing email domains to assign to this identity provider.
+
+-
+Click Add Email Domain to add a new email domain.
+
+After adding a domain, you can select it for this identity provider. For information about adding email domains, see the Adding an Email Domain chapter in the Content Innovation Cloud Administration Portal documentation.
+
+Users can authenticate using this identity provider only if their email domains match one of those selected.
+13.  Click Next Step.
+14.  On the Settings page, indicate whether this identity provider configuration should be enabled.
+-
+Choose Enabled to make the identity provider an available sign-in option as soon as the configuration is saved.
+
+-
+Choose Disabled if the identity provider should not yet be available to authenticate users for the Content Innovation Cloud.
+
+15.  Click Next Step.
+16.  Review the configuration settings you specified.
+17.  Click Add Identity Provider to complete the process. The new identity provider is added to the Identity Providers list, and a confirmation message is displayed.
+
+## Assigning The Successfactors Content User User Group To The Hxpr Member Role
+
+This section has information on how to use the Content Innovation Cloud Administration Portal application to assign the SuccessFactors Content User User Group to the HxPR Member Role.
+To assign the SuccessFactors Content User User Group to the HxPR Member Role:
+
+1.  Open the Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  From the left pane, click Applications.  Note: If the Hx account includes multiple environments, ensure the correct environment is selected from the left pane.  A list of applications is displayed on the right pane.
+4.  Click Hyland Experience Repository and then click User Rights.
+5.  Click Manage next to HxPR Member Role.
+6.  Do one of the following:
+- In the search box, enter  SuccessFactors Content User and select it.
+- From the list of User Groups under Unassigned, search for  SuccessFactors Content User and select it.
+7.  Click + next to  SuccessFactors Content User. The SuccessFactors Content User User Group is displayed under Assigned.
+8.  Click Save.
+
+## Assigning The Successfactors Content User User Group To The Successfactors Conte
+
+This section has information on how to use the Content Innovation Cloud Administration Portal application to assign the SuccessFactors Content User User Group to the SuccessFactors Content User Role.
+To assign the SuccessFactors Content User User Group to the SuccessFactors Content User Role:
+
+1.  Open the Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  From the left pane, click Applications.  Note: If the Hx account includes multiple environments, ensure the correct environment is selected from the left pane.  A list of applications is displayed on the right pane.
+4.  Click Hyland for SuccessFactors and then click User Rights.
+5.  Click Manage next to SuccessFactors Content User Role.
+6.  Do one of the following:
+- In the search box, enter SuccessFactors Content User and select it.
+- From the list of User Groups under Unassigned, search for SuccessFactors Content User and select it.
+7.  Click + next to SuccessFactors Content User. The SuccessFactors Content User User Group is displayed under Assigned.
+8.  Click Save.
+
+## Assigning The Successfactors Solution Administrator User Group To The Successfac
+
+This section has information on how to use the Content Innovation Cloud Administration Portal application to assign the SuccessFactors Solution Administrator User Group to the SuccessFactors Solution Administrator Role.
+To assign the SuccessFactors Solution Administrator User Group to the SuccessFactors Solution Administrator Role.
+
+1.  Open the Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  From the left pane, click Applications.  Note: If the Hx account includes multiple environments, ensure the correct environment is selected from the left pane.  A list of applications is displayed on the right pane.
+4.  Click Hyland for SuccessFactors and then click User Rights.
+5.  Click Manage next to SuccessFactors Solution Administrator Role.
+6.  Do one of the following:
+- In the search box, enter SuccessFactors Solution Administrator and select it.
+- From the list of User Groups under Unassigned, search for SuccessFactors Solution Administrator and select it.
+7.  Click + next to SuccessFactors Solution Administrator. The SuccessFactors Solution Administrator User Group is displayed under Assigned.
+
+## Assigning The Successfactors Solution Administrators User Group To The Hxpr Admi
+
+This section has information on how to use the Content Innovation Cloud Administration Portal application to assign the SuccessFactors Solution Administrators User Group to the HxPR Administrator Role.
+To assign the SuccessFactors Solution Administrators User Group to the HxPR Administrator Role:
+
+1.  Open the Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  From the left pane, click Applications.  Note: If the Hx account includes multiple environments, ensure the correct environment is selected from the left pane.  A list of applications is displayed on the right pane.
+4.  Click Hyland Experience Repository and then click User Rights.
+5.  Click Manage next to HxPR Administrator Role.
+6.  Do one of the following:
+- In the search box, enter SuccessFactors Solution Administrators and select it.
+- From the list of User Groups under Unassigned, search for SuccessFactors Solution Administrators and select it.
+7.  Click + next to SuccessFactors Solution Administrators. The SuccessFactors Solution Administrators User Group is displayed under Assigned.
+8.  Click Save.
+
+## Configuring Hyland For Sap Successfactors To Use The Corporate Identity Provider
+
+This section, intended for system administrators and SAP Administrator (in-house or Implementation Partner/Account Executive) , describes the steps to enable Hyland for SAP SuccessFactors use the Corporate Identity Provider.
+
+To configure Hyland for SAP SuccessFactors to use the Corporate Identity Provider:
+
+Note: Before you proceed, ensure that you have created a Corporate Identity Provider for Entra ID. If you have not created an Entra ID application, please complete the instructions under Creating a Corporate Identity Provider for Entra ID at SAP IAS.
+1.  Log on to the SAP Cloud Identity Services Admin Console.
+To obtain the required link to log on and credentials, please work with your SAP Administrator (in-house or Implementation Partner/Account Executive).
+
+The Cloud Identity Services page is displayed.
+2.  Select Applications & Resources | Applications | . The Applications page is displayed.
+3.  From the list of bundled applications, select the tenant created for the Hyland for SAP SuccessFactors application. The Conditional Authentication page is displayed.
+4.  Click Conditional Authentication. The Single Sign-On  page is displayed.
+5.  Click SAML 2.0 Configuration. The Conditional Authentication page is displayed.
+6.  From the Default Identity Provider drop-down list, select the Corporate Identity Provider you created.
+
+## Configuring Hyland Hx Ids As A Service Provider And Microsoft Entra Id As An Ide
+
+This section, intended for system administrators, provides an outline for the configurations needed to configure Hyland Hx IdS (Identity Authentication Service) as a Service Provider and Microsoft Entra ID as an Identity Provider.
+
+Configuring Hyland Hx IdS as a Service Provider and Microsoft Entra ID as an Identity Provider enables secure, centralized, and seamless access to SAP applications using Hyland’s identity management platform.
+
+For more information, see the Identity and Access Management chapter in the Content Innovation Cloud Administration Portal documentation and the Quickstart: Create and assign a user account chapter in the Application management documentation for Microsoft Entra ID
+
+See the following sections for specific instructions on these topics:
+
+-
+Adding an Identity Provider
+
+-
+Creating an Entra ID application for Hyland Hx IdS
+
+Note:
+- For additional information on synchronizing users between a third-party Identity Povider and Hyland Hx IdS, see the User Provisioning and Synchronization chapter in the Content Innovation Cloud Administration Portal documentation.
+- For additional information on deactivating users and archiving users, see the User Deactivation and the User Archiving chapters in the Content Innovation Cloud Administration Portal documentation.
+
+## Configuring Identity Setup
+
+This section, intended for system administrators, describes the steps to integrate the Hyland Hx IdS (Identity Service) with SAP Identity Authentication Service (IAS) using Microsft Entra ID that serves as a third-party Identity Provider. To enable communication among these three systems or components and facilitate users to log on using Single Sign-On (SSO), you must configure Hyland Hx IdS and SAP IAS as Service Providers and Microsoft Entra ID as an Identity Provider.
+
+Note: For more information on SAP IAS and Microsoft Entra ID, see the SAP Cloud Identity Services chapter in SAP's documentation and the  SAML/WS-Fed identity providers chapter in Microsoft's documentation on Entra ID, respectively.
+The following table describes the role of each component:
+
+| Component | Description |
+| --- | --- |
+| Hyland Hx IdS | This is used for authenticating Hyland Hx IdS users with necessary roles and access to Hyland content. |
+| SAP IAS | This is used for authenticating SAP SuccessFactors users. |
+| Microsoft Entra ID | This acts as a third-party identity provider (IdP) and checks user identities for both Hyland and SAP. It manages both Hyland Hx IdS and SAP IAS user logins, authenticates users, and enables using Single Sign-On (SSO) while users log on to Hyland for SAP SuccessFactors CIC. |
+
+See the following sections for more information on these topics:
+
+-
+Configuring SAP IAS as a Service Provider and Microsoft Entra ID as an Identity Provider
+
+-
+Configuring Hyland Hx IdS as a Service Provider and Micorosft Entra ID as an Identity Provider
+
+## Configuring Sap Ias As A Service Provider And Microsoft Entra Id As An Identity
+
+This section, intended for system administrators, provides an outline for the configurations needed to configure SAP IAS (Identity Authentication Service) as a Service Provider and Microsoft Entra ID as an Identity Provider.
+
+Configuring SAP IAS as a Service Provider and Microsoft Entra ID as an Identity Provider enables secure, centralized, and seamless access to SAP applications using Hyland’s identity management platform.
+
+For more information, see the Quickstart: Create and assign a user account chapter in the Application management documentation for Microsoft Entra ID.
+
+See the following sections for specific instructions on these topics:
+
+-
+Importing SuccessFactors users into SAP IAS
+
+-
+Creating an Entra ID application for SAP IAS
+
+-
+Creating a Corporate Identity Provider for Entra ID at SAP IAS
+
+## Configuring User Groups And Roles
+
+This section, intended for system administrators, describes the User Groups and Roles available for Hyland for SAP SuccessFactors and explains how to assign User Groups to Roles using the Hyland Content Innovation Cloud Administration Portal application.
+
+User Groups must be assigned to Roles so that they have the necessary roles or privileges to perform the tasks available in Hyland for SAP SuccessFactors.
+
+Ensure the following Roles and their corresponding User Groups are correctly configured for customers:
+
+| Role | User Group |
+| --- | --- |
+| HxPR Administrator | SuccessFactors Solution Administrator |
+| HxPR Member | SuccessFactors Content User |
+
+Hyland Experience Repository
+| Role | User Group |
+| --- | --- |
+| SuccessFactors Solution Administrator | SuccessFactors Solution Administrator |
+| SuccessFactors Content User | SuccessFactors Content User |
+
+Hyland for SAP SuccessFactors                  Note: For more information on Roles and User Groups, see the Roles and User Groups chapters in the Content Innovation Cloud Administration Portal documentation.
+See the following sections for specific instructions on these topics:
+
+-  Assigning the SuccessFactors Solution Administrator User Group to the HxPR Administrator Role
+-  Assigning the SuccessFactors Content User User Group to the HxPR Member Role
+-  Assigning the SuccessFactors Solution Administrator User Group to the SuccessFactors Solution Administrator Role
+-  Assigning the SuccessFactors Content User User Group to the SuccessFactors Content User Role
+
+## Creating A Corporate Identity Provider For Entra Id At Sap Ias
+
+This section, intended for system administrators and SAP Administrator (in-house or Implementation Partner/Account Executive) , describes the steps to create a Corporate Identity Provider for Entra ID at SAP IAS.
+
+To create a Corporate Identity Provider for Entra ID at SAP IAS:
+
+Note: Before you proceed, ensure that you have created an Entra ID application. If you have not created an Entra ID application, please complete the instructions under Creating an Entra ID application for SAP IAS.
+1.  Log on to the SAP Cloud Identity Services Admin Console.
+To obtain the required link to log on and credentials, please work with your SAP Administrator (in-house or Implementation Partner/Account Executive).
+
+The Cloud Identity Services page is displayed.
+2.  Select Identity Providers | Corporate Identity Providers. The Identity Providers page is displayed.
+3.  From the list or providers, locate the provider created for Hyland and click SAML 2.0 Configuration. The SAML 2.0 page is displayed.
+4.  To create a corporate Identity Provider for Entra ID, do one of the following:
+- In the Metadata URL field, enter the value of the App Federation Metadata Url configured while creating an Entra ID application for SAP IAS.
+- In the Metadata File field, select Browse and navigate to the location of the Federation Metadata XML file.
+Note: This is a file (with the extension.xml) that is generated while creating a new Entra ID application. For specific instructions on how to create a new Entra ID application and obtain this file, see Creating an Entra ID application for SAP IAS.
+
+## Creating A Custom Ui
+
+This section, intended for system administrators, contains information on how to use the Hyland Automate Modeler application to create a Custom UI.
+
+The Custom UI is required for the Content Viewer used for displaying documents captured using Hyland for SAP SuccessFactors CIC.
+
+To create a Custom UI:
+
+1.  Sign in to Hyland Automate Modeler and open the project you created.
+If you have not created a project yet, please complete the instructions under Creating a Project.
+
+2.  From the left pane, click the three dots next to UI and then select Create custom UI.  The Create Custom UI window is displayed.
+3.  In the Custom UI name field, type a name.
+4.  Optional: In the Custom UI description field, type a description.
+5.  Click the Upload button and select the .zip file that contains your Custom UI.
+To obtain this .zip file, contact your system administrator.
+
+## Creating A Mixin
+
+This section, intended for system administrators, contains information on how to create a mixin using the Hyland Automate Modeler application. Mixins allow you to define content types with shared properties.Note: For more information on creating a new mixin, see the Mixins chapter in the Hyland Automate Modeler documentation.
+To create a mixin:
+
+1.  Sign in to Hyland Automate Modeler and open the project you created.
+If you have not created a project yet, please complete the instructions under Creating a Project.
+
+2.  Do one of the following to create the mixin:
+- Click Create > Mixin.
+- Click the three dots next to the Mixins drop-down button in the left-hand pane, then select Create.
+The Create Mixin window is displayed.
+
+3.  In the Mixin name field, enter sufa-lob-mixin and click Create Mixin.
+The sufa-lob-mixin mixin is opened in the application as a new tab.
+
+4.  In the Schemas section, use the + icon to add the sufa-employee schema to your content type.
+For more information on schemas, see the Creating and Configuring Schemas chapter in the Hyland Automate Modeler documentation.
+
+5.  Once editing is done, use the Save Mixin cloud icon at the top bar to save it to the content type you created. A window reading Mixin saved is displayed at the bottom. The new mixin is created and saved.
+
+## Creating A Project
+
+This section, intended for system administrators, contains information on how to create a new project using the Hyland Automate Modeler application. All actions within Hyland Automate Modeler are done within a project. At least one project has to be created to start working.
+
+To create a project:
+
+1.  Sign in to Hyland Automate Modeler. An All Projects window is displayed.
+2.  To create a new, empty project, select Create Project.
+3.  Enter a Project name and an optional Project description.  Tip:
+You can use the Save as function to save a new copy of a project from the projects view screen or from the home screen. This is accessed by clicking the three dots and selecting Save as.
+
+## Creating A Schema
+
+This section, intended for system administrators, contains information on how to create a new schema using the Hyland Automate Modeler application. Schemas are required for defining content types. After creating a schema, you must add properties to it.Note: For more information on creating a new schema, see the Schemas chapter in the Hyland Automate Modeler documentation.
+To create a schema:
+
+1.  Sign in to Hyland Automate Modeler and open the project you created.
+If you have not created a project yet, please complete the instructions under Creating a Project.
+
+2.  Do one of the following to create the schema:
+- Click Create > Schema.
+- Click the three dots next to the Schemas drop-down button in the left-hand pane, then select Create.
+The Create Schema window is displayed.
+
+3.  In the Create Schema dialog box, enter the following:
+| Field | Description |
+| --- | --- |
+| Schema name | Enter sufa-employee. |
+| Prefix | Enter sufa.Note: This is added to all properties for the schema. |
+| Description | Enter a description for the schema. |
+
+The schema opens in a new tab. Once the schema is created, you can add its properties and sub-properties.
+4.  Select + button next to the sufa-employee drop-down menu. The Add Property dialog box is displayed.
+5.  In the Add Property dialog box, enter the following:
+| Field | Description |
+| --- | --- |
+| Name | Enter targetid. |
+| Type | From the drop-down, select String.Note: For detailed information on the available options for Type and their descriptions, see the Adding Schema Properties chapter in the Hyland Automate documentation. |
+| Description | Enter a description for the property you added. |
+
+6.  To validate the schema you added, click Validate Schema.
+7.  Click Save Schema.
+
+## Creating An Entra Id Application For Hyland Hx Ids
+
+This section, intended for system administrators and SAP Administrator (in-house or Implementation Partner/Account Executive) , describes the steps to create an Entra ID application for Hyland Hx IdS.
+
+To create an Entra ID application for Hyland Hx IdS:
+
+1.  Log on to the SAP Cloud Identity Services Admin Console.
+To obtain the required link to log on and credentials, please work with your SAP Administrator (in-house or Implementation Partner/Account Executive).
+
+The Cloud Identity Services page is displayed.
+2.  Select Applications & Resources | Tenant Settings | Single Sign-On | SAML 2.0 Configuration. The SAML 2.0 Configuration page is displayed. These settings are required while creating a new Entra ID application for SAP IAS.
+3.  Log on to the Entra ID portal with administrator privileges. The Home page is displayed.
+4.  Select Enterprise applications | New application . The Browse Microsoft Entra App  page is displayed.
+5.  Click Create your own application. The Create your own application page is displayed.
+6.  Enter a name for the new application, select Integrate any other application you don't find in the gallery (Non-gallery), and then click Create. The Overview page for the new application is displayed.
+7.  Under the Getting Started section, click Set up single sign on. The Single sign-on page is displayed.
+8.  Under Select a single sign-on method, select SAML. The Set up Single Sign-On with SAML page is displayed.
+9.  In the Basic SAML Configuration section, click Edit.  Note: For more information on configuring Identifier (Entity ID) and Reply URL (Assertion Consumer Service URL), see the Identity Providers and Metadata for SAML Identity Providers chapters in the Content Innovation Cloud Administration Portal documentation.
+
+## Creating An Entra Id Application For Sap Ias
+
+This section, intended for system administrators and SAP Administrator (in-house or Implementation Partner/Account Executive) , describes the steps to create an Entra ID application for SAP IAS.
+
+To create an Entra ID application for SAP IAS:
+
+1.  Log on to the SAP Cloud Identity Services Admin Console.
+To obtain the required link to log on and credentials, please work with your SAP Administrator (in-house or Implementation Partner/Account Executive).
+
+The Cloud Identity Services page is displayed.
+2.  Select Applications & Resources | Tenant Settings | Single Sign-On | SAML 2.0 Configuration. The SAML 2.0 Configuration page is displayed. These settings are required while creating a new Entra ID application for SAP IAS.
+3.  Log on to the Entra ID portal with administrator privileges. The Home page is displayed.
+4.  Select Enterprise applications | New application . The Browse Microsoft Entra App  page is displayed.
+5.  Click Create your own application. The Create your own application page is displayed.
+6.  Enter a name for the new application, select Integrate any other application you don't find in the gallery (Non-gallery), and then click Create. The Overview page for the new application is displayed.
+7.  Under the Getting Started section, click Set up single sign on. The Single sign-on page is displayed.
+8.  Under Select a single sign-on method, select SAML. The Set up Single Sign-On with SAML page is displayed.
+9.  In the Basic SAML Configuration section, click Edit.  Note: For more information on configuring Identifier (Entity ID) and Reply URL (Assertion Consumer Service URL), see the Identity Providers and Metadata for SAML Identity Providers chapters in the Content Innovation Cloud Administration Portal documentation.
+
+## Creating Content Types
+
+This section, intended for system administrators, has information on creating a new Content Type that define the content you can use with Hyland for SAP SuccessFactors. The Content Types you create define the properties for the different file types that you can capture using Hyland for SAP SuccessFactors and are supported by it.
+
+To create a new Content Type, you must use the Hyland Automate Modeler application and ensure a Schema and a Mixin is configured. You can use built-in Content Types to use default metadata and properties, or create custom Content Types using Schemas and Mixins to define properties as required. Note: Before configuring a Content Type, you must configure a Schema and a Mixin. If you have not configured these, please complete the instructions under Creating a Schema and Creating a Mixin.
+For more information on content types, see the Content Types chapter in the Hyland Automate Modeler documentation.
+
+To create the Content Type required for Hyland for SAP SuccessFactors:
+
+1.  Sign in to the Hyland Automate Modeler application and open the project you created.
+If you have not created a project yet, please complete the instructions under Creating a Project.
+
+2.  Do one of the following to create the content type:
+- Click Create > Content Type.
+- Click the three dots next to the Content Types drop-down menu in the left-hand pane, then select Create.
+The Create Content Type window is displayed.
+3.  In the Content Type name field, type a name for the newly created Content Type.
+4.  Optional: In the Content Type description field, type a description.
+5.  From the drop-down Parent Content Type field, select SysFile.
+This creates a Content Type that behaves like a file within Hyland for SAP SuccessFactors. The default selection is None, which means that no Content Type properties will be inherited by the newly created Content Type.
+
+The created Content Type is opened in the application as a new tab.
+6.  Repeat the steps for other Content Types.
+7.  Once editing is done, use the Save Content Type cloud icon at the top bar to save the created content type. A window reading Content Type saved is displayed at the bottom. The new content type is created and saved.
+8.  From the Schemas section, select the sufa-employee Schema and click + next to it.
+This associates the Schema with the Content Type you created.
+
+Note: If you have not created a Schema, please complete the instructions under Creating a Schema.  The selected schema is displayed under Selected Items.
+9.  From the Mixins section, select sufa-lob-mixin Mixin and click + next to it.
+This associates the Mixin with the Content Type you created.
+
+Note: If you have not created a Mixin, please complete the instructions under Creating a Mixin.
+10.  Repeat the steps to associate a Schema and Mixin with all the Content Types you created.
+11.  Click Validate Content Type. If the Content Type is valid, a confirmation message is displayed.
+12.  Click Save Content Type. If the save is successful, a confirmation message is displayed.
+13.  From the top-right, click Validate and then click Release. A confirmation dialog box is displayed.
+14.  In the dialog box, enter comments and then click Confirm. A confirmation message is displayed.

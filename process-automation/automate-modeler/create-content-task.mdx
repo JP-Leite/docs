@@ -12,7 +12,7 @@ The Create content input parameters are:
 | --- | --- | --- | --- |
 | contentType | JSON | Required | Specifies which of the defined content types in the repository to apply to the created content. This determines which schema properties the content will have. You can use both system and customized content types. |
 | name | string | Optional | Name of the content. |
-| permissions | Array<JSON> | Optional | Specifies the permissions that are granted or removed per user, group, or everyone within the application. The permissions can be defined via the UI within the Value tab. |
+| permissions | Array`<JSON>` | Optional | Specifies the permissions that are granted or removed per user, group, or everyone within the application. The permissions can be defined via the UI within the Value tab. |
 | targetContainer | content | Requires one | Container where the content object to be created is placed. The container receives a content type variable. This variable can be initialized from a content task such as FETCH_CONTENT, or by using a Content identifier or Content path in Studio Modeler. |
 
 The Create content output parameters are:

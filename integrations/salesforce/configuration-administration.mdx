@@ -1,0 +1,463 @@
+---
+title: "Configuration & Administration"
+---
+
+## Adding Components
+
+This sections explains how to add the components Document List View or hfsRecordDLPage and Document Capture or hfsCaptureApp.
+
+These components control the visibility of the Document List window and the Upload and Import window within Hyland for Salesforce. If these components are added to the page layout, the Document List window and the Upload and Import window are visible.
+
+See the following for specific instructions on these topics:
+
+-
+Adding the Document List View Component
+
+-
+Adding the Document Capture Component
+
+## Adding The Document Capture Component
+
+This sections explains how to add the Document Capture hfsCaptureApp component.
+
+You must add the Document Capture or hfsCaptureApp component to the record detail page of of the corresponding Salesforce object. This ensures users can view related documents in the context of the specific Salesforce object record.
+To add the Document Capture component:
+
+1.  Log on to Salesforce with your credentials. The Home page is displayed.
+2.  From the top-right, click Setup. The Home page is displayed in a new browser tab.
+3.  In the left pane, select Platform Tools | Objects and Fields | Object Manager.  The Object Manager page is displayed.
+4.  On the Object Manager page, navigate to the Salesforce object for which you created a mapping.
+5.  To edit the lightning record page for this Salesforce object, click Edit. The Lightning App Builder page is displayed.
+6.  From the left pane, scroll to Custom Components, select the hfsCaptureApp component and then drag it to the desired area on the Salesforce record detail page.
+7.  In the Height(in pixels) box, enter 750.
+8.  Click Save.
+
+## Adding The Document List View Component
+
+This sections explains how to add the Document List View or hfsRecordDLPage component.
+
+You must add the Document List View component (hfsRecordDLPage) to the record detail page of the corresponding Salesforce object. This ensures users can view related documents in the context of the specific Salesforce object record.
+To add the Document List View component:
+
+1.  Log on to Salesforce with your credentials. The Home page is displayed.
+2.  From the top-right, click Setup. The Home page is displayed in a new browser tab.
+3.  In the left pane, select Platform Tools | Objects and Fields | Object Manager.  The Object Manager page is displayed.
+4.  On the Object Manager page, navigate to the Salesforce object for which you created a mapping.
+5.  To edit the lightning record page for this Salesforce object, click Edit. The Lightning App Builder page is displayed.
+6.  From the left pane, scroll to Custom Components, select the hfsRecordDLPage component and then drag it to the desired area on the Salesforce record detail page.
+7.  In the Height(in pixels) box, enter 750.
+8.  Click Save.
+
+## Assigning Permission Sets
+
+This section explains how to assign the permission sets to users according to their role or function. These permissions sets include the Hyland For Salesforce External Credential Principal Access, Hyland For Salesforce Users, and Hyland For Salesforce Admin Users.
+
+Note: The Hyland For Salesforce Users and Hyland For Salesforce Admin Users permission sets do not need to be manually created, as they are predefined (hardcoded) within the Hyland for Salesforce.
+To enable access and configuration capabilities in Hyland for Salesforce, ensure the following permissions sets are assigned to the correct roles:
+
+| Permission Set | Role |
+| --- | --- |
+| Hyland For Salesforce External Credential Principal Access | Users who need to view and capture documents using Hyland for Salesforce. |
+| Salesforce Administrators or system administrators who need to access and configure the Application Configurations and Solution Configurations sections within Hyland for Salesforce. |
+| Hyland For Salesforce Users | Users who need to view and capture documents using Hyland for Salesforce. |
+| Hyland For Salesforce Admin Users | Salesforce Administrators or system administrators who need to access and configure the Application Configurations and Solution Configurations sections within Hyland for Salesforce. |
+
+See the following sections for more information on these topics:
+
+-
+Assigning the Hyland For Salesforce External Credential Principal Access Permission Set
+
+-
+Assigning the Hyland For Salesforce Users Permission Set
+
+-
+Assigning the Hyland For Salesforce Admin Users Permission Set
+
+## Assigning The Hyland For Salesforce Admin Users Permission Set
+
+This section explains how to assign the Hyland For Salesforce Admin Users permission set to users according to their role or function.
+
+To ensure proper access and functionality in Hyland for Salesforce, assign the Hyland For Salesforce Admin Users permission set to Salesforce administrators or system administrators who need to access and configure the Application Configurations and Solution Configurations sections within Hyland for Salesforce. This permission set does not need to be manually created, as it is predefined (hardcoded) within Hyland for Salesforce.
+To assign the Hyland For Salesforce Admin Users permission set:
+
+1.  Log on to Salesforce with your credentials. The Home page is displayed.
+2.  From the top-right, click Setup. The Home page is displayed in a new browser tab.
+3.  In the Quick Find box, type Permission Sets and then click Permission Sets from the search results displayed on the left. The Permission Sets page is displayed.
+4.  Locate Hyland For Salesforce Admin Users and click it. The Hyland For Salesforce Admin Users page is displayed.
+5.  Click Manage Assignments. The Current Assignments page is displayed.
+6.  Click Add Assignment. The Select Users to Assign page is displayed.
+7.  Select one or more check boxes to the left of each user's name and click Next. The Selected Users page is displayed.
+8.  On the Selected Users page, click Assign. If the permission is assigned successfully, a confirmation message is displayed. Else, a failure message is displayed.
+9.  Click Done. The Hyland For Salesforce Admin Users Current Assignments page is displayed.
+
+## Assigning The Hyland For Salesforce External Credential Principal Access Permiss
+
+This section explains how to assign the Hyland For Salesforce External Credential Principal Access Permission Set permission sets to users according to their role or function.
+
+To ensure proper access and functionality in Hyland for Salesforce, assign the Hyland For Salesforce External Credential Principal Access permission set to:
+-
+Users who need to view and capture documents
+
+-
+Salesforce Administrators or System Administrators who need to access and configure the Application Configurations and Solution Configurations sections
+
+This permission set is required for both roles to perform their respective tasks within the Hyland for Salesforce.
+
+To assign the Hyland For Salesforce External Credential Principal Access Permission Set:
+
+1.  Log on to Salesforce with your credentials. The Home page is displayed.
+2.  From the top-right, click Setup. The Home page is displayed in a new browser tab.
+3.  In the Quick Find box, type Permission Sets and then click Permission Sets from the search results displayed on the left. The Permission Sets page is displayed.
+4.  Locate Hyland For Salesforce External Credential Principal Access and click it. The Hyland For Salesforce External Credential Principal Access page is displayed.
+5.  Click Manage Assignments. The Current Assignments page is displayed.
+6.  Click Add Assignment. The Select Users to Assign page is displayed.
+7.  Select one or more check boxes to the left of each user's name and click Next. The Selected Users page is displayed.
+8.  On the Selected Users page, click Assign. If the permission was successfully assigned, a confirmation message is displayed. Else, a failure message is displayed.
+9.  Click Done. The Hyland For Salesforce External Credential Principal Access Current Assignments is displayed.
+
+## Assigning The Hyland For Salesforce Users Permission Set
+
+This section explains how to assign the Hyland For Salesforce Users permission set to users according to their role or function.
+
+To ensure proper access and functionality in Hyland for Salesforce, assign the Hyland For Salesforce Users permission set to users who need to view and capture documents using Hyland for Salesforce. This permission set does not need to be manually created, as it is predefined (hardcoded) within the Hyland for Salesforce.
+To assign the Hyland For Salesforce Users permission set:
+
+1.  Log on to Salesforce with your credentials. The Home page is displayed.
+2.  From the top-right, click Setup. The Home page is displayed in a new browser tab.
+3.  In the Quick Find box, type Permission Sets and then click Permission Sets from the search results displayed on the left. The Permission Sets page is displayed.
+4.  Locate Hyland For Salesforce Users and click it. The Hyland For Salesforce Users page is displayed.
+5.  Click Manage Assignments. The Current Assignments page is displayed.
+6.  Click Add Assignment. The Select Users to Assign page is displayed.
+7.  Select one or more check boxes to the left of each user's name and click Next. The Selected Users page is displayed.
+8.  On the Selected Users page, click Assign. If the permission is assigned successfully, a confirmation message is displayed. Else, a failure message is displayed.
+9.  Click Done. The Hyland For Salesforce Users Current Assignments page is displayed.
+
+## Assigning The Salesforce Content User User Group To The Salesforce Content User
+
+This section has information on how to use the Content Innovation Cloud Administration Portal application to assign the Salesforce Content User User Group to the Salesforce Content User Role.
+To assign the Salesforce Content User User Group to the Salesforce Content User Role:
+
+1.  Open the Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  From the left pane, click Applications.  Note: If the Hx account includes multiple environments, ensure the correct environment is selected from the left pane.  A list of applications is displayed on the right pane.
+4.  Click Hyland for Salesforce and then click User Rights.
+5.  Click Manage next to Salesforce Content User Role.
+6.  Do one of the following:
+- In the search box, enter Salesforce Content User and select it.
+- From the list of User Groups under Unassigned, search for Salesforce Content User and select it.
+7.  Click + next to Salesforce Content User. The Salesforce Content User User Group is displayed under Assigned.
+8.  Click Save.
+
+## Assigning The Salesforce Solution Administrators User Group To The Hxpr Administ
+
+This section has information on how to use the Content Innovation Cloud Administration Portal application to assign the Salesforce Solution Administrators User Group to the HxPR Administrator Role.
+To assign the Salesforce Solution Administrators User Group to the HxPR Administrator Role:
+
+1.  Open the Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  From the left pane, click Applications.  Note: If the Hx account includes multiple environments, ensure the correct environment is selected from the left pane.  A list of applications is displayed on the right pane.
+4.  Click Hyland Experience Repository and then click User Rights.
+5.  Click Manage next to HxPR Administrator Role.
+6.  Do one of the following:
+- In the search box, enter Salesforce Solution Administrators and select it.
+- From the list of User Groups under Unassigned, search for Salesforce Solution Administrators and select it.
+7.  Click + next to Salesforce Solution Administrators. The Salesforce Solution Administrators User Group is displayed under Assigned.
+8.  Click Save.
+
+## Assigning The Salesforce Solution Administrators User Group To The Salesforce So
+
+This section has information on how to use the Content Innovation Cloud Administration Portal application to assign the Salesforce Solution Administrators User Group to the Salesforce Solution Administrator Role.
+To assign the Salesforce Solution Administrators User Group to the Salesforce Solution Administrator Role.
+
+1.  Open the Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  From the left pane, click Applications.  Note: If the Hx account includes multiple environments, ensure the correct environment is selected from the left pane.  A list of applications is displayed on the right pane.
+4.  Click Hyland for Salesforce and then click User Rights.
+5.  Click Manage next to Salesforce Solution Administrator Role.
+6.  Do one of the following:
+- In the search box, enter Salesforce Solution Administrators and select it.
+- From the list of User Groups under Unassigned, search for Salesforce Solution Administrators and select it.
+7.  Click + next to Salesforce Solution Administrators. The Salesforce Solution Administrators User Group is displayed under Assigned.
+
+## Assigning The Salesforce Solution Content User User Group To The Hxpr Member Rol
+
+This section has information on how to use the Content Innovation Cloud Administration Portal application to assign the Salesforce Content User User Group to the HxPR Member Role.
+To assign the Salesforce Content User User Group to the HxPR Member Role:
+
+1.  Open the Administration Portal.
+2.  Select the Account tab under the banner. The Account Details page is displayed.
+3.  From the left pane, click Applications.  Note: If the Hx account includes multiple environments, ensure the correct environment is selected from the left pane.  A list of applications is displayed on the right pane.
+4.  Click Hyland Experience Repository and then click User Rights.
+5.  Click Manage next to HxPR Member Role.
+6.  Do one of the following:
+- In the search box, enter Salesforce Content User and select it.
+- From the list of User Groups under Unassigned, search for Salesforce Content User and select it.
+7.  Click + next to Salesforce Content User. The Salesforce Content User User Group is displayed under Assigned.
+8.  Click Save.
+
+## Configuring Additional Configurations
+
+This section has information on how to configure the Hyland for Salesforce application to record logs using the Application Configurations tab.
+
+To enable recording logs for debugging issues while using the application, navigate to the Additional Configurations tab and click the toggle button next to Enable Client Logging.
+
+If this is enabled, logs are recorded and stored which can be retrieved later for debugging.
+
+## Configuring Authentication Settings In Salesforce
+
+This section has information on how to configure an External Auth Identity Provider in Salesforce by using the Application ID and Client Secret obtained while registering Hyland for Salesforce as an external web server application. This configuration enables Hyland for Salesforce to integrate with the Hyland Content Innovation Cloud.
+
+Note: Before you proceed, you must have the Application ID and Client Secret and complete the instructions described under Registering Hyland for Salesforce as an External Application.
+To configure an External Auth Identity Provider in Salesforce:
+
+1.  Log on to Salesforce with your credentials. The Home page is displayed.
+2.  From the top-right, click Setup. The Home page is displayed in a new browser tab.
+3.  In the Quick Find box, type Named Credentials and then click Named Credentials from the search results displayed on the left. The Named Credentials page is displayed.
+4.  Click the External Auth Identity Providers tab and then click HylandIAM. The HylandIAM page is displayed.
+5.  From the top-right, click Edit. The Edit HylandIAM popup is displayed.
+6.  In the Client ID field, enter the value for Application ID you obtained while registering Hyland for Salesforce as an External Application.  Note: For instructions on obtaining the Application ID, see Registering Hyland for Salesforce as an External Application.
+7.  In the Client Secret field, enter the value for Client Secret you obtained while registering Hyland for Salesforce as an External Application.  Note: For instructions on obtaining the Client Secret, see Registering Hyland for Salesforce as an External Application.
+8.  Click Save. A confirmation message is displayed if the changes are successfully saved and the HylandIAM page is displayed.
+
+## Configuring The Application Configurations
+
+This section has information on configuring various settings and values related to Hyland for Salesforce that determine how the application works.
+
+These settings can be configured from the pages available under Application Configurations. These pages include the System Settings, User Group Mappings, and Additional Configurations. Before you can use Hyland for Salesforce, you must configure the settings and provide values as required from these pages.
+
+See the following sections for specific instructions on these topics:
+
+-  Configuring the System Settings
+-  Configuring the User Group Mappings
+-  Configuring the Additional Configurations
+
+## Configuring The Solution Configurations
+
+This section has information on how to configure Salesforce objects to Content Types through the Solution Configurations section within Hyland for Salesforce.
+
+As a system administrator, you can configure different standard and custom Salesforce objects and associate them with Content Types you created. These objects are needed to capture supported files and store them as documents to the Hyland Content Innovation Cloud. You can also create configurations to view captured documents.
+
+Before proceeding to make configuration changes, ensure you complete the settings under the Application Configurations tab. For detailed instructions, see Configuring the Application Configurations.
+
+See the following sections for more information on these topics:
+
+-
+Creating a New Mapping
+
+-  Creating a New Column Configuration
+
+## Configuring The System Settings
+
+This section has information on how to configure the system settings for the Hyland for Salesforce application using the Application Configurations tab.
+
+To configure the system settings:
+
+1.  Open a web browser and log on to the Salesforce environment with your credentials. The Home page is displayed.
+2.  From the top-right of the Home page, click the App Launcher button.   ![App Launcher button](data:image/gif;base64,R0lGODlhJgAjAHcAACH5BAEAAAAALAAAAAAmACMAh/8A/wcHByoqKi0tLS8vL2dnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHZ2dnd3d3l5eXp6ent7e319fX9/f4CAgIGBgYKCgoWFhYmJiYqKio2NjZCQkJGRkZOTk5SUlJaWlpiYmJmZmZqampubm56enp+fn6CgoKGhoaOjo6Wlpampqaurq66urq+vr7GxsbS0tLi4uLm5ubq6ury8vL29vb6+vsHBwcPDw8TExMfHx8jIyMnJycrKysvLy9HR0dLS0tPT09vb29zc3N3d3d7e3t/f3+Dg4OLi4uPj4+Tk5Obm5ufn5+jo6Onp6erq6uvr6+zs7O3t7fHx8fPz8/T09PX19fb29vj4+Pn5+fr6+vv7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AAMIGEiwoMGDCBMGIECmocOHECNKnEhgwMSLGC8OsJixY8eNEb84SVIl4hQkT8JAxKJkyRaJIB9miTFhQQchYxqK6cFBQQUaXBweCcHgAQooEWM6zMHAQYQEG5w0PHJhgQQHD3w01DICQQQICVyAgai0IQkFEtIe+NEwx4G0EhCoaPjkQYS0DzBoIcvRYQm0aREAabgDAdwELOh+Tesgw8uHZcnwcNAAbAekZJZkUBChQYQgDbmYSAABggIYKiH3DV0DAwQQRRyOGeLhgQYcXhw2ORGBggsrSVfrtCIlS0QsUa7kfMhFCpXcwT1K1yh8uvXIZJTEWKEDy8MrN1T+zJDq0AuQFi+IiIn+EEmHBAgYuHiMJQUDBAo+kBdjIwKCBBUMxhdELygAwVURGNGQEFhJYJoMDVWRAQNpLQBCFwM+JAJgEhSgFRk4GAAXAik01AQDd0nwgAXGqUaggQgqSAaDDzioAIRkSEihBBZi6GJ778U3X0P13Zfffv39FyB7D2nHnXcOgSceeQ2Zh556TFqnJXZaeoSdGMS1+BByykHU3HMwCcdFa6/F1tBstd0GHRm79fZblpJRZhlmTGzW2WehjVbaaak5FNlfIwpY2GGJkfHEYlc5lqFDZ8G1VltvBTaXo3bhpdekbTX1VFRTVXVVVlt19VVYY/3o0EwwNd203E49/RTUVEQZhZmrDolEkkkoFUpkS4+B2qV0XB6L0QAMKTsdAQIlJO20CgUEADs=)   The App Launcher drop-down menu is displayed.
+3.  In the App Launcher search box, enter Application Configuration. The search results are displayed.
+4.  Click Application Configurations from the search results. The Application Configurations login page is displayed.
+5.  Log on to the Hyland for Salesforce application if you aren't authenticated already. The Application Configurations page is displayed.
+6.  Configure the following options:
+
+| Option | Description |
+| --- | --- |
+| Page Size | Enter a value ranging from 10 to 500. This determines the number of documents displayed on a single page. |
+| Viewer URL | Enter the URL for the document viewer. The document viewer allows users to open and view one or more captured documents in a new browser tab.To obtain this URL, complete the instructions under Obtaining the Viewer URL. |
+| Maximum file size | Enter a value ranging from 0 to 5000. This specifies the maximum size (in MB) of a supported file that can be captured. |
+
+7.  Next to File types, select the file types that you want to capture. Only the file types that you select can be captured using Hyland for Salesforce.
+1.  Under the Available list, select one or more file types and click >.  Tip: Click Ctrl to select mutiple file types.  The selected file types are displayed under Selected.
+8.  Review the information and then from the top-right, click Save.
+
+## Configuring The User Group Mappings
+
+This section describes how to assign permissions for members of existing User Groups.
+
+You must configure User Roles for each User Group to ensure members of User Groups have the necessary permissions. These permissions include the ability to view and capture supported files and configure settings related to these tasks from the Hyland for Salesforce application.
+To configure User Group Mappings:
+
+1.  Open a web browser and log on to the Salesforce environment with your credentials. The Home page is displayed.
+2.  From the top-right of the Home page, click the App Launcher button.   ![](data:image/gif;base64,R0lGODlhJgAjAHcAACH5BAEAAAAALAAAAAAmACMAh/8A/wcHByoqKi0tLS8vL2dnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHZ2dnd3d3l5eXp6ent7e319fX9/f4CAgIGBgYKCgoWFhYmJiYqKio2NjZCQkJGRkZOTk5SUlJaWlpiYmJmZmZqampubm56enp+fn6CgoKGhoaOjo6Wlpampqaurq66urq+vr7GxsbS0tLi4uLm5ubq6ury8vL29vb6+vsHBwcPDw8TExMfHx8jIyMnJycrKysvLy9HR0dLS0tPT09vb29zc3N3d3d7e3t/f3+Dg4OLi4uPj4+Tk5Obm5ufn5+jo6Onp6erq6uvr6+zs7O3t7fHx8fPz8/T09PX19fb29vj4+Pn5+fr6+vv7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AAMIGEiwoMGDCBMGIECmocOHECNKnEhgwMSLGC8OsJixY8eNEb84SVIl4hQkT8JAxKJkyRaJIB9miTFhQQchYxqK6cFBQQUaXBweCcHgAQooEWM6zMHAQYQEG5w0PHJhgQQHD3w01DICQQQICVyAgai0IQkFEtIe+NEwx4G0EhCoaPjkQYS0DzBoIcvRYQm0aREAabgDAdwELOh+Tesgw8uHZcnwcNAAbAekZJZkUBChQYQgDbmYSAABggIYKiH3DV0DAwQQRRyOGeLhgQYcXhw2ORGBggsrSVfrtCIlS0QsUa7kfMhFCpXcwT1K1yh8uvXIZJTEWKEDy8MrN1T+zJDq0AuQFi+IiIn+EEmHBAgYuHiMJQUDBAo+kBdjIwKCBBUMxhdELygAwVURGNGQEFhJYJoMDVWRAQNpLQBCFwM+JAJgEhSgFRk4GAAXAik01AQDd0nwgAXGqUaggQgqSAaDDzioAIRkSEihBBZi6GJ778U3X0P13Zfffv39FyB7D2nHnXcOgSceeQ2Zh556TFqnJXZaeoSdGMS1+BByykHU3HMwCcdFa6/F1tBstd0GHRm79fZblpJRZhlmTGzW2WehjVbaaak5FNlfIwpY2GGJkfHEYlc5lqFDZ8G1VltvBTaXo3bhpdekbTX1VFRTVXVVVlt19VVYY/3o0EwwNd203E49/RTUVEQZhZmrDolEkkkoFUpkS4+B2qV0XB6L0QAMKTsdAQIlJO20CgUEADs=) ![App Launcher button]()   The App Launcher drop-down menu is displayed.
+3.  In the App Launcher search box, enter Application Configuration. The search results are displayed.
+4.  Click Application Configurations from the search results. The Application Configurations login page is displayed.
+5.  Log on to the Hyland for Salesforce application if you aren't authenticated already. The Application Configuration page is displayed.
+6.  In the User Group Name field, enter one of the following:
+-
+Salesforce Content User
+
+-
+Salesforce Solution Administrator
+
+Note: Verify that Roles and their associated User Groups are properly configured using the Hyland Content Innovation Cloud Administration Portal application. If they are not configured yet, contact your solution provider and complete the instructions under Configuring User Groups and Roles.
+7.  From the User Role Name drop-down list, select one of the following options:
+| Option | Description |
+| --- | --- |
+| Content User | Assigning this Role to the selected User Group allows members to view, capture, and add metadata to supported files using Hyland for Salesforce. |
+| Solution Admin | Assigning this Role to the selected User Group grants members access to the Solution Configurations and Application Configurations sections within Hyland for Salesforce, allowing them to manage configuration settings. |
+
+8.  Review the information and then from the top-right, click Save.
+
+## Configuring User Groups And Roles
+
+This section, intended for system administrators, describes the User Groups and Roles available for Hyland for Salesforce and explains how to assign User Groups to Roles using the Hyland Content Innovation Cloud Administration Portal application.
+
+User Groups must be assigned to Roles so that they have the necessary roles or privileges to perform the tasks available in Hyland for Salesforce.
+
+Ensure the following Roles and their corresponding User Groups are correctly configured for customers:
+
+| Role | User Group |
+| --- | --- |
+| HxPR Administrator | Salesforce Solution Administrators |
+| HxPR Member | Salesforce Content User |
+
+Hyland Experience Repository
+| Role | User Group |
+| --- | --- |
+| Salesforce Solution Administrator | Salesforce Solution Administrators |
+| Salesforce Content User | Salesforce Content User |
+
+Hyland for Salesforce                  Note: For more information on Roles and User Groups, see the Roles and User Groups chapters in the Content Innovation Cloud Administration Portal documentation.
+See the following sections for specific instructions on these topics:
+
+-
+Assigning the Salesforce Solution Administrators User Group to the HxPR Administrator Role
+
+-
+Assigning the Salesforce Solution Content User User Group to the HxPR Member Role
+
+-
+Assigning the Salesforce Solution Administrators User Group to the Salesforce Solution Administrator Role
+
+-
+Assigning the Salesforce Content User User Group to the Salesforce Content User Role
+
+## Creating A New Column Configuration
+
+This section explains how to configure the column names and columns that are displayed in the Document List window. The Document List window displays a list of supported files captured using Hyland for Salesforce and added as documents.
+To create a new column configuration:
+
+1.  Open a web browser and log on to the Salesforce environment with your credentials. The Home page is displayed.
+2.  From the top-right of the Home page, click the App Launcher button.   ![App Launcher button](data:image/gif;base64,R0lGODlhJgAjAHcAACH5BAEAAAAALAAAAAAmACMAh/8A/wcHByoqKi0tLS8vL2dnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHZ2dnd3d3l5eXp6ent7e319fX9/f4CAgIGBgYKCgoWFhYmJiYqKio2NjZCQkJGRkZOTk5SUlJaWlpiYmJmZmZqampubm56enp+fn6CgoKGhoaOjo6Wlpampqaurq66urq+vr7GxsbS0tLi4uLm5ubq6ury8vL29vb6+vsHBwcPDw8TExMfHx8jIyMnJycrKysvLy9HR0dLS0tPT09vb29zc3N3d3d7e3t/f3+Dg4OLi4uPj4+Tk5Obm5ufn5+jo6Onp6erq6uvr6+zs7O3t7fHx8fPz8/T09PX19fb29vj4+Pn5+fr6+vv7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AAMIGEiwoMGDCBMGIECmocOHECNKnEhgwMSLGC8OsJixY8eNEb84SVIl4hQkT8JAxKJkyRaJIB9miTFhQQchYxqK6cFBQQUaXBweCcHgAQooEWM6zMHAQYQEG5w0PHJhgQQHD3w01DICQQQICVyAgai0IQkFEtIe+NEwx4G0EhCoaPjkQYS0DzBoIcvRYQm0aREAabgDAdwELOh+Tesgw8uHZcnwcNAAbAekZJZkUBChQYQgDbmYSAABggIYKiH3DV0DAwQQRRyOGeLhgQYcXhw2ORGBggsrSVfrtCIlS0QsUa7kfMhFCpXcwT1K1yh8uvXIZJTEWKEDy8MrN1T+zJDq0AuQFi+IiIn+EEmHBAgYuHiMJQUDBAo+kBdjIwKCBBUMxhdELygAwVURGNGQEFhJYJoMDVWRAQNpLQBCFwM+JAJgEhSgFRk4GAAXAik01AQDd0nwgAXGqUaggQgqSAaDDzioAIRkSEihBBZi6GJ778U3X0P13Zfffv39FyB7D2nHnXcOgSceeQ2Zh556TFqnJXZaeoSdGMS1+BByykHU3HMwCcdFa6/F1tBstd0GHRm79fZblpJRZhlmTGzW2WehjVbaaak5FNlfIwpY2GGJkfHEYlc5lqFDZ8G1VltvBTaXo3bhpdekbTX1VFRTVXVVVlt19VVYY/3o0EwwNd203E49/RTUVEQZhZmrDolEkkkoFUpkS4+B2qV0XB6L0QAMKTsdAQIlJO20CgUEADs=)   The App Launcher drop-down menu is displayed.
+3.  In the App Launcher search box, enter Solution Configuration. The search results are displayed.
+4.  Click Solution Configurations from the search results. The Solution Configurations login page is displayed.
+5.  Log on to the Hyland for Salesforce application if you aren't authenticated already. The Solution Configurations page is displayed.
+6.  From the left hand-pane, under Mappings, select an object and then select the Column Configuration tab.
+7.  From the Select Content Type drop-down list, select a Content Type. The selected Content Type is associated with the Salesforce object.
+8.  Under the Available Columns list, select one or more column names and then select >.  Tip: Press Ctrl to select multiple column names.   Note: The Available Columns list is updated based on the Content Type selected.  The selected column names are displayed under the Displayed Columns list.
+For example, if you choose to display Address and Purchase Date in the Document List window, only these columns are displayed. All captured files shown in Document List window show the values associated with these properties.
+
+9.  From the top-right, click Update. A confirmation message is displayed. The columns and column names for a Content Type and dislayed in the Document List window are saved.
+
+## Creating A New Mapping
+
+This section explains how to create a new mapping that allows system administrators to configure standard or custom Salesforce objects. These objects can be linked to one or more Content Types and associated Keywords, which uniquely identify each Content Type.
+
+To create a new mapping:
+
+1.  Open a web browser and log on to the Salesforce environment with your credentials. The Home page is displayed.
+2.  From the top-right of the Home page, click the App Launcher button.   ![](data:image/gif;base64,R0lGODlhJgAjAHcAACH5BAEAAAAALAAAAAAmACMAh/8A/wcHByoqKi0tLS8vL2dnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHZ2dnd3d3l5eXp6ent7e319fX9/f4CAgIGBgYKCgoWFhYmJiYqKio2NjZCQkJGRkZOTk5SUlJaWlpiYmJmZmZqampubm56enp+fn6CgoKGhoaOjo6Wlpampqaurq66urq+vr7GxsbS0tLi4uLm5ubq6ury8vL29vb6+vsHBwcPDw8TExMfHx8jIyMnJycrKysvLy9HR0dLS0tPT09vb29zc3N3d3d7e3t/f3+Dg4OLi4uPj4+Tk5Obm5ufn5+jo6Onp6erq6uvr6+zs7O3t7fHx8fPz8/T09PX19fb29vj4+Pn5+fr6+vv7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AAMIGEiwoMGDCBMGIECmocOHECNKnEhgwMSLGC8OsJixY8eNEb84SVIl4hQkT8JAxKJkyRaJIB9miTFhQQchYxqK6cFBQQUaXBweCcHgAQooEWM6zMHAQYQEG5w0PHJhgQQHD3w01DICQQQICVyAgai0IQkFEtIe+NEwx4G0EhCoaPjkQYS0DzBoIcvRYQm0aREAabgDAdwELOh+Tesgw8uHZcnwcNAAbAekZJZkUBChQYQgDbmYSAABggIYKiH3DV0DAwQQRRyOGeLhgQYcXhw2ORGBggsrSVfrtCIlS0QsUa7kfMhFCpXcwT1K1yh8uvXIZJTEWKEDy8MrN1T+zJDq0AuQFi+IiIn+EEmHBAgYuHiMJQUDBAo+kBdjIwKCBBUMxhdELygAwVURGNGQEFhJYJoMDVWRAQNpLQBCFwM+JAJgEhSgFRk4GAAXAik01AQDd0nwgAXGqUaggQgqSAaDDzioAIRkSEihBBZi6GJ778U3X0P13Zfffv39FyB7D2nHnXcOgSceeQ2Zh556TFqnJXZaeoSdGMS1+BByykHU3HMwCcdFa6/F1tBstd0GHRm79fZblpJRZhlmTGzW2WehjVbaaak5FNlfIwpY2GGJkfHEYlc5lqFDZ8G1VltvBTaXo3bhpdekbTX1VFRTVXVVVlt19VVYY/3o0EwwNd203E49/RTUVEQZhZmrDolEkkkoFUpkS4+B2qV0XB6L0QAMKTsdAQIlJO20CgUEADs=) ![App Launcher button]()   The App Launcher drop-down menu is displayed.
+3.  In the App Launcher search box, enter Solution Configuration. The search results are displayed.
+4.  Click Solution Configurations from the search results. The Solution Configurations login page is displayed.
+5.  Log on to the Hyland for Salesforce application if you aren't authenticated already. The Solution Configurations page is displayed.
+6.  From the left hand-pane, under Mappings, select an object and then select Mapping.  Note: Typically, a list of standard and custom Salesforce objects are displayed under Mappings. To add one or more objects before creating a new mapping, click Create from the top-right corner and then select an option from the Select Object drop-down list.
+7.  From the Select Content Type drop-down list, select a Content Type. The selected Content Type is associated with the Salesforce object.
+8.  From the Select Keyword drop-down list, select a property that you want to associate with the Content Type.  Note: Keywords that are already configured are displayed under Configurations.
+9.  Click Add Field. The select property is displayed under Property and enables you to configure settings for the property.
+10.  From the Input Source drop-down list, select one of the following options:
+
+| Option | Description |
+| --- | --- |
+| Salesforce Field | Allows you to choose a Salesforce field as your input, and its value is automatically used as the property value. |
+| Literal | Allows you to enter a property value based on the data type. This value is captured as part of the metadata used for identifying a captured file. For example, if the data type is Purchase Date, you can enter a date as the property value. |
+| User Name | Automatically uses the Salesforce User's Name as the property value while capturing documents. No user input is necessary. |
+| File Name | Automatically uses the file name of a captured file as the property value. No user input is necessary. For example, if you captured a file named Example.docx, this file name is used as the property value automatically. |
+| File Type | Automatically uses the file type of a captured file as the property value. No user input is necessary. For example, if you captured a file with the extension .jpg, this file type is used as property value automatically. |
+| Manual Entry | Allows you to enter a property value as required while capturing supported files. For example, you can enter an address as the property value if you selected this. |
+
+11.  From the Value field, enter a property value.
+You can specify property values in the Value field based on the type of Input Source. For instance, if the Input Source selected is Salesforce Field, you can choose an existing Salesforce field from the drop-down to map with this property.
+
+Note: If a date and time is entered as the value, it will be accepted in GMT (Greenwich Mean Time) values and not the user's local time. For example, if the entered date and time is 03 Sep 10:04 PM, it gets stored in the application as 03 Sep 10:04 PM GMT.
+12.  Review the information and click Update from the top-right corner. A confirmation message is displayed. The new mappings are saved.
+
+## Creating Content Types
+
+This section, intended for system administrators, contains information on creating new Content Types that define the content you can use with Hyland for Salesforce. The Content Types you create define the properties for the different file types that are supported by Hyland for Salesforce.
+
+Use Hyland Automate Modeler to create new Content Types. You can use built-in Content Types to use default metadata and properties, or create custom Content Types using Schemas and Mixins to define properties as required.
+For more information on Content Types, see the Content Types chapter in the Hyland Automate Modeler documentation.
+
+To create the Content Type required for Hyland for Salesforce:
+
+1.  Sign in to the Hyland Automate Modeler application and open the hfs-configurations project.
+2.  Do one of the following to create the content type:
+- Click Create > Content Type.
+- Click the three dots next to the Content Types drop-down menu in the left-hand pane, then select Create.
+You can also upload a JSON file with the content type. For more instructions, see the Uploading Project Elements chapter in the Hyland Automate Modeler documentation.
+
+The Create Content Type window is displayed.
+
+3.  Enter the newly created content type name in the Content Type name field.
+4.  Add an optional description in the Content Type description field.
+5.  From the drop-down Parent Content Type field, select the parent content type. The parent content type properties will be inherited by the new content type. The default selection is None, which means that no content type properties will be inherited by the newly created content type.
+The default content types that come built-in in the Hyland Automate Modeler application are under the Default Content Types section. They are as follows:
+
+| System Content Type | Description |
+| --- | --- |
+| SysFile | Creates a content type that behaves like a file within your application. |
+| SysFolder | Creates a content type that behaves like a folder within your application. |
+
+Any custom-made content type can be selected under the Custom Content Types section.
+
+Note:
+If you select None as the Parent Content Type, you must add a Schema or a Mixin to it later. For more information on Schemas and Mixins, see the Schemas and Mixins chapters in the Hyland Automate Modeler documentation.
+
+6.  Click Create Content Type. The created content type is opened in the application as a new tab.
+7.  In the Schemas section, use the + icon to add schemas to your content type. If you used a parent content type that already had schemas assigned, they are listed as Inherited schemas in this section.
+If you want to remove an already added schema, use the - icon on the right.
+
+Note:
+You cannot remove the inherited schemas.
+
+For more information on schemas see the Creating and Configuring Schemas chapter in the Hyland Automate Modeler documentation.
+8.  In the Mixins section, use the + icon to add mixins to your content type. If you used a parent content type that already had mixins assigned, they are listed as Inherited mixins in this section.  Note:
+-
+Ensure the hfs-lob-mixin Mixin is added while selecting the Content Type. This enables the new Content Type to inherit the properties of this Mixin. These properties are required for Hyland for Salesforce.
+
+-
+You cannot remove the inherited mixins.
+
+If you want to remove an already added mixin, use the - icon on the right.
+
+The default mixins available in the system are:
+
+| Mixin | Description |
+| --- | --- |
+| SysFilish | Allows the content with this mixin to behave like a file and have its properties. |
+| SysFolderish | Allows the content with this mixin to behave like a folder and have its properties, including having child documents. |
+| SysFullTextIndexable | Allows the text within the content with this mixin to be fully indexable. |
+| SysVersionable | Allows the content with this mixin to be versioned. |
+
+For more information on mixins, see the Creating Mixins chapter in the Hyland Automate Modeler documentation.
+9.  Once editing is done, use the Save Content Type cloud icon at the top bar to save the created content type. A blue window reading Content Type saved is displayed at the bottom. The new content type is created and saved.
+
+## Creating The Hyland For Salesforce External Credentials Principal Access Permiss
+
+This section explains how to create the necessary Salesforce permission sets to enable integration with Hyland's content repository.
+
+While connecting Hyland's content repository with Salesforce, the Named Credentials and External Credential Principals are used to authenticate connections from Salesforce. To access Named Credentials and External Credential Principals, you must create the Hyland For Salesforce External Credentials Principal Access permission set.
+To create the Hyland For Salesforce External Credentials Principal Access permission set:
+
+1.  Log on to Salesforce with your credentials. The Home page is displayed.
+2.  From the top-right, click Setup. The Home page is displayed in a new browser tab.
+3.  In the Quick Find box, type Permission Sets and then click Permission Sets from the search results displayed on the left. The Permission Sets page is displayed.
+4.  From the top-left on the Permission Sets page, click New. The Enter permission set information section is displayed.
+5.  In the Label field, enter Hyland For Salesforce External Credentials Principal Access and click Save.  Note: The API Name field is automatically populated.  The details are saved and the Permission Sets Overview page is displayed.
+6.  On the Permission Sets Overview page, click Object Settings. The Object Settings page is displayed.
+7.  Locate User External Credentials and click on it. The User External Credentials page is displayed.
+8.  Click Edit. The Object Permissions page is displayed.
+9.  Select the check box next to Modify All Recordsand then click Save. The User External Credentials page showing enabled permissions is displayed.
+10.  Navigate to the Permissions Set Overview page and click External Credential Principal Access. The External Credential Principal Access page is displayed.
+11.  Click Edit. The External Credential Principal Access page is displayed.
+12.  Under the Available External Credential Principals column, select HylandIAMCredential - Default and then click Add.  HylandIAMCredential - Default is displayed under the Enabled External Credential Principals column.
+13.  Click Save. The External Credential Principal Access page is displayed.

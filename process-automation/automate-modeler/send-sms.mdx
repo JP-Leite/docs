@@ -10,7 +10,7 @@ The input parameters to send an SMS are:
 | --- | --- | --- | --- |
 | smsFrom | String | Required | The phone number the SMS will be sent from |
 | smsTo | JSON | Required | The list of numbers the SMS will be sent to |
-| smsBody | String | Required | The contents of the SMS. The message supports , for example ${fullName.lastName} can be used from the metadata parameter to include variables. |
+| smsBody | String | Required | The contents of the SMS. The message supports , for example $`{fullName.lastName}` can be used from the metadata parameter to include variables. |
 | metadata | JSON | Optional | Metadata to be used by the smsBody parameter to include process variables in a message |
 
 [FreeMarker syntax](https://freemarker.apache.org/docs/dgui_datamodel_basics.html)

@@ -10,15 +10,15 @@ The input parameters for ADD_SECURITY_MARKS are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| file | Array<json>, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
-| folder | Array<json>, JSON | Optional | Alfresco Content Services folder to be updated. Folder variables are initialised by content actions or content events in triggers. |
+| file | Array`<json>`, JSON | Optional | ACS file to be updated. If the received value contains multiple files, only the first of them will be processed. |
+| folder | Array`<json>`, JSON | Optional | Alfresco Content Services folder to be updated. Folder variables are initialised by content actions or content events in triggers. |
 | nodeId | String | Optional | Node ID of the file or folder in Alfresco Content Services. For example: a6a977a6-c728-4038-8dbc-d914c4d8cfb3. |
 | path | String | Optional | Location or relative path of the node to be updated. For example, a location path could be /app:company_home/app:user_homes/cm:hruser and a relative path could be /User Homes/hruser (by default the relative path is from Company Home). |
 | securityGroupName | String | Optional | Security group that contains the security marks to be assigned, for example PII. |
-| securityMarks | Array<String> | Optional | Array including the name of the security marks to be added. |
+| securityMarks | Array`<String>` | Optional | Array including the name of the security marks to be added. |
 
 The output parameters from ADD_SECURITY_MARKS are:
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| response | Array<json> | Optional | Response for the calls. |
+| response | Array`<json>` | Optional | Response for the calls. |

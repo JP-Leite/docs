@@ -19,7 +19,7 @@ To use the POST action to send files:
 
 | Parameter type | Descritpion |
 | --- | --- |
-| raw | This type of parameter allows you to edit a JSON file and manually enter the needed properties. To use this option, in the Value column on the right, enter the following:   { "base64File": "${getBase64FileContent(file)}" }  where file is the file process variable (may have a different name in your process). |
+| raw | This type of parameter allows you to edit a JSON file and manually enter the needed properties. To use this option, in the Value column on the right, enter the following:   `{ "base64File": "$`{getBase64FileContent(file)}`" }`  where file is the file process variable (may have a different name in your process). |
 | form-data | This type of parameter allows you to edit a list of properties, each of which has its own key, type, and value. To use this option, in the Value column on the right, select the + button to add a new property, enter its Key and select the Variable type from the drop-down menu. Then you can select the file from your Workspace from the next drop-down menu. |
 | binary | This type of parameter allows you to select the file from a drop-down menu. To use this option, in the Value column on the right, select the file from your Workspace from the next drop-down menu. |
 

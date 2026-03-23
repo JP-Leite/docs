@@ -1,0 +1,97 @@
+---
+title: "Document Operations"
+---
+
+## Downloading A Document
+
+This section contains information on how to download documents you have imported and uploaded in the application.
+
+Note: You must be logged on to Hyland for SAP SuccessFactors CIC. If you have not yet logged on to the application, please complete the instructions under Logging on to Hyland for SAP SuccessFactors CIC.
+To search for documents:
+
+1.  After logging on to the application, navigate to the All Documents page.  Note: For specific instructions on how to navigate to the All Documents page, see Viewing a Document.
+2.  From the list of documents that is displayed, select the check boxes next to one or more documents and then click Download.  Tip: To download all documents that are displayed, select the check box next to Document Name.  The selected documents are downloaded to a folder on your computer. If you are downloading multiple files or documents, they are downloaded as a .zip file. Typically, files are downloaded to the C:\Users\<your user name>\Downloads folder.
+
+## Obtaining The Viewer Url
+
+This section, intended for system administrators, explains how to obtain the Viewer URL – a URL associated with each document captured using Hyland for SAP SuccessFactors.
+
+Each document captured using Hyland for SAP SuccessFactors contains a unique ID. This unique ID is used to form a standard URL for each document displayed within the application.
+
+To obtain the value for the Viewer URL, use the Hyland Automate Administration application and configure the value.Note: For more information on how to use the Hyland Experience Studio Administration application, see the Admin Application chapter in the Hyland Automate Administration documentation.
+To obtain the Viewer URL:
+
+1.  Log in to the Studio Administration App.
+2.  From the left pane, expand Devops and select Application Instances.
+3.  Under the Application name column, search for the project you created and select it.  Note: If you have not created a project, please complete the instructions under Creating a Project.
+4.  Under the Workspace column, select sufa-adf-viewer and right-click it. A drop-down menu is displayed.
+5.  From the drop-down, select Copy link address and paste the copied value in a plain-text editor.
+6.  Append the following to the link address you copied:
+/#/default/documents/{doc_id}
+
+For example, if the link address you copied is https://example.com, then the complete link will be
+
+https://example.com/#/default/documents/{doc_id}
+
+Note: When the list of one or more documents are displayed in the application, the {doc_id} is populated with the unique ID for a document to form a URL specific to each document. Users can click this URL to open a document in a new tab of their browser.
+
+## Printing A Document
+
+This section contains information on how to print uploaded files from the application.
+
+To print a document:
+
+Note: You must be logged on to Hyland for SAP SuccessFactors CIC. If you have not yet logged on to the application, please complete the instructions under Logging on to Hyland for SAP SuccessFactors CIC.
+To print a document:
+
+1.  After logging on to the application, navigate to the All Documents page.  Note: For specific instructions on how to navigate to the All Documents page, see Viewing a Document.
+2.  From the list of documents that is displayed, select the check boxes next to a document and then click Print. The Print dialog box is displayed.
+
+## Uploading A Document
+
+This section contains information on how to import and then upload files in the application.
+
+You can import a supported file and add it as a document to Hyland for SAP SuccessFactors CIC in the context of an employee record that exists in SAP SuccessFactors. For a list of supported file types, see Supported Files.
+
+When you import a supported file, this process indexes a file and creates a new document with one or more pages. The files you import and upload are associated with a Document Type preconfigured in Hyland for SAP SuccessFactors CIC.
+
+Note: You must be logged on to Hyland for SAP SuccessFactors CIC. If you have not yet logged on to the application, please complete the instructions under Logging on to Hyland for SAP SuccessFactors CIC.
+To upload one or more files:
+
+1.  After logging on to the application, navigate to the All Documents page.  Note: For specific instructions on how to navigate to the All Documents page, see Viewing a Document.
+2.  From the top right corner, click Upload. A Windows Explorer window is displayed.
+3.  Navigate to the location of a file, select it and then click Open. The Upload dialog box is displayed.
+4.  From the Select Document Type drop-down list, select a Document Type.  Note: You can associate a file you uploaded with a preconfigured Document Type. These changes are typically made by your system administrator. Please contact your system administrator if you require help with these configurations. For detailed instructions, see the following:
+-  Configuring User Groups and Roles
+-  Creating Content Types
+-  Deploying a Project
+5.  Click Upload and then click OK. The selected file is uploaded and is visible on the All Documents page.
+
+## Viewing A Document
+
+This section contains information on how to view documents that were imported and uploaded using Hyland for SAP SuccessFactors CIC.
+
+Based on the permissions assigned to your role, you can view one or more documents. These changes are typically made by your system administrator. Please contact your system administrator if you require help with these configurations. For detailed instructions, see Configuring User Groups and Roles.Note: You must be logged on to Hyland for SAP SuccessFactors CIC. If you have not yet logged on to the application, please complete the instructions under Logging on to Hyland for SAP SuccessFactors CIC.
+To view documents:
+
+1.  After logging on to the application, select a document under the Document Name column on the All Documents page.
+The All Documents page displays a list of documents captured using the application, type of document, and the date on which a document was captured.
+
+2.  Click the document you selected. The selected document is displayed in a new browser tab.
+3.  From the bottom of the page, select an option from the following:  Note: Options vary and are visible based on the type of file or document you select.
+| Option | Description |
+| --- | --- |
+| Thumbnail view | Enables you to switch to a thumbnail view of pages in a document, displayed on the left side. |
+| Previous page | Enables you to move to a previous page in a document containing multiple pages. |
+| Next page | Enables you to move to the next page in a document containing multiple pages. |
+| Zoom Out | Enables you to zoom out and view a supported document. |
+| Zoom In | Enables you to zoom in and view a supported document. |
+| Rotate | Enables you to rotate the view of the current page in a supported document. |
+| Fit page | Enables you to adjust a document's view to fit the screen size. |
+
+4.  From the top right, select one of the following options:
+| Option | Description |
+| --- | --- |
+| Info | Enables you to display or hide the properties panel on the right. |
+| Download | Enables you to download a copy of the selected document to a folder on your computer. |
+| Activate full-screen mode | Enables you to hide or display the selected document in full-screen mode. |

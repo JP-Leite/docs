@@ -12,7 +12,7 @@ The input parameters to send a message in Slack are:
 | channelName | String | Requires one | The name of the channel to send the message to |
 | userId | String | Requires one | The user ID of the message recipient |
 | userEmail | String | Requires one | The email address of the message recipient |
-| text | String | Required | The contents of the message. The message supports . For example, ${fullName.lastName} can be used from the metadata parameter to include variables. |
+| text | String | Required | The contents of the message. The message supports . For example, $`{fullName.lastName}` can be used from the metadata parameter to include variables. |
 | metadata | JSON | Optional | Metadata to be used by the text parameter to include process variables in a message |
 | requestResponse | String | Optional | Set to no and a response will be sent back to the process immediately after the message is sent. Set to any and a response will be sent back to the process only after a reply is received in the same channel. Set to thread and a response will be sent back to the process only after a reply is received in a thread. |
 

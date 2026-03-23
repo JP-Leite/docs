@@ -1148,265 +1148,37 @@
               {
                 "group": "Salesforce",
                 "pages": [
-                  {
-                    "group": "Installation & Setup",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/salesforce/creating-and-deploying-content-types",
-                      "integrations/salesforce/deploying-a-project",
-                      "integrations/salesforce/documentation-notice",
-                      "integrations/salesforce/installing-the-hyland-for-salesforce-package",
-                      "integrations/salesforce/introduction",
-                      "integrations/salesforce/key-features",
-                      "integrations/salesforce/registering-hyland-for-salesforce-as-an-external-application",
-                      "integrations/salesforce/supported-files",
-                      "integrations/salesforce/uninstalling-hyland-for-salesforce",
-                      "integrations/salesforce/uninstalling-the-hyland-for-salesforce-package",
-                      "integrations/salesforce/upgrading-a-project"
-                    ]
-                  },
-                  {
-                    "group": "Configuration & Administration",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/salesforce/adding-components",
-                      "integrations/salesforce/adding-the-document-capture-component",
-                      "integrations/salesforce/adding-the-document-list-view-component",
-                      "integrations/salesforce/assigning-permission-sets",
-                      "integrations/salesforce/assigning-the-hyland-for-salesforce-admin-users-permission-set",
-                      "integrations/salesforce/assigning-the-hyland-for-salesforce-external-credential-principal-access-permiss",
-                      "integrations/salesforce/assigning-the-hyland-for-salesforce-users-permission-set",
-                      "integrations/salesforce/assigning-the-salesforce-content-user-user-group-to-the-salesforce-content-user",
-                      "integrations/salesforce/assigning-the-salesforce-solution-administrators-user-group-to-the-hxpr-administ",
-                      "integrations/salesforce/assigning-the-salesforce-solution-administrators-user-group-to-the-salesforce-so",
-                      "integrations/salesforce/assigning-the-salesforce-solution-content-user-user-group-to-the-hxpr-member-rol",
-                      "integrations/salesforce/configuring-additional-configurations",
-                      "integrations/salesforce/configuring-authentication-settings-in-salesforce",
-                      "integrations/salesforce/configuring-the-application-configurations",
-                      "integrations/salesforce/configuring-the-solution-configurations",
-                      "integrations/salesforce/configuring-the-system-settings",
-                      "integrations/salesforce/configuring-the-user-group-mappings",
-                      "integrations/salesforce/configuring-user-groups-and-roles",
-                      "integrations/salesforce/creating-a-new-column-configuration",
-                      "integrations/salesforce/creating-a-new-mapping",
-                      "integrations/salesforce/creating-content-types",
-                      "integrations/salesforce/creating-the-hyland-for-salesforce-external-credentials-principal-access-permiss"
-                    ]
-                  },
-                  {
-                    "group": "Document Operations",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/salesforce/importing-a-document",
-                      "integrations/salesforce/obtaining-the-viewer-url",
-                      "integrations/salesforce/removing-the-document-list-view-component",
-                      "integrations/salesforce/searching-and-filtering-documents",
-                      "integrations/salesforce/viewing-documents"
-                    ]
-                  }
+                  "integrations/salesforce/installation-setup",
+                  "integrations/salesforce/configuration-administration",
+                  "integrations/salesforce/document-operations"
                 ]
               },
               {
                 "group": "SAP SuccessFactors",
                 "pages": [
-                  {
-                    "group": "Installation & Setup",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/sap-successfactors/deploying-a-project",
-                      "integrations/sap-successfactors/documentation-notice",
-                      "integrations/sap-successfactors/introduction",
-                      "integrations/sap-successfactors/key-features",
-                      "integrations/sap-successfactors/supported-files",
-                      "integrations/sap-successfactors/upgrading-a-project"
-                    ]
-                  },
-                  {
-                    "group": "Configuration & Administration",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/sap-successfactors/adding-an-identity-provider",
-                      "integrations/sap-successfactors/assigning-the-successfactors-content-user-user-group-to-the-hxpr-member-role",
-                      "integrations/sap-successfactors/assigning-the-successfactors-content-user-user-group-to-the-successfactors-conte",
-                      "integrations/sap-successfactors/assigning-the-successfactors-solution-administrator-user-group-to-the-successfac",
-                      "integrations/sap-successfactors/assigning-the-successfactors-solution-administrators-user-group-to-the-hxpr-admi",
-                      "integrations/sap-successfactors/configuring-hyland-for-sap-successfactors-to-use-the-corporate-identity-provider",
-                      "integrations/sap-successfactors/configuring-hyland-hx-ids-as-a-service-provider-and-microsoft-entra-id-as-an-ide",
-                      "integrations/sap-successfactors/configuring-identity-setup",
-                      "integrations/sap-successfactors/configuring-sap-ias-as-a-service-provider-and-microsoft-entra-id-as-an-identity",
-                      "integrations/sap-successfactors/configuring-user-groups-and-roles",
-                      "integrations/sap-successfactors/creating-a-corporate-identity-provider-for-entra-id-at-sap-ias",
-                      "integrations/sap-successfactors/creating-a-custom-ui",
-                      "integrations/sap-successfactors/creating-a-mixin",
-                      "integrations/sap-successfactors/creating-a-project",
-                      "integrations/sap-successfactors/creating-a-schema",
-                      "integrations/sap-successfactors/creating-an-entra-id-application-for-hyland-hx-ids",
-                      "integrations/sap-successfactors/creating-an-entra-id-application-for-sap-ias",
-                      "integrations/sap-successfactors/creating-content-types"
-                    ]
-                  },
-                  {
-                    "group": "Authentication (SSO & Identity)",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/sap-successfactors/importing-sap-successfactors-users-into-sap-ias"
-                    ]
-                  },
-                  {
-                    "group": "Document Operations",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/sap-successfactors/downloading-a-document",
-                      "integrations/sap-successfactors/obtaining-the-viewer-url",
-                      "integrations/sap-successfactors/printing-a-document",
-                      "integrations/sap-successfactors/uploading-a-document",
-                      "integrations/sap-successfactors/viewing-a-document"
-                    ]
-                  },
-                  {
-                    "group": "Other",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/sap-successfactors/connecting-the-hyland-for-sap-successfactors-app-with-sap-successfactors",
-                      "integrations/sap-successfactors/logging-on-to-hyland-for-sap-successfactors-cic",
-                      "integrations/sap-successfactors/logging-out-from-hyland-for-sap-successfactors-cic"
-                    ]
-                  }
+                  "integrations/sap-successfactors/installation-setup",
+                  "integrations/sap-successfactors/configuration-administration",
+                  "integrations/sap-successfactors/authentication-sso-identity",
+                  "integrations/sap-successfactors/document-operations",
+                  "integrations/sap-successfactors/other"
                 ]
               },
               {
                 "group": "Guidewire ClaimCenter",
                 "pages": [
-                  {
-                    "group": "Installation & Setup",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/guidewire-claimcenter/configuration-overview",
-                      "integrations/guidewire-claimcenter/deploying-the-integration",
-                      "integrations/guidewire-claimcenter/documentation-notice",
-                      "integrations/guidewire-claimcenter/installation-overview",
-                      "integrations/guidewire-claimcenter/overview",
-                      "integrations/guidewire-claimcenter/registering-new-security-types"
-                    ]
-                  },
-                  {
-                    "group": "Configuration & Administration",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/guidewire-claimcenter/configuring-an-administrator-user-for-single-sign-on-sso",
-                      "integrations/guidewire-claimcenter/configuring-claimcenter-runtime-properties",
-                      "integrations/guidewire-claimcenter/configuring-credentials-in-claimcenter",
-                      "integrations/guidewire-claimcenter/configuring-document-security",
-                      "integrations/guidewire-claimcenter/configuring-external-system-settings",
-                      "integrations/guidewire-claimcenter/configuring-guidewire-home",
-                      "integrations/guidewire-claimcenter/configuring-new-users-for-single-sign-on-sso",
-                      "integrations/guidewire-claimcenter/configuring-oauth-20",
-                      "integrations/guidewire-claimcenter/configuring-the-cic-document-upload-feature",
-                      "integrations/guidewire-claimcenter/configuring-the-guid",
-                      "integrations/guidewire-claimcenter/configuring-the-guidewire-cloud-platform-for-claimcenter",
-                      "integrations/guidewire-claimcenter/configuring-the-service-user",
-                      "integrations/guidewire-claimcenter/configuring-the-single-sign-on-identity-provider-server",
-                      "integrations/guidewire-claimcenter/configuring-user-groups",
-                      "integrations/guidewire-claimcenter/configuring-user-roles",
-                      "integrations/guidewire-claimcenter/creating-a-service-user",
-                      "integrations/guidewire-claimcenter/creating-an-identity-provider-in-cic",
-                      "integrations/guidewire-claimcenter/creating-an-sso-user-group",
-                      "integrations/guidewire-claimcenter/creating-the-documents-folder",
-                      "integrations/guidewire-claimcenter/single-sign-on-configuration",
-                      "integrations/guidewire-claimcenter/single-sign-on-user-configuration",
-                      "integrations/guidewire-claimcenter/updating-existing-users-for-single-sign-on-sso",
-                      "integrations/guidewire-claimcenter/updating-runtime-properties",
-                      "integrations/guidewire-claimcenter/viewing-document-properties"
-                    ]
-                  },
-                  {
-                    "group": "Document Operations",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/guidewire-claimcenter/connecting-cic-document-upload-to-claimcenter",
-                      "integrations/guidewire-claimcenter/obtaining-the-viewer-base-url-value",
-                      "integrations/guidewire-claimcenter/uploading-a-document-to-an-ecm-repository-from-guidewire",
-                      "integrations/guidewire-claimcenter/uploading-a-document-to-guidewire-claimcenter-from-a-cic-repository",
-                      "integrations/guidewire-claimcenter/viewing-documents-in-cic",
-                      "integrations/guidewire-claimcenter/viewing-documents-in-claimcenter"
-                    ]
-                  },
-                  {
-                    "group": "Other",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/guidewire-claimcenter/troubleshooting",
-                      "integrations/guidewire-claimcenter/usage"
-                    ]
-                  }
+                  "integrations/guidewire-claimcenter/installation-setup",
+                  "integrations/guidewire-claimcenter/configuration-administration",
+                  "integrations/guidewire-claimcenter/document-operations",
+                  "integrations/guidewire-claimcenter/other"
                 ]
               },
               {
                 "group": "Guidewire PolicyCenter",
                 "pages": [
-                  {
-                    "group": "Installation & Setup",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/guidewire-policycenter/configuration-overview",
-                      "integrations/guidewire-policycenter/deploying-the-integration",
-                      "integrations/guidewire-policycenter/documentation-notice",
-                      "integrations/guidewire-policycenter/installation-overview",
-                      "integrations/guidewire-policycenter/overview",
-                      "integrations/guidewire-policycenter/registering-new-security-types"
-                    ]
-                  },
-                  {
-                    "group": "Configuration & Administration",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/guidewire-policycenter/adding-default-user-groups-within-sso-identity-provider",
-                      "integrations/guidewire-policycenter/configuring-an-administrator-user-for-single-sign-on-sso",
-                      "integrations/guidewire-policycenter/configuring-credentials-in-policycenter",
-                      "integrations/guidewire-policycenter/configuring-document-security",
-                      "integrations/guidewire-policycenter/configuring-external-system-settings",
-                      "integrations/guidewire-policycenter/configuring-guidewire-home",
-                      "integrations/guidewire-policycenter/configuring-new-users-for-single-sign-on-sso",
-                      "integrations/guidewire-policycenter/configuring-oauth-20",
-                      "integrations/guidewire-policycenter/configuring-policycenter-runtime-properties",
-                      "integrations/guidewire-policycenter/configuring-the-cic-document-upload-feature",
-                      "integrations/guidewire-policycenter/configuring-the-guid",
-                      "integrations/guidewire-policycenter/configuring-the-guidewire-cloud-platform-for-policycenter",
-                      "integrations/guidewire-policycenter/configuring-the-service-user",
-                      "integrations/guidewire-policycenter/configuring-the-single-sign-on-identity-provider-server",
-                      "integrations/guidewire-policycenter/configuring-user-groups",
-                      "integrations/guidewire-policycenter/configuring-user-roles",
-                      "integrations/guidewire-policycenter/creating-a-service-user",
-                      "integrations/guidewire-policycenter/creating-an-identity-provider-in-cic",
-                      "integrations/guidewire-policycenter/creating-an-sso-user-group",
-                      "integrations/guidewire-policycenter/creating-the-documents-folder",
-                      "integrations/guidewire-policycenter/single-sign-on-configuration",
-                      "integrations/guidewire-policycenter/single-sign-on-user-configuration",
-                      "integrations/guidewire-policycenter/updating-existing-users-for-single-sign-on-sso",
-                      "integrations/guidewire-policycenter/updating-runtime-properties",
-                      "integrations/guidewire-policycenter/viewing-document-properties"
-                    ]
-                  },
-                  {
-                    "group": "Document Operations",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/guidewire-policycenter/connecting-cic-document-upload-to-guidewire",
-                      "integrations/guidewire-policycenter/obtaining-the-viewer-base-url-value",
-                      "integrations/guidewire-policycenter/uploading-a-document-to-an-ecm-repository-from-guidewire",
-                      "integrations/guidewire-policycenter/uploading-a-document-to-guidewire-policycenter-from-a-cic-repository",
-                      "integrations/guidewire-policycenter/viewing-documents-in-cic",
-                      "integrations/guidewire-policycenter/viewing-documents-in-policycenter"
-                    ]
-                  },
-                  {
-                    "group": "Other",
-                    "expanded": false,
-                    "pages": [
-                      "integrations/guidewire-policycenter/troubleshooting",
-                      "integrations/guidewire-policycenter/usage"
-                    ]
-                  }
+                  "integrations/guidewire-policycenter/installation-setup",
+                  "integrations/guidewire-policycenter/configuration-administration",
+                  "integrations/guidewire-policycenter/document-operations",
+                  "integrations/guidewire-policycenter/other"
                 ]
               },
               {

@@ -94,19 +94,19 @@ The {PluginEnvPrefix} is configured within the Broker configuration, and each pl
 
 | Configuration section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
 | --- | --- | --- | --- |
-| PluginConfiguration | The Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
-| PluginConfiguration | The URL for Alfresco API | {PluginEnvPrefix}PluginConfiguration__0__AlfrescoApiUrl | PluginConfiguration__0__AlfrescoApiUrl |
-| PluginConfiguration | The Alfresco Repository ID | {PluginEnvPrefix}PluginConfiguration__0__RepositoryId | PluginConfiguration__0__RepositoryId |
-| PluginConfiguration | The Alfresco Repository Name | {PluginEnvPrefix}PluginConfiguration__0__RepositoryName | PluginConfiguration__0__RepositoryName |
-| PluginConfiguration | The Alfresco Folder ID | {PluginEnvPrefix}PluginConfiguration__0__FolderId | PluginConfiguration__0__FolderId |
-| IdentityProviderOptions | The IdP Server URL | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__IdentityServerUrl | PluginConfiguration__0__IdentityProviderOptions__IdentityServerUrl |
-| IdentityProviderOptions | The IdP Client ID | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
-| IdentityProviderOptions | The IdP Client Secret | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
-| IdentityProviderOptions | The IdP Grant Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__GrantType | PluginConfiguration__0__IdentityProviderOptions__GrantType |
-| IdentityProviderOptions | The IdP Subject Token Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType | PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType |
-| IdentityProviderOptions | The IdP Requested Token Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__RequestedTokenType | PluginConfiguration__0__IdentityProviderOptions__RequestedTokenType |
-| PluginConfiguration | Max results returned in a search | {PluginEnvPrefix}PluginConfiguration__0__SearchMaxPageSize (default 2000) | PluginConfiguration__0__SearchMaxPageSize (default 2000) |
-| PluginConfiguration | Alfresco aspects to exclude from returned nodes | {PluginEnvPrefix}PluginConfiguration__0__ExcludedAspects (default [“cm:auditable”] ) | PluginConfiguration__0__ExcludedAspects (default [“cm:auditable”] ) |
+| PluginConfiguration | The Integration ID (from Admin Portal) | `{PluginEnvPrefix}`PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| PluginConfiguration | The URL for Alfresco API | `{PluginEnvPrefix}`PluginConfiguration__0__AlfrescoApiUrl | PluginConfiguration__0__AlfrescoApiUrl |
+| PluginConfiguration | The Alfresco Repository ID | `{PluginEnvPrefix}`PluginConfiguration__0__RepositoryId | PluginConfiguration__0__RepositoryId |
+| PluginConfiguration | The Alfresco Repository Name | `{PluginEnvPrefix}`PluginConfiguration__0__RepositoryName | PluginConfiguration__0__RepositoryName |
+| PluginConfiguration | The Alfresco Folder ID | `{PluginEnvPrefix}`PluginConfiguration__0__FolderId | PluginConfiguration__0__FolderId |
+| IdentityProviderOptions | The IdP Server URL | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__IdentityServerUrl | PluginConfiguration__0__IdentityProviderOptions__IdentityServerUrl |
+| IdentityProviderOptions | The IdP Client ID | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The IdP Client Secret | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The IdP Grant Type | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__GrantType | PluginConfiguration__0__IdentityProviderOptions__GrantType |
+| IdentityProviderOptions | The IdP Subject Token Type | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType | PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType |
+| IdentityProviderOptions | The IdP Requested Token Type | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__RequestedTokenType | PluginConfiguration__0__IdentityProviderOptions__RequestedTokenType |
+| PluginConfiguration | Max results returned in a search | `{PluginEnvPrefix}`PluginConfiguration__0__SearchMaxPageSize (default 2000) | PluginConfiguration__0__SearchMaxPageSize (default 2000) |
+| PluginConfiguration | Alfresco aspects to exclude from returned nodes | `{PluginEnvPrefix}`PluginConfiguration__0__ExcludedAspects (default [“cm:auditable”] ) | PluginConfiguration__0__ExcludedAspects (default [“cm:auditable”] ) |
 
 ## Cf Broker Environment Variable Keyperfile Configuration Table
 
@@ -500,7 +500,7 @@ To configure the CF Alfresco Plugin:
 
 | IdentityProviderOptions Parameter | Value to Enter |
 | --- | --- |
-| IdentityServerUrl | The Alfresco KeyCloak Provider URL.  For example https://hostname.example.com/auth/realms/``<realmName>``/protocol/ |
+| IdentityServerUrl | The Alfresco KeyCloak Provider URL.  For example `https://hostname.example.com/auth/realms/<realmName>/protocol/` |
 | ClientId | The client identifier created in KeyCloak for authenticating the Alfresco APIs. |
 | ClientSecret | The secret of the client identifier created in KeyCloak. |
 | GrantType | The value urn:ietf:params:oauth:grant-type:token-exchange, which allows for exchanging an Content Innovation Cloud token with an Alfresco access token. |
@@ -576,13 +576,13 @@ To configure the CF FI Plugin:
 | PluginConfig.json Parameter | Value |
 | --- | --- |
 | IntegrationId | The value obtained from the Integration ID field during the registration of CFS in the Content Innovation Cloud Administration Portal For more information, see Adding a System Integration. |
-| ScimEndpoint | The URL of the OnBase API Server SCIM service. For example, https://hostname.example.com/``<ApiServerApplicationName>``/onbase/SCIM/v2 |
+| ScimEndpoint | The URL of the OnBase API Server SCIM service. For example, `https://hostname.example.com/<ApiServerApplicationName>/onbase/SCIM/v2` |
 
 5.  Under IdentityProviderOptions, enter information that corresponds to the Hyland Identity Service (IdS) identity provider for the OnBase data source. The following table describes the information needed for each parameter.  Note: Some information in the IdentityProviderOptions is related to Hyland IdS. For more information on Hyland IdS, see Hyland Identity Service (IdS) in the Identity and Access Management Services documentation.
 
 | IdentityProviderOptions Parameter | Value to Enter |
 | --- | --- |
-| Address | The Hyland IdS URLFor example, https://hostname.example.com/<IdSApplicationName> |
+| Address | The Hyland IdS URL. For example, `https://hostname.example.com/<IdSApplicationName>` |
 | ClientId | The client identifier created in Hyland IdS for authenticating with the OnBase SCIM serviceNote: The client configured in the ClientId parameter must whitelist all of the scopes listed in the Scopes parameter to successfully perform the token exchange. |
 | ClientSecret | The secret of the client identifier created in Hyland IdS |
 | Scope | A space-separated list of the scopes required to authenticate with the OnBase SCIM service.For example, iam.user-catalog iam.user-catalog.read |
@@ -629,7 +629,7 @@ To configure the CF OnBase Plugin:
 
 | PluginConfig.json Parameter | Value |
 | --- | --- |
-| McaServerUrl | The Server URL of the MCA Adapter For example, https://hostname.example.com/``<McaApplicationName>``/ |
+| McaServerUrl | The Server URL of the MCA Adapter. For example, `https://hostname.example.com/<McaApplicationName>/` |
 | IntegrationId | The value obtained from the Integration ID field during the registration of CFS in the Content Innovation Cloud Administration Portal For more information, see Adding a System Integration. |
 
 5.  Optional: Configure MCA session cookie cleanup by editing the values of the EnableOnBaseSessionCookieCleanUp and OnBaseSessionCookieHeader parameters.
@@ -649,7 +649,7 @@ For more information on Hyland IdS, see Hyland Identity Service (IdS) in the Ide
 
 | IdentityProviderOptions Parameter | Value to Enter |
 | --- | --- |
-| Address | The Hyland IdS URLFor example, https://hostname.example.com/<IdSApplicationName> |
+| Address | The Hyland IdS URL. For example, `https://hostname.example.com/<IdSApplicationName>` |
 | ClientId | The client identifier created in Hyland IdS for authenticating with the CF MCA AdapterNote: The client configured in the ClientId parameter must whitelist all of the scopes listed in the Scopes parameter to successfully perform the token exchange. |
 | ClientSecret | The secret of the client identifier created in Hyland IdS |
 | GrantType | The value urn:ietf:params:oauth:grant-type:token-exchange, which allows for exchanging an Content Innovation Cloud token with an OnBase token |
@@ -879,12 +879,12 @@ The {PluginEnvPrefix} is configured within the Broker configuration, and each pl
 
 | Configuration Section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
 | --- | --- | --- | --- |
-| PluginConfiguration | The SCIM endpoint URL | {PluginEnvPrefix}PluginConfiguration__0__ScimEndpoint | PluginConfiguration__0__ScimEndpoint |
-| PluginConfiguration | The Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
-| IdentityProviderOptions | The IdP Address | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Address | PluginConfiguration__0__IdentityProviderOptions__Address |
-| IdentityProviderOptions | The IdP Client ID | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
-| IdentityProviderOptions | The IdP Client Secret | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
-| IdentityProviderOptions | The IdP Scope | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Scope | PluginConfiguration__0__IdentityProviderOptions__Scope |
+| PluginConfiguration | The SCIM endpoint URL | `{PluginEnvPrefix}`PluginConfiguration__0__ScimEndpoint | PluginConfiguration__0__ScimEndpoint |
+| PluginConfiguration | The Integration ID (from Admin Portal) | `{PluginEnvPrefix}`PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| IdentityProviderOptions | The IdP Address | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__Address | PluginConfiguration__0__IdentityProviderOptions__Address |
+| IdentityProviderOptions | The IdP Client ID | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The IdP Client Secret | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The IdP Scope | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__Scope | PluginConfiguration__0__IdentityProviderOptions__Scope |
 
 ## Keyperfile Configuration
 
@@ -913,11 +913,11 @@ The {PluginEnvPrefix} is configured within the Broker configuration, and each pl
 
 | Configuration Section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
 | --- | --- | --- | --- |
-| PluginConfiguration | The Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
-| PluginConfiguration | The Nuxeo API Server URL | {PluginEnvPrefix}PluginConfiguration__0__NuxeoServerApiUrl | PluginConfiguration__0__NuxeoServerApiUrl |
-| IdentityProviderOptions | The Client ID of the client configured within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
-| IdentityProviderOptions | The Client secret of the client configured within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
-| IdentityProviderOptions | The JWT secret signing key configured in the nuxeo.conf file within the Nuxeo server | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__JwtSecretSigningKey | PluginConfiguration__0__IdentityProviderOptions__JwtSecretSigningKey |
+| PluginConfiguration | The Integration ID (from Admin Portal) | `{PluginEnvPrefix}`PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| PluginConfiguration | The Nuxeo API Server URL | `{PluginEnvPrefix}`PluginConfiguration__0__NuxeoServerApiUrl | PluginConfiguration__0__NuxeoServerApiUrl |
+| IdentityProviderOptions | The Client ID of the client configured within the Nuxeo server | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The Client secret of the client configured within the Nuxeo server | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The JWT secret signing key configured in the nuxeo.conf file within the Nuxeo server | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__JwtSecretSigningKey | PluginConfiguration__0__IdentityProviderOptions__JwtSecretSigningKey |
 
 ## Onbase Plugin Environment Variablekeyperfile Configuration Table
 
@@ -927,15 +927,15 @@ The {PluginEnvPrefix} is configured within the Broker configuration, and each pl
 
 | Config Section | Configuration Value Purpose | Environment Variable | KeyPerFile Name |
 | --- | --- | --- | --- |
-| PluginConfiguration | The URL for MCA | {PluginEnvPrefix}PluginConfiguration__0__McaServerUrl | PluginConfiguration__0__McaServerUrl |
-| PluginConfiguration | Integration ID (from Admin Portal) | {PluginEnvPrefix}PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
-| IdentityProviderOptions | The URL for IDP (Hyland IdS in case of OnBase) | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Address | PluginConfiguration__0__IdentityProviderOptions__Address |
-| IdentityProviderOptions | The IdP Client ID | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
-| IdentityProviderOptions | The IdP Client Secret | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
-| IdentityProviderOptions | The IdP Grant Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__GrantType | PluginConfiguration__0__IdentityProviderOptions__GrantType |
-| IdentityProviderOptions | The IdP Subject Token Type | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType | PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType |
-| IdentityProviderOptions | The IdP Scope | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Scope | PluginConfiguration__0__IdentityProviderOptions__Scope |
-| IdentityProviderOptions | The IdP Tenant | {PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__IdPTenant | PluginConfiguration__0__IdentityProviderOptions__IdPTenant |
+| PluginConfiguration | The URL for MCA | `{PluginEnvPrefix}`PluginConfiguration__0__McaServerUrl | PluginConfiguration__0__McaServerUrl |
+| PluginConfiguration | Integration ID (from Admin Portal) | `{PluginEnvPrefix}`PluginConfiguration__0__IntegrationId | PluginConfiguration__0__IntegrationId |
+| IdentityProviderOptions | The URL for IDP (Hyland IdS in case of OnBase) | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__Address | PluginConfiguration__0__IdentityProviderOptions__Address |
+| IdentityProviderOptions | The IdP Client ID | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__ClientId | PluginConfiguration__0__IdentityProviderOptions__ClientId |
+| IdentityProviderOptions | The IdP Client Secret | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__ClientSecret | PluginConfiguration__0__IdentityProviderOptions__ClientSecret |
+| IdentityProviderOptions | The IdP Grant Type | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__GrantType | PluginConfiguration__0__IdentityProviderOptions__GrantType |
+| IdentityProviderOptions | The IdP Subject Token Type | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType | PluginConfiguration__0__IdentityProviderOptions__SubjectTokenType |
+| IdentityProviderOptions | The IdP Scope | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__Scope | PluginConfiguration__0__IdentityProviderOptions__Scope |
+| IdentityProviderOptions | The IdP Tenant | `{PluginEnvPrefix}`PluginConfiguration__0__IdentityProviderOptions__IdPTenant | PluginConfiguration__0__IdentityProviderOptions__IdPTenant |
 
 ## Secure Environment Recommendations
 

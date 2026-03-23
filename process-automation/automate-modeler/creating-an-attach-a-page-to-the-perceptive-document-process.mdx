@@ -27,12 +27,9 @@ To create the process:
 
 | Parameter | Type | Value |
 | --- | --- | --- |
-| requestHeaders | Value | {
-    "content-type": "application/octet-stream",
-    "<Perceptive-document-id>"
-} |
+| requestHeaders | Value | `{ "content-type": "application/octet-stream", "<Perceptive-document-id>" }` |
 | requestPayload | binary Value | From the drop-down menu, select the attachedFile variable. |
-| restUrl | Value | https://<yourresturl>/document/<document_id>/<page> |
+| restUrl | Value | https://`<yourresturl>`/document/`<document_id>`/`<page>` |
 
 5.  In the Output mapping section, find the restResult parameter and select the requestResult variable in the drop-down menu next to it.
 8.  From the palette on the left, drag the Create User Task to the process editor and drop it next to the REST connector. Select it and edit the following properties in the right-hand pane:
