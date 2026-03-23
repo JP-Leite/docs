@@ -1132,81 +1132,12 @@
               {
                 "group": "Agent Builder",
                 "pages": [
-                  "guides/agent-builder",
-                  {
-                    "group": "Getting Started",
-                    "pages": [
-                      "content-intelligence/agent-builder/accessing-the-agent-builder-app",
-                      "content-intelligence/agent-builder/accessing-the-agent-builder-in-studio-modeler",
-                      "content-intelligence/agent-builder/introduction",
-                      "content-intelligence/agent-builder/using-example-projects",
-                      "content-intelligence/agent-builder/using-studio-modeler"
-                    ]
-                  },
-                  {
-                    "group": "Project Management",
-                    "pages": [
-                      "content-intelligence/agent-builder/creating-projects",
-                      "content-intelligence/agent-builder/deleting-multiple-projects-at-once",
-                      "content-intelligence/agent-builder/managing-projects",
-                      "content-intelligence/agent-builder/deleting-projects",
-                      "content-intelligence/agent-builder/deploying-projects",
-                      "content-intelligence/agent-builder/downloading-project-releases",
-                      "content-intelligence/agent-builder/downloading-projects",
-                      "content-intelligence/agent-builder/duplicating-projects",
-                      "content-intelligence/agent-builder/editing-project-name",
-                      "content-intelligence/agent-builder/editing-project-release-names",
-                      "content-intelligence/agent-builder/project-properties",
-                      "content-intelligence/agent-builder/releasing-projects",
-                      "content-intelligence/agent-builder/restoring-project-releases",
-                      "content-intelligence/agent-builder/uploading-project-elements",
-                      "content-intelligence/agent-builder/validating-projects",
-                      "content-intelligence/agent-builder/viewing-project-releases"
-                    ]
-                  },
-                  {
-                    "group": "Agent Configuration",
-                    "pages": [
-                      "content-intelligence/agent-builder/agent-basics",
-                      "content-intelligence/agent-builder/application-name",
-                      "content-intelligence/agent-builder/choosing-an-editor",
-                      "content-intelligence/agent-builder/connectors",
-                      "content-intelligence/agent-builder/creating-an-agent",
-                      "content-intelligence/agent-builder/creating-an-agent-in-studio-modeler",
-                      "content-intelligence/agent-builder/editing-an-agent",
-                      "content-intelligence/agent-builder/interacting-with-agents-in-studio-modeler"
-                    ]
-                  },
-                  {
-                    "group": "Development & Testing",
-                    "pages": [
-                      "content-intelligence/agent-builder/creating-environment-variables",
-                      "content-intelligence/agent-builder/files",
-                      "content-intelligence/agent-builder/folder-structure",
-                      "content-intelligence/agent-builder/hot-reload",
-                      "content-intelligence/agent-builder/quick-run",
-                      "content-intelligence/agent-builder/selecting-language",
-                      "content-intelligence/agent-builder/testing-a-task-agent",
-                      "content-intelligence/agent-builder/testing-an-agent",
-                      "content-intelligence/agent-builder/using-environment-variables-in-variable-mapping",
-                      "content-intelligence/agent-builder/validation"
-                    ]
-                  },
-                  {
-                    "group": "Collaborators & Security",
-                    "pages": [
-                      "content-intelligence/agent-builder/adding-collaborators",
-                      "content-intelligence/agent-builder/collaborators",
-                      "content-intelligence/agent-builder/permissions",
-                      "content-intelligence/agent-builder/removing-collaborators"
-                    ]
-                  },
-                  {
-                    "group": "Other",
-                    "pages": [
-                      "content-intelligence/agent-builder/documentation-notice"
-                    ]
-                  }
+                  "content-intelligence/agent-builder/getting-started",
+                  "content-intelligence/agent-builder/project-management",
+                  "content-intelligence/agent-builder/agent-configuration",
+                  "content-intelligence/agent-builder/development-and-testing",
+                  "content-intelligence/agent-builder/collaborators-and-security",
+                  "content-intelligence/agent-builder/documentation-notice"
                 ]
               },
               {
