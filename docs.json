@@ -127,11 +127,14 @@
             {
               "group": "Agent Builder",
               "pages": [
+                "content-intelligence/agent-builder/introduction",
                 "content-intelligence/agent-builder/getting-started",
-                "content-intelligence/agent-builder/project-management",
-                "content-intelligence/agent-builder/agent-configuration",
-                "content-intelligence/agent-builder/development-and-testing",
-                "content-intelligence/agent-builder/collaborators-and-security"
+                "content-intelligence/agent-builder/rag-agents",
+                "content-intelligence/agent-builder/tool-agents",
+                "content-intelligence/agent-builder/task-agents",
+                "content-intelligence/agent-builder/advanced-features",
+                "content-intelligence/agent-builder/managing-agents",
+                "content-intelligence/agent-builder/testing-and-debugging"
               ]
             },
             {

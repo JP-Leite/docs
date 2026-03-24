@@ -1,0 +1,201 @@
+---
+title: "RAG Agents"
+description: "Build document Q&A agents that retrieve context from your Content Lake before generating responses."
+---
+
+## What Is a RAG Agent?
+
+RAG (Retrieval-Augmented Generation) agents combine a semantic search step with a generative LLM. When invoked, the agent queries your Content Lake using an HXQL filter, retrieves the most relevant document chunks, and passes them as context to the LLM — ensuring answers are grounded in your actual content rather than relying on the model's training data alone.
+
+RAG agents are the right choice when you need:
+
+- **Document Q&A** — "What does our refund policy say?"
+- **Knowledge base search** — "Find all contracts mentioning termination clauses"
+- **Multi-turn conversations** grounded in a document corpus
+
+---
+
+## Configuration
+
+### Create a RAG Agent
+
+```bash
+POST /v1/agents
+```
+
+```json
+{
+  "name": "DocumentHelper",
+  "description": "Document assistant for HR policies",
+  "agentType": "rag",
+  "notes": "Initial version",
+  "config": {
+    "hxqlQuery": "SELECT * FROM SysContent",
+    "limit": 5,
+    "llmModelId": "amazon.nova-micro-v1:0",
+    "systemPrompt": "Given the context below, answer the user's question. Context: {context_str}\nQuestion: {query_str}",
+    "inferenceConfig": {
+      "maxTokens": 4000,
+      "temperature": 0.7
+    },
+    "guardrails": ["HAIP-Profanity", "HAIP-Insults-High"]
+  }
+}
+```
+
+### Configuration Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| `hxqlQuery` | No | HXQL query scoping the Content Lake retrieval |
+| `limit` | No | Max document chunks to include as context |
+| `llmModelId` | Yes | Bedrock model ID (use `GET /v1/models` for the current list) |
+| `systemPrompt` | No | LLM instructions; use `{context_str}` and `{query_str}` placeholders |
+| `inferenceConfig.maxTokens` | No | Max tokens to generate (default: `4000`) |
+| `inferenceConfig.temperature` | No | Sampling temperature `0.0–1.0` (default: `0.0`) |
+| `inferenceConfig.maxRetries` | No | Retries on failure (default: `10`) |
+| `guardrails` | No | Guardrail names applied to all invocations |
+
+<Tip>
+The `hxqlQuery` follows the HXQL filtering structure from the Semantic API. See [Semantic API documentation](/api-reference/content-intelligence-api/SemanticAPI/semantic-api) for supported filter syntax.
+</Tip>
+
+---
+
+## Invoking a RAG Agent
+
+### Standard Invocation
+
+```bash
+POST /v1/agents/{agent_id}/versions/{version_id}/invoke
+```
+
+**Request:**
+
+```json
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "What's in our HR policy about vacation days?"
+    }
+  ],
+  "hxqlQuery": "SELECT * FROM SysContent WHERE Department = 'HR'"
+}
+```
+
+**Response:**
+
+```json
+{
+  "object": "response",
+  "createdAt": 1741705447,
+  "model": "amazon.nova-micro-v1:0",
+  "output": [
+    {
+      "type": "message",
+      "status": "completed",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "According to the HR policy, full-time employees receive 15 vacation days per year..."
+        }
+      ]
+    }
+  ],
+  "customOutputs": {
+    "sourceNodes": [
+      {
+        "docId": "6e4a7f58-13f1-4d3f-83b9-ec86c5b7df60",
+        "chunkId": "b9f622c9-7a62-46fc-8cf1-0d1f4d3c35d7",
+        "score": 0.95,
+        "text": "VACATION POLICY: Full-time employees are entitled to 15 vacation days per calendar year..."
+      }
+    ],
+    "ragMode": "normal"
+  }
+}
+```
+
+<Tip>Use `latest` as the `version_id` to always invoke the most recently published version of an agent.</Tip>
+
+### Invocation Parameters
+
+These optional fields can be included in the request body to override agent-level configuration for a single invocation:
+
+| Parameter | Type | Description |
+|---|---|---|
+| `hxqlQuery` | string | Override the agent-level HXQL query for this request |
+| `guardrails` | string[] | Additional guardrails for this invocation only |
+
+### Response Fields
+
+| Field | Description |
+|---|---|
+| `output` | Array of response messages from the agent |
+| `customOutputs.sourceNodes` | Document chunks retrieved from Content Lake and used as context |
+| `customOutputs.sourceNodes[].score` | Relevance score `0–1` of the retrieved chunk |
+| `customOutputs.sourceNodes[].text` | Text content of the retrieved chunk |
+| `customOutputs.ragMode` | RAG mode used (`normal`) |
+
+---
+
+## Multi-Turn Conversations
+
+RAG agents support multi-turn conversations. Pass all previous messages in the `messages` array. The last message must always have `role: "user"`.
+
+```json
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "What's our vacation policy?"
+    },
+    {
+      "role": "assistant",
+      "content": "Full-time employees receive 15 vacation days per year..."
+    },
+    {
+      "role": "user",
+      "content": "How do I request time off?"
+    }
+  ],
+  "hxqlQuery": "SELECT * FROM SysContent"
+}
+```
+
+---
+
+## Streaming
+
+RAG agents support streaming via the `/invoke-stream` endpoint:
+
+```bash
+POST /v1/agents/{agent_id}/versions/{version_id-or-latest}/invoke-stream
+```
+
+The request body is identical to standard invocation. Responses arrive as newline-delimited JSON chunks. See the [Advanced Features](/content-intelligence/agent-builder/advanced-features) page for the full streaming protocol and chunk types.
+
+<Warning>
+Due to the chunked nature of streaming, runtime failures may not be reflected in the HTTP status code (which may still be `200`). Always inspect the final `response.completed` chunk and check server logs for errors.
+</Warning>
+
+---
+
+## Error Responses
+
+```json
+{
+  "status": 400,
+  "error": "HTTPException",
+  "message": "Description of what went wrong"
+}
+```
+
+| Status | Cause |
+|---|---|
+| `400` | Invalid config (e.g. missing `hxqlQuery` at both config and invocation level) |
+| `401` | Missing or expired access token |
+| `403` | Insufficient permissions |
+| `404` | Agent ID or version does not exist |

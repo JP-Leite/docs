@@ -1,0 +1,318 @@
+---
+title: "Tool Agents"
+description: "Build agents that reason, call functions, extract structured data, and process images and documents."
+---
+
+## What Is a Tool Agent?
+
+Tool Agents use a ReAct (Reasoning + Acting) pattern combined with LLM function calling. Given a user message, the agent reasons about which tools to invoke, executes them, observes the results, and continues until it has a complete answer.
+
+Tool Agents are the right choice when you need:
+
+- **Function execution** — call APIs, run calculations, trigger business logic
+- **Structured data extraction** — parse unstructured text into typed JSON
+- **Image and document processing** — analyse files passed directly in the request
+- **Multi-agent orchestration** — coordinate specialized Task Agents as sub-tools
+
+---
+
+## Configuration
+
+### Create a Tool Agent
+
+```bash
+POST /v1/agents
+```
+
+```json
+{
+  "name": "Calculator",
+  "description": "Math assistant using a multiply function",
+  "agentType": "tool",
+  "config": {
+    "llmModelId": "anthropic.claude-3-haiku-20240307-v1:0",
+    "systemPrompt": "You are a helpful assistant with access to various tools.",
+    "tools": [
+      {
+        "toolType": "function",
+        "name": "multiply",
+        "description": "Multiplies two numbers",
+        "funcName": "multiply"
+      }
+    ],
+    "inferenceConfig": {
+      "maxTokens": 4000,
+      "temperature": 0.7
+    },
+    "guardrails": ["HAIP-Prompt_attack-Medium"]
+  }
+}
+```
+
+### Essential Configuration Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| `llmModelId` | Yes | Bedrock model ID. Tool agents require models with function calling support |
+| `systemPrompt` | Yes | Instructions for the agent |
+| `tools` | Yes | Array of tool definitions |
+| `inferenceConfig` | No | LLM inference settings |
+| `guardrails` | No | Guardrail names applied to all invocations |
+
+### Inference Config
+
+| Parameter | Default | Description |
+|---|---|---|
+| `maxTokens` | `4000` | Maximum tokens to generate |
+| `temperature` | `0.0` | Sampling temperature `0.0–1.0` |
+| `maxRetries` | `10` | Retries on transient failure |
+| `timeout` | `3600` | Inference timeout in seconds |
+
+### Tool Types
+
+| `toolType` | Description | Required Fields |
+|---|---|---|
+| `function` | Calls a predefined server-side function | `funcName` |
+| `structured_output` | Forces JSON output matching a schema | `outputSchema` |
+| `task_agent` | Invokes a Task Agent as a sub-tool | `agentId`, `agentVersion` (optional, default `"latest"`) |
+
+All tool types accept optional `name` and `description` fields.
+
+---
+
+## Example Configurations
+
+<AccordionGroup>
+  <Accordion title="Structured Output — Person Extractor">
+    Extracts typed fields from free-form text:
+
+    ```json
+    {
+      "name": "PersonExtractor",
+      "description": "Extracts structured information about people",
+      "agentType": "tool",
+      "config": {
+        "llmModelId": "anthropic.claude-3-sonnet-20240229-v1:0",
+        "systemPrompt": "Extract structured information about people from the text provided.",
+        "tools": [
+          {
+            "toolType": "structured_output",
+            "name": "structured_output",
+            "description": "Extracts structured information about a person from text",
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "Full name" },
+                "age": { "type": "integer", "description": "Age" },
+                "occupation": { "type": "string", "description": "Job title" }
+              },
+              "required": ["name"]
+            }
+          }
+        ],
+        "inferenceConfig": { "maxTokens": 4000, "temperature": 0.1 }
+      }
+    }
+    ```
+
+    Input: `"John Doe is a 35-year-old software engineer"`
+
+    ```json
+    { "name": "John Doe", "age": 35, "occupation": "software engineer" }
+    ```
+  </Accordion>
+
+  <Accordion title="Multi-Agent Orchestrator (using Task Agents as tools)">
+    A coordinator Tool Agent that delegates to specialized Task Agents:
+
+    ```json
+    {
+      "name": "Multi-Agent Orchestrator",
+      "description": "Coordinates multiple specialized agents",
+      "agentType": "tool",
+      "config": {
+        "tools": [
+          {
+            "toolType": "task_agent",
+            "agentId": "uuid-of-document-classifier-task-agent",
+            "agentVersion": "latest"
+          },
+          {
+            "toolType": "task_agent",
+            "agentId": "uuid-of-data-analyzer-task-agent",
+            "agentVersion": "latest"
+          }
+        ],
+        "llmModelId": "anthropic.claude-3-haiku-20240307-v1:0",
+        "systemPrompt": "You are an orchestrator with access to specialized task agents. Use the available tools to help users with document classification and data analysis tasks.",
+        "inferenceConfig": { "maxTokens": 1000, "temperature": 0.1 }
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Working with Images
+
+Tool Agents accept image inputs within the `content` array of a message. Each image item has `type: "image"` with a `source` object.
+
+<Tabs>
+  <Tab title="URL">
+    ```json
+    {
+      "role": "user",
+      "content": [
+        { "type": "text", "text": "What's in this image?" },
+        {
+          "type": "image",
+          "source": {
+            "type": "url",
+            "url": "https://example.com/image.jpg",
+            "mediaType": "image/jpeg"
+          }
+        }
+      ]
+    }
+    ```
+  </Tab>
+  <Tab title="S3 Path">
+    ```json
+    {
+      "role": "user",
+      "content": [
+        { "type": "text", "text": "Analyze this S3 image" },
+        {
+          "type": "image",
+          "source": {
+            "type": "s3_path",
+            "path": "s3://bucket-name/path/to/image.png",
+            "mediaType": "image/png"
+          }
+        }
+      ]
+    }
+    ```
+  </Tab>
+  <Tab title="Base64">
+    ```json
+    {
+      "role": "user",
+      "content": [
+        { "type": "text", "text": "Describe this image" },
+        {
+          "type": "image",
+          "source": {
+            "type": "base64",
+            "data": "<base64-encoded-image-data>",
+            "mediaType": "image/png"
+          }
+        }
+      ]
+    }
+    ```
+  </Tab>
+</Tabs>
+
+**Supported formats:** `image/jpeg`, `image/png`, `image/tiff`. For TIFF via URL or S3, the file path must end with `.tiff` or `.tif`.
+
+---
+
+## Working with Documents
+
+Tool Agents can accept up to **5 documents per message** (max 4.5 MB each). Supported formats: PDF, CSV, XLS, XLSX, HTML, TXT, MD.
+
+```json
+{
+  "role": "user",
+  "content": [
+    { "type": "text", "text": "Summarize the attached report." },
+    {
+      "type": "document",
+      "name": "Annual Report 2023",
+      "source": {
+        "type": "url",
+        "url": "https://example.com/annual_report.pdf",
+        "mediaType": "application/pdf"
+      }
+    }
+  ]
+}
+```
+
+The `name` field is required (1–200 characters, alphanumeric with single spaces, hyphens, parentheses, and brackets).
+
+---
+
+## Invoking a Tool Agent
+
+### Standard Invocation
+
+```bash
+POST /v1/agents/{agent_id}/versions/{version_id}/invoke
+```
+
+```json
+{
+  "messages": [
+    { "role": "user", "content": "What is 5 times 20?" }
+  ]
+}
+```
+
+### Multi-Turn Conversation
+
+```json
+{
+  "messages": [
+    { "role": "user", "content": "What is 5 times 20?" },
+    { "role": "assistant", "content": "The result of 5 times 20 is 100." },
+    { "role": "user", "content": "Now divide that by 4." }
+  ]
+}
+```
+
+### Invocation with Guardrails
+
+Pass additional guardrails in the request body to apply them to this invocation only, in addition to any configured at agent creation:
+
+```json
+{
+  "messages": [{ "role": "user", "content": "Hello" }],
+  "guardrails": ["HAIP-Hate-High", "HAIP-Insults-Low"]
+}
+```
+
+### Streaming
+
+```bash
+POST /v1/agents/{agent_id}/versions/{version_id-or-latest}/invoke-stream
+```
+
+See [Advanced Features](/content-intelligence/agent-builder/advanced-features) for the full streaming protocol.
+
+---
+
+## Session-Based Memory
+
+Tool Agents support optional session memory. Include an `X-Session-ID` header with a UUID to maintain conversation context across multiple separate HTTP requests without passing the full message history each time.
+
+```bash
+curl -X POST "$BASE_URL/v1/agents/<AGENT_ID>/versions/latest/invoke" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "X-Session-ID: 550e8400-e29b-41d4-a716-446655440000" \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [{"role": "user", "content": "Remember my name is Alex."}]}'
+```
+
+---
+
+## Error Responses
+
+| Status | Cause |
+|---|---|
+| `400` | Invalid config (missing `tools`, invalid `toolType`, malformed `outputSchema`) |
+| `401` | Missing or expired access token |
+| `403` | Insufficient permissions |
+| `404` | Agent ID or version does not exist |

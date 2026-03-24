@@ -1,0 +1,188 @@
+---
+title: "Managing Agents"
+description: "Create, version, deploy, and control access to agents in Agent Builder Platform."
+---
+
+## Agent Lifecycle Overview
+
+Every agent in Agent Builder Platform follows a simple lifecycle:
+
+1. **Create** — define the agent name, type, and configuration via API or Studio
+2. **Version** — each config change creates a new version; use `latest` for convenience
+3. **Deploy** — make the agent available under an Application Name with configured connectors and permissions
+4. **Monitor & iterate** — update configuration, release new versions, roll back if needed
+
+---
+
+## Creating an Agent
+
+### Via API
+
+```bash
+POST /v1/agents
+```
+
+```json
+{
+  "name": "DocumentHelper",
+  "description": "Answers questions from company documents",
+  "agentType": "rag",
+  "notes": "Initial agent version",
+  "config": {
+    "hxqlQuery": "SELECT * FROM SysContent",
+    "llmModelId": "amazon.nova-micro-v1:0"
+  }
+}
+```
+
+All agents within an environment must have a **unique name**. Duplicate names return an error.
+
+### Via Studio
+
+<Steps>
+  <Step title="Sign in">
+    Navigate to Agent Builder Studio — you are redirected to the login screen.
+  </Step>
+  <Step title="Create a project">
+    From the **All Projects** view, select **Create Project**. Enter a project name and optional description.
+  </Step>
+  <Step title="Add an agent">
+    Inside your project, select **New > Agent** from the sidebar and choose the agent type (RAG, Tool, or Task).
+  </Step>
+  <Step title="Save">
+    Select the cloud icon from the top bar to save. The save icon turns black when there are unsaved changes.
+  </Step>
+</Steps>
+
+---
+
+## Versioning
+
+Every time you update an agent's configuration and publish it, a new **version** is created. Versions are immutable once published.
+
+| Action | Description |
+|---|---|
+| Create / update agent | Saves a draft; not yet versioned |
+| Release | Publishes the current state as a numbered version (`v1`, `v2`, …) |
+| Invoke with `latest` | Always uses the most recently released version |
+| Invoke with `{version_id}` | Pins to a specific version for predictable behaviour |
+
+### Releasing a Project (Studio)
+
+<Steps>
+  <Step title="Save changes">
+    Ensure all project components have been saved (cloud icon is grey).
+  </Step>
+  <Step title="Release">
+    Select the arrow next to the **Quick Run** button → **Release project**. Confirm the dialog.
+  </Step>
+  <Step title="View releases">
+    From the project ellipsis menu, click **View project releases** to see the full version history.
+  </Step>
+</Steps>
+
+### Restoring a Previous Version
+
+From the **Project Releases** view, click the ellipsis next to any release and select **Restore Project to this Release**.
+
+<Warning>
+All project elements are replaced with those from the selected release. Save and release your current work before restoring.
+</Warning>
+
+---
+
+## Deploying a Project
+
+Released projects can be deployed from Studio to make them available as running applications.
+
+<Steps>
+  <Step title="Open releases">
+    From the **All Projects** view, select the ellipsis next to your project → **Deploy**.
+  </Step>
+  <Step title="Configure Application Name">
+    Enter the application name, select the target environment, and configure SMTP if needed.
+  </Step>
+  <Step title="Configure connectors">
+    Map connectors to the target environment's endpoints and credentials.
+  </Step>
+  <Step title="Set permissions">
+    Assign user groups and individual users the appropriate access level (READ, CREATE, EDIT, INVOKE, DELETE).
+  </Step>
+  <Step title="Deploy">
+    Click **Deploy**. The application is now live in the selected environment.
+  </Step>
+</Steps>
+
+---
+
+## Permissions and Access Control
+
+Agent Builder uses IAM User Groups to control what users can do with agents.
+
+| Permission | Allows |
+|---|---|
+| `READ` | List and view agents |
+| `CREATE` | Create new agents and versions |
+| `EDIT` | Update agent configuration |
+| `INVOKE` | Call agent invocation endpoints |
+| `DELETE` | Remove agents |
+
+**Recommended user group:** Developers who only need to call agents should use the **Agent Studio Solution Consumers** group (INVOKE only).
+
+### Collaborators (Studio)
+
+You can add collaborators to a project from the project ellipsis menu → **Collaborators**. Each collaborator must be an existing IAM user in the same environment.
+
+---
+
+## Project Management Operations
+
+| Operation | How |
+|---|---|
+| **Duplicate project** | Project ellipsis → **Save as new project** |
+| **Rename project** | Project ellipsis → **Edit project name** |
+| **Download project** | Project ellipsis → **Download project** (ZIP file) |
+| **Upload project** | All Projects view → **Upload Project** (upload a `.zip`) |
+| **Delete project** | Project ellipsis → **Delete project** → Confirm |
+| **Delete multiple** | Enable **projects selection**, select, then delete |
+
+### Downloading a Specific Release
+
+From the **Project Releases** view, click the ellipsis next to any release → **Download project release**.
+
+---
+
+## Environment Variables
+
+Environment variables allow you to configure environment-specific values (e.g. staging vs production endpoints) without modifying the project itself.
+
+<Steps>
+  <Step title="Create a variable">
+    From the Agent Builder home page, select **Variables** → **Create Variable**. Enter a name, value, and optionally scope it to a specific environment.
+  </Step>
+  <Step title="Use in expressions">
+    Reference the variable using `${vars.[VariableName]}` in the expression editor within process configurations and script tasks.
+  </Step>
+</Steps>
+
+Variables with the same name but different environments allow you to promote a project from staging to production simply by switching environments.
+
+---
+
+## Project Structure (ZIP format)
+
+When you download a project, the extracted ZIP follows this folder structure:
+
+```
+/project-name/
+    /connectors/        → connector.json files
+    /data-models/       → data model definitions
+    /decision-tables/   → decision table XML + extensions
+    /files/             → uploaded binary files + metadata
+    /forms/             → form definitions
+    /processes/         → BPMN process files + extensions
+    /scripts/           → script binaries + metadata
+    /triggers/          → trigger definitions
+    /ui/                → UI definition JSON files
+    project-name.json   → project manifest (name + version)
+```

@@ -1,0 +1,274 @@
+---
+title: "Task Agents"
+description: "Process structured JSON inputs with template-based prompts, schema validation, and multi-agent orchestration."
+---
+
+## What Is a Task Agent?
+
+A Task Agent is a specialised agent type designed for **structured input processing**. Unlike Tool Agents that accept free-form conversational messages, Task Agents receive a JSON object validated against a predefined schema, then inject those values into a templated system prompt before invoking the LLM.
+
+Task Agents are the right choice when you need:
+
+- **Consistent input validation** — enforce required fields before the LLM is called
+- **Template-driven prompts** — populate dynamic prompts from structured data
+- **Repeatable workflows** — document classification, claim evaluation, report generation
+- **Multi-agent orchestration** — reference a Task Agent as a sub-tool inside a Tool Agent
+
+---
+
+## Task Agent vs Tool Agent
+
+| Feature | Task Agent | Tool Agent |
+|---|---|---|
+| **Input** | Structured JSON (`inputs` object) | Conversational messages |
+| **Schema validation** | Required (`inputSchema`) | Optional |
+| **System prompt** | Template with `{{variable}}` syntax | Static or dynamic |
+| **Invocation endpoint** | `/invoke-task`, `/invoke-task-stream` | `/invoke`, `/invoke-stream` |
+| **Can be a sub-tool** | ✅ Yes (`task_agent` tool type) | ✅ Yes (as orchestrator) |
+
+---
+
+## Configuration
+
+### Create a Task Agent
+
+```bash
+POST /v1/agents
+```
+
+```json
+{
+  "name": "Document Classifier",
+  "description": "Classifies documents based on content",
+  "agentType": "task",
+  "config": {
+    "llmModelId": "amazon.nova-micro-v1:0",
+    "systemPrompt": "Classify the document titled '{{title}}' with content: {{content}}. Provide a category and confidence score.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Document title" },
+        "content": { "type": "string", "description": "Document content to classify" }
+      },
+      "required": ["title", "content"]
+    },
+    "tools": [
+      {
+        "toolType": "structured_output",
+        "name": "structured_output",
+        "description": "Returns classification results",
+        "outputSchema": {
+          "type": "object",
+          "properties": {
+            "category": { "type": "string", "description": "Predicted category" },
+            "confidence": { "type": "number", "description": "Confidence score 0–1" }
+          },
+          "required": ["category", "confidence"]
+        }
+      }
+    ],
+    "inferenceConfig": { "maxTokens": 1000, "temperature": 0.1 },
+    "guardrails": ["HAIP-Profanity"]
+  }
+}
+```
+
+### Essential Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| `agentType` | Yes | Must be `"task"` |
+| `llmModelId` | Yes | Bedrock model ID with function calling support |
+| `systemPrompt` | Yes | Template using `{{variable}}` syntax; all variables must match `inputSchema` properties |
+| `inputSchema` | Yes | JSON Schema (`type: "object"`) defining the accepted input fields |
+| `tools` | No | Tool definitions; use `structured_output` to enforce typed JSON responses |
+| `inferenceConfig` | No | LLM inference settings |
+| `guardrails` | No | Guardrail names applied to all invocations |
+
+### System Prompt Rules
+
+- Variables must use double-curly-brace syntax: `{{variable_name}}`
+- Variable names must **exactly match** `inputSchema` property names
+- All schema properties must be referenced in the template
+- No extra template variables that are not in the schema
+
+---
+
+## Example Agents
+
+<AccordionGroup>
+  <Accordion title="Insurance Claim Evaluator">
+    ```json
+    {
+      "name": "Insurance Claim Evaluator",
+      "agentType": "task",
+      "config": {
+        "llmModelId": "anthropic.claude-3-haiku-20240307-v1:0",
+        "systemPrompt": "Evaluate insurance claim {{claim_id}} for policy {{policy_number}}. Description: {{claim_description}}. Provide an approval recommendation with reasoning.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "claim_id": { "type": "string" },
+            "policy_number": { "type": "string" },
+            "claim_description": { "type": "string" }
+          },
+          "required": ["claim_id", "policy_number", "claim_description"]
+        },
+        "tools": [
+          {
+            "toolType": "structured_output",
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "approved": { "type": "boolean" },
+                "reasoning": { "type": "string" }
+              },
+              "required": ["approved", "reasoning"]
+            }
+          }
+        ],
+        "inferenceConfig": { "maxTokens": 2000, "temperature": 0.0 }
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Sales Data Analyzer">
+    ```json
+    {
+      "name": "Sales Data Analyzer",
+      "agentType": "task",
+      "config": {
+        "llmModelId": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+        "systemPrompt": "Analyze sales data for {{period}} with revenue of ${{revenue}} and {{customer_count}} customers. Identify trends and provide recommendations.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "period": { "type": "string" },
+            "revenue": { "type": "number" },
+            "customer_count": { "type": "integer" }
+          },
+          "required": ["period", "revenue", "customer_count"]
+        },
+        "tools": [
+          {
+            "toolType": "structured_output",
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "trends": { "type": "string" },
+                "recommendations": { "type": "string" },
+                "insight_score": { "type": "number" }
+              },
+              "required": ["trends", "recommendations", "insight_score"]
+            }
+          }
+        ],
+        "inferenceConfig": { "maxTokens": 3000, "temperature": 0.01 }
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Invoking a Task Agent
+
+### Standard Invocation
+
+```bash
+POST /v1/agents/{agent_id}/versions/{version_id}/invoke-task
+```
+
+```json
+{
+  "inputs": {
+    "title": "Financial Report Q3",
+    "content": "Revenue increased by 15% compared to last quarter..."
+  }
+}
+```
+
+**Response:**
+
+```json
+{
+  "output": [
+    {
+      "role": "assistant",
+      "type": "message",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "Category: Financial/Quarterly Report. Confidence: 0.95..."
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Streaming Invocation
+
+```bash
+POST /v1/agents/{agent_id}/versions/{version_id}/invoke-task-stream
+```
+
+The request body is identical. Responses arrive as newline-delimited JSON chunks — see [Advanced Features](/content-intelligence/agent-builder/advanced-features).
+
+<Warning>
+Task Agents use **dedicated endpoints** (`/invoke-task`, `/invoke-task-stream`). Calling a Task Agent on `/invoke` will return a `400` error.
+</Warning>
+
+---
+
+## Multi-Agent Orchestration
+
+Task Agents can be referenced as tools inside Tool Agents using the `task_agent` tool type. This allows a coordinator agent to dynamically route work to specialized sub-agents.
+
+```json
+{
+  "name": "Multi-Agent Orchestrator",
+  "agentType": "tool",
+  "config": {
+    "tools": [
+      {
+        "toolType": "task_agent",
+        "agentId": "uuid-of-document-classifier",
+        "agentVersion": "latest"
+      },
+      {
+        "toolType": "task_agent",
+        "agentId": "uuid-of-sales-analyzer",
+        "agentVersion": "latest"
+      }
+    ],
+    "llmModelId": "anthropic.claude-3-haiku-20240307-v1:0",
+    "systemPrompt": "You coordinate document classification and sales analysis tasks. Use the available tools based on the user's request.",
+    "inferenceConfig": { "maxTokens": 1000, "temperature": 0.1 }
+  }
+}
+```
+
+---
+
+## Validation and Error Handling
+
+Task Agents perform comprehensive validation before invoking the LLM:
+
+| Error Scenario | Response |
+|---|---|
+| Missing required input field | `"Task agent input validation failed: 'title' is a required property"` |
+| Template variable not in schema | `"Template variables {'claim_id'} not found in input schema"` |
+| Schema property not in template | `"Input schema properties {'policy_id'} not used in template"` |
+| Wrong agent type on `/invoke-task` | `"Task invocation is only supported for TASK agent types"` |
+
+**Common HTTP Errors:**
+
+| Status | Cause |
+|---|---|
+| `400` | Invalid config, template/schema mismatch, or missing input fields |
+| `401` | Missing or expired access token |
+| `403` | Insufficient permissions |
+| `404` | Agent ID or version does not exist |

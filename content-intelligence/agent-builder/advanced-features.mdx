@@ -1,0 +1,192 @@
+---
+title: "Advanced Features"
+description: "Streaming responses, guardrails, and the full AgentResponse schema for Agent Builder Platform."
+---
+
+## Streaming Responses
+
+All three agent types (RAG, Tool, Task) support real-time streaming. Instead of waiting for the full response, your client receives incremental JSON chunks as generation happens — ideal for displaying live responses in a UI or processing long-running operations.
+
+### Streaming Endpoints
+
+| Agent Type | Endpoint |
+|---|---|
+| RAG & Tool | `POST /v1/agents/{agent_id}/versions/{version_id-or-latest}/invoke-stream` |
+| Task | `POST /v1/agents/{agent_id}/versions/{version_id-or-latest}/invoke-task-stream` |
+
+### How Streaming Works
+
+The server responds with `Content-Type: text/plain`. Each line in the response body is a self-contained JSON object followed by a newline character.
+
+**Chunk types:**
+
+| Type | Field | Description |
+|---|---|---|
+| `response.created` | `response.id` | Signals the start of the stream; all subsequent chunks share this `id` |
+| `response.output_text.delta` | `delta` | A segment of the text response — concatenate all deltas to get the full text |
+| `response.function_call_arguments.done` | `name`, `arguments` | A tool call made by the agent (Tool Agent only) |
+| `response.completed` | `response` | Signals end of stream; includes `customOutputs` for RAG agents |
+
+### Example: Tool Agent Stream (cURL)
+
+```bash
+curl -N -X POST "$BASE_URL/v1/agents/<AGENT_ID>/versions/latest/invoke-stream" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [{"role": "user", "content": "What is 3x5?"}]}'
+```
+
+**Raw response stream:**
+
+```text
+{"type": "response.created", "response": {"id": "resp-id", "model": "anthropic.claude-3-haiku-20240307-v1:0", "object": "response", "createdAt": 1760632921}}
+{"type": "response.output_text.delta", "role": "assistant", "delta": "Okay, I can help", "id": "resp-id"}
+{"type": "response.output_text.delta", "role": "assistant", "delta": " with that. ", "id": "resp-id"}
+{"type": "response.function_call_arguments.done", "id": "resp-id", "arguments": "{\"a\": 3, \"b\": 5}", "itemId": "tooluse_abc", "name": "multiply"}
+{"type": "response.output_text.delta", "role": "assistant", "delta": "The result of 3 x 5 is 15.", "id": "resp-id"}
+{"type": "response.completed", "response": {"id": "resp-id", "model": "...", "object": "response", "createdAt": 1760632921}}
+```
+
+**Processing result:**
+- **Aggregated text:** `"Okay, I can help with that. The result of 3 x 5 is 15."`
+- **Tool call:** `{ "name": "multiply", "arguments": "{\"a\": 3, \"b\": 5}" }`
+
+### Example: RAG Agent Stream
+
+```bash
+curl -N -X POST "$BASE_URL/v1/agents/<AGENT_ID>/versions/latest/invoke-stream" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [{"role": "user", "content": "What is our vacation policy?"}], "hxqlQuery": "SELECT * FROM SysContent"}'
+```
+
+The final `response.completed` chunk includes `customOutputs.sourceNodes` — the document chunks that were retrieved and used as context.
+
+<Warning>
+**Streaming and error handling:** Due to the chunked nature of streaming, runtime failures may not be reflected in the HTTP status code (which may still be `200`). Always check the `response.completed` chunk and server logs for errors.
+</Warning>
+
+<Tip>
+Swagger UI does not render streaming responses correctly. Use cURL, Postman (with streaming enabled), or custom client code for streaming endpoints.
+</Tip>
+
+---
+
+## Full Response Format (Non-Streaming)
+
+All non-streaming invocations return an `AgentResponse` object:
+
+```json
+{
+  "object": "response",
+  "createdAt": 1741705500,
+  "model": "anthropic.claude-3-haiku-20240307-v1:0",
+  "output": [
+    {
+      "type": "message",
+      "status": "completed",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "The response text from the agent."
+        }
+      ]
+    }
+  ],
+  "customOutputs": {
+    "sourceNodes": [...],
+    "ragMode": "normal"
+  }
+}
+```
+
+### Top-Level Fields
+
+| Field | Type | Description |
+|---|---|---|
+| `object` | string | Always `"response"` |
+| `createdAt` | integer | Unix timestamp of response creation |
+| `model` | string | LLM model ID used |
+| `output` | array | Response items (messages and/or tool calls) |
+| `customOutputs` | object \| null | RAG-specific retrieval data; `null` for non-RAG agents |
+
+### Output Types
+
+**Text message (`type: "message"`):**
+
+| Field | Description |
+|---|---|
+| `status` | `"completed"` |
+| `role` | `"assistant"` |
+| `content[].type` | `"output_text"` |
+| `content[].text` | The response text |
+
+**Tool call (`type: "function_call"`):**
+
+| Field | Description |
+|---|---|
+| `name` | Name of the tool/function called |
+| `arguments` | JSON-encoded string of arguments passed to the tool |
+
+### Custom Outputs (RAG Only)
+
+| Field | Description |
+|---|---|
+| `sourceNodes` | Document chunks retrieved from Content Lake |
+| `sourceNodes[].docId` | Document identifier |
+| `sourceNodes[].chunkId` | Chunk identifier within the document |
+| `sourceNodes[].score` | Relevance score `0–1` |
+| `sourceNodes[].text` | Text content of the retrieved chunk |
+| `ragMode` | RAG mode used (`"normal"`) |
+
+---
+
+## Guardrails
+
+Guardrails are platform-managed content safety policies. They intercept both inputs and outputs to detect and block disallowed content — profanity, insults, hate speech, prompt injection attacks.
+
+### Discovering Available Guardrails
+
+The list of guardrails is dynamic and managed at the platform level. Always discover them via API:
+
+```bash
+GET /v1/guardrails
+```
+
+```json
+[
+  { "name": "HAIP-Profanity", "description": "Filters profane language from inputs and outputs" },
+  { "name": "HAIP-Insults-High", "description": "Filters insulting content with high sensitivity" },
+  { "name": "HAIP-Insults-Low", "description": "Filters insulting content with low sensitivity" },
+  { "name": "HAIP-Hate-High", "description": "Filters hate speech with high sensitivity" },
+  { "name": "HAIP-Prompt_attack-Medium", "description": "Detects and blocks prompt injection attacks" }
+]
+```
+
+<Info>
+Never hardcode guardrail names. Always use `GET /v1/guardrails` to discover what is currently available in your environment.
+</Info>
+
+### Applying Guardrails
+
+**At agent creation** — applies to all invocations of this agent:
+
+```json
+{
+  "agentType": "tool",
+  "config": {
+    "guardrails": ["HAIP-Profanity", "HAIP-Insults-High", "HAIP-Prompt_attack-Medium"],
+    ...
+  }
+}
+```
+
+**Per invocation** — applies only to this request, stacked on top of agent-level guardrails:
+
+```json
+{
+  "messages": [{ "role": "user", "content": "..." }],
+  "guardrails": ["HAIP-Hate-High"]
+}
+```

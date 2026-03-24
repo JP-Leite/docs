@@ -1,0 +1,179 @@
+---
+title: "Testing & Debugging"
+description: "Test agents via the Studio, API, and CLI. Understand common errors and debugging strategies."
+---
+
+## Overview
+
+Agent Builder provides three primary ways to test your agents:
+
+| Method | Best for |
+|---|---|
+| **Agent Builder Studio** | Quick interactive tests with a visual UI |
+| **cURL / HTTP client** | Scripted tests, CI pipelines, raw payload inspection |
+| **Swagger UI** | Exploring available endpoints (non-streaming only) |
+
+---
+
+## Testing via Agent Builder Studio
+
+### Testing a Tool or RAG Agent
+
+<Steps>
+  <Step title="Open the agent">
+    From the **Agents** list in Studio Modeler, select the agent you want to test.
+  </Step>
+  <Step title="Enter test input">
+    Enter your test message in the input field on the right side, or upload a JSON file containing test values.
+  </Step>
+  <Step title="Run">
+    Click **Test Agent**. This triggers a Quick Run to create a temporary test deployment.
+
+    <Note>Quick Run will not launch if you have unsaved changes in any open agent.</Note>
+  </Step>
+  <Step title="Review results">
+    After the test completes, review the agent's response and any retrieved source nodes (for RAG agents).
+  </Step>
+</Steps>
+
+### Testing a Task Agent
+
+<Steps>
+  <Step title="Open the agent">
+    Select your Task Agent from the Agents list.
+  </Step>
+  <Step title="Enter structured inputs">
+    Click **Test** in the top-right of the screen. Enter test values for each `inputSchema` field, or upload a JSON file.
+  </Step>
+  <Step title="Run">
+    Click **Run Test**. Results are displayed when the test completes.
+  </Step>
+</Steps>
+
+---
+
+## Testing via cURL
+
+Testing via cURL gives you full control over request headers, body, and streaming behaviour.
+
+### Authenticate
+
+```bash
+TOKEN=$(curl -s -X POST "https://auth.iam.<ENV>.experience.hyland.com/idp/connect/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&scope=hxp environment_authorization&grant_type=client_credentials" \
+  | jq -r '.access_token')
+
+BASE_URL="https://api.<ENV>.experience.hyland.com"
+AGENT_ID="<your-agent-id>"
+```
+
+### Test a RAG or Tool Agent (Standard)
+
+```bash
+curl -X POST "$BASE_URL/v1/agents/$AGENT_ID/versions/latest/invoke" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [
+      { "role": "user", "content": "What is our vacation policy?" }
+    ],
+    "hxqlQuery": "SELECT * FROM SysContent"
+  }'
+```
+
+### Test Streaming
+
+```bash
+curl -N -X POST "$BASE_URL/v1/agents/$AGENT_ID/versions/latest/invoke-stream" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [{"role": "user", "content": "Summarise the HR policy."}], "hxqlQuery": "SELECT * FROM SysContent"}'
+```
+
+The `-N` flag disables curl's output buffering, so you see stream chunks in real time.
+
+### Test a Task Agent
+
+```bash
+curl -X POST "$BASE_URL/v1/agents/$AGENT_ID/versions/latest/invoke-task" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "inputs": {
+      "title": "Financial Report Q3",
+      "content": "Revenue increased by 15% compared to last quarter..."
+    }
+  }'
+```
+
+---
+
+## Testing with Postman or Bruno
+
+1. Create a new request with `POST` method
+2. Set the URL to your invoke endpoint
+3. Add `Authorization: Bearer <token>` in the Headers tab
+4. Set `Content-Type: application/json` in Headers
+5. Add your JSON body in the Body tab (raw / JSON mode)
+
+For **streaming**, ensure your client is configured to display incremental responses (Postman: disable "Send and Download" for streaming endpoints; Bruno supports streaming natively).
+
+<Warning>
+Swagger UI **does not correctly render streaming responses**. Use cURL, Postman, or Bruno for `/invoke-stream` and `/invoke-task-stream` endpoints.
+</Warning>
+
+---
+
+## Using Swagger UI (Non-Streaming Only)
+
+1. Navigate to your API documentation at `$BASE_URL/docs` (or the Swagger URL provided by your administrator)
+2. Click **Authorize** and paste your bearer token
+3. Find the `/v1/agents/{agent_id}/versions/{version_id}/invoke` endpoint
+4. Click **Try it out**, fill in the parameters and request body, then **Execute**
+
+Use Swagger UI only for standard (non-streaming) invocations.
+
+---
+
+## Studio Quick Run
+
+Quick Run deploys a temporary instance of your project for rapid testing without affecting production.
+
+<Steps>
+  <Step title="Open your project">
+    Open the project in Studio Modeler.
+  </Step>
+  <Step title="Select Quick Run">
+    Select **Quick Run** from the top bar, then choose an environment.
+  </Step>
+  <Step title="Run">
+    Click **Quick Run** and confirm the warning. The initial deployment takes up to a few minutes; subsequent runs use Hot Reload (seconds).
+  </Step>
+</Steps>
+
+<Warning>
+Do not run Quick Run on a customer's production environment — it may interfere with running production applications.
+</Warning>
+
+**Hot Reload** applies subsequent changes without restarting any pod. It works for changes to: Process, Agent, Data Model, Decision Table, Script, Form, Form Widget. Changes to connectors, authentication, or content types require a full Quick Run (no hot reload).
+
+---
+
+## Common Errors and Debugging
+
+| Status | Error | Likely Cause | Fix |
+|---|---|---|---|
+| `400` | Bad Request | Missing required field, wrong agent type on `/invoke-task`, template mismatch | Check request body against the schema; verify `agentType` |
+| `401` | Unauthorized | Missing or expired token | Re-authenticate via `POST /idp/connect/token` |
+| `403` | Forbidden | Insufficient IAM permissions | Add `INVOKE` permission to your IAM user group |
+| `404` | Not Found | Invalid `agent_id` or `version_id` | Use `GET /v1/agents` to verify available agents |
+| `200` (streaming error) | Silent failure in stream | Runtime error inside the streaming response | Check server logs; the status code may still be 200 |
+
+### Debugging Tips
+
+- **Log every request/response** — use `curl -v` or Postman's console to capture full headers and payloads
+- **Check `sourceNodes`** — for RAG agents, inspect `customOutputs.sourceNodes` to verify the right documents are being retrieved; adjust `hxqlQuery` if not
+- **Test with a simple message first** — isolate whether the issue is with auth, routing, or the agent config itself
+- **Validate your `inputSchema`** — for Task Agents, test that all required fields are present and correctly named
+- **Use `maxRetries: 2`** — set `inferenceConfig.maxRetries` to a low number during testing to surface errors faster instead of retrying indefinitely

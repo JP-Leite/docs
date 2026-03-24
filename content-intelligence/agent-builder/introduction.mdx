@@ -1,0 +1,95 @@
+---
+title: "Introduction"
+description: "Agent Builder Platform is a unified API for creating and managing intelligent AI agents that search documents, process structured data, and interact with tools."
+---
+
+## What Is Agent Builder Platform?
+
+Agent Builder Platform lets you build, version, and deploy AI agents powered by large language models. Agents can search your document repositories, execute function calls, process structured inputs, and return real-time streaming responses — all through a single, consistent API.
+
+<CardGroup cols={3}>
+  <Card title="RAG Agents" icon="magnifying-glass" href="/content-intelligence/agent-builder/rag-agents">
+    Search documents and answer questions with context-aware, retrieval-augmented responses.
+  </Card>
+  <Card title="Tool Agents" icon="wrench" href="/content-intelligence/agent-builder/tool-agents">
+    Execute function calls, extract structured data, and orchestrate multi-step workflows.
+  </Card>
+  <Card title="Task Agents" icon="list-check" href="/content-intelligence/agent-builder/task-agents">
+    Process structured inputs with template-based prompts and JSON schema validation.
+  </Card>
+</CardGroup>
+
+---
+
+## Choosing an Agent Type
+
+| | RAG Agent | Tool Agent | Task Agent |
+|---|---|---|---|
+| **Primary use** | Document Q&A | Function calling / structured output | Structured data processing |
+| **Input** | Conversational messages | Conversational messages | Structured JSON |
+| **Retrieves docs?** | ✅ Yes (HXQL query) | ❌ No | ❌ No |
+| **Tool support** | ❌ No | ✅ Yes | ✅ Yes (`structured_output`, `task_agent`) |
+| **Invocation endpoint** | `/invoke`, `/invoke-stream` | `/invoke`, `/invoke-stream` | `/invoke-task`, `/invoke-task-stream` |
+| **Streaming** | ✅ Yes | ✅ Yes | ✅ Yes |
+
+<Tip>
+Task Agents can be referenced as **tools inside Tool Agents**, enabling multi-agent orchestration patterns where a coordinator routes work to specialized sub-agents.
+</Tip>
+
+---
+
+## Key Capabilities
+
+<AccordionGroup>
+  <Accordion title="Streaming Responses">
+    All three agent types support real-time streaming via Server-Sent Events. Clients receive incremental JSON chunks (`TextDelta`, `ToolCall`, `CompletedChunk`) as generation happens. See [Advanced Features](/content-intelligence/agent-builder/advanced-features) for the full protocol.
+  </Accordion>
+  <Accordion title="Guardrails">
+    Every agent can enforce content safety policies — profanity filters, hate speech detection, prompt injection protection — either at agent creation time (applies to all invocations) or per-request. Available guardrails are discovered dynamically via `GET /v1/guardrails`.
+  </Accordion>
+  <Accordion title="Versioning">
+    Each agent maintains a history of configuration versions. Use `latest` as the `version_id` for convenience, or pin to a specific version for predictable production behaviour.
+  </Accordion>
+  <Accordion title="Multi-Agent Orchestration">
+    Task Agents can be composed into Tool Agent configs using the `task_agent` tool type. A coordinator Tool Agent can dynamically discover and invoke multiple specialized Task Agents within a single request.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Supported LLMs
+
+The current list of available models is always returned by `GET /v1/models`. Use the `filter[agentType]` query parameter to filter by agent type.
+
+| Use Case | Recommended Model | Model ID |
+|---|---|---|
+| Tool orchestration & complex reasoning | Claude 3.7 Sonnet | `anthropic.claude-3-7-sonnet-20250219-v1:0` |
+| General-purpose (RAG, Tool, Task) | Claude 3.5 Sonnet | `anthropic.claude-3-5-sonnet-20240620-v1:0` |
+| Fast & cost-effective RAG | Amazon Nova Micro | `amazon.nova-micro-v1:0` |
+| Fast tool workflows | Claude 3.5 Haiku | `anthropic.claude-3-5-haiku-20241022-v1:0` |
+| Higher-accuracy RAG | Amazon Nova Lite | `amazon.nova-lite-v1:0` |
+
+<Info>
+**RAG agents** support any model. **Tool and Task agents** require models with function calling and tool choice capabilities. Use `GET /v1/models` for the authoritative list.
+</Info>
+
+Models that are scheduled for deprecation will be flagged in the `GET /v1/models` response, along with the effective date and recommended replacement.
+
+---
+
+## How Agent Builder Relates to Knowledge Discovery
+
+[Knowledge Discovery](/content-intelligence/knowledge-discovery/introduction) provides the Q&A conversational layer on top of Agent Builder Platform. The Knowledge Discovery Q&A API manages multi-turn conversation sessions and routes queries through a RAG agent that is pre-wired to your Content Lake. Use Agent Builder directly when you need fine-grained control over agent configuration, LLM selection, or need Tool/Task agent patterns.
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/content-intelligence/agent-builder/getting-started">
+    Authenticate and create your first agent in minutes.
+  </Card>
+  <Card title="Managing Agents" icon="gear" href="/content-intelligence/agent-builder/managing-agents">
+    Lifecycle management: versioning, permissions, and deployment.
+  </Card>
+</CardGroup>
