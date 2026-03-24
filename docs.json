@@ -13,409 +13,416 @@
     "href": "/"
   },
   "favicon": "/favicon.svg",
-  "navigation": [
-    {
-      "group": "Overview",
-      "pages": [
-        "overview/introduction",
-        "overview/architecture",
-        "overview/content-intelligence",
-        "overview/process-intelligence",
-        "overview/content-model",
-        "overview/authentication"
-      ]
-    },
-    {
-      "tab": "Guides",
-      "groups": [
-        {
-          "group": "Content Services",
-          "pages": [
-            {
-              "group": "CIC Overview",
-              "pages": [
-                "content-services/cic-overview/introduction",
-                "content-services/cic-overview/repository-concepts",
-                "content-services/cic-overview/content-model",
-                "content-services/cic-overview/permissions-security",
-                "content-services/cic-overview/search",
-                "content-services/cic-overview/roles-and-personas"
-              ]
-            },
-            {
-              "group": "Capture",
-              "pages": [
-                "content-services/capture/installation-setup",
-                "content-services/capture/administration-configuration",
-                "content-services/capture/batch-document-management",
-                "content-services/capture/fields-validation",
-                "content-services/capture/troubleshooting-logs",
-                "content-services/capture/other"
-              ]
-            },
-            {
-              "group": "Content Federation",
-              "pages": [
-                "content-services/content-federation/installation-setup",
-                "content-services/content-federation/configuration-admin",
-                "content-services/content-federation/connectors-integrations",
-                "content-services/content-federation/security-authentication",
-                "content-services/content-federation/troubleshooting-logs",
-                "content-services/content-federation/other"
-              ]
-            },
-            {
-              "group": "Content REST API",
-              "pages": [
-                "content-services/content-rest-api/introduction"
-              ]
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Overview",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "overview/introduction",
+              "overview/architecture",
+              "overview/content-intelligence",
+              "overview/process-intelligence",
+              "overview/content-model",
+              "overview/authentication"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Content Services",
+            "pages": [
+              {
+                "group": "CIC Overview",
+                "pages": [
+                  "content-services/cic-overview/introduction",
+                  "content-services/cic-overview/repository-concepts",
+                  "content-services/cic-overview/content-model",
+                  "content-services/cic-overview/permissions-security",
+                  "content-services/cic-overview/search",
+                  "content-services/cic-overview/roles-and-personas"
+                ]
+              },
+              {
+                "group": "Capture",
+                "pages": [
+                  "content-services/capture/installation-setup",
+                  "content-services/capture/administration-configuration",
+                  "content-services/capture/batch-document-management",
+                  "content-services/capture/fields-validation",
+                  "content-services/capture/troubleshooting-logs",
+                  "content-services/capture/other"
+                ]
+              },
+              {
+                "group": "Content Federation",
+                "pages": [
+                  "content-services/content-federation/installation-setup",
+                  "content-services/content-federation/configuration-admin",
+                  "content-services/content-federation/connectors-integrations",
+                  "content-services/content-federation/security-authentication",
+                  "content-services/content-federation/troubleshooting-logs",
+                  "content-services/content-federation/other"
+                ]
+              },
+              {
+                "group": "Content REST API",
+                "pages": [
+                  "content-services/content-rest-api/introduction"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Process Automation",
+            "pages": [
+              {
+                "group": "Automate Modeler",
+                "pages": [
+                  "process-automation/automate-modeler/introduction",
+                  "process-automation/automate-modeler/project-management",
+                  "process-automation/automate-modeler/building-processes",
+                  "process-automation/automate-modeler/bpmn-reference",
+                  "process-automation/automate-modeler/tasks-reference",
+                  "process-automation/automate-modeler/variables-and-data",
+                  "process-automation/automate-modeler/data-modeling",
+                  "process-automation/automate-modeler/content-modeling",
+                  "process-automation/automate-modeler/decision-modeling",
+                  "process-automation/automate-modeler/forms-editor",
+                  "process-automation/automate-modeler/connectors-overview",
+                  "process-automation/automate-modeler/alfresco-connector",
+                  "process-automation/automate-modeler/aws-ml-connectors",
+                  "process-automation/automate-modeler/communication-connectors",
+                  "process-automation/automate-modeler/database-connectors",
+                  "process-automation/automate-modeler/actions-reference",
+                  "process-automation/automate-modeler/ui-customization",
+                  "process-automation/automate-modeler/authentication",
+                  "process-automation/automate-modeler/simulation-and-testing",
+                  "process-automation/automate-modeler/runtime-and-apis"
+                ]
+              },
+              {
+                "group": "Automate Administration",
+                "pages": [
+                  "process-automation/automate-administration/introduction",
+                  "process-automation/automate-administration/application-management",
+                  "process-automation/automate-administration/application-lifecycle",
+                  "process-automation/automate-administration/process-management",
+                  "process-automation/automate-administration/task-management",
+                  "process-automation/automate-administration/users-permissions",
+                  "process-automation/automate-administration/monitoring-diagnostics",
+                  "process-automation/automate-administration/configuration"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Content Intelligence",
+            "pages": [
+              {
+                "group": "Getting Started",
+                "pages": [
+                  "content-intelligence/overview"
+                ]
+              },
+              {
+                "group": "Agent Builder",
+                "pages": [
+                  "content-intelligence/agent-builder/introduction",
+                  "content-intelligence/agent-builder/getting-started",
+                  "content-intelligence/agent-builder/rag-agents",
+                  "content-intelligence/agent-builder/tool-agents",
+                  "content-intelligence/agent-builder/task-agents",
+                  "content-intelligence/agent-builder/advanced-features",
+                  "content-intelligence/agent-builder/managing-agents",
+                  "content-intelligence/agent-builder/testing-and-debugging"
+                ]
+              },
+              {
+                "group": "Intelligent Document Processing (IDP)",
+                "pages": [
+                  "content-intelligence/idp/introduction",
+                  "content-intelligence/idp/project-setup",
+                  "content-intelligence/idp/classification-extraction",
+                  "content-intelligence/idp/workflow-process-design",
+                  "content-intelligence/idp/review-validation",
+                  "content-intelligence/idp/deployment-monitoring"
+                ]
+              },
+              {
+                "group": "Knowledge Discovery",
+                "pages": [
+                  "content-intelligence/knowledge-discovery/introduction",
+                  "content-intelligence/knowledge-discovery/managing-agents",
+                  "content-intelligence/knowledge-discovery/conversations",
+                  "content-intelligence/knowledge-discovery/integrations"
+                ]
+              },
+              {
+                "group": "Knowledge Enrichment",
+                "pages": [
+                  "content-intelligence/knowledge-enrichment/introduction",
+                  "content-intelligence/knowledge-enrichment/getting-started",
+                  "content-intelligence/knowledge-enrichment/context-api",
+                  "content-intelligence/knowledge-enrichment/tutorials"
+                ]
+              },
+              {
+                "group": "Architecture",
+                "pages": [
+                  "content-intelligence/architecture/overview",
+                  "content-intelligence/architecture/infrastructure",
+                  "content-intelligence/architecture/deployment-ops",
+                  "content-intelligence/architecture/security-compliance",
+                  "content-intelligence/architecture/data-platform",
+                  "content-intelligence/architecture/ai-intelligence",
+                  "content-intelligence/architecture/agents-and-discovery"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Governance & Identity",
+            "pages": [
+              {
+                "group": "Getting Started",
+                "pages": [
+                  "governance-identity/overview"
+                ]
+              },
+              {
+                "group": "Governance",
+                "pages": [
+                  "governance-identity/governance/introduction",
+                  "governance-identity/governance/project-management",
+                  "governance-identity/governance/file-plan",
+                  "governance-identity/governance/retention-management",
+                  "governance-identity/governance/legal-hold",
+                  "governance-identity/governance/record-management",
+                  "governance-identity/governance/content-governance"
+                ]
+              },
+              {
+                "group": "Governance REST API",
+                "pages": [
+                  {
+                    "group": "Legal Cases",
+                    "expanded": false,
+                    "pages": [
+                      "governance-identity/governance-rest-api/create-a-legal-case",
+                      "governance-identity/governance-rest-api/creating-a-legal-case-for-a-legal-hold",
+                      "governance-identity/governance-rest-api/return-all-legal-cases",
+                      "governance-identity/governance-rest-api/return-the-legal-cases-attached-to-the-specified-legal-record",
+                      "governance-identity/governance-rest-api/return-the-legal-records-for-the-specified-legal-case",
+                      "governance-identity/governance-rest-api/update-the-specified-legal-case"
+                    ]
+                  },
+                  {
+                    "group": "Legal Records",
+                    "expanded": false,
+                    "pages": [
+                      "governance-identity/governance-rest-api/create-legal-records",
+                      "governance-identity/governance-rest-api/creating-legal-records-for-a-legal-hold",
+                      "governance-identity/governance-rest-api/delete-the-specified-record",
+                      "governance-identity/governance-rest-api/patch-the-specified-record",
+                      "governance-identity/governance-rest-api/return-the-records-for-the-specified-query",
+                      "governance-identity/governance-rest-api/return-the-specified-record",
+                      "governance-identity/governance-rest-api/update-the-specified-record"
+                    ]
+                  },
+                  {
+                    "group": "File Plan & Configuration",
+                    "expanded": false,
+                    "pages": [
+                      "governance-identity/governance-rest-api/return-the-file-plan-configuration-for-the-specified-environment"
+                    ]
+                  },
+                  {
+                    "group": "Users & Overview",
+                    "expanded": false,
+                    "pages": [
+                      "governance-identity/governance-rest-api/api-overview",
+                      "governance-identity/governance-rest-api/endpoints-reference",
+                      "governance-identity/governance-rest-api/getting-started",
+                      "governance-identity/governance-rest-api/introduction",
+                      "governance-identity/governance-rest-api/return-all-users",
+                      "governance-identity/governance-rest-api/return-user-information",
+                      "governance-identity/governance-rest-api/tutorials"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              {
+                "group": "Overview",
+                "pages": [
+                  "integrations/overview"
+                ]
+              },
+              {
+                "group": "Salesforce",
+                "pages": [
+                  "integrations/salesforce/installation-setup",
+                  "integrations/salesforce/configuration-administration",
+                  "integrations/salesforce/document-operations"
+                ]
+              },
+              {
+                "group": "SAP SuccessFactors",
+                "pages": [
+                  "integrations/sap-successfactors/installation-setup",
+                  "integrations/sap-successfactors/configuration-administration",
+                  "integrations/sap-successfactors/authentication-sso-identity",
+                  "integrations/sap-successfactors/document-operations",
+                  "integrations/sap-successfactors/other"
+                ]
+              },
+              {
+                "group": "Guidewire ClaimCenter",
+                "pages": [
+                  "integrations/guidewire-claimcenter/installation-setup",
+                  "integrations/guidewire-claimcenter/configuration-administration",
+                  "integrations/guidewire-claimcenter/document-operations",
+                  "integrations/guidewire-claimcenter/other"
+                ]
+              },
+              {
+                "group": "Guidewire PolicyCenter",
+                "pages": [
+                  "integrations/guidewire-policycenter/installation-setup",
+                  "integrations/guidewire-policycenter/configuration-administration",
+                  "integrations/guidewire-policycenter/document-operations",
+                  "integrations/guidewire-policycenter/other"
+                ]
+              },
+              {
+                "group": "Confluence",
+                "pages": [
+                  "integrations/confluence/atlassian-api-token-configuration",
+                  "integrations/confluence/auto-ingestion",
+                  "integrations/confluence/bulk-ingestion",
+                  "integrations/confluence/configuring-confluence-connector",
+                  "integrations/confluence/ingestion-configuration",
+                  "integrations/confluence/installation",
+                  "integrations/confluence/overview",
+                  "integrations/confluence/updating-confluence-connector"
+                ]
+              },
+              {
+                "group": "OnBase Connector",
+                "pages": [
+                  "integrations/onbase/introduction",
+                  "integrations/onbase/installation",
+                  "integrations/onbase/configuration",
+                  "integrations/onbase/security",
+                  "integrations/onbase/ingestion",
+                  "integrations/onbase/knowledge-discovery",
+                  "integrations/onbase/operations-troubleshooting"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Query Service",
+            "openapi": {
+              "source": "specs/query-service.json",
+              "directory": "api/query"
             }
-          ]
-        },
-        {
-          "group": "Process Automation",
-          "pages": [
-            {
-              "group": "Automate Modeler",
-              "pages": [
-                "process-automation/automate-modeler/introduction",
-                "process-automation/automate-modeler/project-management",
-                "process-automation/automate-modeler/building-processes",
-                "process-automation/automate-modeler/bpmn-reference",
-                "process-automation/automate-modeler/tasks-reference",
-                "process-automation/automate-modeler/variables-and-data",
-                "process-automation/automate-modeler/data-modeling",
-                "process-automation/automate-modeler/content-modeling",
-                "process-automation/automate-modeler/decision-modeling",
-                "process-automation/automate-modeler/forms-editor",
-                "process-automation/automate-modeler/connectors-overview",
-                "process-automation/automate-modeler/alfresco-connector",
-                "process-automation/automate-modeler/aws-ml-connectors",
-                "process-automation/automate-modeler/communication-connectors",
-                "process-automation/automate-modeler/database-connectors",
-                "process-automation/automate-modeler/actions-reference",
-                "process-automation/automate-modeler/ui-customization",
-                "process-automation/automate-modeler/authentication",
-                "process-automation/automate-modeler/simulation-and-testing",
-                "process-automation/automate-modeler/runtime-and-apis"
-              ]
-            },
-            {
-              "group": "Automate Administration",
-              "pages": [
-                "process-automation/automate-administration/introduction",
-                "process-automation/automate-administration/application-management",
-                "process-automation/automate-administration/application-lifecycle",
-                "process-automation/automate-administration/process-management",
-                "process-automation/automate-administration/task-management",
-                "process-automation/automate-administration/users-permissions",
-                "process-automation/automate-administration/monitoring-diagnostics",
-                "process-automation/automate-administration/configuration"
-              ]
+          },
+          {
+            "group": "Runtime Bundle",
+            "openapi": {
+              "source": "specs/runtime-bundle.json",
+              "directory": "api/runtime"
             }
-          ]
-        },
-        {
-          "group": "Content Intelligence",
-          "pages": [
-            {
-              "group": "Getting Started",
-              "pages": [
-                "content-intelligence/overview"
-              ]
-            },
-            {
-              "group": "Agent Builder",
-              "pages": [
-                "content-intelligence/agent-builder/introduction",
-                "content-intelligence/agent-builder/getting-started",
-                "content-intelligence/agent-builder/rag-agents",
-                "content-intelligence/agent-builder/tool-agents",
-                "content-intelligence/agent-builder/task-agents",
-                "content-intelligence/agent-builder/advanced-features",
-                "content-intelligence/agent-builder/managing-agents",
-                "content-intelligence/agent-builder/testing-and-debugging"
-              ]
-            },
-            {
-              "group": "Intelligent Document Processing (IDP)",
-              "pages": [
-                "content-intelligence/idp/introduction",
-                "content-intelligence/idp/project-setup",
-                "content-intelligence/idp/classification-extraction",
-                "content-intelligence/idp/workflow-process-design",
-                "content-intelligence/idp/review-validation",
-                "content-intelligence/idp/deployment-monitoring"
-              ]
-            },
-            {
-              "group": "Knowledge Discovery",
-              "pages": [
-                "content-intelligence/knowledge-discovery/introduction",
-                "content-intelligence/knowledge-discovery/managing-agents",
-                "content-intelligence/knowledge-discovery/conversations",
-                "content-intelligence/knowledge-discovery/integrations"
-              ]
-            },
-            {
-              "group": "Knowledge Enrichment",
-              "pages": [
-                "content-intelligence/knowledge-enrichment/introduction",
-                "content-intelligence/knowledge-enrichment/getting-started",
-                "content-intelligence/knowledge-enrichment/context-api",
-                "content-intelligence/knowledge-enrichment/tutorials"
-              ]
-            },
-            {
-              "group": "Architecture",
-              "pages": [
-                "content-intelligence/architecture/overview",
-                "content-intelligence/architecture/infrastructure",
-                "content-intelligence/architecture/deployment-ops",
-                "content-intelligence/architecture/security-compliance",
-                "content-intelligence/architecture/data-platform",
-                "content-intelligence/architecture/ai-intelligence",
-                "content-intelligence/architecture/agents-and-discovery"
-              ]
+          },
+          {
+            "group": "Repository",
+            "openapi": {
+              "source": "specs/repository.json",
+              "directory": "api/repository"
             }
-          ]
-        },
-        {
-          "group": "Governance & Identity",
-          "pages": [
-            {
-              "group": "Getting Started",
-              "pages": [
-                "governance-identity/overview"
-              ]
-            },
-            {
-              "group": "Governance",
-              "pages": [
-                "governance-identity/governance/introduction",
-                "governance-identity/governance/project-management",
-                "governance-identity/governance/file-plan",
-                "governance-identity/governance/retention-management",
-                "governance-identity/governance/legal-hold",
-                "governance-identity/governance/record-management",
-                "governance-identity/governance/content-governance"
-              ]
-            },
-            {
-              "group": "Governance REST API",
-              "pages": [
-                {
-                  "group": "Legal Cases",
-                  "expanded": false,
-                  "pages": [
-                    "governance-identity/governance-rest-api/create-a-legal-case",
-                    "governance-identity/governance-rest-api/creating-a-legal-case-for-a-legal-hold",
-                    "governance-identity/governance-rest-api/return-all-legal-cases",
-                    "governance-identity/governance-rest-api/return-the-legal-cases-attached-to-the-specified-legal-record",
-                    "governance-identity/governance-rest-api/return-the-legal-records-for-the-specified-legal-case",
-                    "governance-identity/governance-rest-api/update-the-specified-legal-case"
-                  ]
-                },
-                {
-                  "group": "Legal Records",
-                  "expanded": false,
-                  "pages": [
-                    "governance-identity/governance-rest-api/create-legal-records",
-                    "governance-identity/governance-rest-api/creating-legal-records-for-a-legal-hold",
-                    "governance-identity/governance-rest-api/delete-the-specified-record",
-                    "governance-identity/governance-rest-api/patch-the-specified-record",
-                    "governance-identity/governance-rest-api/return-the-records-for-the-specified-query",
-                    "governance-identity/governance-rest-api/return-the-specified-record",
-                    "governance-identity/governance-rest-api/update-the-specified-record"
-                  ]
-                },
-                {
-                  "group": "File Plan & Configuration",
-                  "expanded": false,
-                  "pages": [
-                    "governance-identity/governance-rest-api/return-the-file-plan-configuration-for-the-specified-environment"
-                  ]
-                },
-                {
-                  "group": "Users & Overview",
-                  "expanded": false,
-                  "pages": [
-                    "governance-identity/governance-rest-api/api-overview",
-                    "governance-identity/governance-rest-api/endpoints-reference",
-                    "governance-identity/governance-rest-api/getting-started",
-                    "governance-identity/governance-rest-api/introduction",
-                    "governance-identity/governance-rest-api/return-all-users",
-                    "governance-identity/governance-rest-api/return-user-information",
-                    "governance-identity/governance-rest-api/tutorials"
-                  ]
-                }
-              ]
+          },
+          {
+            "group": "Modeling Service",
+            "openapi": {
+              "source": "specs/modeling-service.json",
+              "directory": "api/modeling"
             }
-          ]
-        },
-        {
-          "group": "Integrations",
-          "pages": [
-            {
-              "group": "Overview",
-              "pages": [
-                "integrations/overview"
-              ]
-            },
-            {
-              "group": "Salesforce",
-              "pages": [
-                "integrations/salesforce/installation-setup",
-                "integrations/salesforce/configuration-administration",
-                "integrations/salesforce/document-operations"
-              ]
-            },
-            {
-              "group": "SAP SuccessFactors",
-              "pages": [
-                "integrations/sap-successfactors/installation-setup",
-                "integrations/sap-successfactors/configuration-administration",
-                "integrations/sap-successfactors/authentication-sso-identity",
-                "integrations/sap-successfactors/document-operations",
-                "integrations/sap-successfactors/other"
-              ]
-            },
-            {
-              "group": "Guidewire ClaimCenter",
-              "pages": [
-                "integrations/guidewire-claimcenter/installation-setup",
-                "integrations/guidewire-claimcenter/configuration-administration",
-                "integrations/guidewire-claimcenter/document-operations",
-                "integrations/guidewire-claimcenter/other"
-              ]
-            },
-            {
-              "group": "Guidewire PolicyCenter",
-              "pages": [
-                "integrations/guidewire-policycenter/installation-setup",
-                "integrations/guidewire-policycenter/configuration-administration",
-                "integrations/guidewire-policycenter/document-operations",
-                "integrations/guidewire-policycenter/other"
-              ]
-            },
-            {
-              "group": "Confluence",
-              "pages": [
-                "integrations/confluence/atlassian-api-token-configuration",
-                "integrations/confluence/auto-ingestion",
-                "integrations/confluence/bulk-ingestion",
-                "integrations/confluence/configuring-confluence-connector",
-                "integrations/confluence/ingestion-configuration",
-                "integrations/confluence/installation",
-                "integrations/confluence/overview",
-                "integrations/confluence/updating-confluence-connector"
-              ]
-            },
-            {
-              "group": "OnBase Connector",
-              "pages": [
-                "integrations/onbase/introduction",
-                "integrations/onbase/installation",
-                "integrations/onbase/configuration",
-                "integrations/onbase/security",
-                "integrations/onbase/ingestion",
-                "integrations/onbase/knowledge-discovery",
-                "integrations/onbase/operations-troubleshooting"
-              ]
+          },
+          {
+            "group": "Deployment Service",
+            "openapi": {
+              "source": "specs/deployment-service.json",
+              "directory": "api/deployment"
             }
-          ]
-        }
-      ]
-    },
-    {
-      "tab": "API Reference",
-      "groups": [
-        {
-          "group": "Query Service",
-          "openapi": {
-            "source": "specs/query-service.json",
-            "directory": "api/query"
+          },
+          {
+            "group": "Identity Adapter",
+            "openapi": {
+              "source": "specs/identity-adapter.json",
+              "directory": "api/identity"
+            }
+          },
+          {
+            "group": "Agent API",
+            "openapi": {
+              "source": "specs/content-intelligence-agents.json",
+              "directory": "api/ci-agents"
+            }
+          },
+          {
+            "group": "Question & Answer API",
+            "openapi": {
+              "source": "specs/content-intelligence-qna.json",
+              "directory": "api/ci-qna"
+            }
+          },
+          {
+            "group": "Semantic Search API",
+            "openapi": {
+              "source": "specs/content-intelligence-semantic.json",
+              "directory": "api/ci-semantic"
+            }
+          },
+          {
+            "group": "Ingestion API",
+            "openapi": {
+              "source": "specs/content-intelligence-ingestion.json",
+              "directory": "api/ci-ingestion"
+            }
           }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Hyland Support",
+          "href": "https://support.hyland.com",
+          "icon": "life-ring"
         },
         {
-          "group": "Runtime Bundle",
-          "openapi": {
-            "source": "specs/runtime-bundle.json",
-            "directory": "api/runtime"
-          }
-        },
-        {
-          "group": "Repository",
-          "openapi": {
-            "source": "specs/repository.json",
-            "directory": "api/repository"
-          }
-        },
-        {
-          "group": "Modeling Service",
-          "openapi": {
-            "source": "specs/modeling-service.json",
-            "directory": "api/modeling"
-          }
-        },
-        {
-          "group": "Deployment Service",
-          "openapi": {
-            "source": "specs/deployment-service.json",
-            "directory": "api/deployment"
-          }
-        },
-        {
-          "group": "Identity Adapter",
-          "openapi": {
-            "source": "specs/identity-adapter.json",
-            "directory": "api/identity"
-          }
-        },
-        {
-          "group": "Agent API",
-          "openapi": {
-            "source": "specs/content-intelligence-agents.json",
-            "directory": "api/ci-agents"
-          }
-        },
-        {
-          "group": "Question & Answer API",
-          "openapi": {
-            "source": "specs/content-intelligence-qna.json",
-            "directory": "api/ci-qna"
-          }
-        },
-        {
-          "group": "Semantic Search API",
-          "openapi": {
-            "source": "specs/content-intelligence-semantic.json",
-            "directory": "api/ci-semantic"
-          }
-        },
-        {
-          "group": "Ingestion API",
-          "openapi": {
-            "source": "specs/content-intelligence-ingestion.json",
-            "directory": "api/ci-ingestion"
-          }
+          "anchor": "GitHub",
+          "href": "https://github.com/jp-leite/docs",
+          "icon": "github"
         }
       ]
     }
-  ],
-  "global": {
-    "anchors": [
-      {
-        "anchor": "Hyland Support",
-        "href": "https://support.hyland.com",
-        "icon": "life-ring"
-      },
-      {
-        "anchor": "GitHub",
-        "href": "https://github.com/jp-leite/docs",
-        "icon": "github"
-      }
-    ]
   },
   "navbar": {
     "links": [
