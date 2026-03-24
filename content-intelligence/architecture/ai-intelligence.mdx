@@ -1,0 +1,110 @@
+---
+title: "AI & Machine Learning Platform"
+description: "The core AI services that power content intelligence, extraction, and automated decision-making."
+---
+
+The Machine Learning (ML) Platform is the engine that powers all Content Intelligence capabilities. It provides the inference infrastructure, model management, and governance frameworks required to transform enterprise content into structured intelligence.
+
+## Platform Capabilities
+
+The ML Platform serves as a centralized service used by Data Curation, Context Enrichment, and Agent infrastructure.
+
+```mermaid
+flowchart BT
+    subgraph UserSpace [ ]
+        direction LR
+        YC[(Your<br>Content)] --- Ingest1[Ingest]
+    end
+
+    subgraph CIC [Content Innovation Cloud]
+        direction BT
+        Ingest2[Ingest]
+        
+        subgraph KE [Knowledge Enrichment]
+            direction LR
+            Curate[Curate] --> Context[Context]
+        end
+        
+        ContentLake[Content Lake]
+        ML[ML Platform]
+        Agents[Agents]
+        Discovery[Discovery]
+        
+        Ingest2 --> Curate
+        Curate --> ContentLake
+        Context --> ContentLake
+        ContentLake --> ML
+        ML --> Agents
+        Agents --> Discovery
+    end
+
+    Ingest1 --> Ingest2
+
+    %% Feature Box
+    FeatureBox["• Embeddings<br>• Model Registry & Inference<br>• Guardrails & AI Governance<br>• Fine tuning and Evaluation"]
+    ML -.- FeatureBox
+    
+    %% Styles
+    classDef default fill:#fff,stroke:#333,stroke-width:1px;
+    classDef db fill:#eef,stroke:#55f,stroke-width:2px;
+    classDef ingest fill:#e0f7fa,stroke:#009688,stroke-width:2px;
+    classDef curate fill:#e8f5e9,stroke:#4caf50,stroke-width:2px;
+    classDef context fill:#e3f2fd,stroke:#2196f3,stroke-width:2px;
+    classDef lake fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px;
+    classDef ml fill:#fff8e1,stroke:#795548,stroke-width:2px;
+    classDef agents fill:#fffde7,stroke:#ffc107,stroke-width:2px;
+    classDef discovery fill:#fff3e0,stroke:#ff9800,stroke-width:2px;
+    classDef features fill:#fff,stroke:#333,stroke-width:2px,text-align:left;
+
+    class YC db;
+    class Ingest1,Ingest2 ingest;
+    class Curate curate;
+    class Context context;
+    class ContentLake lake;
+    class ML ml;
+    class Agents agents;
+    class Discovery discovery;
+    class FeatureBox features;
+```
+
+### Inference & Model Catalog
+The platform provides access to a wide range of models tailored for different business needs:
+- **Foundation Models (LLMs)**: High-performance language models via Amazon Bedrock.
+- **Predictive AI**: Specialized models for classification and numerical forecasting.
+- **Embeddings**: Models that convert text and images into vector form for semantic search.
+
+---
+
+## AI-Enabling Enterprise Content
+
+AI models operate on numerical vectors. To make your documents "AI-ready," the platform performs two critical steps:
+1. **Semantic Breaking**: Large documents are broken down into meaningful units (paragraphs, tables, illustrations).
+2. **Vector Encoding**: Each unit is passed through an embedding model to create a high-dimensional vector that represents its meaning.
+
+---
+
+## Content Qualification & Extraction
+
+AI significantly improves the quality and consistency of document metadata without manual effort.
+
+- **Auto-Categorization**: Automatically identifying document classes (e.g., distinguishing an invoice from a contract).
+- **Intelligent Extraction**: Pulling named entities (people, organizations, dates) and relationships directly from the text.
+- **Auto-Summarization**: Generating concise descriptions and summaries for large volumes of content.
+
+---
+
+## IDP & Workflow Automation
+
+Content Intelligence integrates agents directly into business processes via **Intelligent Document Processing (IDP)** and **Automate**.
+
+- **Recognition & Categorization**: IDP uses AI to recognize document structures and categorize them within a batch.
+- **Assist & Automate**: Agents provide decision support within workflows, helping users process documents faster or automating routing decisions based on extracted data.
+
+---
+
+## Governance & Quality Control
+
+To ensure the safety and reliability of AI outputs, the platform includes:
+- **Guardrails**: Automated checks to prevent hallucinations and ensure adherence to security principles.
+- **Model Registry**: Centralized tracking of all models in use, including versioning and performance metrics.
+- **Fine-Tuning**: Capabilities to further train models on your specific business data for increased accuracy.

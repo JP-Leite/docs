@@ -5,25 +5,40 @@ description: "How content is typed, structured, and modelled in the Content Inno
 
 ## Overview
 
-The **content model** is the schema system that governs how documents are defined and stored in the CIC repository. It determines what metadata a document can carry, how documents relate to each other, and how they can be searched.
+The **content model** is the schema system that governs how documents are defined and stored in the CIC repository. It determines what metadata a document carries, how documents relate to each other, and how they can be searched.
 
-Every document in the repository belongs to a **content type**, which is defined using the content model building blocks below.
-
----
+Every document in the repository belongs to a **content type**, which acts as a template for its structure.
 
 ## Building Blocks
 
-| Building Block | Description |
-| --- | --- |
-| [Content Type](/content-services/cic-overview/content-type) | A template that defines the structure of a document — which properties and mixins it carries. |
-| [Property](/content-services/cic-overview/property) | A metadata field (e.g., title, author, expiry date) attached to a content type or mixin. |
-| [Mixin](/content-services/cic-overview/mixin) | A reusable set of properties that can be applied across multiple content types. |
-| [Classification](/content-services/cic-overview/classification) | A taxonomy-based category applied to documents for filtering and grouping. |
-| [Document](/content-services/cic-overview/document) | An instance of a content type — a real piece of content with populated property values. |
-| [Blob](/content-services/cic-overview/blob) | The binary file payload attached to a document (PDF, Word, image, etc.). |
+The content model is built from the following core elements:
+
+### Content Type
+A **content type** is the set of properties that define a content object. It serves as a blueprint, specifying:
+- The list of schemas and metadata fields.
+- The document's lifecycle and versioning policy.
+- The forms presented to users in the Workspace.
+
+### Property (Metadata)
+A **property** is a granular data element stored on a document. Properties can take many forms:
+- **Text**: Standard strings.
+- **Date**: Calendar dates.
+- **Boolean**: Yes/no values.
+- **Integers**: Numeric values.
+- **Blobs**: Containers for binary content (files).
+- **Complex**: Structured data, such as a list of contact objects.
+
+### Mixin
+A **mixin** is a reusable data structure that allows properties to be injected into a content type without traditional inheritance. 
+- **Efficiency**: Mixins promote reuse and keep your model "DRY" (Don't Repeat Yourself).
+- **Dynamic**: A mixin can be added dynamically to a document instance even if the base content type doesn't explicitly reference it.
+
+### Classification
+**Classification** provides a way to categorise documents using taxonomy values. This enables dynamic filtering and grouping within the repository, making it easier for users to browse and find content.
 
 ---
 
-<Tip>
-  Design your content model with **mixins** for shared metadata. For example, a `ReviewMetadata` mixin with `reviewer`, `approvedAt`, and `reviewStatus` properties can be reused across invoice, contract, and policy content types — keeping your model DRY and consistent.
-</Tip>
+## Best Practices
+
+### Using Reusable Mixins
+Design your content model using mixins for shared metadata. For example, instead of defining `Reviewer` and `Approval Date` on every individual content type, create a `ReviewMetadata` mixin. This mixin can then be applied across Invoices, Contracts, and Policies, ensuring consistency and making global updates much simpler.

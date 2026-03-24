@@ -1,0 +1,69 @@
+---
+title: "Task Management"
+---
+
+Task management in the Administration Application allows you to monitor and manage both **User Tasks** (requiring human intervention) and **Service Tasks** (automated steps) across your process instances.
+
+## User Tasks
+
+User tasks represent steps in a process that must be performed by a person. You can monitor all active, assigned, completed, and suspended user tasks from the **User Tasks** section.
+
+### Filtering User Tasks
+Use the **Filters** section to narrow down the list of user tasks.
+
+| Property | Description |
+| --- | --- |
+| **Application name** | The name of the application. |
+| **Assignee** | The user currently assigned to the task. |
+| **Created Date** | When the task was initiated. |
+| **Id** | The unique task ID. |
+| **Parent ID** | The ID of the parent task, if applicable. |
+| **Process Instance Id** | The ID of the specific process instance. |
+| **Status** | The current state of the task (see below). |
+| **Task Name** | The name defined during modeling. |
+
+Clicking on a task opens a properties panel. If the status is `CREATED` or `ASSIGNED`, some properties can be edited directly.
+
+### User Task Statuses
+| Status | Description |
+| --- | --- |
+| **CREATED** | The task exists but is not yet assigned. |
+| **ASSIGNED** | The task has an assignee but is not yet finished. |
+| **COMPLETED** | The task is finished. |
+| **SUSPENDED** | The parent process is suspended; the task is paused. |
+| **CANCELED** | The task was stopped and cannot be finished. |
+
+### Managing User Tasks
+- **Bulk Actions**: You can delete or re-assign multiple tasks at once. Select **Select Multiple**, check the desired tasks, and choose **Delete** or **Change assignee** from the actions menu.
+- **Sibling Tasks**: View standalone tasks that share the same parent task by selecting the **Sibling Tasks** option.
+
+## Service Tasks
+
+Service tasks are automated steps executed by the system. You can monitor their progress and identify any execution errors in the **Service Tasks** section.
+
+### Filtering Service Tasks
+| Property | Description |
+| --- | --- |
+| **Application name** | The name of the application. |
+| **Activity Name** | The name defined in the process definition. |
+| **Completed Date** | When the automated step finished. |
+| **Id** | The unique service task ID. |
+| **Process Instance Id** | The ID of the associated process instance. |
+| **Started Date** | When the automated step began. |
+| **Status** | The current state (see below). |
+
+### Service Task Statuses
+| Status | Description |
+| --- | --- |
+| **STARTED** | The task is currently executing. |
+| **COMPLETED** | The task finished successfully. |
+| **CANCELED** | The task was stopped. |
+| **ERROR** | An error occurred during execution. |
+
+## Task Summary Dashboard
+
+The **Task Summary** provides a visual overview of user task performance across all processes.
+
+- **Visualizations**: Graphs and diagrams help identify delays or disruptions in task completion.
+- **Filtering**: Filter by application, date range, or process variables (if enabled in Modeler).
+- **Key Statistics**: Tracks the number of assigned vs. completed tasks and identifies those that are overdue.

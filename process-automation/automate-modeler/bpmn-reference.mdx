@@ -1,0 +1,56 @@
+---
+title: "BPMN Reference: Events & Gateways"
+description: "A comprehensive guide to BPMN 2.0 events and logical gateways in Studio Modeler."
+---
+
+BPMN elements define the logic, timing, and flow of your automated processes. This reference covers the primary events and gateways used to build resilient workflows.
+
+## Gateways (Logical Routing)
+
+Gateways control how process flows converge or diverge based on conditions or concurrency.
+
+- **Exclusive Gateway (XOR)**: Represents a decision point. Outgoing flows are evaluated in order; the first one that is `true` is followed. A **Default Flow** should be set to catch cases where no conditions match.
+- **Inclusive Gateway (OR)**: Allows for multiple parallel paths. All outgoing flows that evaluate to `true` are followed simultaneously. When converging, the gateway waits for all active incoming flows before proceeding.
+- **Parallel Gateway (AND)**: Used for concurrent execution. All outgoing flows are followed regardless of conditions. A converging parallel gateway waits for all incoming branches to reach it.
+
+---
+
+## Start Events
+
+Start events define the trigger that initiates a process instance.
+
+| Type | Description |
+| --- | --- |
+| **Unspecified** | Triggered via Workspace UI, REST API, or a Form submission. |
+| **Timer** | Starts a process at a specific date/time or on a repeating interval (Cron/ISO 8601). |
+| **Message** | Starts a process when a specific named message is received from an external system or another process. |
+| **Signal** | Starts a process when a broadcast signal is emitted within the project scope. |
+| **Error** | Initiates an **Event Sub-process** when a specific error is caught. |
+
+---
+
+## Intermediate & Boundary Events
+
+These events occur during the execution of a process and can be either **Catching** (waiting for a trigger) or **Throwing** (emitting a trigger).
+
+### Boundary Events
+Attached to the border of an activity (e.g., a User Task).
+- **Interrupting (Solid Line)**: Immediately stops the activity when triggered and follows the boundary flow.
+- **Non-Interrupting (Dashed Line)**: Starts a parallel flow without stopping the original activity.
+
+### Specialized Event Definitions
+- **Timer Events**: Use ISO 8601 formats. `P1D` (1 day duration), `R5/PT1H` (repeat 5 times every hour), or specific `timeDate` (2024-05-01).
+- **Message Events**: Carry a **Message Payload** (JSON). Can use **Correlation Keys** to ensure the message reaches the correct process instance.
+- **Signal Events**: Broadcast to all active listeners. Useful for global notifications (e.g., "System Maintenance Starting").
+- **Link Events**: Connect two distant parts of the *same* process level to avoid "spaghetti" sequence flows.
+
+---
+
+## End Events
+
+End events terminate a process flow.
+
+- **End Event**: Simple completion of a branch.
+- **Terminate Event**: Immediately ends **all** active paths within the current process scope (including parallel branches).
+- **Error End Event**: Ends the flow and throws a named error to be caught by a parent or boundary event.
+- **Message End Event**: Ends the flow and emits a message to an external listener.

@@ -1,0 +1,45 @@
+---
+title: "File Plan Configuration"
+---
+
+A **File Plan** is a systematic structure used to organise records based on their function, department, or classification. It acts as a container for categories, each linked to specific retention policies.
+
+## Creating File Plans
+
+### Automatic Creation
+Whenever you create a new Governance project, a file plan with the same name is automatically created for you.
+
+### Manual Creation
+Record administrators can create additional file plans to represent different structures (e.g., by department or project).
+1. In your Governance project, click the vertical ellipsis (three dots) next to **File Plan Configurations** and select **Create**.
+2. Enter a unique **File Plan Name**.
+3. Click **Create**.
+
+## Managing File Plans
+
+- **Switching File Plans**: To move between different plans in the same project, click the three dots in the upper-right corner of the project site and select **Switch file plan**.
+- **Configuring**: Select a file plan from the left pane and click **Configure file plan** to manage its categories.
+
+---
+
+## Categories & Sub-Categories
+
+Categories are the fundamental units of your file plan. They control how documents are classified and which retention rules apply to them.
+
+### Creating a Category
+1. In the file plan configuration view, click **Create Category**.
+2. Enter a unique **Category Name**.
+3. In the side panel, select a **Record Type** (Governable Content Type).
+4. **Important**: Every category must be linked to a **Retention Policy** before the project can be deployed.
+
+### Creating a Sub-Category
+Sub-categories allow you to create a more granular hierarchy within a parent category.
+1. Click the three dots next to an existing category.
+2. Select **Create Sub Category**.
+3. Enter the name and select the **Record Type**.
+4. Like parent categories, sub-categories require their own retention policy.
+
+## Record Types (Content Focus)
+Each category or sub-category must have a **Record Type** assigned. This defines which documents in the repository will be "caught" by this category's rules based on their content type. 
+
+*Note: Only content types with the **SysGovernable** mixin will appear in the Record Type selection list.*

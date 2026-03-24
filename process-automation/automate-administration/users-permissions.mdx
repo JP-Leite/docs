@@ -1,0 +1,46 @@
+---
+title: "Users & Permissions"
+---
+
+Security and access in the Administration Application are managed through a combination of **Platform Roles** (governing access to the Admin App itself) and **Application Permissions** (governing access to specific deployed applications).
+
+## Platform Roles
+
+To access different sections of the Administration Application, a user must be assigned one of the following roles in the Administration Portal:
+
+| Role | Description |
+| --- | --- |
+| **Administrator** | Full access to all sections of the Administration Application. |
+| **DevOps** | Access to the DevOps section to deploy and upgrade applications. |
+| **Application Manager** | Access to a subset of Process Administration to manage specific applications. |
+| **Analytics** | Access to the Dashboards section for statistics and analytics. |
+
+## Application Permissions
+
+Permissions for individual applications are defined during deployment or updated later. These permissions control who can interact with a specific application's processes and tasks.
+
+| Permission Level | Description |
+| --- | --- |
+| **Admin** | Can manage the application and has full access to the Process Admin menu for that application. |
+| **Manager** | Access to Process Instances and User Tasks. Cannot access Variables or Audit logs. |
+| **User** | Can start process instances and perform tasks within the application. |
+| **External Integration** | Used to connect external APIs to the application's projects. |
+
+*Note: Mandatory user groups cannot be removed and are marked with a "mandatory" indicator.*
+
+## Managing Permissions
+
+You can grant additional users or groups access to an application without needing to upgrade the application.
+
+1.  In **Application Instances**, find the target application.
+2.  Select the vertical ellipsis (three dots) > **Configure application** > **Manage Permissions**.
+3.  Navigate through the tabs (**Admin Access**, **Manager Access**, **User Access**) to add or remove users/groups.
+4.  Click **Update** to save changes.
+
+## User Summary Dashboard
+
+The **User Summary** dashboard provides a focused view of performance and task status for specific users across all processes.
+
+- **Visualizations**: Graphs and diagrams help identify delays or disruptions in a user's task completion.
+- **Filtering**: Use the **User** drop-down to focus on a specific individual, and the **From** and **To** fields to define a time period.
+- **Key Statistics**: Tracks assigned vs. completed tasks, on-time delivery, and overdue tasks, including historical trends.

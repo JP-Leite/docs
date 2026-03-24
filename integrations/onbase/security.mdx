@@ -1,0 +1,46 @@
+---
+title: "Security"
+description: "Protect and manage sensitive credentials for the OnBase Connector for Content Intelligence."
+---
+
+The OnBase Connector uses a dedicated security layer to ensure that sensitive information—such as database passwords and API keys—is never stored in plain text. All credentials are encrypted at rest.
+
+## Encrypting Secret Keys
+
+Encryption must be performed before starting the connector for the first time.
+
+1.  Open Command Prompt or PowerShell as an **Administrator**.
+2.  Navigate to the `ContIntOnBaseConnector.CLI` folder in your installation directory.
+3.  Run the encryption command:
+    ```bash
+    ContIntOnbaseConnector.CLI encrypt-secrets
+    ```
+4.  **Follow the Prompts**:
+    - **Database String**: Enter your OnBase connection string.
+    - **Client ID & Secret**: Provide your CIC service credentials.
+    - **UnityAPI Credentials**: Enter the dedicated OnBase service user details.
+5.  **Test the Connections**: For each prompt, the CLI will ask "Do you want to test the connection?". Type `y` to verify that your credentials are valid before they are encrypted.
+
+---
+
+## Verifying Encryption
+
+After the process completes:
+- **AppSecrets Folder**: A new folder named `AppSecrets` is created in your root installation directory. This folder contains the encrypted binary data.
+- **Logs**: Check the `Logger` folder within the CLI directory to confirm that the encryption process finished without errors.
+
+---
+
+## Updating or Rotating Keys
+
+If you rotate your database password or CIC Client Secret, you must update the connector's encrypted store.
+
+1.  **Stop IIS**: In **IIS Manager**, stop the website hosting the connector.
+2.  **Delete Old Keys**: Delete the `AppSecrets` folder from your installation directory.
+3.  **Re-encrypt**: Run the `encrypt-secrets` command again with the new values.
+4.  **Start IIS**: Restart the website in IIS Manager.
+5.  **Restart Subscriptions**:
+    ```bash
+    ContIntOnbaseConnector.CLI start-subscriptions
+    ```
+6.  **Verify**: Check the latest log file in the `Logger` folder to confirm the new keys were saved successfully.

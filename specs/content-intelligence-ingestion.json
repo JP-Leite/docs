@@ -1,0 +1,274 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Ingestion API",
+    "description": "REST API for synchronizing content (files and metadata) with the Content Intelligence data lake. Use presigned URLs to upload binary files, then call ingestion-events to associate metadata and trigger processing.",
+    "version": "2.78.1"
+  },
+  "servers": [
+    {
+      "url": "https://{environment}.ingestion.hyland.com",
+      "description": "Content Intelligence Ingestion API",
+      "variables": {
+        "environment": {
+          "default": "api",
+          "description": "Your environment identifier"
+        }
+      }
+    }
+  ],
+  "security": [
+    { "BearerAuth": [] }
+  ],
+  "paths": {
+    "/v1/presigned-urls": {
+      "post": {
+        "operationId": "requestPresignedUrls",
+        "summary": "Request pre-signed URLs to upload files",
+        "description": "Returns up to 100 pre-signed S3 URLs for direct file upload to the data lake. If you need to upload more than 100 files, call this endpoint multiple times in batches. Pre-signed URLs expire after **2 hours**.\n\n**Typical flow:**\n1. `POST /v1/presigned-urls` to get upload URLs\n2. `PUT` each file directly to S3 using the returned pre-signed URL\n3. `POST /v2/ingestion-events` to associate metadata and trigger processing",
+        "tags": ["Upload"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["files"],
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "description": "List of files to generate pre-signed URLs for. Maximum 100 per request.",
+                    "items": {
+                      "type": "object",
+                      "required": ["fileName"],
+                      "properties": {
+                        "fileName": { "type": "string", "description": "Original filename including extension.", "example": "contract-q3.pdf" },
+                        "contentType": { "type": "string", "description": "MIME type of the file.", "example": "application/pdf" },
+                        "sizeBytes": { "type": "integer", "description": "File size in bytes.", "example": 204800 }
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "single": {
+                  "summary": "Request URL for one file",
+                  "value": {
+                    "files": [
+                      { "fileName": "invoice-2024-01.pdf", "contentType": "application/pdf", "sizeBytes": 153600 }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK — Returns pre-signed upload URLs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "urls": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string", "description": "Unique identifier for this upload slot. Use this ID when referencing the file in ingestion-events.", "example": "f3a9b2c1-4d87-4e1a-8b3c-abc123def456" },
+                          "uploadUrl": { "type": "string", "format": "uri", "description": "Pre-signed S3 URL. PUT the file binary directly to this URL." },
+                          "fileName": { "type": "string" },
+                          "expiresAt": { "type": "string", "format": "date-time", "description": "URL expiry time (2 hours from generation)." }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request — Invalid input (e.g. more than 100 files, missing fileName)" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "422": { "description": "Unprocessable Content" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/v1/check-digest": {
+      "post": {
+        "operationId": "checkDigest",
+        "summary": "Check file digest",
+        "description": "Verifies whether a file with the given checksum already exists in the data lake. Use this before requesting presigned URLs to avoid re-uploading identical files.",
+        "tags": ["Upload"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["digest"],
+                "properties": {
+                  "digest": { "type": "string", "description": "SHA-256 or MD5 digest of the file.", "example": "a4b3c2d1e5f6..." },
+                  "digestAlgorithm": { "type": "string", "enum": ["SHA-256", "MD5"], "default": "SHA-256" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "exists": { "type": "boolean", "description": "True if a file with this digest is already in the data lake." },
+                    "objectId": { "type": "string", "description": "ID of the existing object, if found." }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/v2/ingestion-events": {
+      "post": {
+        "operationId": "notifyIngestionEvents",
+        "summary": "Notify data lake about content events",
+        "description": "After uploading files via pre-signed URLs, call this endpoint to associate metadata with each file and trigger asynchronous processing. Supports `createOrUpdate`, `delete`, and `move` event types.\n\n**Required annotation fields per event:**\n- `name`, `type`, `dateCreated`, `createdBy`, `dateModified`, `modifiedBy`\n\nThe request is accepted immediately (202) and processed asynchronously by the data platform.",
+        "tags": ["Ingestion"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["events"],
+                "properties": {
+                  "events": {
+                    "type": "array",
+                    "description": "List of content events to process.",
+                    "items": {
+                      "type": "object",
+                      "required": ["eventType", "annotations"],
+                      "properties": {
+                        "eventType": {
+                          "type": "string",
+                          "enum": ["createOrUpdate", "delete", "move"],
+                          "description": "The type of event to raise."
+                        },
+                        "fileId": {
+                          "type": "string",
+                          "description": "The `id` returned from `POST /v1/presigned-urls`. Required for `createOrUpdate` events."
+                        },
+                        "objectId": {
+                          "type": "string",
+                          "description": "The existing object ID in the data lake. Required for `delete` and `move` events."
+                        },
+                        "annotations": {
+                          "type": "object",
+                          "required": ["name", "type", "dateCreated", "createdBy", "dateModified", "modifiedBy"],
+                          "description": "Metadata key-value pairs to associate with the content.",
+                          "properties": {
+                            "name": { "type": "string", "example": "Q3 2024 Financial Report" },
+                            "type": { "type": "string", "example": "application/pdf" },
+                            "dateCreated": { "type": "string", "format": "date-time" },
+                            "createdBy": { "type": "string" },
+                            "dateModified": { "type": "string", "format": "date-time" },
+                            "modifiedBy": { "type": "string" },
+                            "aspects": { "type": "array", "items": { "type": "string" } },
+                            "isFolder": { "type": "boolean" },
+                            "orgUnit": { "type": "string" }
+                          },
+                          "additionalProperties": true
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "createOrUpdate": {
+                  "summary": "Create or update a document",
+                  "value": {
+                    "events": [
+                      {
+                        "eventType": "createOrUpdate",
+                        "fileId": "f3a9b2c1-4d87-4e1a-8b3c-abc123def456",
+                        "annotations": {
+                          "name": "Contract 2024-Q3.pdf",
+                          "type": "application/pdf",
+                          "dateCreated": "2024-09-01T10:00:00Z",
+                          "createdBy": "john.leite@hyland.com",
+                          "dateModified": "2024-09-15T14:30:00Z",
+                          "modifiedBy": "john.leite@hyland.com"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted — Ingestion queued. The data platform will asynchronously process and store the content.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jobId": { "type": "string", "description": "Identifier for tracking the ingestion job." }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request — Missing required annotation fields" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "422": { "description": "Unprocessable Content — Validation error on annotations" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/v1/ingestion-events": {
+      "post": {
+        "operationId": "notifyIngestionEventsV1",
+        "summary": "Notify data lake about content events (v1)",
+        "description": "Legacy v1 version of the ingestion events endpoint. Use `/v2/ingestion-events` for new integrations.",
+        "tags": ["Ingestion"],
+        "deprecated": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "type": "object" }
+            }
+          }
+        },
+        "responses": {
+          "202": { "description": "Accepted" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

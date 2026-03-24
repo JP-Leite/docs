@@ -1,0 +1,68 @@
+---
+title: "Permissions & Security"
+description: "The layered security model for the Content Innovation Cloud repository — roles, ACLs, and best practices."
+---
+
+Content Innovation Cloud (CIC) employs a layered security model to protect content at every level of the repository hierarchy. Access is governed by a combination of global roles and document-specific rules.
+
+## Security Model Layers
+
+Permissions in CIC are evaluated in three primary layers, from broadest to most granular:
+
+<Steps>
+  <Step title="Global Role Check">
+    The user's **global role** (e.g., Administrator, Business User) defines the broad actions they can perform across the entire repository.
+  </Step>
+  <Step title="Repository-Level Scoping">
+    **Repository permissions** refine this access, scoping the user's rights to specific content areas or applications.
+  </Step>
+  <Step title="ACL Permission Check">
+    **Access Control Lists (ACLs)** provide the most granular control, defining exactly which users or groups can perform specific actions on individual documents.
+  </Step>
+</Steps>
+
+---
+
+## Global Permissions
+
+Global permissions are tied directly to the user's role within their CIC account. These permissions apply to general actions across the repository, such as importing documents or managing document versions. 
+
+*Note: Global permissions can be superseded by more restrictive ACL permissions on specific documents.*
+
+## ACL Permissions (Access Control Lists)
+
+An ACL is a set of security rules defined directly on a document or folder. 
+
+### Inheritance
+ACLs are **inherited through the repository hierarchy**. A permission set on a parent folder automatically applies to all child documents and folders unless explicitly overridden at a lower level.
+
+### Effective Permissions
+When a user attempts an action, CIC checks for a match between:
+- The user and the groups they belong to.
+- The **effective ACL** on the document (the combined result of local rules and inherited permissions).
+
+Permissions can be granted to specific **user groups** (e.g., a "Reviewers" group with Write access) or through **permission groups** that bundle multiple individual permissions together for easier management.
+
+---
+
+## Secure Environment Recommendations
+
+To ensure the integrity of your CIC installation, Hyland recommends following these minimum security standards:
+
+### Encryption & Transport
+- **TLS Everywhere**: Use TLS for all HTTP traffic, including private network segments. Keep ciphers current.
+- **Secure File Transfer**: Use SFTP instead of standard FTP.
+- **End-to-End Encryption**: Encrypt all data in transport, regardless of the network segment.
+
+### Authentication & Authorization
+- **Change Default Passwords**: Update all default passwords (including those for third-party databases) before going live.
+- **Test Rules**: Configure and exhaustively test all authorization rules before system activation.
+
+### Data at Rest
+- **Database Encryption**: Use strong encryption for all sensitive data persisted in the database.
+- **File System Encryption**: Encrypt all sensitive content stored on the file system.
+- **Subsystem Security**: Enable built-in encryption features (e.g., ODBC strong encryption) where available.
+
+### Mitigating Side-Channel Risks
+- **Patch Management**: Promptly apply the latest application, operating system, and firmware patches.
+- **Hardware Security**: Ensure all on-premises hardware is running the latest secure firmware.

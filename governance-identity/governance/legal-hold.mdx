@@ -1,0 +1,52 @@
+---
+title: "Legal Hold Management"
+---
+
+Legal holds allow you to secure records that may be required for litigation or investigations, preventing their accidental modification or deletion even if they have reached their retention disposition.
+
+## Managing Legal Hold Cases
+
+A legal hold case acts as a container for records that must be preserved.
+
+### Creating a Case
+1. In the **Legal Hold Management** interface in Workspace, click **Create Legal Hold Case**.
+2. Enter a unique **Name** (up to 64 characters).
+3. Provide a **Reason** for the hold (up to 512 characters).
+4. Click **Create Legal Hold Case**.
+
+### Editing a Case
+You can update the name, reason, or description of an existing case by selecting it and clicking the **Edit** button.
+
+---
+
+## Adding Records to a Hold
+
+A record with any status (Ready, Under Retention, etc.) can be placed on hold.
+
+1. Use the **Governance Filters** in Workspace to find the relevant records.
+2. Select one or more records.
+3. Click the **Add selected records to a legal hold** icon.
+4. Select the target case(s) and click **Add Records to Selection**.
+
+### Impact on Lifecycle
+- **Status Change**: The record's visible status changes to **On Hold**.
+- **Preservation**: The original retention lifecycle continues in the background (e.g., a record can move from Ready to Under Retention while on hold), but the record **cannot be deleted** until the hold is removed.
+
+---
+
+## Viewing and Monitoring Holds
+
+In the **Legal Hold Management** tab, you can view a summary of all cases:
+- **Reason for Hold**: Why the case was initiated.
+- **Total Records Held**: Click this number to see the specific list of records assigned to that case.
+- **Creation Details**: Who created the case and when.
+
+## Verifying Integrity: Hyland Credentials
+
+For stronger proof of compliance, Hyland uses cryptographic hashing to verify that content on hold has not been tampered with.
+
+### Credential Status Icons
+In the Records Management list, these icons indicate the status of the cryptographic hash:
+- **(No Icon)**: Record is not currently on hold.
+- **Pending Icon**: The record is queued for hashing.
+- **Verified Icon**: The credential hash has been successfully generated and verified.

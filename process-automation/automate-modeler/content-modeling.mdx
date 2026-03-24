@@ -1,0 +1,90 @@
+---
+title: "Content Modeling"
+---
+
+Content Modeling defines how your data is structured, categorized, and stored in the repository. It uses a three-tier hierarchy: **Schemas**, **Mixins**, and **Content Types**.
+
+## 1. Schemas (The Building Blocks)
+
+A **Schema** is a collection of individual property definitions (metadata fields). 
+
+### Creating a Schema
+1. In the project tree, click the ellipsis next to **Schemas** and select **Create**.
+2. **Schema Name**: Unique identifier (e.g., `contact-info`).
+3. **Prefix**: A short code (e.g., `ci`) automatically added to all properties within this schema.
+4. **Properties**: Click **+** to add metadata fields.
+
+### Property Types and Options
+| Type | Description |
+| --- | --- |
+| **String** | Text data. Can be **Limited Length** or **Full Text Indexable**. |
+| **Integer / Float** | Numeric data. Can have **Limited Value** ranges. |
+| **Boolean** | True/False toggle. |
+| **Date** | Calendar dates. |
+| **Complex** | Allows for a single level of nested sub-properties. |
+| **Blob** | Binary content (e.g., storing a document thumbnail). |
+
+---
+
+## 2. Mixins (Reusable Templates)
+
+A **Mixin** is a set of one or more schemas that can be applied to multiple content types without traditional inheritance.
+
+### System Mixins
+Hyland provides several built-in mixins for core repository behavior:
+- **SysFilish**: Allows an object to behave like a file.
+- **SysFolderish**: Allows an object to contain child documents.
+- **SysVersionable**: Enables version control for the object.
+- **SysFullTextIndexable**: Marks content for background text extraction and search.
+- **SysGovernable**: Enables retention and compliance features.
+
+---
+
+## 3. Content Types (Logical Templates)
+
+A **Content Type** is the blueprint for an object in the repository. It combines a parent type, schemas, and mixins.
+
+### Creating a Content Type
+1. Select **Create > Content Type**.
+2. **Parent Type**: Choose a base (e.g., `SysFile` or `SysFolder`).
+3. **Schemas**: Add your custom schemas to define specific metadata.
+4. **Mixins**: Add mixins to enable behaviors (e.g., add `SysVersionable` to enable history).
+
+---
+
+## 4. Schema Definition for Tables
+
+For objects displayed in data tables, you can define specific column behavior using a JSON-based **Schema Definition**.
+
+- **Key Properties**: `type`, `key` (matching the property name), `title`, `sortable`, and `draggable`.
+- **Formatting**: Use `decimalConfig`, `currencyConfig`, or `dateConfig` to control localization (`locale`) and display formats (`digitsInfo`).
+
+### Example Table Schema
+```json
+[
+  {
+    "type": "date",
+    "key": "creation_date",
+    "title": "Created On",
+    "dateConfig": { "locale": "en-GB", "format": "short" }
+  },
+  {
+    "type": "amount",
+    "key": "cost",
+    "title": "Price",
+    "currencyConfig": { "code": "USD", "display": "$" }
+  }
+]
+```
+
+---
+
+## Tutorial: Creating a Contact Info Schema
+
+Follow these steps to create a reusable contact information block:
+1. Create a schema named `contact-info` with prefix `ci`.
+2. Add a **Complex** property named `address`.
+3. Inside `address`, add **String** properties for `street`, `city`, and `postcode`.
+4. Add another **Complex** property named `phone`.
+5. Inside `phone`, add an **Integer** property for `number` and a **Boolean** for `isPrimary`.
+6. Save and add this schema to your **Customer** content type.

@@ -1,0 +1,70 @@
+---
+title: "Building Processes"
+---
+
+Processes in Studio Modeler automate your organizational workflows. They are modeled visually using BPMN 2.0 standards and can be enhanced with scripts, connectors, and AI-driven logic.
+
+## Creating Processes
+
+You can start a new process in several ways:
+- **From Scratch**: Select **Create > Process** and build your workflow manually.
+- **Upload**: Import an existing process definition as a `.json` file.
+- **AI-Generated**: Use natural language to describe your goal (e.g., "Create a process that assigns a review task and sends an email if approved").
+  - **Limits**: Prompts up to 400 characters; up to 100 generations per 24-hour period.
+
+---
+
+## The Diagram Editor
+
+The **Diagram Editor** is the primary GUI for process modeling. It features a toolbox on the left and a properties pane on the right.
+
+### Modeling Tools
+| Tool | Description |
+| --- | --- |
+| **Hand** | Pan around the canvas and select elements. |
+| **Global Connect** | Draw **Sequence Flows** (arrows) between elements to define the direction of the process. |
+| **Create/Remove Space** | Shift groups of elements to make room for new nodes. |
+| **Lasso** | Select multiple elements simultaneously for bulk moving or editing. |
+
+### Exporting Diagrams
+You can download your process diagram as an **SVG** file for use in external documentation. Select the "more actions" (three dots) menu and click **Save process diagram as SVG**.
+
+---
+
+## Process Properties & Configuration
+
+Configure how your process behaves at runtime via the **Properties Pane**:
+- **Executable**: Must be checked for the process to run.
+- **Workspace users cannot start the process**: Enable this for fully automated "backend" processes that shouldn't appear in the user's task list.
+- **Category**: Group processes together in the navigation tree.
+- **Documentation**: Add a description or internal links for other developers.
+
+---
+
+## BPMN Structure & Organization
+
+### Pools and Lanes
+- **Pools**: Represent a complete process definition. You can have multiple pools in one diagram to show interactions between different business entities (e.g., Customer vs. Warehouse).
+- **Lanes**: Sub-divisions within a pool used to show which **persona** or team is responsible for specific tasks. Lanes are for visual organization only and do not affect runtime behavior.
+
+### Sub-processes and Call Activities
+- **Embedded Sub-processes**: Executed within the same process instance ID and share the same variables.
+- **Event Sub-processes**: Triggered by a signal or error; they are not connected to the main flow.
+- **Call Activities**: Trigger a **completely separate** process definition with its own unique instance ID.
+
+---
+
+## Advanced Process Control
+
+### AI Refinement
+Beyond initial generation, you can use the **Refine with AI** (three stars) icon on any selected element to adjust its logic or properties using natural language prompts.
+
+### Scripted Starts
+You can programmatically initiate a process instance using a script payload:
+```javascript
+let startProcessInstanceCmd = processPayloadBuilder.start()
+	.withProcessDefinitionKey("Your_Process_Key")
+	.withVariable("orderNumber", variables.orderNumber)
+	.build();
+commandProducer.send(startProcessInstanceCmd);
+```

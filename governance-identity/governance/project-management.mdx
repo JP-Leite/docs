@@ -1,0 +1,58 @@
+---
+title: "Governance Project Management"
+---
+
+A Governance project is the primary container for your compliance configuration, including file plans, categories, and retention policies.
+
+## Creating a Governance Project
+
+1.  In **Studio Modeler**, select **All Governance projects** from the left pane.
+2.  Click **Create Project** in the top-right corner.
+3.  Enter a unique **Project Name** (up to 100 characters) and an optional description.
+4.  Click **Create Project**. A file plan with the same name is automatically created for you.
+
+## Managing Projects in Studio Modeler
+
+Governance projects appear in two locations within Studio Modeler:
+
+| View | Purpose |
+| --- | --- |
+| **All Projects** | Used for validating, releasing, and downloading projects. You can also manage content types here. |
+| **All Governance Projects** | Used to manage the specifics of the file plan, including categories, sub-categories, and retention policies. |
+
+### Project Actions
+From either list, you can access the following actions via the "more actions" (three dots) menu:
+- **Edit project name**: Rename the project (does not rename the file plan).
+- **Download project**: Export the project as a `.zip` file for local editing.
+- **Save as new project**: Duplicate the project and all its settings.
+- **Collaborators**: Manage user access to the project configuration.
+- **View project releases**: Access history, restore previous versions, or rename releases.
+
+## Configuring Property Dates
+
+A **Property Date** is a metadata field (e.g., `onboarding-date`) that triggers the start of a retention period. It must be added to your content type before the project is released.
+
+1.  In your Governance project, expand **Schema** under Process Automation.
+2.  Add a new property to your schema.
+3.  Set the **Type** to **Date**.
+4.  Once created, ensure this property is added to the relevant **Content Type**.
+
+## Releasing & Deploying
+
+### Releasing a Project
+Releasing a project makes it available for deployment in Studio Administration.
+1. Select your project in **All Projects**.
+2. (Optional) Click **Validate** to check for model errors.
+3. Click **Release**, confirm the version name, and add optional comments.
+
+### Deploying a Project
+Deploying turns the released project into an active application.
+- Deployment is managed in **Studio Admin** via the **Devops** menu.
+- Note: Governance projects do not use Manager Access, User Access, or Connectors settings during deployment.
+
+## Upgrading Projects
+
+If you modify a file plan or retention policy in an already deployed project, you must **Upgrade** the application in Studio Admin to apply the changes.
+- **Impact**: Changes to retention rules only apply to **new records**. Existing records are not affected.
+- **Limitations**: Upgrades do not support deleting categories or changing Content Focus if the category is already associated with records.
+- **Process**: In Studio Admin, go to **Application Instances**, find your project, and select **Upgrade** from the actions menu.

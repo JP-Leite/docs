@@ -1,0 +1,47 @@
+---
+title: "Connectors Overview"
+---
+
+Connectors are the integration layer of Studio Modeler, allowing processes to interact with external systems, cloud services, and the Hyland Content repository.
+
+## Creating Standard Connectors
+
+1.  Open your process diagram and click the **Connectors** icon (rectangle with a plug) in the toolbox.
+2.  Choose from the available connector types:
+    - **Cloud Services**: AWS (Textract, Rekognition, Comprehend, Lambda, Transcribe), OpenAI.
+    - **Communication**: Slack, Microsoft Teams, Twilio, Email (SMTP).
+    - **Enterprise**: Salesforce, DocuSign, Microsoft Calendar.
+    - **Generic**: REST, Database (PostgreSQL, MariaDB, MS SQL).
+3.  **Instance Management**:
+    - **Create New Instance**: Use this for the first use of a connector in a project.
+    - **Select Existing**: Reuse an instance if it shares the same configuration (e.g., the same API key or server URL).
+4.  Drag the connector onto the canvas and select an **Action** (e.g., `POST` for REST, `Send Message` for Slack).
+
+---
+
+## Connector Configuration
+
+Every connector instance is stored in the **Connectors** section of the project tree. Selecting an instance allows you to configure four key areas:
+
+### 1. Actions
+The specific operations the connector can perform. Actions used in process diagrams can also be reused as trigger actions.
+
+### 2. Events
+Events that can be monitored to trigger processes. 
+- *Example*: A process starts when a new document is created in OnBase or a Slack message is received.
+
+### 3. Parameters
+Key-value pairs required for connectivity (e.g., `Base URL`, `API Key`, `Username`). These are often mapped to **Environment Variables** during deployment.
+
+### 4. Errors
+Define custom error codes and user-friendly descriptions.
+- **Trigger**: When the external system returns a specific **Code**, the process can catch the corresponding error event.
+- **Note**: Modifying connector errors requires a full application re-deployment; they cannot be updated via Hot Reload.
+
+---
+
+## Modeling Best Practices
+
+- **Naming Instances**: Use descriptive names like `North-America-Salesforce` or `Technical-Support-Slack` to distinguish instances with different configurations.
+- **JSON Editor**: For advanced users, all connector properties are stored as JSON and can be edited directly in the **JSON Editor** or downloaded for local modification.
+- **Security**: By default, connectors operate with repository administrator privileges, allowing them full access to all files and folders unless restricted via security policies.

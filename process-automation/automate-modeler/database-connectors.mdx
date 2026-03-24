@@ -2,16 +2,70 @@
 title: "Database Connectors"
 ---
 
-Note: Host all databases outside of the production environment. Databases are created and managed by the customer.
-There are three database connectors that can be used to execute queries against:
+Database connectors allow your processes to interact with external relational databases. All queries are executed as **prepared statements** using parameters, ensuring protection against SQL injection.
 
--  MariaDB
--  PostgreSQL
--  Microsoft SQL Server
+## Supported Databases
 
-The authentication for the database connectors is set using the configuration parameters. For more details, see MariaDB Configuration Parameters, PostgreSQL Configuration Parameters, or SQL Server Configuration Parameters.
+- **PostgreSQL**: Industry-standard open-source relational database.
+- **MariaDB**: High-performance, open-source MySQL fork.
+- **Microsoft SQL Server**: Enterprise-grade relational database.
 
-Note: The Oracle connector has been removed due to issues with its licensing.
-All database connectors are displayed on the process diagram with their respective logos.
+*Note: The Oracle connector has been removed due to licensing constraints.*
 
-Note: All queries are sent as prepared statements using parameters. SQL injection is not possible.
+---
+
+## Configuration Parameters
+
+All database connectors share a similar configuration structure:
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| **DB_USERNAME** | ✅ Yes | The database user executing the statements. |
+| **DB_PASSWORD** | ✅ Yes | Password for the database user. |
+| **HOST** | Optional | Host address (e.g., `db.example.com`). |
+| **PORT** | Optional | Database port (e.g., `5432` for Postgres, `1433` for SQL Server). |
+| **DB_NAME** | Optional | The specific database to target. |
+| **DB_DATASOURCE**| ✅ Yes | The full JDBC connection string (usually auto-generated). |
+
+---
+
+## Database Actions
+
+### SELECT
+Retrieve data from the database. Results are returned as a JSON object.
+- **Query**: `SELECT * FROM users WHERE status = {status}`
+- **Metadata**: `{"status": "active"}`
+
+### INSERT
+Add new records. Returns the number of affected rows.
+- **Query**: `INSERT INTO audit_log (event, user_id) VALUES ({event}, {uid})`
+- **Metadata**: `{"event": "login", "uid": 123}`
+
+### UPDATE
+Modify existing records. Returns the number of affected rows.
+- **Query**: `UPDATE orders SET status = {new_status} WHERE id = {order_id}`
+- **Metadata**: `{"new_status": "shipped", "order_id": 456}`
+
+### DELETE
+Remove records from the database. Returns the number of affected rows.
+- **Query**: `DELETE FROM temporary_data WHERE expiry < {cutoff}`
+- **Metadata**: `{"cutoff": "2024-01-01"}`
+
+---
+
+## Parameterized Queries (Metadata)
+
+To pass process variables into your SQL statements, use the **Metadata** parameter. It accepts a JSON object where keys represent the placeholders in your query.
+
+**Important**: Placeholders in the query should be wrapped in curly braces `{key}` **without** quotation marks, even for string values.
+
+---
+
+## Error Handling
+
+Catch these standardized database errors in your process flow:
+- **CONNECTION_ERROR**: Unable to reach the database instance.
+- **SQL_GRAMMAR_ERROR**: Invalid SQL syntax.
+- **DATA_INTEGRITY_VIOLATION_ERROR**: Violation of constraints (e.g., foreign key or unique index).
+- **OPTIMISTIC_LOCK_ERROR / DEAD_LOCK_ERROR**: Issues with concurrent data access.
+- **PERMISSION_DENIED_ERROR**: The user lacks rights to the requested table or action.

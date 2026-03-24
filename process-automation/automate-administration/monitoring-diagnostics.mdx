@@ -1,0 +1,72 @@
+---
+title: "Monitoring & Diagnostics"
+---
+
+The Administration Application provides comprehensive tools to monitor the health, performance, and execution details of your applications and processes.
+
+## Application Health Monitoring
+
+Each deployed application has a dedicated **Monitoring Dashboard** that provides real-time status of its supporting services.
+
+### Accessing the Monitoring Dashboard
+1. Go to **Devops > Application Instances**.
+2. Click the three dots next to an application and select **Monitoring**.
+
+### Service Status Indicators
+- <span style={{color: 'green'}}>●</span> **Green**: Operational and healthy.
+- <span style={{color: 'gold'}}>●</span> **Yellow**: Operational but experiencing minor issues (usually resolved automatically).
+- <span style={{color: 'red'}}>●</span> **Red**: Critical failure requiring manual assistance.
+- <span style={{color: 'gray'}}>●</span> **Gray**: Unknown state.
+
+Expand any service to view more detailed status information.
+
+## Visual Process Tracking
+
+The **Diagram** view allows you to visually track a process instance's progress through its defined workflow.
+
+- **Current Stage**: The active task or activity is highlighted in **bold red**.
+- **Execution Path**: The path taken by the process instance so far is highlighted in **red**.
+
+## Audit Logs
+
+The **Audit** section provides a granular log of every event that occurs within a process instance.
+
+### Audit Event Properties
+| Property | Description |
+| --- | --- |
+| **Event Type** | The type of event (e.g., `SEQUENCE_FLOW_TAKEN`). |
+| **Event Time** | Timestamp of when the event occurred. |
+| **Event ID** | Unique identifier for the audit event. |
+| **Process Instance ID** | The ID of the process instance. |
+| **Event Action** | JSON payload containing event details (click to expand). |
+
+### Filtering Events
+You can filter the audit trail by **Application Name**, **Event Type**, **Event ID**, or **Process Instance ID**.
+
+## Errors & Logs
+
+### Service Task Errors
+If a service task has an `ERROR` status, you can select **View Error** to see a detailed stack trace, which is essential for troubleshooting automated steps.
+
+### System Logs
+You can view logs for various backend services to diagnose deployment or runtime issues:
+- **Deployment Service Logs**: Always available (shared service).
+- **Runtime Bundle Logs**: Available only if the app is deployed correctly.
+- **Process Storage Logs**: Available only if the app is deployed correctly.
+- **Connectors Logs**: Details integration-specific events.
+
+**Log Color Coding:**
+- **White**: Normal information.
+- **Yellow**: Warning.
+- **Red**: Error.
+
+## Performance Dashboards
+
+Dashboards provide graphical visualizations of process and application data, helping you identify trends and performance bottlenecks.
+
+### Dashboard Types
+- **Process Summary**: Visualizes process-level statistics and disruptions.
+- **User Summary**: Focuses on individual user performance and task completion.
+- **Task Summary**: Overview of all user tasks across the system.
+
+All dashboard data can be exported using the **Export JSON** button for further analysis.

@@ -1,47 +1,46 @@
 ---
-title: "Introduction"
+title: "Introduction to OnBase Connector"
 description: "Learn how the OnBase Connector for Content Intelligence connects your OnBase repository to Hyland Knowledge Discovery."
 ---
 
-## What is OnBase Connector for Content Intelligence?
-
-The **OnBase Connector for Content Intelligence** provides knowledge retrieval capabilities by connecting your OnBase content repository to **Knowledge Discovery**. Knowledge Discovery allows users to quickly find critical information using natural language queries within the content in your repository.
+The **OnBase Connector for Content Intelligence** bridges your OnBase content repository with Hyland's **Knowledge Discovery** — an AI-powered search engine that allows users to find critical information using natural language queries drawn directly from your documents.
 
 ## Key Capabilities
 
-<CardGroup cols={2}>
-  <Card title="Natural Language Search" icon="magnifying-glass">
-    Users can search through OnBase documents using conversational queries instead of keyword searches, getting contextual answers powered by AI.
-  </Card>
-  <Card title="Automatic Document Ingestion" icon="cloud-arrow-up">
-    The connector automatically collects and ingests all documents that match your specified Document Types and creation date ranges — eliminating the need for manual exports.
-  </Card>
-</CardGroup>
+- **Natural Language Search**: Ask questions in plain English and receive contextual answers powered by AI.
+- **Automatic Ingestion**: Continuously monitors and collects documents matching your Document Types and date ranges.
+- **Selective Filtering**: Fine-tune ingestion using Document Type and Keyword Value filters to ensure only relevant content is indexed.
+- **Secure Integration**: Credentials are encrypted at rest using a built-in secret key management system.
+
+## How It Works
+
+1.  **Install**: Deploy the connector on a Windows server with IIS.
+2.  **Configure**: Update JSON configuration files with your CIC and OnBase credentials.
+3.  **Encrypt**: Secure your passwords and secrets using the provided CLI tool.
+4.  **Start**: Launch the connector to begin automatic indexing of your OnBase content.
 
 ---
 
-## Ingestion Model
+## Prerequisites
 
-The OnBase Connector for Content Intelligence supports **automatic ingestion**:
+Before installation, ensure your host server and OnBase environment meet the following requirements.
 
-- Define **Document Types** to include in ingestion
-- Optionally set a **creation date range** to limit which documents are ingested
-- The connector continuously monitors for new matching documents and ingests them automatically
+### Required Software
+- **ASP.NET Core Runtime 8**: Required for backend services.
+- **ASP.NET Core 8 Windows Hosting Bundle**: Required for IIS hosting.
+- **IIS Manager**: With **Application Initialization** enabled in Windows Features.
 
-<Info>
-  If no filter criteria are configured, the connector ingests **all documents** in the OnBase repository.
-</Info>
+### OnBase & Database Requirements
+- **Licensing**: Your OnBase system must be licensed for the **Unity Integration Toolkit**.
+- **SQL Access**: The connector requires a SQL Server login with `db_datareader` permissions on the OnBase database.
 
----
+### Required Configuration Data
+Gather these credentials from your CIC Administration Portal before starting:
 
-## Get Started
-
-| Step | Description |
+| Credential | Description |
 | --- | --- |
-| **1. Prerequisites** | Verify all software requirements are met |
-| **2. Install** | Run the setup script to deploy the connector |
-| **3. Configure** | Update configuration files with your credentials |
-| **4. Encrypt** | Secure your credentials using the CLI |
-| **5. Start** | Launch the connector and verify ingestion |
-
-[Get started with Prerequisites →](/integrations/onbase/prerequisites)
+| **Client ID** | The auto-generated client ID for your CIC service application. |
+| **Client Secret** | The secret key for your service application. |
+| **Environment Key** | The unique key for your CIC environment (found in the KD URL). |
+| **Source ID** | The UUID identifying your connected OnBase repository. |
+| **SystemIntegrationId** | The ID generated when registering the system integration. |

@@ -1,0 +1,69 @@
+---
+title: "AWS Machine Learning Connectors"
+---
+
+Studio Modeler provides a suite of connectors to leverage AWS AI/ML services directly within your process workflows. These connectors require an active AWS account and specific IAM permissions.
+
+## AWS Global Configuration
+
+Most AWS connectors share a common set of configuration parameters for authentication and storage:
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| **AWS_ACCESS_KEY_ID** | ✅ Yes | The access key for your IAM user. |
+| **AWS_SECRET_KEY** | ✅ Yes | The secret key for your IAM user. |
+| **AWS_REGION** | ✅ Yes | The AWS region where the service is hosted (e.g., `us-east-1`). |
+| **AWS_S3_BUCKET** | ✅ Yes | The S3 bucket used for staging large files or asynchronous results. |
+
+### IAM Prerequisites
+The IAM user associated with these keys must have the appropriate service-specific policy (e.g., `ComprehendFullAccess`, `TextractFullAccess`). For asynchronous operations, the user must also have Read/Write access to the configured S3 bucket.
+
+---
+
+## Amazon Comprehend (NLP)
+
+Used for extracting insights from unstructured text.
+- **ENTITY Action**: Identifies and categorizes entities (people, organizations, locations) and PII (Personally Identifiable Information).
+- **Classification**: Automatically assigns documents to pre-defined categories.
+- **Supported Formats**: `.txt`, `.pdf`, `.docx`, `.msg`, `.html`, and more. (PDF max size: 25MB).
+- **Note**: You must provide either a file reference or raw text as input, but not both.
+
+---
+
+## Amazon Textract (Document Analysis)
+
+Extracts text, forms, and tables from scanned documents and images.
+- **Key Features**: Goes beyond simple OCR to understand document structure (e.g., key-value pairs in a form).
+- **Input**: Image or PDF files stored in the repository.
+
+---
+
+## Amazon Rekognition (Vision)
+
+Provides image and video analysis.
+- **Capabilities**: Identify objects, people, text, scenes, and activities in images and videos, as well as detect inappropriate content.
+
+---
+
+## Amazon Transcribe (Speech-to-Text)
+
+Converts audio and video files into text.
+- **Use Case**: Indexing meeting recordings, call center logs, or video assets for Knowledge Discovery.
+
+---
+
+## AWS Lambda (Custom Logic)
+
+The **INVOKE** action allows your process to trigger custom AWS Lambda functions.
+- **Inputs**: Function name and a JSON payload.
+- **Outputs**: Returns the `lambdaPayload` (results), `lambdaStatus`, and `lambdaLog`.
+
+---
+
+## Common Error Handling
+
+All AWS connectors share a standardized set of error codes for catching exceptions in your process:
+- **THROTTLING_ERROR**: Service is temporarily unavailable or limit reached.
+- **ACCESS_DENIED**: IAM permissions are insufficient.
+- **IMAGE_TOO_LARGE / INVALID_FORMAT**: Input file does not meet service requirements.
+- **BAD_GATEWAY / GATEWAY_TIMEOUT**: Issues with the remote service connection.

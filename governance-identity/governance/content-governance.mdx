@@ -1,0 +1,46 @@
+---
+title: "Content Governance & Configuration"
+---
+
+The connection between your document repository and governance rules is established through **Content Type Configuration**. This ensures that documents are automatically identified and governed according to your compliance requirements.
+
+## Content Management in Workspace
+
+The **Content Management** section in Workspace allows you to browse the hierarchical folder structure of your repository directly.
+
+- **Browsing**: Expand the Content Management tree to navigate folders and find documents.
+- **Repository Actions**: Within this view, you can search for documents, create new folders or files, and perform standard upload/download operations.
+- **Integration**: While standard content management handles the "physical" document, the Governance tab handles its "legal" lifecycle (retention and holds).
+
+## Configuring Content Types for Governance
+
+To make a document "governable," its content type must be configured with specific building blocks in **Studio Modeler**.
+
+### Mandatory Requirements
+1.  **SysGovernable Mixin**: This mixin identifies a content type as being subject to governance rules. Without this mixin, a content type cannot be assigned to a file plan category.
+2.  **Property Date**: At least one date property (e.g., `Expiration Date`) must be present to act as the retention cutoff trigger.
+
+### Adding Items to a Content Type
+1. In Studio Modeler, open your Governance project and navigate to the **Content Type** section.
+2. Select the target content type.
+3. **Add Schema**: In the Schemas section, move the schema containing your date properties from "Unselected" to "Selected."
+4. **Add Mixin**: In the Mixins section, move **SysGovernable** to the "Selected" list.
+5. Click **Save Content Type**.
+
+---
+
+## Governance Dashboard Overview
+
+The **Governance Dashboard** provides a high-level summary of the key compliance issues and record volumes across your organisation.
+
+### Key Capabilities
+- **Status Monitoring**: Quickly identify records missing required data (Incomplete) or monitor active legal holds.
+- **Workflow Tracking**: Display the status of ongoing review workflows and follow up on pending approvals.
+- **Storage Planning**: Visualize record volumes by category and retention status to plan for future storage, migration, or disposal.
+- **Policy Consistency**: Monitor retention schedules across departments to ensure policies are applied consistently and records are not kept longer than necessary.
+
+### Available Visualizations
+- **Record Health**: Holistic view of status distribution.
+- **Active Retention Status**: Records currently under active hold/retention.
+- **Incomplete Records**: Missing metadata that requires attention.
+- **Lifecycle Trackers**: Cutoff and Disposition tracking for upcoming actions.

@@ -1,0 +1,50 @@
+---
+title: "Alfresco Content Services (ACS) Connector"
+---
+
+The ACS connector enables deep integration with Alfresco Content Services, allowing processes to manage files, folders, metadata, and security within the Alfresco repository.
+
+## File & Folder Operations
+
+### Create & Delete
+- **CREATE_FOLDER**: Create a new folder. Supports `autorename` on conflict and setting initial `targetFolderMetadata`.
+- **CREATE_FILE**: Create a new file. You can specify the `targetFileType` (e.g., `fin:invoice`) and initial metadata.
+- **DELETE_FILE / DELETE_FOLDER**: Remove objects. Use the `permanent` flag to bypass the trashcan.
+
+### Move & Copy
+- **MOVE_FILE / MOVE_FOLDER**: Relocate objects to a new `targetFolderPath`.
+- **COPY_FILE / COPY_FOLDER**: Duplicate objects within the ACS repository.
+
+### Selection & Retrieval
+- **SELECT_FILE / SELECT_FOLDER**: Search for objects using **AFTS (Alfresco Full Text Search)** queries and store the results in process variables.
+- **DOWNLOAD_FILE**: Retrieve a file from ACS and store it in the Hyland Content repository.
+
+---
+
+## Metadata & Aspects
+
+### Managing Aspects
+Aspects add additional properties and behaviors to ACS nodes.
+- **ADD_ASPECT**: Apply an aspect (e.g., `P:exif:exif`) and optionally set its properties.
+- **REMOVE_ASPECT**: Remove an aspect from a file or folder.
+
+### Update & Select Metadata
+- **UPDATE_METADATA**: Update individual properties on a node.
+- **SELECT_METADATA**: Retrieve current metadata values for use in process logic.
+- **Underscore Metadata**: Enabling this option replaces colons (`:`) with underscores (`_`) in property names (e.g., `cm_title`), making them compatible with standard expression syntax.
+
+---
+
+## Security & Permissions
+
+- **SET_PERMISSIONS**: Assign specific roles (e.g., `Coordinator`, `Consumer`) to a list of users or groups for a node.
+- **ADD_SECURITY_MARKS / GET_SECURITY_MARKS**: Manage security marks for advanced access control.
+- **LOCK_NODE / UNLOCK_NODE**: Prevent or allow concurrent modifications to a specific file or folder.
+
+---
+
+## Specialized Actions
+
+- **DECLARE_RECORD**: Mark an existing document as a record for formal records management.
+- **UPDATE_TAG**: Add or update tags associated with a node.
+- **EXECUTE_ACTION**: Trigger a pre-defined Alfresco repository action by its ID.

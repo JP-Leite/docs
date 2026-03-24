@@ -1,15 +1,53 @@
 ---
-title: "Introduction"
+title: "Introduction to Studio Modeler"
+description: "A low-code application development platform for orchestrating content-centric business processes."
 ---
 
-Automate is a low-code application development platform available as a service on the Content Innovation Cloud™. It has been designed for organizations to quickly and easily create intelligent solutions that orchestrate and streamline from simple to complex content-centric business processes. It is meant to serve multiple business domains and its cloud-native architecture offers maximum availability and dynamic scaling.
+**Automate** is a cloud-native, low-code platform designed to help organizations rapidly build intelligent solutions that orchestrate and streamline business processes. **Studio Modeler** is the primary configuration tool where Solution Builders define data structures, model BPMN 2.0 workflows, and integrate with external systems.
 
-The Studio Modeler application is a low-code tool for configuring Content and Process models. It enables you to model your data and to orchestrate the journey from concept to archiving and deleting, and all the transactions and transformations between.
+## Getting Started
 
-In particular, Studio Modeler enables Solution Builders to:
+Studio Modeler is accessible via the `/modeling` URL (e.g., `https://hyland.com/modeling`). The application uses **Projects** as top-level containers for all your models, forms, and content definitions.
 
-- Define data structures, metadata properties, and reusable schemas from web forms.
-- Construct BPMN 2.0 compliant process models using a drag-and-drop web interface.
-- Integrate with content and external systems via REST API and dedicated connectors.
+---
 
-This documentation describes the functional capabilities of the Studio Modeler application and outlines steps to configure it.
+## The Modeling Interface
+
+The interface is designed for efficiency, with project elements organized in a collapsible left-hand pane.
+
+### Navigation Sections
+| Section | Purpose |
+| --- | --- |
+| **Process Automation** | Manage Processes, Authentication, Connectors, Data Models, Decision Tables, and Scripts. |
+| **Forms** | Create and manage UI Forms and custom Form Widgets. |
+| **Content** | Define Content Types, Mixins, Schemas, and Security Policies. |
+| **IDP** | Configure Intelligent Document Processing (only if integrated). |
+| **Governance** | Manage retention and compliance rules (only if integrated). |
+
+### Global Controls
+- **Home**: Return to the main project dashboard.
+- **Looking Glass (Search)**: Search through all elements within the currently opened project.
+- **Undo/Redo**: Revert or repeat your last actions, including AI-generated suggestions.
+- **View Controls**: Use **Zoom In/Out** or **Fit View Port** to manage large process diagrams.
+
+---
+
+## Choosing Your Editor
+
+Studio Modeler provides different views depending on your expertise and the task at hand. You can switch between them using the **eye icon (Editors Menu)** in the top bar.
+
+- **Diagram Editor (Default)**: A user-friendly, drag-and-drop interface for modeling BPMN workflows.
+- **XML Editor**: View and edit the underlying BPMN 2.0 XML code directly.
+- **JSON Editor**: Used for editing the code of project elements like forms and schemas.
+- **Extensions Editor**: Advanced configuration for custom process extensions.
+
+---
+
+## Core Operational Actions
+
+As you build your project, the following common actions are available from the top navigation bar:
+- **Save**: Persist your changes to the project.
+- **Validate**: Check for errors or inconsistencies in your models.
+- **Download/Upload**: Export or import specific project elements as files.
+- **Duplicate**: Create a copy of an existing element to use as a template.
+- **Language Selection**: Change the interface language via the **Settings** menu.

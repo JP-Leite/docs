@@ -1,0 +1,74 @@
+---
+title: "Platform Configuration"
+---
+
+The Administration Application allows for global and application-specific configuration of environments, variables, connectors, and supporting platform services.
+
+## Environments & Variables
+
+### Environments
+The **Environments** section displays all available deployment targets with their current status (Active/Inactive), last update date, and configured variables. You can edit environment-specific variables directly by selecting the **pencil** icon.
+
+### Global Variables
+The **Variables** section provides a centralized list of all variables across all environments. From here, you can:
+- View and edit variable values.
+- See which environments each variable is assigned to.
+- Track creation and update timestamps.
+
+### Deployment Variables
+During the application deployment process, a **Variables** step ensures that all required environment-specific and global variables are correctly set.
+- **Missing Values**: If a required value is missing, you must provide it or select **Allow deployment with missing value** to proceed.
+- **Validation**: If all variables are correctly configured for the target environment, the system will confirm their validity.
+
+---
+
+## Data Management & Cleanup
+
+The Administration Application allows for efficient management of historical process data to ensure optimal system performance and compliance with data retention policies.
+
+### Data Cleanup
+A data cleanup job permanently deletes process and audit data for completed or canceled processes that fall outside of your specified retention period. This is essential for freeing up system resources and reducing database size.
+
+To schedule a cleanup:
+1. Navigate to **Process Admin > Data Cleanup**.
+2. Click the **+** (plus) symbol.
+3. Select the **Application** and specific **Process Definitions** (include child processes to ensure full cleanup).
+4. Define the **Historic retention days** (e.g., "1 year" will delete data older than 365 days).
+5. Review, agree to the terms, and click **CREATE**.
+
+---
+
+## Connector Configuration
+
+Applications that integrate with external systems via connectors must have their parameters configured before deployment.
+
+- **Parameter Mapping**: Configuration parameters appear as key-value pairs. Default values from the modeling phase are pre-filled but can be overridden.
+- **Editing Connectors**: You can update connector parameters for an existing application without needing to perform a full upgrade. Go to **Application Instances > Configure application > Edit Connectors Parameters**.
+
+## Development & Validation
+
+### Development Configuration
+To facilitate local development of custom UI applications, you can export the necessary environment variables (e.g., Client ID, Host URL).
+- Access this via **Development configuration** in the application's action menu.
+- Use **Copy as JSON** to copy the formatted configuration to your clipboard.
+
+### Deployment Validation
+Validation is automatically triggered during deployment whenever a project release or environment is changed.
+- If validation fails, errors are displayed in a dialog box.
+- All validation errors must be resolved before the application can be successfully deployed.
+
+## Supporting Platform Services
+
+The following backend services support the Administration and Modeling applications:
+
+| Service | Description |
+| --- | --- |
+| **Modeling Service** | Stores project and model definitions. Includes simulation services for testing DMN and scripts. |
+| **Message Broker** | Asynchronously routes events from the application runtime to other services. |
+| **Query Service** | Provides optimized tables for querying application data without impacting runtime performance. |
+| **Notification Service** | Sets up GraphQL and web sockets against query tables for real-time event monitoring. |
+| **Preference Service** | A key-value store that retains user preferences, such as interface filters. |
+
+## Localization
+
+You can change the language of the Administration Application via the **Languages** menu in the top-right settings. Note that this setting only applies to the Admin App; end users of deployed applications select their own language preferences within those specific apps.

@@ -1,0 +1,83 @@
+---
+title: "Configuration"
+description: "Configure mandatory and optional settings for the OnBase Connector for Content Intelligence."
+---
+
+Configuration involves updating JSON files in the `Configuration` folder and setting up automated synchronization tasks.
+
+## Configuration Summary
+
+| Area | File | Required? | Purpose |
+| --- | --- | --- | --- |
+| **Connectivity** | `applicationConfig.json` | ✅ Yes | Link to OnBase Application Server and CIC environment. |
+| **Integration** | `defaultConfig.json` | ✅ Yes | Set the System Integration ID and logging levels. |
+| **Ingestion** | `filterSettings.json` | Optional | Define which Document Types and Keywords to index. |
+| **Security** | CLI Tool | ✅ Yes | Encrypt all credentials (Database, Unity API, Client Secret). |
+
+---
+
+## 1. applicationConfig.json
+
+This file establishes the link between your local OnBase environment and the cloud-native Knowledge Discovery services.
+
+### Key Parameters
+- **ApplicationServerUrl**: The URL to your OnBase Application Server (`Service.asmx`).
+- **DataSource**: Your OnBase Unity API data source name.
+- **HxpEnvironment**: Your unique CIC Environment Key.
+- **SourceId**: The UUID of your connected repository in CIC.
+- **StartDate**: (Optional) Ingest documents created after this date (`MM-DD-YYYY`).
+
+---
+
+## 2. defaultConfig.json
+
+Contains the unique integration identifier and performance tuning settings.
+
+- **SystemIntegrationId**: The ID generated when you register the "System Integration" in the CIC Administration Portal.
+- **Advanced Tuning**: You can also configure log file paths, rolling intervals (Hour/Day), and Gateway batch sizes (max 100).
+
+---
+
+## 3. filterSettings.json (Selective Ingestion)
+
+By default, the connector ingests **all** documents. Use this file to restrict ingestion to specific content.
+
+- **docTypes**: List the specific OnBase Document Types to include.
+- **filterKeywords**: Define required keyword matches (e.g., only ingest "Invoices" where "Status" is "Approved").
+- **ingestableKeywords**: Specify which OnBase keywords should be mapped as metadata in Knowledge Discovery.
+
+---
+
+## 4. Mapping Users & User Groups
+
+To ensure that OnBase security is respected in Knowledge Discovery, you must synchronize users and groups to HX Nucleus.
+
+1.  Open PowerShell as an Administrator.
+2.  Navigate to your installation directory.
+3.  Run the synchronization setup:
+    ```powershell
+    Powershell -file OnbaseNucleusUserSyncTask.ps1
+    ```
+4.  **Task Scheduler**: This script creates a Windows Task Scheduler job named `OnbaseNucleusUserSyncTask` (runs daily at 1 PM).
+## 5. Plugin Configuration (Containerized)
+
+For containerized deployments, the OnBase Plugin supports both standard Environment Variables and **KeyPerFile** configurations. Each plugin instance must have a unique `{PluginEnvPrefix}` (e.g., `OB_`).
+
+### Configuration Mapping
+| Purpose | Environment Variable | KeyPerFile Name |
+| :--- | :--- | :--- |
+| **MCA Server URL** | `{PluginEnvPrefix}PluginConfiguration__0__McaServerUrl` | `PluginConfiguration__0__McaServerUrl` |
+| **Integration ID** | `{PluginEnvPrefix}PluginConfiguration__0__IntegrationId` | `PluginConfiguration__0__IntegrationId` |
+| **IdP Address** | `{PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__Address` | `PluginConfiguration__0__IdentityProviderOptions__Address` |
+| **Client ID** | `{PluginEnvPrefix}PluginConfiguration__0__IdentityProviderOptions__ClientId` | `PluginConfiguration__0__IdentityProviderOptions__ClientId` |
+
+### Deployment Example
+```yaml
+services:
+  broker:
+    environment:
+      - OB_PluginConfiguration__0__McaServerUrl=https://mca.example.com
+      - OB_PluginConfiguration__0__IntegrationId=123-abc
+      - OB_PluginConfiguration__0__IdentityProviderOptions__ClientId=my-client
+```
+

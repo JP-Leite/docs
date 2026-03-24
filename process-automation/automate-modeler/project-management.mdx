@@ -1,0 +1,62 @@
+---
+title: "Project Management"
+---
+
+Projects are the top-level containers in Studio Modeler. They store all the logic, models, and assets for your business processes, including forms, content types, and connectors.
+
+## Project Lifecycle
+
+### Creating and Duplicating
+- **Create New**: Select **Create Project** to start from scratch, or **Upload Project** to import an existing `.zip` file.
+- **Duplicate**: Use **Save as new project** from the actions menu to clone an entire project, including all its settings and models.
+
+### Downloading and Deleting
+- **Download**: Export your project as a standardized `.zip` file for local editing or migration.
+- **Delete**: Permanently remove a project. If you have administrative rights, you can enable "projects selection" to delete multiple projects at once.
+
+### Validation
+Validation runs automatically every time you save a model. You can also trigger it manually using the **Validate** button. Any errors (including those related to features outside your current subscription) are displayed in the bottom log pane.
+
+---
+
+## Releasing & Versioning
+
+Releasing a project is a prerequisite for deployment. Every release increments the version number (starting from 0).
+
+1. Ensure all changes are saved.
+2. Click the arrow next to **Quick Run** and select **Release project**.
+3. Confirm the details to generate a deployable version.
+
+*Note: Version 0 cannot be deployed.*
+
+---
+
+## Collaboration
+
+By default, projects are only visible to their creators. **Collaborators** can be added to allow team members to view and edit the project.
+
+- **Collaborator Rights**: Can perform all actions except deleting the project.
+- **Management**: Access the **Collaborators** menu from the project actions to add or remove users by their username.
+
+---
+
+## Managing Past Releases
+
+You can view the full history of a project's releases to track changes or recover previous states.
+
+- **Restore**: Replaces all current project elements with those from a selected past release.
+- **Rename**: Change the label of a release (e.g., from "v1.2" to "Production Baseline") for easier identification.
+- **Download Release**: Export a specific historical version of the project.
+
+---
+
+## Navigation & Organization
+
+### Searching
+Click the **magnifying glass icon** above the project tree to search for specific components (forms, processes, etc.) across your project. Results update dynamically as you type.
+
+### Favorites
+Use the **star icon** next to a project name to add it to your **Favorite projects** view for quick access from the home screen.
+
+### Example Projects
+Hyland provides a library of **Example Projects** to serve as templates. You can duplicate these into your own workspace to explore best practices or jumpstart your own development.

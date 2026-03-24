@@ -1,5 +1,116 @@
 ---
-title: "Overview"
+title: "Architecture Overview"
+description: "How Content Intelligence services work and enable AI capabilities for enterprise content."
 ---
 
-This manual provides a high-level overview of how Content Intelligence services work and how they enable AI capabilities for the content.
+The Content Intelligence Cloud (CIC) is built on a modular, API-first architecture designed to transform unstructured content into actionable business intelligence. By leveraging cutting-edge AI technologies and cloud-native infrastructure, CIC provides a scalable foundation for document capture, knowledge discovery, and autonomous agents.
+
+## Modular, API-First Design
+
+Every component within the Content Intelligence ecosystem is modular and exposes its own OpenAPI-compliant interface. This approach allows for selective adoption—you can use the specific services you need today and scale your implementation as your AI requirements grow.
+
+```mermaid
+flowchart LR
+    subgraph CIC [ ]
+        direction LR
+        Ingest[Ingest]
+        
+        subgraph KE [Knowledge Enrichment]
+            direction BT
+            Context[Context]
+            DataCuration[Data Curation]
+            Context --> DataCuration
+        end
+        
+        ContentLake[Content Lake]
+        
+        subgraph Delivery [ ]
+            direction BT
+            KnowledgeDiscovery[Knowledge Discovery]
+            AgentPlatform[Agent Platform]
+            KnowledgeDiscovery --> AgentPlatform
+        end
+        
+        Ingest --> DataCuration
+        DataCuration --> ContentLake
+        ContentLake --> AgentPlatform
+    end
+    
+    %% API Tags
+    IngestAPI([API]) -.- Ingest
+    DCAPI([API]) -.- DataCuration
+    ContextAPI([API]) -.- Context
+    AgentAPI([API]) -.- AgentPlatform
+    KDAPI([API]) -.- KnowledgeDiscovery
+
+    %% Feature Lists
+    F_Ingest["• OpenAPI<br>• Object storage"]
+    F_Context["• OpenAPI<br>• Document Filters<br>• AWS AI Services"]
+    F_Lake["• OpenAPI<br>• NoSQL<br>• Object storage<br>• Vector search"]
+    F_Agent["• OpenAPI<br>• LlamaIndex<br>• MCP<br>• Relational DB"]
+    F_KD["• OpenAPI<br>• Relational DB"]
+    
+    Ingest -.- F_Ingest
+    Context -.- F_Context
+    ContentLake -.- F_Lake
+    AgentPlatform -.- F_Agent
+    KnowledgeDiscovery -.- F_KD
+
+    %% Infrastructure
+    AIPlatform["CIC AI Platform<br>Foundation Models and Guardrails<br>Fine-tuning and evaluation"]
+    CICCloud["CIC Cloud<br>Secure and multi-tenant infrastructure<br>Automation, Observability, Audit, IAM, ..."]
+    
+    CIC ~~~ AIPlatform
+    AIPlatform ~~~ CICCloud
+    
+    F_AI["• LiteLLM<br>• Amazon Bedrock<br>• MLFlow"]
+    AIPlatform -.- F_AI
+    
+    F_Cloud["• Kubernetes<br>• Terraform<br>• SIEM"]
+    CICCloud -.- F_Cloud
+
+    classDef ingest fill:#ffcdd2,stroke:#d32f2f,stroke-width:2px;
+    classDef curate fill:#c8e6c9,stroke:#388e3c,stroke-width:2px;
+    classDef context fill:#bbdefb,stroke:#1976d2,stroke-width:2px;
+    classDef lake fill:#e1bee7,stroke:#7b1fa2,stroke-width:2px;
+    classDef agent fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    classDef kd fill:#ffe0b2,stroke:#f57c00,stroke-width:2px;
+    classDef api fill:#f5f5f5,stroke:#9e9e9e,stroke-width:1px,border-radius:15px;
+    classDef features fill:#fff,stroke:#333,stroke-width:1px,text-align:left;
+    classDef infra fill:#cfd8dc,stroke:#455a64,stroke-width:2px;
+    classDef cloud fill:#b2ebf2,stroke:#0097a7,stroke-width:2px;
+
+    class Ingest ingest;
+    class DataCuration curate;
+    class Context context;
+    class ContentLake lake;
+    class AgentPlatform agent;
+    class KnowledgeDiscovery kd;
+    class IngestAPI,DCAPI,ContextAPI,AgentAPI,KDAPI api;
+    class AIPlatform infra;
+    class CICCloud cloud;
+    class F_Ingest,F_Context,F_Lake,F_Agent,F_KD,F_AI,F_Cloud features;
+    
+    style CIC fill:none,stroke:none;
+    style Delivery fill:none,stroke:none;
+    style KE fill:#f1f8e9,stroke:#333,stroke-dasharray: 5 5;
+```
+
+---
+
+## Cutting-Edge AI Stack
+
+The platform continuously integrates best-in-class tools from the rapidly evolving AI landscape to ensure high performance and reliability:
+
+- **Orchestration**: LangChain, LlamaIndex, and the Model Context Protocol (MCP) for building intelligent agents.
+- **Data Pipelines**: Metaflow for managing scalable data processing flows.
+- **ML Infrastructure**: LiteLLM and MLflow for foundation model management, fine-tuning, and evaluation.
+- **Foundation Models**: Integration with Amazon Bedrock for access to industry-leading LLMs.
+
+---
+
+## Core Design Principles
+
+1.  **Agile Development**: Services are independently deployable, allowing for rapid iteration and update cycles.
+2.  **Standards-Based**: Heavy reliance on industry standards like OpenAPI, Kubernetes, and Terraform.
+3.  **Scalable Security**: Multi-tenant infrastructure with built-in observability, audit trails, and robust IAM (Identity and Access Management).

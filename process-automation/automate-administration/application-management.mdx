@@ -1,0 +1,79 @@
+---
+title: "Application Management"
+---
+
+The Administration Application is where released projects created in the Automate Modeler application can be managed and monitored. Once a released project has been deployed, it is referred to as an **application**.
+
+The Administration Application is accessed using the `/admin` URL, for example: `https://hyland.com/admin`
+
+The main areas covered by the Administration Application include:
+- **DevOps**: Deploy projects, and manage and upgrade applications.
+- **Process Admin**: Manage process instances, tasks, and audit details.
+- **Monitoring**: Monitor the behavior and performance of applications.
+- **Application Capacity**: View how many applications can be created and used simultaneously.
+
+## Application Capacity
+
+The **Application Capacity** section is located in the left pane. It displays the maximum number of applications that can be deployed and the current number of applications in use.
+
+If the maximum capacity is reached, you cannot deploy new applications until you undeploy one or more existing ones.
+
+## Applications List
+
+The **Applications List** section provides an overview of all released applications.
+
+| Property | Description |
+| --- | --- |
+| **Application name** | The name of the application. |
+| **Description** | A description provided when the application was released. |
+| **Version** | The version of the application. |
+| **Release** | The number of times the application has been released. |
+| **Environment** | The environment where the application resides. |
+| **Digital Workspace** | A link to the Hyland Workspace if applicable. |
+| **Actions (Three dots)** | Access specific sections: Process Instances, User Tasks, Service Tasks, Audit, and Data Cleanup. |
+| **Star icon** | Mark an application as a 'favorite' to make it appear first in search lists. |
+
+## Application Instances
+
+The **Application Instances** section displays all deployed applications and those currently in the process of being deployed. You can also update permissions for these applications from this view.
+
+### Filtering Application Instances
+
+You can customize the list of application instances using the **Filters** section.
+
+1.  Locate the **Filters** section within Application Instances.
+2.  Use **Add filter** to include specific criteria.
+3.  Click the **x** next to a filter name to remove it.
+4.  Click column names to sort the list (ascending or descending).
+
+Available filters include:
+| Property | Description |
+| --- | --- |
+| **Application Name** | The name of the application. |
+| **Project Release** | The release version of the application. |
+| **App version** | The running version of the application instance. |
+| **Runtime version** | The version of Automate the application is running on. |
+| **Modified** | The date and time of the last update. |
+| **Created** | The time elapsed since the application was deployed. |
+| **Deployment Status** | The current status (e.g., "Running"). |
+| **Environment** | The environment name. |
+| **Workspace** | A link to the application's user interface. |
+
+## Application Services
+
+Each deployed application is supported by specific backend services:
+
+### Application Runtime Bundle
+A set of services that manage models at runtime. It stores data in a dedicated database used solely for that specific application.
+
+### Application Query Service
+A set of services used to query data stored by the application runtime bundle. It reads data directly from the application runtime database.
+
+## Viewing Application Configuration
+
+You can view the full configuration file for any application, which includes details like names, groups, and connectors.
+
+To see the configuration:
+1. Click the vertical ellipsis (three dots) next to the application name.
+2. Select **View configuration**.
+3. The configuration details will be displayed in the center of the screen.

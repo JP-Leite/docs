@@ -1,0 +1,73 @@
+---
+title: "BPMN Tasks Reference"
+---
+
+Tasks are the fundamental work units in a BPMN process. Studio Modeler supports several task types ranging from manual human interventions to fully automated system integrations.
+
+## Human-Centric Tasks
+
+### User Task
+Represents a stage where human action is required.
+- **Assignment**: Can be assigned to a single user, an identity, or a group of candidates. Use **Expressions** for dynamic assignment.
+- **Due Dates**: Set via a static calendar date, a time duration (e.g., `PT24H`), or a process variable.
+- **Redirects**: Define what the user sees after submission (e.g., return to Workspace or a custom landing page).
+- **Forms & Screens**: Select a standard form or a specialized IDP Screen for the user interface.
+
+---
+
+## Automated Tasks
+
+### Service Task
+Used for automated actions executed by external systems or connectors.
+- **Implementation**: Managed via connectors (e.g., Content, AWS, REST).
+- **Tracking**: Does not emit standard task events; monitor `INTEGRATION_REQUESTED` instead.
+
+### Script Task
+Executes custom logic implemented locally within the process.
+- **Implementation**: Always `script.EXECUTE`.
+- **Use Case**: Data transformation, complex calculations, or custom API payload building.
+
+### Agentic Task
+Integrates **AI Task Agents** built in the Agent Builder platform.
+- **Inputs/Outputs**: Uses predefined variables to pass content to the AI and receive structured results.
+- **Scale**: Enables AI-driven reasoning and decision-making at scale within your workflows.
+
+---
+
+## Operational Task Types
+
+### Call Activity
+Starts an instance of **another process definition**.
+- **Scope**: Receives its own `processInstanceId` and has a completely separate variable scope.
+- **Waiting**: The parent process pauses until the called process completes.
+
+### Specialized System Tasks
+- **Send Email Task**: Sends automated emails via SMTP. Requires a configured email server.
+- **Generate Document Task**: Creates new documents based on templates and process data.
+- **Content Task**: Performs actions directly on the repository (e.g., create, move, or delete content).
+
+---
+
+## Repeating Elements: Multi-instance
+
+Any task can be configured to repeat multiple times. Multi-instance elements are marked with three parallel lines (horizontal for sequential, vertical for parallel).
+
+| Mode | Behavior |
+| --- | --- |
+| **Sequential** | Executes instances one by one. The next starts only after the current one completes. |
+| **Parallel** | Starts all instances simultaneously. All are active at the same time. |
+
+### Configuration Parameters
+- **Collection**: An `Array` variable containing the items to iterate over.
+- **Element Variable**: The name used to reference the current item within the loop.
+- **Completion Condition**: An expression (e.g., `${nrOfCompletedInstances} >= 1`) that can terminate the loop early.
+
+---
+
+## Task Triggers
+
+Triggers can be configured to fire based on task lifecycle events:
+- **Created**: When the task is first initialized.
+- **Assigned**: When a user or group is linked to the task.
+- **Updated/Completed**: When task data changes or work is finished.
+- **Standalone**: Triggers can fire for tasks that execute without a dedicated process container.

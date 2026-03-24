@@ -1,0 +1,65 @@
+---
+title: "Actions Reference"
+---
+
+Actions are the specific operations performed by Service Tasks and Connectors. This reference covers core repository actions, custom object management, and specialized vendor integrations.
+
+## Core Repository Actions
+
+These actions interact directly with the Hyland Content repository.
+
+### Content Lifecycle
+- **CREATE_CONTENT**: Create a new document or folder. Requires a `contentType` and a `targetContainer`.
+- **DELETE_CONTENT**: Permanently remove a content object by its ID.
+- **MOVE_CONTENT**: Relocate an object from a `sourceContent` to a `targetContent`.
+- **COPY_CONTENT**: Duplicate an object within the repository.
+
+### Metadata Management
+- **UPDATE_METADATA**: Overwrite existing metadata properties with new key-value pairs.
+- **SELECT_METADATA**: Retrieve specific metadata values from an object.
+- **ADD_PERMISSION / REMOVE_PERMISSION**: Grant or revoke specific access rights (e.g., `Read`, `Write`) for users or groups.
+
+### Binary Handling
+- **READ_FILE_CONTENT**: Retrieve the binary stream or text content of a file.
+- **UPDATE_FILE_CONTENT**: Overwrite the file attached to a content object.
+- **FETCH_CONTENT**: Retrieve a complete content object, including metadata and binary references.
+
+---
+
+## Custom Object Actions
+
+Custom objects allow you to store structured data that doesn't necessarily represent a physical file.
+
+- **CREATE_OBJECT_INSTANCE**: Create a new record based on a Custom Object Definition.
+- **UPDATE_OBJECT_INSTANCE**: Modify the fields of an existing object instance.
+- **DELETE_OBJECT_INSTANCE**: Remove an instance from the system.
+- **QUERY_OBJECT_INSTANCE**: Search for instances matching specific criteria.
+
+---
+
+## Approval & Workflow Actions
+
+Specialized actions for managing human-in-the-loop decision processes.
+
+- **SUBMIT_FOR_APPROVAL**: Initiate an approval workflow for a content or object instance.
+- **APPROVE_INSTANCE**: Record a positive decision.
+- **REJECT_INSTANCE**: Record a negative decision and optionally provide a reason.
+
+---
+
+## Enterprise Repository Integrations
+
+These actions are used by specialized connectors to interact with third-party content systems.
+
+### OnBase Actions
+- **CREATE_DOCUMENT (OnBase)**: Create a document in OnBase using a repository file as the source.
+- **UPDATE_DOCUMENT_KEYWORDS**: Add or modify keywords on an existing OnBase document.
+- **UPLOAD_DOCUMENT_REVISION**: Upload a new version of a document to OnBase.
+
+### Perceptive Content Actions
+- **UPDATE_DOCUMENT_CONTENT (Perceptive)**: Update the image or text of a Perceptive document.
+- **UPDATE_DOCUMENT_KEYS**: Modify the metadata keys associated with a document.
+
+### Nuxeo Actions
+- **UPDATE_DOCUMENT_METADATA (Nuxeo)**: Synchronize metadata values with a Nuxeo repository.
+- **READ_DOCUMENT_METADATA (Nuxeo)**: Retrieve current property values from Nuxeo.

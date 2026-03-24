@@ -1,0 +1,55 @@
+---
+title: "Retention & Disposition Management"
+---
+
+Retention policies define the lifecycle of your records, ensuring they are kept only for as long as required and disposed of correctly. Every category in a file plan must have a retention policy to be deployable.
+
+## Configuring a Retention Policy
+
+A retention policy is composed of three main stages: **Cutoff**, **Retention Period**, and **Disposition**.
+
+### 1. The Cutoff (The Trigger)
+The cutoff defines when the retention period starts.
+- **Immediate**: Retention starts as soon as a document is assigned to the category.
+- **Property-based Date**: Retention starts based on a specific metadata field (e.g., `Creation Date`, `Modification Date`, or a custom `Project End Date`). 
+
+### 2. The Retention Period (The Duration)
+This defines how long the record must be kept after the cutoff trigger.
+- **Fixed Period**: The record is kept for a specific duration (e.g., 7 years).
+- **Adjustment-based**: The record is kept until a specific property date is reached, with an optional "extra retention time" added afterward.
+
+### 3. Disposition (The Final Action)
+This defines what happens once the retention period ends.
+- **Ready for Purge (Manual)**: The record remains in the system with a `Reached Disposition` status until a Record Manager manually deletes it.
+- **Workflow (Automatic)**: The record is automatically deleted by the system once it reaches the end of its lifecycle. This process typically runs once a day.
+
+---
+
+## Monitoring Retention Dashboards
+
+Workspace provides three key dashboards for tracking the status of governed content:
+
+### Active Retention Status
+Displays the number of records currently "Under Retention."
+- **Interaction**: Hovering over the colored bar shows the percentage of records under retention in that category. Clicking a bar redirects you to the filtered list of these records.
+
+### Cutoff Tracker
+Tracks records that have reached their "Ready" status (approaching cutoff).
+- **Interaction**: Use the **calendar icon** to filter readiness by month and year (past, present, or future).
+
+### Disposition Tracker
+Shows records that have reached their final lifecycle stage (**Reached Disposition**).
+- **Interaction**: Filter by disposition date using the calendar. Clicking the bar provides a list of records ready for final disposal.
+
+---
+
+## Manual Disposal Process
+
+If a category's disposition is set to **Purge**, the Record Manager must manually delete the records once they expire.
+
+1. In the **Governance** tab of Workspace, open the **Filters**.
+2. Set the **Status** filter to **Reached Disposition** and click **Apply**.
+3. Review the results and select the records you wish to remove.
+4. Click the **Delete** icon and confirm the action.
+
+*Note: Bulk deletion is currently not available; records must be deleted individually or in small groups as confirmed by the interface.*

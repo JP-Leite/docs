@@ -1,0 +1,60 @@
+---
+title: "Record Management"
+---
+
+Governance records in Workspace represent documents from the repository that are subject to retention rules. The **Governance** tab in Workspace is the central hub for monitoring record health, adjusting metadata, and managing legal holds.
+
+## Record Lifecycle & Statuses
+
+As documents enter the governance framework, they progress through several statuses determined by their retention policy and cutoff date.
+
+### The Status Flow
+| Status | Description |
+| --- | --- |
+| **Unprocessed** | Initial state; no retention policy has been assigned yet. |
+| **Incomplete** | Missing critical metadata (usually a property-based date). Must be fixed before retention can start. |
+| **Ready** | Successfully processed but the cutoff date is in the future. Waiting for retention to begin. |
+| **Under Retention** | Active retention period. **Note**: Records in this status cannot be deleted or edited. |
+| **Reached Disposition** | Retention period has expired. Records are marked for manual or automatic disposal. |
+| **On Hold** | Record is assigned to a legal hold. This status overrides others; the record cannot be deleted even if it reaches disposition. |
+
+### Retention Triggers
+The transition from **Ready** to **Under Retention** is triggered by the **Cutoff Date**, which can be based on:
+- **Immediate**: Starts as soon as the file is uploaded.
+- **Created Date**: System property; starts from the document's original creation.
+- **Modified Date**: System property; restarts each time the document is updated.
+- **Custom Date**: A specific metadata field defined in your content model.
+
+---
+
+## Filtering & Searching Records
+
+Workspace provides powerful filters to help you locate and manage specific groups of records.
+
+| Filter | Usage |
+| --- | --- |
+| **Data Source** | Multi-select specific repositories (e.g., Internal, OnBase, SharePoint). |
+| **Category** | Filter by the file plan path (`File Plan/Category`). |
+| **Status** | Find records at specific stages (e.g., "Incomplete" or "Reached Disposition"). |
+| **Cutoff/Disposition** | Filter by upcoming or past retention milestones. |
+| **Record Name** | Search for specific documents by their repository name. |
+
+---
+
+## Monitoring Record Health
+
+Workspace includes dashboards to provide a holistic view of your records' status distribution.
+
+- **Record Health Pie Chart**: Displays the overall distribution of statuses across your repository. You can click any slice to view the corresponding list of records.
+- **Incomplete Record Dashboard**: Highlights categories with high numbers of incomplete records, allowing you to prioritize metadata cleanup.
+
+## Managing Record Properties
+
+For records in **Incomplete** or **Ready** status, you can manually adjust the cutoff details if needed.
+
+1. Locate the record in the **Governance** tab.
+2. Select the record and click **View Property**.
+3. Click **Edit** in the Properties pane.
+4. Select a new date using the calendar and click **Save**.
+
+*Note: Once a record enters the **Under Retention** status, properties can no longer be edited to ensure compliance integrity.*

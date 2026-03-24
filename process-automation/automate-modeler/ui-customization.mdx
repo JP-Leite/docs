@@ -1,0 +1,54 @@
+---
+title: "UI Customization"
+---
+
+Studio Modeler allows you to define the end-user experience for your applications. You can use the built-in **Default UI** for rapid development or upload a **Custom UI** for fully tailored experiences.
+
+## Creating a Default UI
+
+The Default UI provides a standard interface within Hyland Workspace for users to interact with tasks and documents.
+
+1.  Select **Create > Default UI**.
+2.  Provide a unique **Name** and optional description.
+3.  The UI is created and opened in a new tab for further configuration.
+
+---
+
+## Configuring UI Details
+
+You can control which functional areas of the repository are visible to your users.
+
+- **Content and Process**: Displays both the Process Management (tasks) and Content Management (document browser) widgets.
+- **Process Only**: Hides all content-associated sections, focusing the user entirely on their task list and active processes.
+- **Branding**:
+  - **Application Title**: The name displayed in the browser tab and header.
+  - **Custom Logo**: Upload a 28x28 pixel image. **Note**: Files used for logos or backgrounds must be marked with the **Public** visibility flag in the project's files section.
+
+---
+
+## UI Themes & Styling
+
+Fine-tune the look and feel of your Workspace application using hexadecimal color codes and custom typography.
+
+| Property | Purpose |
+| --- | --- |
+| **Primary Color** | Used for highlighting active links and primary buttons. |
+| **Accent Color** | Used for floating action buttons and selection controls. |
+| **Header Color** | Background color for the top navigation bar. |
+| **Font Family** | Specify a font family or provide a **Web font URL** (e.g., from Google Fonts). |
+
+---
+
+## Developing Custom UIs
+
+For requirements that go beyond the standard Workspace capabilities, you can build and upload your own frontend.
+
+### Supported Technologies
+- **ADF**: Hyland's Application Development Framework.
+- **SPA**: Any Single Page Application (React, Angular, Vue, or Vanilla HTML/JS) that conforms to the UI schema.
+
+### Upload Requirements
+- **Format**: Must be a `.zip` archive.
+- **Entry Point**: Must contain an `index.html` or `index.htm` file at the root of the archive.
+- **Size Limit**: Maximum archive size is **50MB**.
+- **Template**: Use the **Generate From Template** button to download a starting point for your custom development.

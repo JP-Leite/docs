@@ -1,0 +1,41 @@
+---
+title: "Deployment & Operations"
+description: "The automated CI/CD pipelines and operational tools that power Content Intelligence."
+---
+
+Content Intelligence services are delivered through a fully automated DevOps framework, ensuring rapid deployment, consistent quality, and continuous monitoring across all environments.
+
+## CI/CD Pipelines
+
+Continuous Integration (CI) and Continuous Delivery (CD) are managed primarily through **GitHub Actions**. Every code change undergoes a rigorous automated pipeline before being promoted to production.
+
+### Build & Promotion Stages
+- **Automated Testing**: Unit, integration, and functional tests are executed on every pull request.
+- **Dependency Scanning**: Continuous monitoring for vulnerabilities in third-party libraries.
+- **Code Quality**: Automated checks for style, performance bottlenecks, and test coverage.
+- **Promotion**: Strategic promotion pipelines move verified artifacts from development through staging to the production Hyland Cloud.
+
+---
+
+## Infrastructure as Code (IaC)
+
+Infrastructure management is treated with the same rigor as application code. We use industry-standard tools to provision and manage cloud resources:
+
+- **Terraform**: Used for baseline infrastructure provisioning and state management.
+- **Crossplane**: Enables platform engineering by defining infrastructure resources directly through Kubernetes APIs. This allows security and compliance rules to be "baked into" the resource definitions.
+- **Helm**: Manages the deployment and versioning of containerized applications within Kubernetes clusters.
+
+---
+
+## Monitoring & Observability
+
+To ensure the reliability and security of SaaS services, Content Intelligence is deeply integrated with modern observability tools.
+
+### Datadog Integration
+**Datadog** serves as the central hub for operational intelligence:
+- **Log & Metric Collection**: Aggregated logs and performance metrics from all services.
+- **Dashboarding & Alerting**: Real-time visualization of system health with automated alerts for anomalies.
+- **Security Posture Management**: Continuous monitoring of cloud infrastructure for misconfigurations and security risks.
+
+### Compliance & Coverage
+- **AWS Compliance Packs**: Used in conjunction with Datadog to provide comprehensive coverage against industry standards and Hyland's internal security benchmarks.

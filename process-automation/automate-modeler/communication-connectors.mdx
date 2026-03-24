@@ -1,259 +1,61 @@
 ---
 title: "Communication Connectors"
-description: "Configuration and usage of Slack, Microsoft Teams, Email Service, and Twilio connectors."
 ---
-## Slack
 
-The Slack connector is used to integrate with the [Slack](https://slack.com/) web API and REST time messaging API to create Slack channels and send messages to channels or users.
-
-The Slack connector is displayed on the process diagram with the Slack logo.
-
-The authentication for the Slack connector is set using the configuration parameters. For more details, see Configuration Parameters.
-
-Note: The Slack connector requires a Slack account to use. This account is separate from the production environment and is created and managed by customers.
-The actions that can be executed using the Slack connector are:
-
--  Send a message to a specific user or channel (public or private)
--  Create a new channel (public or private)
+Communication connectors allow your processes to interact with team collaboration platforms, email services, and SMS gateways. 
 
 ## Slack Connector
 
-The Slack connector contains a MESSAGE_RECEIVED event. This event allows for Slack messages to be monitored and an event published when specific criteria are met.
-
-Note: Make sure the Slack connector event subscription has been configured to receive notifications from the Slack API.
-The input parameters for a received Slack message are:
-
-| Parameter | Description |
-| --- | --- |
-| condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
-| pattern | A regular expression that selects which messages trigger an action. Java catching group syntax can be used to create groups from the pattern as variables, for example: Order Number (?`<orderNumber>`.+) The variables can then be used in echo and echoError, for example: $`{orderNumber}` Note: This parameter is required. |
-| echo | A message sent to the user of the message that is matched, for example: Your reference number is $`{orderNumber}`. |
-| echoError | A message sent to the user of the message that is matched if an error occurs when publishing the event, for example: There was a problem publishing that event. |
-| channelTypes | The channel types to be monitored in Slack, such as direct-message,public-channel or mention. |
-
-Note: Groups found in matchGroups can be used within a trigger action variable using the syntax ${matchGroups.group}, for example: ${matchGroups.orderNumber}
-
-## Subscribing The Slack Bot To Events
-
-To use Slack as a trigger the Slack bot needs to subscribe to events.
-
-1.  Use the following URL to configure the events:  `https://api.slack.com/apps/<app_id>/event-subscriptions`
-2.  Enter the following as the Request URL for Slack to post HTTP requests to:  https://`<cluster-name>`/`<application-name>`/connector/`<connector-name>`/slack/events
-Where:
+The Slack connector integrates with the Slack Web and RTM APIs to manage channels and messaging.
 
--  cluster-name is the name of the cluster running Studio Modeler.
--  application-name is the name of the application the trigger is configured for.
--  connector-name is the name of the Slack connector instance in the application.
-3.  Subscribe the Slack bot user to the following events:
-- app_mention
-- message.channels
-- message.groups
-- message.im
-- message.npim
+### Actions
+- **Send Message**: Send a text or JSON block message to a specific user or channel.
+- **Create Channel**: Programmatically create public or private channels.
 
-## Configuring The Slack Application And Bot
+### Events & Triggers
+The `MESSAGE_RECEIVED` event allows a process to start when a Slack message matches a specific **Pattern** (Regex).
+- **Match Groups**: Use named groups in your Regex (e.g., `Order (?<orderID>.+)`) to extract data directly into process variables `${matchGroups.orderID}`.
+- **Bot Setup**: Requires a Slack App with `chat:write`, `channels:read`, and `groups:read` scopes. Configure the **Event Subscription URL** in the Slack API portal to point to your CIC environment.
 
-The Slack connector requires a Slack application and a Slack bot in order to function. The application and bot need to be configured correctly.
+---
 
-1.  Use the [Slack website](https://api.slack.com/apps) to create an application.  Note: Log in as a workspace administrator to create an application.
-2.  Use the following URL to create a bot in the application you created:  `https://api.slack.com/apps/<app_id>/bots`
-3.  Use the following URL to configure the scope and permissions of the application and bot:  `https://api.slack.com/apps/<app_id>/oauth`
-The required [scope and permissions](https://api.slack.com/scopes) are:
+## Microsoft Teams Connector
 
-- app_mentions:read
-- channels:read
-- channels:manage
-- groups:read
-- groups:write
-- mpim:read
-- mpim:write
-- users:read
-- users:read.email
-- chat:write
-- chat:write.public
-- im:read
-- im:write
-4.  Use the following URL to obtain the Slack bot token and signing secret:  `https://api.slack.com/apps/<app_id>/oauth`
+The Teams connector leverages the Microsoft Graph API for organizational collaboration.
 
-## Microsoft Teams
+### Configuration (Azure Setup)
+You must register an App in **Microsoft Azure** with the following permissions:
+- `Group.ReadWrite.All`, `Channel.Create`, `ChannelMessage.Send`, `Chat.ReadWrite.All`.
 
-The Microsoft Teams connector uses the Microsoft Graph API to integrate with Microsoft Teams.
+### Actions
+- **Get Teams/Channels**: Retrieve lists of available teams and their sub-channels.
+- **Send Channel/User Message**: Post messages directly to a channel or as a 1:1 notification to a specific user email.
 
-The Teams connector is displayed on the process diagram with the Teams logo.
+---
 
-Note: The Teams connector and user both require a Microsoft Teams client. The Teams connector requires a Microsoft Teams account. The account is separate from the production environment and is created and managed by an administrator.
-The authentication for the Microsoft Teams connector is set using the configuration parameters. For more details, see Configuration.
+## Microsoft Email (SMTP & Graph)
 
-The actions that can be executed using the Teams connector are:
+This connector handles email operations outside of the standard mail client context.
 
--  Get Teams: Retrieves all teams of the organization.
--  Create Teams Channel: Creates a new public or private channel.
--  Get Channels: Retrieves all existing channels for a specific team.
+### Actions
+- **SEND_MAIL**: Send HTML or plain-text emails. Supports **Attachments** (references to repository documents) and **Templates** with variable placeholders.
+- **GET_MAIL**: Retrieve a message by its `messageId`. You can save the output as a raw `.eml` file or parsed into body and attachment variables.
 
-## Configuring Microsoft Azure For The Microsoft Teams Connector
+### Azure Prerequisites
+Requires an App Registration with `Mail.Read`, `Mail.Send`, and `User.ReadBasic.All` permissions.
 
-In order to use Microsoft Teams channels via the Microsoft Teams connector, you need to configure Microsoft Azure first.
+---
 
-To configure the Microsoft Teams functions in Microsoft Azure:
+## Twilio (SMS)
 
-1.  Log in to Azure with the tenant account.
-2.  Create an App Registration for the Studio Modeler application. Save the Application (client) ID and Directory (tenant) ID.
-3.  Create and save the Client secret.
-4.  Add the following Microsoft Graph API permissions as application permissions:
-- Calendars.ReadWrite
-- Channel.Create
-- Channel.ReadBasic.All
-- ChannelMessage.Read.All
-- ChannelMessage.Send
-- Chat.Create
-- Chat.Read.All
-- Chat.ReadBasic.All
-- Chat.ReadWrite
-- Chat.ReadWrite.All
-- ChatMessage.Read.All
-- Group.ReadWrite.All
-- Group.ReadWrite.All
-- TeamsAppInstallation.ReadWriteForTeam.All
-- Teamwork.Migrate.All
-- User.Read
-- User.Read.All
+Integrate with Twilio to send and receive text messages.
 
-For more information, look for the Register a web application and Microsoft Graph permissions in the Microsoft documentation.
+- **Send SMS**: Send alerts or notifications to mobile numbers.
+- **SMS_RECEIVED Event**: Monitor inbound messages. Like the Slack connector, it supports **Regex patterns** and **Match Groups** to extract data from incoming texts.
 
-## Send_Teams_Channel_Message
+---
 
-The SEND_TEAMS_CHANNEL_MESSAGE action is used by the Teams connector to send a message in a specific Teams channel.
+## Security & Deployment
 
-The input parameters of this connector are:
-
-| Parameter | Type | Required | Description |
-| --- | --- | --- | --- |
-| channelId | String | Required | Identifier of the channel to which the message will be sent. |
-| teamId | String | Required | Identifier of the team from which the channels are received. |
-| text | String | Required | Message that will be sent to the channel. |
-
-There are no output parameters for this action.
-
-## Send_Teams_User_Message
-
-The SEND_TEAMS_CHANNEL_MESSAGE action is used by the Teams connector to send a message in a specific Teams channel.
-
-The input parameters of this connector are:
-
-| Parameter | Type | Required | Description |
-| --- | --- | --- | --- |
-| text | String | Required | Message that will be sent to the user. |
-| userToNotify | String | Required | Email address of user that will receive the message. The value of this parameter has to be in the same tenant as the sender in the Microsoft Graph configuration. |
-
-There are no output parameters for this action.
-
-## Microsoft Email
-
-The Microsoft Email connector is used to establish connection with Microsoft Email services and use their functions outside of the Microsoft email context.
-
-The connector appears on the process diagram as a rectangle with a Microsoft Outlook logo.
-
-Note: The Microsoft Email connector requires a Microsoft Azure account with Application permissions set for the Microsoft Graph API. This service is not operated by Hyland and should be created and managed by customers. For more information, see Configuring Microsoft Azure for the Microsoft Email Connector.
-The following actions are possible with the Microsoft Email connector:
-
--  SEND_MAIL
--  GET_MAIL
-
-## Configuring Microsoft Azure For The Microsoft Email Connector
-
-In order to send and receive emails via the Microsoft Email connector, you need to configure Microsoft Azure first.
-
-To configure the email functions in Microsoft Azure:
-
-1.  Log in to Azure with the tenant account.
-2.  Create an App Registration for the Studio Modeler application. Save the Application (client) ID and Directory (tenant) ID.
-3.  Create and save the Client secret.
-4.  Add the following Microsoft Graph API permissions as application permissions: Mail.Read, Mail.ReadBasic, Mail.Send, User.ReadBasic.All and grant them admin consent for MSFT.
-
-For more information, look for the Register a web application and Microsoft Graph permissions in the Microsoft documentation.
-
-## Email Service
-
-An Email service action can be used to send an email.
-
-The payload for the action is:
-
-| Property | Required | Description |
-| --- | --- | --- |
-| attachments | Optional | List of files that will be attached to the email. If the received value contains multiple contents, all of them will be attached. For example, "uri": "hxpr:/1234567890". |
-| bcc | Optional | The bcc recipient of the email. Multiple recipients are allowed. |
-| cc | Optional | The cc recipient of the email. Multiple recipients are allowed. |
-| charset | Optional | Allows to change the character set of the email, for example UTF-8. |
-| from | Required | The email address of the sender. If no sender is provided, the default configured address is used. |
-| html | Optional | HTML code with the body of the email. |
-| metadata | Optional | Metadata that will be used by the template to resolve variable placeholders. Metadata is a JSON object that contains key-value pairs. |
-| subject | Optional | The subject of the email. |
-| template | Optional | The template file that will be used to generate the email. If the received value contains multiple templates, only the first of them will be used. Templates can be uploaded from theStudio Modeler application or referenced from the repository. |
-| text | Optional | Text-only of the message. It can be used in combination with HTML for the clients that don't support rich content. In such case, the client falls back to the text-only option. |
-| to | Required | Recipients of the email. Multiple recipients are allowed. |
-
-## Send_Mail
-
-The SEND_MAIL action is used to send the message body and attachments using the Microsoft email services.
-
-The input parameters for SEND_MAIL are:
-
-| Parameter | Type | Required | Description |
-| --- | --- | --- | --- |
-| bcc | String | Optional | BCC recipient of the email. Multiple recipients are allowed. |
-| cc | String | Optional | CC recipient of the email. Multiple recipients are allowed. |
-| from | String | Required | Email address of the sender. When not provided, the default configured address is be used. |
-| html | String | Optional | HTML-formatted message body. |
-| metadata | JSON | Optional | Metadata to be used by the template to resolve variable placeholders. Metadata is a JSON object that contains key-value pairs. |
-| reply-to | String | Optional | The recipients that are replied. Multiple recipients are allowed. |
-| subject | String | Optional | The subject of the message. |
-| template | Array`<content>`, Content | Optional | File that contains the template used for generating the document. If the received value contains multiple binary contents, only the first of them will be used.  Template files can be uploaded from the Studio Modeler, or referenced from the repository. |
-| text | String | Optional | The content of the message written as plain, non-rich email. It can be used in combination with html, for email clients that don’t support rich content. The client will then fall back to this text-only alternative. |
-| to | String | Optional | Recipients of the email. Multiple recipients are allowed. |
-
-There are no output parameters.
-
-## Get_Mail
-
-The GET_MAIL action is used to fetch the message body and attachments from the Microsoft email services.
-
-The input parameters for GET_MAIL are:
-
-| Parameter | Type | Required | Description |
-| --- | --- | --- | --- |
-| messageId | String | Required | Identifier of the message that will be retrieved. It can be mapped to a variable, for more details see Mapping Process Variables for Microsoft Email Connector. |
-| saveRaw | Boolean | Optional | When set to true, the message and attachments are saved together as a raw .eml format. By default, the email body and attachment are saved in the content repository separately. |
-| targetContainer | Content | Required | Content or a content object for the container in the repoistory, where the message is saved. |
-
-The output parameters from GET_MAIL are:
-
-| Parameter | Type | Required | Description |
-| --- | --- | --- | --- |
-| attachments | Array`<content>` | Optional | Reference to the attachments array (only for the parsed mode.) |
-| message | Content | Optional | Reference to the email body or a raw email file. |
-
-## Twilio
-
-The Twilio connector is used to integrate with an instance of [Twilio](https://www.twilio.com/) to send SMS messages.
-
-The Twilio connector is displayed on the process diagram with the Twilio logo.
-
-The authentication for the Twilio connector is set using the configuration parameters. For more details, see Configuration Parameters.
-
-Note: The Twilio connector requires a Twilio account to use. This account is separate from the production environment and is created and managed by customers.
-
-## Twilio Connector
-
-The Twilio connector contains an SMS_RECEIVED event. This event allows for inbound SMS messages to be monitored and an event published when specific criteria are met.
-
-The input parameters for receiving an SMS are:
-
-| Parameter | Description |
-| --- | --- |
-| condition | A detailed condition for firing the trigger, created using the Condition Builder. For more details on conditions available as a part of the input values, see Creating Conditions. |
-| pattern | A regular expression that selects which messages trigger an action. Java catching group syntax can be used to create groups from the pattern as variables, for example: Order Number (?`<orderNumber>`.+) The variables can then be used in echo and echoError, for example: $`{orderNumber}` |
-| echo | A message sent to the original sender of the text that is matched, for example: Your reference number is $`{orderNumber}`. |
-| echoError | A message sent to the original sender if an error occurs when publishing the event, for example: There was a problem publishing that event. |
-
-Note: Groups found in matchGroups can be used within a trigger action variable using the syntax ${matchGroups.group}, for example: ${matchGroups.orderNumber}
-
+- **Secret Management**: For Microsoft connectors, it is best practice to provide the **Client Secret** during the **Deployment** phase in Studio Admin, rather than hardcoding it in the Modeler.
+- **OAuth**: Most communication connectors require OAuth 2.0. Ensure the redirect URIs are correctly configured in the external provider's portal.

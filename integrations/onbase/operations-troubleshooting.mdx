@@ -1,0 +1,70 @@
+---
+title: "Operations & Troubleshooting"
+description: "Start, monitor, and resolve issues with the OnBase Connector for Content Intelligence."
+---
+
+Once configured, the OnBase Connector runs as a set of background services managed through IIS and a dedicated CLI tool.
+
+## Starting the Connector
+
+To deploy the required IIS pools and start processing:
+1. Open PowerShell as an **Administrator**.
+2. Navigate to your installation directory.
+3. Run the deployment script:
+   ```powershell
+   Powershell -file DeployOBConnector.ps1
+   ```
+4. **Verification**: In **IIS Manager**, confirm that the following pools are "Started":
+   - `OBConnectorDocumentImportPool`
+   - `OBConnectorGatewayPool`
+   - `OBConnectorNucleusIntegrationPool`
+   - `OBConnectorWebHostPool`
+
+---
+
+## Service Health & Monitoring
+
+### Performing a Health Check
+Use the CLI to verify that all sub-services are operational:
+1. Navigate to the `ContIntOnbaseConnector.CLI` folder.
+2. Run:
+   ```bash
+   ContIntOnbaseConnector.CLI check-health
+   ```
+3. The console will display the status of `DocumentImport`, `Gateway`, `NucleusIntegration`, and `WebHost`.
+
+### Logging Levels
+You can adjust the `MinimumLevel` in `defaultConfig.json` to control log detail:
+- **Verbose/Debug**: For deep troubleshooting (not recommended for production).
+- **Information**: Standard operational events.
+- **Warning/Error**: Captures degraded service or failures.
+- **Fatal**: Unrecoverable system crashes.
+
+---
+
+## Maintenance & Restarts
+
+### Handling System Restarts
+The connector **does not start automatically** after a server reboot or IIS reset. You must manually re-activate subscriptions:
+1. Run PowerShell as an **Administrator**.
+2. Navigate to the CLI folder.
+3. Run:
+   ```bash
+   ContIntOnbaseConnector.CLI start-subscriptions
+   ```
+4. **Verify**: Open `...\ContIntOnbaseConnector.Gateway\ContIntOnBaseConnector\subscriptions.json` and ensure `"status": 0`.
+
+---
+
+## Common Troubleshooting
+
+### Configuration Sync (IIS Reset)
+If you modify any OnBase server settings or connector JSON files, you must synchronize the systems:
+1. Open Command Prompt as Administrator.
+2. Run: `iisreset`
+
+### Unable to Access Knowledge Discovery
+If the "Ask Discovery" icons are missing or non-functional:
+1. Check if the **OnBase Application Server** pool is running in IIS Manager.
+2. If it is stopped, start it and then run `iisreset`.
+3. Verify the **Knowledge Discovery URL** in the OnBase Administration Portal matches your environment.

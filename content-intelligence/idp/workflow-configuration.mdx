@@ -1,0 +1,74 @@
+---
+title: "IDP Workflow Configuration"
+---
+
+IDP workflows orchestrate the movement of documents through automated processing stages and human review tasks. These workflows are built in **Studio Modeler** using specialized IDP connectors and templates.
+
+## Process Templates
+
+When you click **Build Process** in an IDP project, you can choose from several pre-built templates to accelerate development:
+
+- **Create from Scratch**: Build a custom workflow from the beginning.
+- **Document Classification Only**: Focuses solely on identifying document types.
+- **Document Classification & Field Extraction**: A standard flow for identifying and pulling data.
+- **Full Automation (Separation, Classification, Extraction)**: Handles document splitting and full data retrieval.
+- **Federated Content Connection**: Includes steps to send processed documents directly to an **OnBase** instance.
+
+---
+
+## Configuring Process Variables
+
+Process variables store data as it moves between BPMN elements. For IDP, the following variables are essential:
+
+| Variable Name | Type | Purpose |
+| --- | --- | --- |
+| **Content** | `Array<content>` | Stores the raw document files. |
+| **BatchState** | `json` | Carries all metadata, including assigned classes and extracted fields. |
+| **rejectReasons** | `Array<any>` | A list of reasons used in the Review/Verification screens. |
+
+### Example Rejection Reasons
+```json
+[
+  {"id": "1", "value": "Unknown document type"},
+  {"id": "2", "value": "Document missing pages"},
+  {"id": "3", "value": "Low quality scan (illegible)"}
+]
+```
+
+---
+
+## Human-in-the-Loop: Review Tasks
+
+Automated processing often requires human verification, especially for low-confidence results.
+
+### Class Review
+Used to manually verify or correct the document category assigned by the AI.
+- **Screen Name**: `IDP Class Verification`
+- **Mapping**: Input the `BatchState` to display results to the user.
+
+### Field Review (Sub-process)
+Used to verify individual extraction fields. This is typically configured as a **Sequential Multi-Instance** sub-process.
+- **Loop Collection**: `batchState.documents`
+- **Element Variable**: `documentState`
+- **Screen Name**: `IDP Field Verification`
+
+---
+
+## Managing Live Processes
+
+### Starting a Process
+Users can trigger workflows manually in **Workspace**:
+1. Go to **Process Management > Tasks > My Tasks**.
+2. Click **Start Process** and select your IDP workflow.
+3. Upload files from your local computer or the attached repository.
+
+### Monitoring & Tracking
+Administrators can track the progress of document batches in **Studio Admin**:
+- Navigate to **Process Admin > Process Instances**.
+- Select an instance and click **Diagram** to see exactly which stage the batch is in (e.g., waiting for manual Class Review).
+
+### Verification UI Actions
+Within the Workspace review screens, users can:
+- **Flag Documents**: Add a note and a justification reason for exception handling.
+- **Edit Pages**: Cut, move, or insert pages within a batch.
+- **Reject/Delete**: Remove problematic documents from the processing stream.

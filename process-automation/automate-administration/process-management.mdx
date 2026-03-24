@@ -1,0 +1,58 @@
+---
+title: "Process Management"
+---
+
+The **Process Admin** section of the Administration Application is used to manage and monitor the execution of applications, including process instances, tasks, auditing, and data cleanup.
+
+Access to this section is restricted to users with the **Administrator** or **Application Manager** role. The specific applications and data you can see are determined by the permissions assigned during or after deployment.
+
+## Process Instances
+
+The **Process Instances** section is the central hub for monitoring all active, completed, and suspended process instances within your applications.
+
+To view more details about a specific instance, click on it to open a properties panel on the right side of the screen. To view associated service tasks, click the three dots next to an instance and select **Service Tasks**.
+
+### Filtering Process Instances
+You can customize the list of process instances using the **Filters** section. Use **Add filter** to include specific criteria or the **x** button to remove them.
+
+Available filters include:
+| Property | Description |
+| --- | --- |
+| **Application name** | The name of the application. |
+| **App version** | The version of the application the instance is using. |
+| **Id** | The unique ID of the process instance. |
+| **Process Definition Name** | The name defined during modeling. |
+| **Process Name** | The name given when the instance was started. |
+| **Start Date** | When the process instance began. |
+| **Started By** | The user or system that initiated the process. |
+| **Status** | The current state (RUNNING, COMPLETED, SUSPENDED, CANCELED). |
+
+## Process Summary Dashboard
+
+The **Process Summary** provides a high-level visual overview of process actions and statuses using graphs and diagrams. This helps in quickly identifying disruptions or bottlenecks.
+
+- **Filtering**: You can filter the dashboard by application name, date range (**From** and **To** fields), or even by specific process variables enabled in the Modeler.
+- **Key Statistics**: Provides insights into process status and processing time (in seconds), including trends and historical comparisons.
+
+## Public Process URLs
+
+Some processes are configured to be publicly accessible, meaning they do not require a user account or login to start. If a process is public, its URL is displayed under **Process Admin > Application list > Public Process URLs**.
+
+## Testing Processes
+
+Processes deployed for testing (using **Quick Run** or **Hot Reload** in Studio Modeler) are marked with a "Do not use for production" label.
+
+To test these processes:
+1. Find the project in **Devops > Application Instances**.
+2. Click the link in the **Workspace** column to open the application.
+3. Trigger the process (e.g., click a "Start process" button) and monitor its behavior.
+
+## Runtime Components
+
+The execution of processes is handled by several specialized runtime services:
+
+- **Process Runtime**: The core engine that executes process definitions. it exposes REST and message-based APIs and uses Spring Cloud Streams for events.
+- **DMN Runtime**: Handles the execution of decision tables (DMN).
+- **Form Runtime**: Manages the display and functionality of forms.
+- **Script Runtime**: Executes custom scripts within processes.
+- **Process Storage Service**: Manages the storage of process-related data within the Content repository.

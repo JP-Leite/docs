@@ -1,0 +1,49 @@
+---
+title: "Decision Modeling"
+---
+
+Decision models automate business logic and routing decisions using the **Decision Model and Notation (DMN)** standard. This allows you to externalize complex "if-then" logic into manageable tables.
+
+## Creating a Decision Table
+
+1.  In Studio Modeler, select **Create > Decision Table**.
+2.  Provide a unique **Name** and optional description.
+3.  The table is opened in a new tab where you can define inputs, outputs, and rules.
+
+---
+
+## Modeling Rules
+
+A decision table is composed of columns representing **Inputs** (the data to evaluate) and **Outputs** (the result to return).
+
+### Rules
+Each row in the table is a **Rule**. 
+- **Input Expressions**: You can use comparison operators (e.g., `> 100`, `== "Approved"`, `[1..10]`).
+- **Output Values**: The values assigned to process variables if the rule's conditions are met.
+
+### Hit Policies
+Hit policies determine how the engine handles multiple matching rules. You can select the policy from the drop-down menu next to the table name.
+
+| Hit Policy | Description |
+| --- | --- |
+| **UNIQUE** | Only one rule should match. If multiple match, an error is thrown (Default). |
+| **FIRST** | Rules are evaluated in order; only the result of the first match is returned. |
+| **PRIORITY** | Returns the match with the highest defined priority. |
+| **COLLECT** | Returns all matching results as an array. |
+| **RULE ORDER** | All matching results are returned in the order they appear in the table. |
+
+### Aggregators (Collect Sub-types)
+If you use the `COLLECT` hit policy, you can apply an aggregator to return a single calculated value:
+- **SUM**: Sum of all matching output values.
+- **MIN / MAX**: The lowest or highest value among matches.
+- **COUNT**: Total number of rules that matched.
+
+---
+
+## The Decision Table Task
+
+To use your table in a process, add a **Business Rule Task** (single rounded rectangle with a table icon).
+
+- **Implementation**: Always uses `dmn-connector.EXECUTE_TABLE`.
+- **Mapping**: Map your process variables to the table's input columns and the table's outputs back to process variables.
+- **Annotations**: Use the annotation column on the far right of the table to store notes for other developers. These are saved in the `description` property of the rule and are not visible at runtime.

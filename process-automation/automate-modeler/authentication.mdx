@@ -2,10 +2,45 @@
 title: "Authentication"
 ---
 
-Authentication is used to provide credentials and other relevant security elements to external services that are used within the project, such as REST services or external connectors.
+Authentication configurations in Studio Modeler manage the credentials required to securely communicate with external services, REST APIs, and email servers.
 
-An authentication called Application Service Credentials for REST services is already created for use within Studio Modeler.
+## Overview
 
-Authentication can be used when you create radio buttons or drop-down lists on your forms. For more information, see REST Service Dropdown Fields.
+Authentications are stored at the project level and can be reused across multiple connectors and form widgets (such as REST-driven dropdowns). 
 
-Note: The name Application Service Credentials cannot be used for one of your own authentication configurations because it is reserved.
+- **Application Service Credentials**: A reserved system authentication pre-configured for internal REST services. You cannot rename or duplicate this name for your own configurations.
+- **Secured vs. Unsecured**: By default, configurations are **Secured**, meaning actual passwords and secrets are mapped to **Environment Variables** during deployment in Studio Admin. Deselecting "Secured" allows you to enter plain-text credentials for development, but this is **not recommended** for production.
+
+---
+
+## Supported Authentication Types
+
+| Type | Description | Key Parameters |
+| --- | --- | --- |
+| **Basic Authentication** | Standard `Username:Password` encoded in the Authorization header. | Username, Password |
+| **Bearer Opaque Token** | Uses a long-lived, non-expiring token provided by the target service. | Token |
+| **OAuth 2.0 (Client Credentials)** | Dynamically retrieves a bearer token from an authorization server at runtime. | Client ID, Client Secret, Endpoint, Scopes |
+| **OAuth 2.0 (Custom Grant)** | For services requiring a specific non-standard grant type. | Grant Type, Endpoint, Scopes |
+| **SMTP** | Used for sending automated email notifications via your own mail server. | Host, Port, Username, Password, From Address |
+
+---
+
+## Creating a Configuration
+
+1. In the project tree, select **Create > Authentication**.
+2. Provide a unique **Name** and select the **Authentication Type**.
+3. **For OAuth 2.0**: 
+   - Enter the **Endpoint** (URL of the auth server).
+   - Define the **Scopes** (e.g., `api.read`, `openid`).
+   - The endpoint and scopes are validated before you can save.
+4. **For SMTP**:
+   - Configure the **Host** and **Port**.
+   - Provide the **From Name** and **Reply-To Address** to customize how users see your emails.
+5. Click the **Save (Cloud)** icon.
+
+---
+
+## Best Practices
+
+- **Protect Secrets**: Always keep the **Secured** toggle enabled. This ensures that sensitive values like `Client Secret` or `DB_PASSWORD` are never stored in the project JSON and must be provided by an administrator during application deployment.
+- **Service Users**: For OnBase or Perceptive integrations, use a dedicated service account with the minimum required permissions rather than a personal user account.

@@ -1,0 +1,64 @@
+---
+title: "Installation"
+description: "Step-by-step guide to installing and hosting the OnBase Connector for Content Intelligence."
+---
+
+Installing the OnBase Connector involves running a PowerShell setup script that prepares the IIS environment and folder structure on your Windows server.
+
+## Standard Installation
+
+1.  **Download**: Get the **Content Intelligence Connector for OnBase** from [Hyland Community](https://community.hyland.com).
+2.  **Extract**: Copy `OnBaseConnector.zip` to a folder (e.g., `C:\OnBaseConnectorSetUp\`) and extract it.
+3.  **Command Prompt**: Open Windows Command Prompt or PowerShell as an **Administrator**.
+4.  **Navigate**: Use `cd` to enter the extracted folder.
+5.  **Run Setup**: Execute the following command, replacing `<folder>` with your full installation path:
+    ```powershell
+    Powershell -file SetupObConnector.ps1 -installPath "<folder>"
+    ```
+
+---
+
+## Installed Components
+
+Once the script completes, the following key folders are created:
+
+| Folder | Description |
+| --- | --- |
+| `ContIntOnbaseConnector.WebHost\` | The primary web application (IIS). |
+| `ContIntOnbaseConnector.Gateway\` | Manages event subscriptions. |
+| `ContIntOnbaseConnector.CLI\` | Command-line tool for encryption and monitoring. |
+| `ContIntOnbaseConnector.DocumentImport\` | Handles data ingestion into Knowledge Discovery. |
+| `Configuration\` | Contains `applicationConfig.json` and `filterSettings.json`. |
+
+---
+
+## Hosting on a Custom Website (Port 80 Alternatives)
+
+If your environment requires a port other than the default (80):
+
+1.  **Create Site**: In **IIS Manager**, create a new website with your desired port (e.g., 82) and point the physical path to your installation directory.
+2.  **Update Config**: Open `Configuration\applicationConfig.json`.
+3.  **Update URLs**: In the **OnBase Connector** section, update the following fields with the new port:
+    - `WebHostBaseUrl`
+    - `GatewayBaseUrl`
+    - `NucleusIntegrationBaseUrl`
+    - `DocumentImportBaseUrl`
+    *Example: `http://localhost:82/OnbaseConnectorWebHost/`*
+4.  **Save**: Save the configuration before starting the connector.
+
+---
+
+## Uninstallation
+
+To completely remove the connector and its IIS application pools:
+
+1.  Open PowerShell as an **Administrator**.
+2.  Navigate to your installation directory.
+3.  Run the uninstall script:
+    ```powershell
+    Powershell -file UninstallOBConnector.ps1
+    ```
+4.  **Custom Site**: If you used a custom website name, use:
+    ```powershell
+    Powershell -file UninstallOBConnector.ps1 -WebSiteName "YourCustomSiteName"
+    ```

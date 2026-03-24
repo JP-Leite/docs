@@ -1,9 +1,0 @@
----
-title: "Prerequisites"
----
-
-Before creating and releasing a Governance project, confirm you have the following information:
-
--  Content type: The set of properties that define a content object. Content types use metadata such as creation date or document type to apply consistent retention schedules. Creating a content type to which a property date and SysGovernable mixin are added is crucial for the retention policy creation. This information is required for records to be created. A content type and a property have to be created prior to the Governance project release. Otherwise, these settings will not replicate when creating a retention policy. You can use a content type from another project, provided that the project is already deployed and the content type has a SysGovernable mixin assigned. For more information on creating a content type, see the Creating Content Types section in the Hyland Automate Modeler documentation.
--  Property Date: A metadata field that captures a specific point in time, such as creation, modification, or expiration used to calculate retention periods and trigger actions such as archival or disposal. The property date is required for creating a retention policy. This property can be applied when creating a retention policy to select a cutoff based on the property date and when setting the retention duration. For the property date to be applied in creation of the retention policy, the property date has to be added to the content type.Note: For more information on creating a property date, see Creating a Property Date.
--  SysGovernable mixin: A mixin that allows to classify the uploaded document as a Governance record and to create a governable content type. When creating a retention policy, only content types where this mixin is added can be selected.Note: For more information on adding a mixin and a property date to the content type, see Adding Items to a Content Type.

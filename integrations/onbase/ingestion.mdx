@@ -1,0 +1,73 @@
+---
+title: "Document Ingestion"
+description: "Monitor, manually trigger, and troubleshoot document ingestion from OnBase."
+---
+
+Documents are ingested from OnBase to the Content Lake automatically based on your configuration. However, you can also trigger manual runs or retry failed documents via the CLI.
+
+## Ingestion Methods
+
+### Automatic Ingestion
+The connector continuously monitors OnBase for documents matching your `filterSettings.json` criteria and processes them automatically.
+
+### Manual Ingestion
+To ingest specific documents immediately (e.g., for testing or urgent requests):
+1. Navigate to the `ContIntOnbaseConnector.CLI` folder.
+2. Run the manual ingest command:
+   ```bash
+   ContIntOnbaseConnector.CLI manual-ingest-documents
+   ```
+3. When prompted, provide the **OnBase Document IDs** (Handles) separated by commas (e.g., `7302,7405`).
+
+---
+
+## Monitoring Ingestion Status
+
+The connector uses local **SQLite** databases to track ingestion progress. You can query these using any SQLite viewer (like **DB Browser for SQLite**).
+
+| Database | Location | Focus |
+| --- | --- | --- |
+| `documentImport.db` | `...\ContIntOnbaseConnector.DocumentImport\` | Batch-level status |
+| `jobRepository.db` | `...\ContIntOnbaseConnector.WebHost\` | Individual document status |
+
+### Useful SQL Queries
+
+**To view individual document status:**
+```sql
+SELECT 
+  j.doc_id, 
+  js.name AS status, 
+  j.created_date, 
+  j.error_message
+FROM JOBS j
+INNER JOIN JOB_STATUS js ON j.status_id = js.status_id;
+```
+
+**To view batch processing history:**
+```sql
+SELECT 
+  id, 
+  total_batches, 
+  processed_batches, 
+  error_message 
+FROM JOBS;
+```
+
+---
+
+## Troubleshooting & Retries
+
+### Common Failure Causes
+- **Connectivity**: Network issues preventing calls to the CIC pre-signed URL API.
+- **S3 Uploads**: Permissions or timeout issues during content upload to Hyland Cloud storage.
+- **Data Integrity**: Errors encountered while writing document metadata to the Content Lake.
+
+### Re-ingesting Failed Documents
+If you identify failures in the status database, use the CLI to retry them:
+1. Run the retry command:
+   ```bash
+   ContIntOnbaseConnector.CLI retry-failed-documents
+   ```
+2. Choose your strategy:
+   - Press **A** to retry **all** failed documents.
+   - Press **S** to provide a specific **subset** of document IDs.

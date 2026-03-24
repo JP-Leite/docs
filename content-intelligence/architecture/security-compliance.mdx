@@ -1,0 +1,35 @@
+---
+title: "Security & Compliance"
+description: "The security principles and data protection standards governing Content Intelligence services."
+---
+
+Security is foundational to the Content Intelligence platform. We employ a "secure by design" approach that leverages Hyland Cloud's core infrastructure while implementing specific protections for AI and document processing workloads.
+
+## Security Principles
+
+- **Zero Trust Architecture**: No implicit trust is granted based on network location; every request is authenticated and authorized.
+- **Identity Propagation**: User identities are securely propagated through all service layers, ensuring consistent audit trails.
+- **Least Privilege Access**: Services and human operators are granted only the minimum permissions necessary to perform their functions.
+
+---
+
+## Data Protection
+
+We implement rigorous standards to protect your sensitive content throughout its lifecycle.
+
+### Encryption Standards
+| State | Standard |
+| --- | --- |
+| **In Transit** | All communications are secured using **TLS 1.2** or higher. |
+| **At Rest** | All data (databases, object storage, and backups) is encrypted with **AES-256**. |
+| **Key Management** | Encryption keys are managed and automatically rotated via **AWS Key Management Service (KMS)**. |
+
+---
+
+## Auditing & Governance
+
+Content Intelligence is integrated with Hyland Cloud’s centralized governance services to provide transparency and accountability.
+
+- **Built-in Security Audit**: Detailed logging of all administrative actions and data access events.
+- **Identity Management**: Centralized user management and authentication via the Hyland Identity Provider (IdP).
+- **Compliance Monitoring**: Continuous auditing against SOC 2, HIPAA, and other relevant regulatory frameworks.

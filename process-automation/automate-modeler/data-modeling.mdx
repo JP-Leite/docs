@@ -1,0 +1,59 @@
+---
+title: "Data Modeling"
+---
+
+Data Models in Studio Modeler allow you to define structured, complex objects (JSON) that can be reused across forms, processes, and connectors. They ensure that all services interacting with an object understand its specific structure.
+
+## Creating a Data Model
+
+1. In Studio Modeler, select **Create > Data Model** or click the ellipsis next to the **Data Models** section.
+2. Enter a **Name** (e.g., `Person`) and **Description**.
+3. Choose the top-level **Type** (usually `object` if the model contains multiple fields).
+4. Click **+** to add properties to your object.
+
+---
+
+## Configuring Properties
+
+Each property within a data model has the following attributes:
+- **Name**: The internal identifier used in JSON and expressions (e.g., `DateOfBirth`).
+- **Title**: The user-friendly label displayed in forms.
+- **Type**:
+  - **Primitives**: `string`, `integer`, `number`, `boolean`, `date`.
+  - **Enum**: A predefined list of values (e.g., `Male`, `Female`).
+  - **Composition (ref)**: Reference a reusable sub-block defined within the same model.
+- **Required**: Check this to ensure the property must have a value for the object to be valid.
+
+### Reusability with References (`ref`)
+You can define internal **References** at the bottom of the data model editor. These act as local templates. For example, define an `Address` block once and reference it multiple times (e.g., `billingAddress` and `shippingAddress`) using the `ref` type.
+
+---
+
+## Global Data Models
+
+By default, data models are restricted to the project where they were created. 
+- **Turn Global**: Select **Turn Global** from the model's action menu to make it available across **all projects** in your environment.
+- **Note**: This action is permanent and cannot be reversed.
+
+---
+
+## Using Data Models in Processes
+
+### Variable Mapping
+To use a data model in a process, create a process variable and set its type to **Data Models**, then select your specific model.
+- **Input/Output**: When calling a REST connector, you can map the JSON response directly to your data model variable.
+
+### Referencing in Forms
+When building a form for a User Task:
+1. Add input widgets (e.g., text boxes) for each property in your data model.
+2. In the process diagram, go to the **Input Mapping** for the user task.
+3. Use expressions to map the model properties to the form fields: `${person.Name}`, `${person.DateOfBirth}`, etc.
+
+---
+
+## Simulation & Testing
+
+You can verify your data model's structure before deploying:
+1. Switch to the **Preview** editor using the eye icon.
+2. Fill out the generated form.
+3. Click **Simulate** in the right-hand pane to view the resulting JSON output and ensure it matches your expectations.

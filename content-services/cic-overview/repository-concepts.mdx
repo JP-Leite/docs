@@ -1,0 +1,54 @@
+---
+title: "Repository Concepts"
+description: "The Hyland Content repository — the secure, hierarchical store at the heart of Content Innovation Cloud."
+---
+
+The **repository** is the central content store within the Content Innovation Cloud. It stores, organises, and serves all documents and their associated metadata.
+
+The repository functions similarly to a database — it embeds security logic and availability constraints directly into the document storage layer. This ensures that content is protected and accessible regardless of which CIC application or API is used to access it.
+
+## Key Repository Objects
+
+The repository handles several types of primary objects that define how your data is structured:
+
+### Documents
+A **document** is the primary unit of content in CIC. It is an object that holds both system and custom properties (metadata). Documents can represent various types of entities, including files, folders, cases, media, or assets.
+
+### Folders & Hierarchy
+Documents are organised into a **folder structure**, representing a parent/child hierarchy. This structure is essential as it defines how permissions are inherited throughout the repository.
+
+### Blobs (Binary Data)
+A **blob** (Binary Large Object) is the actual file data attached to a document — such as a PDF, image, Word document, or audio file.
+
+## Versioning & Collaboration
+
+The repository natively tracks the history of documents to support collaboration and auditing.
+
+- **Working Copy**: The "live" version of a document that users with sufficient permissions can view and modify.
+- **Version (Snapshot)**: A point-in-time snapshot of a document created from a working copy to retain its history. You can restore or compare previous versions at any time.
+
+## Repository Capabilities
+
+Beyond simple storage, the repository provides a rich set of automated services and management tools.
+
+### Upload & Download
+Content can be ingested into or retrieved from the repository both visually (via **Workspace**) and programmatically (via the **Content REST API**).
+
+### Renditions
+**Renditions** are alternative formats or representations of a source document. 
+- **Examples**: A PDF preview of a Word doc, a PNG thumbnail of an image, or extracted text from an invoice.
+- Renditions are derived from the source but don't need to be a complete copy.
+
+### Transformation Service
+The **Transformation Service** is the background engine that powers renditions. It allows you to:
+- Convert documents between formats (e.g., Word to PDF).
+- Extract text for **Full-Text Search** indexing.
+- Extract or embed metadata.
+
+---
+
+## Next Steps
+
+Now that you understand the repository's physical structure, explore how documents are logically defined:
+
+[Content Model →](/content-services/cic-overview/content-model)

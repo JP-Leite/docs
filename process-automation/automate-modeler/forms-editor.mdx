@@ -1,0 +1,74 @@
+---
+title: "Form Editor"
+---
+
+The Form Editor is a drag-and-drop interface used to design the user interfaces for User Tasks and Start Events. Forms can be built manually, generated via AI, or imported as JSON.
+
+## Creating Forms
+
+- **Manual**: Click **Create > Form** and drag widgets from the palette.
+- **AI-Generated**: Provide a natural language description (up to 1000 characters) to have the AI build the layout and fields for you.
+- **Outcomes**: Add custom buttons at the bottom of the form (e.g., "Approve," "Reject," "Request Info") to define the possible paths out of a task.
+
+---
+
+## Form Widgets Catalog
+
+Widgets are grouped into functional categories in the left-hand palette.
+
+### Input Widgets
+- **Text / Multiline**: Single or multi-line string entry. Supports **Regex validation** and **Input masks**.
+- **Date / Datetime**: Calendar pickers with optional min/max range constraints.
+- **Amount**: Currency entry with configurable symbols ($, €, £) and decimal support.
+- **Checkbox / Radio / Dropdown**: For boolean or multi-choice selection. Lists can be static or populated via a **REST service**.
+
+### Display & UI Widgets
+- **Display Text / Rich Text**: Read-only labels or HTML-formatted instructions.
+- **Button**: Custom buttons that can trigger **Form Rules**.
+- **Hyperlink**: External links for reference documentation.
+- **Repeatable Section**: Containers that allow users to add multiple rows of related data.
+
+---
+
+## Widget Configuration
+
+### Validation & Regex
+Use the **Advanced** tab of a widget to enforce data quality.
+| Type | Example Regex |
+| --- | --- |
+| **Alphanumeric** | `^[a-zA-Z0-9]*$` |
+| **Email** | `^([a-zA-Z0–9._%-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,6})*$` |
+| **Date (YYYY-MM-DD)** | `([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))` |
+
+### Visibility Conditions
+Any widget or tab can be shown or hidden dynamically based on the value of other fields. Click **Edit Visibility Conditions** to define this logic using the condition builder.
+
+---
+
+## Form Rules & Styling
+
+### Interactive Rules
+Form rules allow you to build dynamic logic, such as populating a field based on another's value or starting a secondary process.
+- **Events**: `Form loaded`, `Field value changes`, `click`, `focus`, `blur`.
+- **Actions**: `Validate form`, `Start process`, `Update field`, `Show/Hide spinner`.
+
+### Custom Styling
+Change the appearance of your forms to match your organization's branding.
+1. Click **Edit Form Styles**.
+2. Select a **Widget type** to see applicable styles.
+3. Customize **Font size**, **Font weight**, and **Font color**.
+
+---
+
+## Advanced UI Components
+
+### Custom Form Widgets
+If the standard palette doesn't meet your needs, you can create reusable **Custom Form Widgets**.
+- Define the **Value Type** (e.g., Boolean, String) so the process engine knows how to map the data.
+- Upload a custom **SVG icon** for the palette.
+
+### Redirects & Landing Pages
+In the properties of a User Task, define what happens after submission:
+- **Workspace**: Return to the standard task list.
+- **Landing Page**: Show a custom success message built with a rich text editor.
+- **URL**: Redirect the user to an external web page.

@@ -1,0 +1,389 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Question & Answer API",
+    "description": "Conversational API for multi-turn Q&A sessions with Content Intelligence agents.",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://{environment}.knowledge-discovery.hyland.com",
+      "description": "Content Intelligence Q&A API",
+      "variables": {
+        "environment": {
+          "default": "api",
+          "description": "Your environment identifier"
+        }
+      }
+    }
+  ],
+  "security": [
+    { "BearerAuth": [] }
+  ],
+  "paths": {
+    "/agents/{agentId}/conversations": {
+      "post": {
+        "operationId": "startConversation",
+        "summary": "Start a new conversation",
+        "description": "Creates a new conversation session with the specified agent.",
+        "tags": ["Conversations"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string", "description": "Optional title for the conversation." }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Conversation" }
+              }
+            }
+          },
+          "404": { "description": "Agent Not Found" }
+        }
+      },
+      "get": {
+        "operationId": "getConversations",
+        "summary": "Get all conversations",
+        "description": "Returns all conversations for the specified agent.",
+        "tags": ["Conversations"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" },
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 0 } },
+          { "name": "size", "in": "query", "schema": { "type": "integer", "default": 20 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "content": { "type": "array", "items": { "$ref": "#/components/schemas/Conversation" } },
+                    "totalElements": { "type": "integer" },
+                    "totalPages": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/{agentId}/conversations/{conversationId}": {
+      "get": {
+        "operationId": "getConversationById",
+        "summary": "Get conversation by ID",
+        "description": "Returns the details of a specific conversation.",
+        "tags": ["Conversations"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" },
+          { "$ref": "#/components/parameters/conversationId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Conversation" }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "put": {
+        "operationId": "updateConversation",
+        "summary": "Update a conversation",
+        "description": "Updates the title or metadata of an existing conversation.",
+        "tags": ["Conversations"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" },
+          { "$ref": "#/components/parameters/conversationId" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/agents/{agentId}/conversations/{conversationId}/messages": {
+      "post": {
+        "operationId": "continueConversation",
+        "summary": "Continue a conversation",
+        "description": "Adds a new message (question) to an existing conversation and generates an AI answer.",
+        "tags": ["Messages"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" },
+          { "$ref": "#/components/parameters/conversationId" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["content"],
+                "properties": {
+                  "content": { "type": "string", "description": "The user's question or message.", "example": "Can you summarize the financial highlights?" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "get": {
+        "operationId": "getConversationMessages",
+        "summary": "Get conversation messages",
+        "description": "Returns all messages within a specific conversation.",
+        "tags": ["Messages"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" },
+          { "$ref": "#/components/parameters/conversationId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Message" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/{agentId}/conversations/{conversationId}/messages/{messageId}": {
+      "get": {
+        "operationId": "getConversationMessage",
+        "summary": "Get a specific message",
+        "description": "Returns a single message from a conversation by its ID.",
+        "tags": ["Messages"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" },
+          { "$ref": "#/components/parameters/conversationId" },
+          { "$ref": "#/components/parameters/messageId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/agents/{agentId}/conversations/{conversationId}/feedback": {
+      "put": {
+        "operationId": "submitConversationFeedback",
+        "summary": "Submit conversation feedback",
+        "description": "Submits user feedback (thumbs up/down, comments) for a conversation.",
+        "tags": ["Feedback"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" },
+          { "$ref": "#/components/parameters/conversationId" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FeedbackRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/questions": {
+      "get": {
+        "operationId": "getQuestionAnswer",
+        "summary": "Get question/answer",
+        "description": "Returns question and answer pairs for the authenticated user.",
+        "tags": ["Questions"],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 0 } },
+          { "name": "size", "in": "query", "schema": { "type": "integer", "default": 20 } }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/questions/{questionId}/history": {
+      "get": {
+        "operationId": "getQuestionHistory",
+        "summary": "Get question history",
+        "description": "Returns the history of answers generated for a specific question.",
+        "tags": ["Questions"],
+        "parameters": [
+          { "$ref": "#/components/parameters/questionId" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/questions/{questionId}/feedback": {
+      "put": {
+        "operationId": "putQuestionFeedback",
+        "summary": "Submit question feedback",
+        "description": "Submits feedback for a specific question/answer pair.",
+        "tags": ["Feedback"],
+        "parameters": [
+          { "$ref": "#/components/parameters/questionId" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FeedbackRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/questions/feedback/breakdown": {
+      "get": {
+        "operationId": "getQuestionFeedbackBreakdown",
+        "summary": "Get feedback breakdown",
+        "description": "Returns aggregated feedback statistics across all questions.",
+        "tags": ["Feedback"],
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "parameters": {
+      "agentId": {
+        "name": "agentId",
+        "in": "path",
+        "required": true,
+        "description": "Unique identifier of the agent.",
+        "schema": { "type": "string", "format": "uuid" }
+      },
+      "conversationId": {
+        "name": "conversationId",
+        "in": "path",
+        "required": true,
+        "description": "Unique identifier of the conversation.",
+        "schema": { "type": "string", "format": "uuid" }
+      },
+      "messageId": {
+        "name": "messageId",
+        "in": "path",
+        "required": true,
+        "description": "Unique identifier of the message.",
+        "schema": { "type": "string", "format": "uuid" }
+      },
+      "questionId": {
+        "name": "questionId",
+        "in": "path",
+        "required": true,
+        "description": "Unique identifier of the question.",
+        "schema": { "type": "string", "format": "uuid" }
+      }
+    },
+    "schemas": {
+      "Conversation": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "agentId": { "type": "string", "format": "uuid" },
+          "title": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "conversationId": { "type": "string", "format": "uuid" },
+          "role": { "type": "string", "enum": ["user", "assistant"] },
+          "content": { "type": "string" },
+          "sources": {
+            "type": "array",
+            "description": "Content sources used to generate the answer.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "url": { "type": "string" }
+              }
+            }
+          },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "FeedbackRequest": {
+        "type": "object",
+        "properties": {
+          "rating": { "type": "string", "enum": ["positive", "negative"], "description": "Thumbs up or thumbs down." },
+          "comment": { "type": "string", "description": "Optional free-text feedback." }
+        }
+      }
+    }
+  }
+}

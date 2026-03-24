@@ -1,0 +1,41 @@
+---
+title: "Knowledge Discovery Integration"
+description: "Enable natural language search and AI-powered insights directly within your OnBase clients."
+---
+
+Hyland Knowledge Discovery allows users to ask natural language questions and receive AI-generated answers based on content ingested from your OnBase repository.
+
+## How to Use Knowledge Discovery
+
+The Knowledge Discovery interface is intuitive and focused on conversational retrieval.
+
+1.  **Select an Agent**: Choose the AI agent that has been configured for your specific document set.
+2.  **Ask your Question**: Type a natural language query (e.g., "What are the payment terms for the Acme Corp contract?").
+3.  **Review the Response**: The agent provides a synthesized answer.
+4.  **Verify Sources**: Click on any **referenced document** citation to open a preview of the source file and verify the information.
+5.  **Regenerate**: If the answer isn't precise enough, use the **Regenerate** button to get an alternative response.
+
+---
+
+## Configuring the Integration
+
+Before users can access Knowledge Discovery from OnBase, an administrator must configure the connection in the **OnBase Administration Portal**.
+
+1.  **Obtain the URL**: Identify your Knowledge Discovery URL. It will include your Environment ID (e.g., `https://<EnvironmentID>.insight.ncp.hyland.com/discovery/`).
+2.  **System Settings**: In the OnBase Administration Portal, navigate to **System Settings**.
+3.  **Enable Feature**: Scroll to the **Knowledge Discovery** section and toggle **Enable Ask Discovery Buttons**.
+4.  **Enter Connection Info**:
+    - **Knowledge Discovery Base URL**: Paste the URL obtained in step 1.
+    - **Knowledge Discovery Environment ID**: Enter your unique Environment ID.
+5.  **Save**: Click **Save** to apply the settings.
+
+---
+
+## Launching from OnBase Clients
+
+Once configured, the "Ask Discovery" icon will appear in the following OnBase interfaces:
+
+- **OnBase Web Client**: Accessible via the browser-based interface.
+- **OnBase Unity Client**: Available directly within the desktop application.
+- **OnBase App Builder**: Can be integrated into custom applications built with App Builder.
+- **Contextual Search**: When viewing a document, you can launch Knowledge Discovery to ask questions specifically about that file.

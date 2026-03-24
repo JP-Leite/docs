@@ -1,0 +1,88 @@
+---
+title: "Application Lifecycle"
+---
+
+The **DevOps** section of the Administration Application is used to manage the entire lifecycle of your applications, from initial deployment to upgrades and eventual undeployment.
+
+## Releasing and Deploying Projects
+
+Before a project can be used, it must be released in the **Studio Modeler** application. Once released, it appears in the **Project Releases** section of the Administration Application.
+
+### Deploying a Project
+To deploy a released project:
+1. Navigate to **Project Releases**.
+2. Click the three dots adjacent to the project and select **Deploy**.
+3. Follow the configuration wizard, which includes:
+   - **Application Name**: Must be lowercase, up to 26 characters, alphanumeric/hyphens only.
+   - **Validation**: Ensures the project is error-free.
+   - **Permissions**: Set who can access the application.
+   - **Connectors**: Configure integration settings.
+4. Click **Deploy** to finalize.
+
+### Application Settings (The Deployment Wizard)
+| Parameter | Description |
+| --- | --- |
+| **Application Name** | The unique identifier for the deployed instance. |
+| **Project Release** | Choose which specific release version to deploy. |
+| **Environment** | Select the target environment (e.g., Staging, Production). |
+| **Email Notifications** | Enable SMTP configurations for user task notifications. |
+| **Local Development** | Enable this to allow development of custom UI applications. |
+
+### Multi-Environment Deployment
+You can deploy a single project release across multiple environments (e.g., test in Staging, then deploy to Production) by selecting a different **Environment** during the deployment process.
+
+## Managing Deployed Applications
+
+### Upgrading Applications
+Upgrading allows you to update an application to a newer project release or change its configuration (except for the application name). 
+- **In-Progress Processes**: Tasks and process instances that are in progress and based on a previous application version can still be completed; however, any new ones started will use the new model definitions.
+- **Rollback Protection**: The upgrade process is **transactional**. If an error occurs during the upgrade, the application is automatically rolled back to its previous stable version.
+- **Versioning**: An application's version is incremental and independent of the released project version. You can upgrade (or downgrade) to any released version, and the application version will continue to increment.
+
+**Example Version Mapping:**
+| Released project version | Application version |
+| --- | --- |
+| 1 | 1 |
+| 2 | 2 |
+| 4 | 3 |
+| 3 | 4 |
+
+To upgrade an application:
+1. Log in to the Studio Admin App.
+2. Go to **Application Instances**.
+3. Select **Upgrade** from the application's action menu.
+4. Review and update settings, then click **Upgrade**.
+
+### Updating Runtime Version
+It is best practice to keep applications updated to the latest platform runtime version.
+1. In **Application Instances**, select **Configure application** > **Update runtime version**.
+
+### Undeploying Applications
+The **Undeploy** action removes a deployed application and **permanently deletes all related data**, including process instances and tasks.
+- Use **Force Undeploy** if a deployment is stuck or failed.
+
+### Deleting Released Projects
+You can remove a project release from the system entirely via the **Project Releases** section by selecting **Delete** from the action menu.
+
+## Process Instance Lifecycle
+
+Once an application is running, you can manage the lifecycle of individual process instances.
+
+| Action | Description |
+| --- | --- |
+| **Suspend** | Pauses a `RUNNING` process instance, stopping all further actions. |
+| **Activate** | Resumes a `SUSPENDED` process instance, returning it to `RUNNING` status. |
+| **Cancel** | Stops a process instance permanently. It cannot be restarted. (Not available for `COMPLETED` instances). |
+| **Delete** | Permanently removes a process instance and all its associated data. This action cannot be undone. |
+
+## Technical Overview: Deployment Service
+
+The **Deployment Service** is the backend engine for the Administration Application. It manages deployment descriptors and interacts with the Kubernetes API.
+
+### How Deployment Works
+1. **Validation**: Checks for errors and name conflicts.
+2. **Data Enrichment**: Applies default values to the payload.
+3. **Descriptor Creation**: Saves the payload as a deployment descriptor in its own database.
+4. **Kubernetes Deployment**: Uses the Kubernetes API to deploy images into a dedicated namespace with a persistent volume.
+
+Note: Each application is isolated within its own Kubernetes namespace.

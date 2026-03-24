@@ -1,0 +1,53 @@
+---
+title: "Simulation & Testing"
+---
+
+Studio Modeler provides multiple ways to validate and test your processes, from rapid full-process deployment to granular simulation of individual scripts and decision logic.
+
+## Full-Process Testing
+
+### Quick Run
+Quick Run allows you to deploy your project to a runtime environment instantly for testing, bypassing the standard release and manual deployment steps.
+
+1.  Select **Quick Run** from the top navigation bar.
+2.  Choose a non-production **Environment**.
+3.  Click **Run**. The first run may take several minutes as infrastructure is provisioned.
+4.  **Testing**: Click the **Workspace** link to test the live application. Quick Run applications are marked with a **"Do not use for production"** label.
+
+*CAUTION: Never perform a Quick Run on a production environment as it may interfere with stable applications.*
+
+---
+
+### Hot Reload
+After the initial Quick Run, subsequent updates use **Hot Reload** to sync changes in seconds without restarting backend services.
+
+| Component | Supports Hot Reload? |
+| --- | --- |
+| **Process / Form / Data Model** | ✅ Yes |
+| **Script / Decision Table** | ✅ Yes |
+| **Agent / Form Widget** | ✅ Yes |
+| **Authentication / Connector** | ❌ No (Requires re-deployment) |
+| **Content Type / Schema / Mixin**| ❌ No (Requires re-deployment) |
+| **UI / Trigger / Files** | ❌ No (Requires re-deployment) |
+
+---
+
+## Component Simulation
+
+Granular simulation allows you to debug logic without deploying the entire process.
+
+### Decision Table Simulation
+1. Open your decision table.
+2. In the **Simulator** pane, enter sample values for each input column.
+3. Click **Simulate**. The matching rule will be highlighted, and the resulting output values will be displayed.
+
+### Script Simulation
+1. Open your script.
+2. In the **Properties Pane**, navigate to the **Simulator** section.
+3. Provide the required input variables in JSON format.
+4. Click **Simulate** to view the resulting payload and execution logs.
+
+### Data Model Simulation
+1. Switch the editor view to **Preview** using the eye icon.
+2. Fill out the automatically generated form.
+3. Click **Simulate** to verify that the resulting JSON structure matches your integration requirements.

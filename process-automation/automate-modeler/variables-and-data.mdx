@@ -1,134 +1,73 @@
 ---
 title: "Variables & Data Mapping"
-description: "Managing schemas, process variables, and input/output mapping."
 ---
-## Creating Schemas
 
-You can create schemas in the Studio Modeler application.
+Process variables are the primary mechanism for storing and transferring data between BPMN elements, forms, connectors, and scripts.
 
-To create a schema:
+## Process Variables
 
-1.  Open a project.
-2.  Select how to create the data model:
-- Click Create > Schema.
-- Click the vertical ellipsis button next to the Schemas drop-down button in the left-hand pane, then select Create.
-You can also upload a file directly. For more instructions, see Uploading Project Elements.
+### Scope and Creation
+- **Scope**: Restricted to a single process definition (pool). Variables are not automatically shared between different pools in the same diagram.
+- **Reserved Names**: Do not use `nrOfInstances`, `nrOfActiveInstances`, `nrOfCompletedInstances`, or `loopCounter`, as these are used internally by multi-instance elements.
 
-The Create Schema window is displayed.
+### Variable Types
+| Type | Example |
+| --- | --- |
+| **String** | `"Hello World"` |
+| **Integer** | `642` |
+| **Boolean** | `true` / `false` |
+| **JSON** | `{"key": "value"}` |
+| **Array** | `["A", "B", "C"]` |
+| **Date/Datetime** | `2024-05-01` |
+| **File / Folder** | References to objects in the repository. |
 
-3.  Enter a Schema name.
-4.  Enter the Prefix. It will be added to all properties.
-5.  Enter the optional Description.
-6.  Click Create Schema.
+### Configuration Options
+- **Ephemeral**: Use this for large payloads (e.g., API responses) that are needed during execution but shouldn't be persisted in the database to maintain performance.
+- **Available in Web App**: Allows the variable to be displayed as a column in Workspace Task/Process lists.
+- **Available in Analytics**: Enables filtering by this variable in the Studio Admin Dashboards.
 
-The schema is opened as a new tab.
+---
 
-## Creating Process Variables
+## Data Mapping
 
-The data in a document template is replaced with process variables. This means that process variables need to be created for the user to replace them with their data.
+Mapping defines how data moves between the process engine and external models (Forms, Connectors, Decision Tables).
 
-To create process variables:
-1.  From the left-hand pane, expand the Processes section and open the process in which you want to use the Generate document task.
-2.  From the Properties pane on the right, select Edit Process Variables. The Process variables window is displayed.
-3.  Start creating a new process variable by doing one of the following:
-- Click Create process variable in the top right corner of the window.
-- Click Create new process variable at the bottom of the window.
-4.  Enter a meaningful name in the Variable name field. The name must be unique and can contain alphanumeric characters and underscores, but it must begin with a letter. The name cannot contain spaces.
-5.  Set the Variable type from the drop-down menu.
-6.  Save the process variable.
-- If you need to create additional variables, click Save and add new.
-- If you are finished creating variables, click Save.
-Your variable is saved.
-If Save and add new was selected, a Create variable page for the new variable is opened.
+### Mapping Strategies
+- **Don't map variables**: No data transfer (Default).
+- **Map All Variables**: Automatically maps inputs and outputs where names are identical.
+- **Map Input Variables**: Only sends data *to* the model.
+- **Map Output Variables**: Only receives data *from* the model.
 
-7.  Once all of the corresponding variables are created, proceed to (optional) Creating Date and Time Values in a Generated Document or Building a Process with the Generate Document Task.
-
-## Mapping Process Variables
-
-Mapping is a property of BPMN elements such as user tasks, service tasks, and script tasks. It describes how data should be passed between a process and models such as forms, connectors, and scripts in a process. The data can be passed to variables within those models, such as form variables and script variables or other values in the model such as form fields, connector inputs and outputs and decision table inputs and outputs. Mapping this data is split between input mappings and output mappings:
-
-- Input mapping sets how and which data is sent from process variables to another model within the process.
-- Output mapping sets how and which data is sent from models within the process back to process variables.
-
-The following options are available for the Mapping behavior:
-
--  Don't map variables
--  Map variables
--  Map input variables
--  Map output variables
--  Map all variables
-
-Any mapping configured in a process is stored in the Extensions Editor using the ID of the BPMN element. If not sending any variables then the ID of the element will not appear in the mappings section. The following is an example of explicitly mapping variables:
-
-```
+### Explicit Mapping
+Mapping is stored in the **Extensions Editor**. You can explicitly map a process variable to a model property, even if their names differ.
+```json
 "mappings": {
-    "Task_1f1wpht": {
-    	"inputs": {
-    		"flavor": {
-    			"type": "variable",
-    			"value": "choice"
-    			},
-    		"price": {
-    			"type": "value",
-    			"value": "${lookUp.price}"
-    			},
-    		"Limit": {
-    			"type": "value",
-    			"value": 200
-    			}
-    		}
-    	}
-    },
+  "Task_ID": {
+    "inputs": {
+      "target_field": { "type": "variable", "value": "source_process_var" }
+    }
+  }
 }
 ```
 
-## Mapping Process Variables For Microsoft Email Connector
+---
 
-Process variables can be extracted from the Microsoft Email connector and used within the process.
+## Expressions & Hints
 
-The following elements can be extracted from the email messages: messageId, to, from, cc, subject, contentType, date, internetMessageHeaders. They can all be set to become process variables and populated among the process to be reused at its further steps.
+The **Expression Editor** allows you to use dynamic values and functions.
+- **Helper Hints**: Hover over elements in the editor to see descriptions of available variables and event properties.
+- **Functions**: Use built-in functions like `${now()}` for current timestamps or `${lookUp.property}` to reference nested JSON data.
 
-1.  Create process variables, see Creating and Editing Process Variables.
-2.  In the trigger created for the Microsoft Email connector, find the Payload section and the variables field. Click the Edit button. The Edit variable mapping window appears.
-3.  Proceed to the Value tab to see the process variables.
-4.  In the Event output/Value menu, select the appropriate property from the Cloud Event section.  Note: If you want to set up the GET_MAIL action, you need the messageId variable assigned to the messageId Cloud Event.
+### Declared Variables in Scripts
+Within a Script Task, you can reference process variables using the `variables.` prefix:
+```javascript
+// Input from process
+let cost = variables.unitPrice; 
+let count = variables.quantity;
 
-## Declared Variables
+// Local calculation
+let total = cost * count;
 
-Declared variables are used within the script itself and can be set to the value of a script variable by using the prefix variables. to reference the script variable. An input variable will set a declared variable to the value of a script variable when the script is executed.
-
-For example, in a process the script variables cost and orders will have their values set from process variables. The declared variables costOfItem and numberOfOrders can then be set to these values using the following:
-
+// Output back to process
+variables.totalAmount = total;
 ```
-let costOfItem = variables.cost;
-let numberOfOrders = variables.orders;
-```
-
-The value of the script variable totalCost will then be set after the script has executed by using the following:
-
-```
-variables.totalCost = costOfItem * numberOfOrders;
-```
-
-The value of the script variable totalCost can finally be sent back to the process by mapping it to a process variable.
-
-## Dont Map Variables
-
-Don’t map variables is the default behavior.
-
-When variables are not mapped, there is no transfer of data between process variables and other models within the process.
-
-For example, if Don’t map variables is selected for a user task in a process then none of the form fields will be populated with values from earlier within the process instance. Similarly, when the form is completed none of the values entered by the user can be reused later in the process, such as within a decision table.
-
-## Map Input Variables
-
-Map all input variables will automatically map the values of process variables to values or variables within a model if their names are identical. Outputs are not mapped at all, so there will be no transfer of data from the model, back to process variables.
-
-For example, if Map all input variables is selected for an instance of the email service, process variables named to, subject and text can be used to automatically set the values for the recipient, subject and message in the connector. No output variables are required to be sent back to the process as the execution of the email service is always treated as successful.
-
-## Map Output Variables
-
-Map all output variables will automatically map values or variables from a model to process variables in the process if their names are identical. If there is no process variable with a matching name to one of the outputs of the model it will be created when the model is executed using the name of the output value or variable. Inputs are not mapped at all, so there will be no initial transfer of data from process variables to the other model.
-
-For example, if Map all output variables is selected for a start event that contains a form, the data entered to start the process can be used further in the process by mapping the values from fields within the form to process variables in the process. Process variables can be created during modeling time that use the same name as form fields, or alternatively they will be created automatically once the user task is completed at runtime.
-

@@ -1,11 +1,66 @@
 ---
-title: "Introduction"
+title: "Introduction to Governance"
+description: "A cloud-native solution for compliance, retention, and secure record management."
 ---
 
-Hyland Governance is a cloud-native solution for compliance and secure litigation content management.
+**Hyland Governance** is a cloud-native framework that enables organisations to manage compliance and litigation content securely. It supports both on-premises and cloud-based repositories, ensuring data integrity without the need to relocate content.
 
-Hyland Governance provides a governance framework that supports both on-premises and cloud-based repositories. It has been designed to manage compliance without relocating content, ensuring data integrity and reducing risks associated with data relocation.
+## Governance Workflow
 
-Organizations with multiple repositories can manage data independently by local autonomy while maintaining central oversight. This enables traceability of records across multiple repositories, enhances risk management, and allows for secure data-sharing protocols.
+Implementing governance in CIC follows a structured lifecycle:
 
-Designed for large volumes of data, Hyland Governance serves as a focal point for governance innovation.
+<Steps>
+  <Step title="Create a Governance Project">
+    Configure a Governance project in **Studio Modeler**. This serves as the container for your file plan and retention rules.
+  </Step>
+  <Step title="Define your File Plan">
+    Build a hierarchical file plan with categories and sub-categories to group related records.
+  </Step>
+  <Step title="Set Retention Policies">
+    Define exactly how long records are kept and the specific actions (archive or delete) that occur upon expiry.
+  </Step>
+  <Step title="Deploy & Manage">
+    Release and deploy the project to activate the rules. Use the **Workspace** application to manage live records and legal holds.
+  </Step>
+</Steps>
+
+---
+
+## Accessing Governance Tools
+
+Configuration for Hyland Governance is primarily managed in **Studio Modeler**, while daily record management and compliance tasks are performed in **Workspace**.
+
+### Studio Modeler (Configuration)
+Configuration settings for Governance projects, including file plans and retention policies, are managed in **Hyland Studio Modeler**.
+- **Access**: Open the **Content Innovation Cloud User Portal** and select **Studio Modeler**.
+
+### Workspace (Record Management)
+Once your governance configuration is deployed, you can manage records and legal holds within the **Workspace** application.
+- **Access**: Navigate to [https://experience.hyland.com](https://experience.hyland.com) or use the specific URL provided by your administrator.
+- **Governance Tab**: When you have the correct permissions, the **Governance** tab will be visible in the left-hand sidebar.
+
+---
+
+## Key Terminology
+
+- **Governance Project**: A project configured in Studio Modeler that defines retention policies and file plan structures.
+- **File Plan**: A hierarchical structure used to organise records and apply retention schedules consistently.
+- **Content Type**: A metadata template. In Governance, content types are associated with retention policies so that all documents of a specific type are governed by the same rules.
+- **Record**: A document in the repository that has been classified as a governable entity and is subject to retention schedules.
+
+---
+
+## Prerequisites & Permissions
+
+### Prerequisites
+Before creating a Governance project, ensure the following are configured:
+1.  **Content Type**: Must be created in Studio Modeler before the Governance project release.
+2.  **Property Date**: A metadata field (e.g., "Expiry Date") used to calculate retention periods and trigger actions.
+3.  **SysGovernable Mixin**: This mixin **must** be added to your content type.
+
+### Permissions
+- **Studio Modeler**: Requires a **Modeler** role.
+- **Workspace**: Requires **Workspace User** permissions.
+- **Governance in Workspace**: Requires both **Administrator** and **Record Manager** permissions. 
+
+*Note: Contact your Account Manager to obtain Record Manager permissions.*

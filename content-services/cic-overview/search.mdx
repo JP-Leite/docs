@@ -1,5 +1,47 @@
 ---
-title: "Search"
+title: "Search & Query"
+description: "How to search and query documents in the Hyland Content repository using HXQL."
 ---
 
-Search for the Content Innovation Cloud includes the following concepts.
+The Content Innovation Cloud provides a powerful search system to retrieve documents based on their metadata, content, and system properties.
+
+## Hyland Experience Query Language (HXQL)
+
+**HXQL** is a SQL-like language specifically designed for the Hyland Content repository. It allows for flexible querying against:
+- **Metadata**: Standard and custom properties defined in your content model.
+- **Full-Text Content**: The actual text within documents (extracted by the Transformation Service).
+
+## Search Architecture
+
+Search functionality is powered by **OpenSearch** (a managed instance of Elasticsearch in AWS). 
+
+### How Documents are Indexed
+When a document is created or updated in the repository, it is indexed with searchable properties. 
+- **Metadata Indexing**: System and custom property values are indexed immediately.
+- **Full-Text Indexing**: Requires the **Transformation Service** to process the document and extract its text content. This process happens in the background.
+
+### Executing Queries
+You can execute HXQL queries through two primary methods:
+1.  **Workspace UI**: Perform searches visually within the Hyland Workspace application.
+2.  **Query API**: Programmatically retrieve documents using the Hyland Content REST API.
+
+---
+
+## Example HXQL Queries
+
+### Searching Metadata
+To find documents where the title contains "Insurance":
+```sql
+SELECT * FROM SysFile WHERE sys_title LIKE '%Insurance%'
+```
+
+To filter documents modified after a specific date:
+```sql
+SELECT * FROM SysFile WHERE sys_modifiedAt > '2024-01-01'
+```
+
+### Full-Text Searching
+To find documents containing the word "world" anywhere in their content:
+```sql
+SELECT * FROM SysContent WHERE sys_fulltext = 'world'
+```

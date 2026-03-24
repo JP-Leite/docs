@@ -1,0 +1,210 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Semantic Search API",
+    "description": "API for semantic indexing, metadata management, and vector search across Content Intelligence.",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://{environment}.knowledge-discovery.hyland.com",
+      "description": "Content Intelligence Semantic API",
+      "variables": {
+        "environment": {
+          "default": "api",
+          "description": "Your environment identifier"
+        }
+      }
+    }
+  ],
+  "security": [
+    { "BearerAuth": [] }
+  ],
+  "paths": {
+    "/metadata/types": {
+      "get": {
+        "operationId": "getMetadataTypes",
+        "summary": "Get metadata types",
+        "description": "Returns the available metadata types that can be applied to content objects for semantic indexing.",
+        "tags": ["Metadata"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "name": { "type": "string" },
+                      "description": { "type": "string" },
+                      "dataType": { "type": "string", "enum": ["string", "number", "boolean", "date"] }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/metadata/values": {
+      "get": {
+        "operationId": "getMetadataValues",
+        "summary": "Get metadata values",
+        "description": "Returns the distinct metadata values stored across indexed content objects.",
+        "tags": ["Metadata"],
+        "parameters": [
+          {
+            "name": "metadataTypeId",
+            "in": "query",
+            "required": true,
+            "description": "The metadata type to retrieve values for.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Optional partial-match filter on values.",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/metadata/values/filtered": {
+      "get": {
+        "operationId": "getFilteredMetadataValues",
+        "summary": "Get filtered metadata values",
+        "description": "Returns metadata values filtered by additional criteria such as object type or date range.",
+        "tags": ["Metadata"],
+        "parameters": [
+          {
+            "name": "metadataTypeId",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Additional filter expression.",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/metadata/files": {
+      "post": {
+        "operationId": "addMetadataFile",
+        "summary": "Add metadata file",
+        "description": "Uploads a metadata file (e.g., a taxonomy or controlled vocabulary) to enrich semantic indexing.",
+        "tags": ["Metadata"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["file"],
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The metadata file to upload."
+                  },
+                  "metadataTypeId": {
+                    "type": "string",
+                    "description": "The metadata type this file belongs to."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/objects/{objectId}/chunks": {
+      "post": {
+        "operationId": "addObjectChunks",
+        "summary": "Add object chunks",
+        "description": "Adds semantic chunks (text segments) to a content object for vector search indexing.",
+        "tags": ["Semantic Indexing"],
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "description": "The content object to add chunks to.",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["chunks"],
+                "properties": {
+                  "chunks": {
+                    "type": "array",
+                    "description": "Array of text segments to index for this object.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": { "type": "string", "description": "The text content of the chunk." },
+                        "sequence": { "type": "integer", "description": "The position of this chunk within the document." }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Object Not Found" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

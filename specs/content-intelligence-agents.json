@@ -1,0 +1,433 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Agent API",
+    "description": "API for managing and interacting with Content Intelligence agents (Knowledge Discovery).",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://{environment}.knowledge-discovery.hyland.com",
+      "description": "Content Intelligence Agent API",
+      "variables": {
+        "environment": {
+          "default": "api",
+          "description": "Your environment identifier"
+        }
+      }
+    }
+  ],
+  "security": [
+    { "BearerAuth": [] }
+  ],
+  "paths": {
+    "/agents": {
+      "get": {
+        "operationId": "getAgents",
+        "summary": "Get all agents",
+        "description": "Returns a list of all agents available in the organization.",
+        "tags": ["Agents"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Agent" }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        }
+      },
+      "post": {
+        "operationId": "postAgent",
+        "summary": "Create an agent",
+        "description": "Creates a new Content Intelligence agent.",
+        "tags": ["Agents"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AgentRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Agent" }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/agents/{agentId}": {
+      "get": {
+        "operationId": "getAgentById",
+        "summary": "Get an agent by ID",
+        "description": "Returns a specific agent by its unique identifier.",
+        "tags": ["Agents"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Agent" }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "put": {
+        "operationId": "putAgent",
+        "summary": "Update an agent",
+        "description": "Updates the configuration of an existing agent.",
+        "tags": ["Agents"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AgentRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Agent" }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "delete": {
+        "operationId": "deleteAgent",
+        "summary": "Delete an agent",
+        "description": "Permanently removes an agent and its configuration.",
+        "tags": ["Agents"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/agents/{agentId}/version": {
+      "get": {
+        "operationId": "getAgentVersion",
+        "summary": "Get agent version",
+        "description": "Returns the current version and build information for the specified agent.",
+        "tags": ["Agents"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "version": { "type": "string", "example": "1.4.2" },
+                    "buildDate": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/agents/{agentId}/question": {
+      "post": {
+        "operationId": "postAgentQuestion",
+        "summary": "Ask an agent a question",
+        "description": "Sends a question to an agent and receives an AI-generated answer.",
+        "tags": ["Agent Interaction"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["question"],
+                "properties": {
+                  "question": { "type": "string", "description": "The question to ask the agent.", "example": "What are the key terms in the Q3 contract?" },
+                  "context": { "type": "string", "description": "Optional additional context to guide the response." }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "answer": { "type": "string" },
+                    "sources": { "type": "array", "items": { "type": "object" } }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Agent Not Found" }
+        }
+      }
+    },
+    "/agents/{agentId}/avatar": {
+      "get": {
+        "operationId": "getAgentAvatar",
+        "summary": "Get agent avatar",
+        "description": "Returns the avatar image for the specified agent.",
+        "tags": ["Agent Configuration"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/*": {
+                "schema": { "type": "string", "format": "binary" }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/agents/avatars/static": {
+      "get": {
+        "operationId": "getStaticAvatars",
+        "summary": "Get available static avatars",
+        "description": "Returns the list of built-in static avatar options that can be assigned to agents.",
+        "tags": ["Agent Configuration"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "url": { "type": "string", "format": "uri" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/avatars/batch": {
+      "get": {
+        "operationId": "getAvatarBatch",
+        "summary": "Get avatar batch",
+        "description": "Retrieves avatar images for multiple agents in a single request.",
+        "tags": ["Agent Configuration"],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Comma-separated list of agent IDs",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" }
+        }
+      }
+    },
+    "/agents/guardrails": {
+      "get": {
+        "operationId": "getGuardrails",
+        "summary": "Get guardrails",
+        "description": "Returns the available guardrail configurations that can be applied to agents to control response behavior.",
+        "tags": ["Agent Configuration"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "name": { "type": "string" },
+                      "description": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/models": {
+      "get": {
+        "operationId": "getModels",
+        "summary": "Get available AI models",
+        "description": "Returns the list of AI foundation models available for use with agents.",
+        "tags": ["Agent Configuration"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "name": { "type": "string" },
+                      "provider": { "type": "string", "example": "amazon-bedrock" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/agents": {
+      "get": {
+        "operationId": "integrationsGetAgents",
+        "summary": "Get agents (integrations)",
+        "description": "Returns agents available for use via third-party integrations.",
+        "tags": ["Integrations"],
+        "responses": {
+          "200": { "description": "OK" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/integrations/agents/{agentId}": {
+      "get": {
+        "operationId": "integrationsGetAgentById",
+        "summary": "Get agent by ID (integrations)",
+        "description": "Returns a specific agent via the integrations endpoint.",
+        "tags": ["Integrations"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/integrations/agents/{agentId}/question": {
+      "post": {
+        "operationId": "integrationsPostAgentQuestion",
+        "summary": "Ask agent a question (integrations)",
+        "description": "Sends a question to an agent via the integrations endpoint.",
+        "tags": ["Integrations"],
+        "parameters": [
+          { "$ref": "#/components/parameters/agentId" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["question"],
+                "properties": {
+                  "question": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "parameters": {
+      "agentId": {
+        "name": "agentId",
+        "in": "path",
+        "required": true,
+        "description": "Unique identifier of the agent.",
+        "schema": { "type": "string", "format": "uuid" }
+      }
+    },
+    "schemas": {
+      "Agent": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "modelId": { "type": "string" },
+          "guardrailId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "AgentRequest": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "description": "Display name for the agent." },
+          "description": { "type": "string", "description": "Purpose or capabilities of the agent." },
+          "modelId": { "type": "string", "description": "ID of the AI model to use." },
+          "guardrailId": { "type": "string", "description": "ID of the guardrail configuration to apply." }
+        }
+      }
+    }
+  }
+}

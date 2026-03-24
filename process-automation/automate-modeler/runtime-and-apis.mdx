@@ -1,0 +1,79 @@
+---
+title: "Developer APIs & SDKs"
+---
+
+Studio Modeler provides a comprehensive set of REST APIs and SDKs for programmatically interacting with processes, tasks, and the content repository.
+
+## API Architecture
+
+APIs are divided into two categories based on their scope:
+
+### 1. Platform Endpoints
+These services are shared across all applications in your environment.
+- **Modeling Service**: `https://{domain}/modeling-service/swagger-ui/index.html`
+- **Deployment Service**: `https://{domain}/deployment-service/swagger-ui/index.html`
+
+### 2. Application-Specific Endpoints
+Each deployed application (e.g., `invoice-review`) has its own dedicated runtime and query services.
+- **Runtime Bundle (RB)**: `https://{domain}/{app-name}/rb/swagger-ui/index.html`
+- **Query Service**: `https://{domain}/{app-name}/query/swagger-ui/index.html`
+- **GraphQL (Notifications)**: `https://{domain}/{app-name}/notifications/graphql`
+
+---
+
+## JavaScript SDK & Services
+
+The JavaScript SDK allows you to interact with runtime services using high-level service classes.
+
+| Service Class | Purpose |
+| --- | --- |
+| **RuntimeProcessInstanceService** | Start processes, manage instance variables, and track tasks. |
+| **RuntimeTaskService** | Claim, complete, and assign user tasks. |
+| **QueryProcessInstanceService** | Retrieve historical data and status for process instances. |
+| **QueryTaskService** | Search for tasks based on complex criteria. |
+
+### Example: Starting a Process
+```javascript
+const runtimeProcessInstanceService = new RuntimeProcessInstanceService();
+const startPayload = { 
+  processDefinitionKey: 'InvoiceProcess_123', 
+  variables: { amount: 500 } 
+};
+runtimeProcessInstanceService.startProcess(startPayload);
+```
+
+---
+
+## Content & Repository APIs
+
+Use these APIs to manage documents and metadata within the Hyland Content repository.
+
+- **NodeService**: Create, delete, and move folders and files.
+- **SearchService**: Execute HXQL queries to find content.
+- **DocumentApi**: Specialized methods for document-specific operations.
+
+### Example: Creating a Document
+```javascript
+const documentApi = new DocumentApi();
+const newDoc = documentApi.createDocumentUnderParentById(
+    variables.parentId,
+    null,
+    { sys_primaryType: 'invoice', dc_title: 'March_Invoice.pdf' }
+);
+```
+
+---
+
+## specialized APIs
+
+### Form API
+Retrieve form definitions and metadata to build custom frontends or dynamic validation.
+```javascript
+const formService = new FormService();
+const definition = formService.getFormDefinition(variables.formId);
+```
+
+### Script Runtime
+Execute named scripts programmatically. Scripts must reside within the same project.
+- **Input Mapping**: Map process variables to script variables during execution.
+- **Simulation**: Test script logic in the Studio Modeler simulator before deployment.
