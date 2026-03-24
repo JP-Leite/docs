@@ -1,0 +1,103 @@
+---
+title: "Classification & Extraction Configuration"
+description: "Define document classes, extraction fields, and configure the AI model for your IDP project."
+---
+
+The IDP configuration process starts with telling the AI *what kind of documents* you have (**classes**) and *what data to pull from them* (**fields**). Both are configured in **Studio Modeler › IDP Configuration**.
+
+---
+
+## Configuring Document AI
+
+The IDP platform uses state-of-the-art **NLP and ML** to automatically classify, separate, and extract data from unstructured and semi-structured documents — without templates or manual rules. The **prompt-based extraction engine** lets you define what to retrieve using natural language queries.
+
+You can configure Document AI behaviour in **IDP Configuration › Settings**:
+- **Auto-Classification**: Enable AI to automatically suggest and assign classes to uploaded documents.
+- **Auto-Separation**: Enable AI to automatically identify document boundaries within a multi-document batch.
+- **AI Confidence Thresholds**: Define the minimum confidence required before the AI commits to a classification or extraction without requesting human review.
+
+<Info>
+  AI confidence and OCR confidence are tracked independently. A field can have high AI confidence but low OCR confidence if the text recognition quality was poor.
+</Info>
+
+---
+
+## Document Classes
+
+A **class** groups documents with similar characteristics (e.g., Invoice, Contract, Payslip). Every document in IDP must be assigned to a class before fields can be extracted.
+
+### Creating a Class
+
+1. In your project, click **+ Create Class**.
+2. Enter a unique **Name** and optional description.
+3. If **AI Suggestions** is enabled, the system will suggest classes based on your uploaded sample documents. Accept, reject, or refresh suggestions as needed.
+
+### Parent & Child Classes
+
+- **Parent Class**: A template containing shared default fields. Marked with a lock icon.
+- **Child Class**: Inherits all parent fields but can add its own specific fields.
+- **Detaching a Child**: If you detach a child from its parent, you must choose to **Remove Fields** linked to the parent or **Keep Fields** (converting inherited fields into standalone fields).
+
+---
+
+## Class Properties
+
+Fine-tune AI and review behaviour per class via the **Options** tab:
+
+| Property | Description |
+| --- | --- |
+| **Detect check boxes / radio buttons** | Automatically identify and process UI form elements during field extraction. |
+| **Ignore Class for Auto-Classification** | Prevent the AI from automatically assigning documents to this class. A lock icon is shown. |
+| **Hide Class in Classification Review** | Hide this class from appearing in the human review verification screen. |
+| **Use As Default Class** | Assign all unclassified documents here to prevent them getting stuck in the "Other" category. |
+| **Field Review Threshold** | Override the project-level threshold for this class. Fields below this confidence are flagged for review. |
+| **OCR Review Threshold** | Override the project-level OCR threshold for this class. |
+| **Override Classification Thresholds** | Enable class-level overrides for all project-level threshold settings. |
+
+---
+
+## Extraction Fields
+
+**Fields** represent the specific data points to extract from documents in a class (e.g., `Vendor Name`, `Invoice Total`, `PO Number`).
+
+### Extraction Types
+
+| Type | Description |
+| --- | --- |
+| **Text** | Standard textual data: names, IDs, dates. |
+| **Table** | Tabular row/column data (line items, inventories). You must define the columns. |
+| **Reasoning** | Uses AI to analyze the document layout visually. OCR confidence is not tracked for this type. |
+
+### Creating & Configuring a Field
+
+1. Select a class and click **Add Field**.
+2. Enter a **Field Name** (e.g., `Invoice Number`).
+3. Choose an **Extraction Type** (Text, Table, or Reasoning).
+4. Set the **Extraction Method**:
+   - **Text**: Extracts from visible text on specific pages.
+   - **Full File**: Performs a deep analysis of the entire document — useful for fields that may appear anywhere.
+5. *(Optional)* Write an **AI Prompt** to guide extraction in natural language, e.g., *"Extract the total amount due, including tax."*
+
+### Field-Level Settings
+
+<AccordionGroup>
+  <Accordion title="Formatting">
+    Standardize extracted values before they reach downstream systems:
+    - **Case Conversion**: UPPERCASE, lowercase, or Sentence case
+    - **Character Removal**: Strip punctuation or symbols
+    - **Date Reformatting**: Force consistent formats (e.g., `DD-MM-YYYY`)
+    - **Truncation**: Trim values to a specific character length
+  </Accordion>
+  <Accordion title="Internal Validation">
+    Act as a gatekeeper — flag documents that don't meet data quality requirements:
+    - **Min/Max Length**: Enforce character count limits
+    - **Regex Pattern**: Validate formats (e.g., email, tax ID, postcode)
+    - **Required**: Mark the field as mandatory
+  </Accordion>
+  <Accordion title="Process-Based Validation">
+    For complex business logic — trigger a **Custom Validation Script** in Modeler to perform a database lookup, call an external API, or run multi-field validation rules.
+  </Accordion>
+  <Accordion title="Confidence Thresholds">
+    Set field-specific thresholds that override the class and project defaults. For example, require 95% confidence for `Invoice Number` while allowing 75% for `Description`.
+  </Accordion>
+</AccordionGroup>

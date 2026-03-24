@@ -1,65 +1,69 @@
 ---
 title: "Introduction to IDP"
-description: "AI-enabled document capture, classification, and intelligent data extraction."
+description: "AI-powered document capture, classification, and intelligent data extraction."
 ---
 
 **Hyland Intelligent Document Processing (IDP)** provides AI-enabled document capture, classification, and data extraction to improve the efficiency and accuracy of document-driven workflows. Through prompt-based configuration and deep integration with the Automate orchestration engine, IDP enables end-to-end automation at scale.
 
-## Core Features
-
 <CardGroup cols={2}>
   <Card title="AI-Powered Extraction" icon="brain">
-    Automated classification, separation, and field-level data extraction using NLP and ML.
+    Automated classification, separation, and field-level data extraction using NLP and ML — no templates required.
   </Card>
   <Card title="Workflow Orchestration" icon="gears">
-    Configurable end-to-end flows from ingestion to export via BPMN processes.
+    Configurable end-to-end flows from ingestion to export via BPMN processes built in Studio Modeler.
   </Card>
   <Card title="Human-in-the-Loop" icon="user-check">
-    Seamless task-driven interfaces for manual review and high-confidence validation.
+    Seamless task-driven interfaces for manual review and high-confidence validation in Workspace.
   </Card>
   <Card title="Flexible Ingestion" icon="file-import">
-    Support for multiple document formats via forms, APIs, mailboxes, or repository connectors.
+    Process documents via upload forms, REST API, email mailboxes, or direct repository connectors.
   </Card>
 </CardGroup>
 
 ---
 
-## Key Terminology
+## How IDP Works
 
-| Term | Description |
-| --- | --- |
-| **Class** | A document category, such as an Invoice, Payslip, or Contract. |
-| **Field** | A specific data point to be extracted, e.g., Invoice Number or Total Amount. |
-| **IDP Configuration** | The defined setup for a project, including document classes and field types. |
-| **OCR Confidence** | The reliability score for text recognition (word-level for text, average for tables). |
-| **AI Confidence** | The AI model’s certainty score for its classification or extraction results. |
-
----
-
-## Architecture Overview
-
-IDP functionality is distributed across three primary environments:
+IDP functionality is distributed across three environments — each serving a distinct role in the document lifecycle:
 
 <Steps>
-  <Step title="Studio Modeler">
-    The configuration hub where solution builders define classes, extraction prompts, and business workflows.
+  <Step title="Configure in Studio Modeler">
+    Define document classes, extraction fields, AI prompts, and build your BPMN workflow. This is where solution builders set up the intelligence.
   </Step>
-  <Step title="Studio Administration">
-    The deployment and monitoring center where administrators manage application lifecycles and permissions.
+  <Step title="Deploy in Studio Administration">
+    Release and deploy your IDP project to an active environment. Configure permissions and manage application instances.
   </Step>
-  <Step title="Workspace">
-    The end-user application where business users participate in human-in-the-loop review and manage document repositories.
+  <Step title="Operate in Workspace">
+    Business users upload documents, monitor processing, complete manual review tasks, and export results to downstream systems.
   </Step>
 </Steps>
 
 ---
 
-## Initial Setup & Roles
+## Glossary
 
-Upon initial purchase, a dedicated administrator must be created to configure the environment and establish foundational roles.
+| Term | Description |
+| --- | --- |
+| **IDP Project** | A container for your document classes, fields, and workflow configuration. |
+| **Class** | A document category (e.g., Invoice, Contract, Payslip). Every document must be assigned to a class. |
+| **Field** | A specific data point to extract from a document (e.g., Invoice Number, Total Amount). |
+| **IDP Configuration** | The defined setup for a project, including document classes, field types, and extraction rules. |
+| **IDP Process** | The end-to-end automation flow: ingestion → classification → extraction → review → export. |
+| **OCR Confidence** | Reliability score for text recognition. For text fields: weakest word-level score. For table fields: average across cells. |
+| **AI Confidence** | The AI model's certainty score for its classification or extraction result. |
+| **BatchState** | The BPMN process variable that carries all document metadata, assigned classes, and extracted fields through the workflow. |
 
-### Administrative Configuration
-1. **Primary Contact**: Receives an activation email and creates the initial administrator account.
-2. **User Groups**: Navigate to **Administration Portal > Identity > User Groups**.
-3. **Admin Rights**: Assign the **Administrator** role for Studio Admin and the **Modeler** role for Studio Modeler to the Account Administrator group.
-4. **Repository Access**: In **Account > Applications**, assign the **HxPR Administrator** role to the group.
+---
+
+## Supported Formats
+
+IDP processes a wide variety of document types:
+
+| Category | Formats |
+| --- | --- |
+| **Documents** | .PDF, .DOC, .DOCX |
+| **Images** | .JPG, .PNG, .TIFF |
+| **Spreadsheets** | .XLS, .XLSX |
+| **Email** | .MSG, .EML |
+
+**Supported languages**: English, Spanish, German, Italian, French, Portuguese, and Polish.

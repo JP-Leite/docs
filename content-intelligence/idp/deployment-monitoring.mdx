@@ -1,0 +1,82 @@
+---
+title: "Deploy, Monitor & Report"
+description: "Deploy your IDP project, manage live processes, and track performance with analytics dashboards."
+---
+
+Once your IDP project configuration is complete, you deploy it to a live environment, monitor ongoing processing, and use analytics dashboards to measure automation ROI.
+
+---
+
+## Deploying a Project
+
+<Steps>
+  <Step title="Release the Project">
+    In **Studio Modeler**, release your project. This creates a versioned snapshot that can be deployed.
+  </Step>
+  <Step title="Open Studio Admin > DevOps">
+    Navigate to **Studio Admin › DevOps › Project Releases**. Your released project will appear here.
+  </Step>
+  <Step title="Start Deployment">
+    Click **Deploy** next to your project. The deployment wizard will open.
+  </Step>
+  <Step title="Select Environment">
+    Choose the target environment (e.g., Staging, Production) from the **Environment** list. Click **Next**.
+  </Step>
+  <Step title="Validate">
+    Review the **Validation** area. Ensure there are no errors. The Application Name and Project Release are set automatically. Click **Next**.
+  </Step>
+  <Step title="Assign Users">
+    Under **Admin Users**, enter names to assign admin access. Repeat to assign **Manager** and **User** access. Ensure all users have the **Administrator** role in Studio Admin.
+  </Step>
+  <Step title="Deploy">
+    Click **Deploy**. Monitor deployment status in **DevOps › Application Instances**.
+  </Step>
+</Steps>
+
+<Info>
+  Once deployed, click **Workspace** next to your application in Application Instances to open the live environment and begin testing.
+</Info>
+
+---
+
+## Running Processes in Workspace
+
+Business users trigger IDP workflows from **Workspace**:
+
+1. Go to **Process Management › Tasks › My Tasks**.
+2. Click **Start Process** and select your IDP workflow.
+3. Upload files from your local computer or from the connected repository.
+
+---
+
+## Monitoring Live Processes
+
+Administrators can track document batch progress in **Studio Admin**:
+
+- Navigate to **Process Admin › Process Instances**.
+- Select an instance and click **Diagram** to see exactly which BPMN stage the batch is at (e.g., waiting in Class Review, processing Field Extraction).
+- Use **Process Admin › Dashboards** to view aggregate analytics.
+
+<Tip>
+  The Diagram view is especially useful for diagnosing stuck batches — you can immediately see if a process is waiting on a human review task or blocked by a connector error.
+</Tip>
+
+---
+
+## IDP Analytics Dashboards
+
+IDP Reporting provides business analytics and performance metrics for your document processing workflows. Access via **Studio Admin › Process Admin › Dashboards**.
+
+| Dashboard | Description |
+| --- | --- |
+| **Automation Rate Summary** | The key IDP metric — percentage of documents processed without manual intervention. |
+| **Task Completion by User** | Tracks individual reviewer productivity and identifies review bottlenecks. |
+| **Inbound / Outbound Volume** | Total document volume flowing through the system over time. |
+| **Classification Details** | Breakdown of document types identified and AI classification accuracy per class. |
+| **Current System Processing** | Real-time view of batches currently being handled by IDP services. |
+
+### Accessing a Dashboard
+
+1. Navigate to **Studio Admin › Process Admin › Dashboards**.
+2. Use the **Dashboards** filter to select your IDP report.
+3. Click **Update** to refresh the visualizations.

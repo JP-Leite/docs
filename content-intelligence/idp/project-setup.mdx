@@ -1,0 +1,87 @@
+---
+title: "Project Setup"
+description: "Access IDP, configure roles, create your first project, and understand system limits."
+---
+
+## Accessing the Application
+
+The IDP interface lives inside **Studio Modeler**, accessed via the Hyland Experience Portal.
+
+<Steps>
+  <Step title="Account Activation">
+    Your IT Administrator will send an invitation email. Use the link to create a strong password.
+  </Step>
+  <Step title="Log In">
+    Navigate to [https://experience.hyland.com](https://experience.hyland.com) and sign in. IDP supports **Microsoft Entra ID** and **Okta SAML** for SSO.
+  </Step>
+  <Step title="Open Studio Modeler">
+    On the Home page, click **Studio Modeler** to enter the configuration environment.
+  </Step>
+</Steps>
+
+<Info>
+  **Network requirement**: A stable broadband connection (10 Mbps or higher) is recommended for smooth document viewing and processing.
+</Info>
+
+**Supported browsers**: Chrome, Edge, Safari, Firefox (latest). **Supported OS**: Windows 10/11, macOS 12+, Linux.
+
+---
+
+## Initial Role Configuration
+
+Upon first purchase, an administrator must configure roles before any users can access IDP.
+
+1. **Primary Contact** receives an activation email and creates the first administrator account.
+2. Navigate to **Administration Portal › Identity › User Groups**.
+3. Assign the **Administrator** role (Studio Admin) and **Modeler** role (Studio Modeler) to the Account Administrator group.
+4. In **Account › Applications**, assign the **HxPR Administrator** role for repository access.
+
+<Info>
+  Users completing human-in-the-loop review tasks need the **Workspace User** role. Contact your Account Manager to provision this.
+</Info>
+
+---
+
+## Creating an IDP Project
+
+Projects are the containers for your document classes, fields, and workflow configuration.
+
+1. In Studio Modeler, click **IDP Configuration › All IDP projects** in the left navigation.
+2. Click **Create Project**.
+3. Enter a unique **Project Name** and optional description.
+4. Click **Create Project** — you'll be redirected to begin configuration.
+
+### Managing Existing Projects
+
+From the **All IDP projects** list, each project shows its status, creator, and last update time. Via the **⋯** menu you can:
+- **Rename / Edit** the project name
+- **Delete** the project permanently
+- **Download** the project configuration as a `.zip` file
+- **Manage Collaborators** — control who has access
+
+---
+
+## Project-Level Threshold Settings
+
+These global settings define classification behaviour across the entire project. They can be overridden per class.
+
+Access via **Settings › General** within your project:
+
+| Setting | Description |
+| --- | --- |
+| **Class Review Threshold** | Min confidence to classify without flagging for manual review. |
+| **Class Assignment Threshold** | Absolute minimum confidence required to assign any class to a document. |
+| **Class Distance** | Required gap between the top match and second-best match to ensure accurate classification. |
+
+---
+
+## System & Service Limits
+
+| Limit | Value |
+| --- | --- |
+| Classes per project | 350 max |
+| Fields per class | 100 max |
+| Files during configuration upload | 100 files / 1,000 pages / 100MB |
+| Batch size (processing) | 500 pages or 500 documents per request |
+| File size limit | 500MB per file |
+| Max pages per document | 140 pages |

@@ -1,0 +1,108 @@
+---
+title: "Review & Validation"
+description: "Use the Document Viewer, complete human-in-the-loop review tasks, and configure custom verification forms."
+---
+
+Once documents have been processed by the AI, the results are surfaced for human review. This page covers the **Document Viewer**, **Review Tasks** in Workspace, and how to configure the **custom verification forms** that users interact with.
+
+---
+
+## The Document Viewer
+
+The Document Viewer gives reviewers an enlarged, interactive view of uploaded files to verify AI classifications and extracted field values.
+
+### Toolbar Commands
+
+| Command | Shortcut | Description |
+| --- | --- | --- |
+| **Thumbnails** | `Shift + T` | Display a grid of all pages in the document. |
+| **View Image** | `Shift + I` | View the original scanned document image. |
+| **View Text** | `Shift + W` | View the raw extracted text layer. |
+| **Rotation** | `Shift + R` | Rotate pages clockwise to fix scan orientation. |
+| **Zoom** | — | Zoom in/out or fit document to window width. |
+| **Field Highlighting** | Hover on field name | See the exact location of a field highlighted on the document page. |
+
+### Review Actions
+
+Within the Workspace review screens, users can:
+- **Flag Documents**: Add a note and select a rejection reason for exception handling.
+- **Edit Pages**: Cut, move, or insert pages within a batch to fix document boundaries.
+- **Reject / Delete**: Remove problematic documents from the processing stream entirely.
+
+---
+
+## Human-in-the-Loop Review Tasks
+
+Automated processing will flag low-confidence results for human verification. There are two types of review tasks:
+
+### Class Review — `IDP Class Verification`
+Used to manually verify or correct the document **category** assigned by the AI.
+
+- **Screen**: `IDP Class Verification`
+- **Input mapping**: Connect `BatchState` to display the AI's classification result to the reviewer.
+- **User action**: Confirm the class, reassign to a different class, or flag for exception.
+
+### Field Review — `IDP Field Verification` (Sub-process)
+Used to verify individual **extracted field values** for each document in the batch.
+
+- Configure as a **Sequential Multi-Instance** sub-process.
+- **Loop Collection**: `batchState.documents`
+- **Element Variable**: `documentState`
+- **Screen**: `IDP Field Verification`
+- **User action**: Confirm, edit, or reject individual field values; flag the document if needed.
+
+---
+
+## Custom Verification Forms
+
+IDP automatically generates a verification form for each class the moment you add your first field. You can customize these forms to control the review layout and add external lookups.
+
+### Automatic Form Generation
+- Adding a field to a class → corresponding form field is **automatically added**.
+- Renaming a field in the IDP config → form label is **automatically updated**.
+- Detaching a child class → choose to **Keep** or **Remove** inherited form fields.
+
+<Info>
+  It is best practice to manage field formatting and validation rules via the IDP Configuration UI rather than directly in the Form Builder — changes made in IDP config automatically sync to the form.
+</Info>
+
+To customize a form: select a class in Studio Modeler and click **Navigate to Form**.
+
+### Document Upload Forms
+
+Every IDP workflow needs an upload form linked to the Start Event:
+
+1. In Studio Modeler, select **Create › Form**.
+2. Name it (e.g., "IDP Upload Form") and drag a **File Upload** field onto the canvas.
+3. In **Advanced Settings**, enable **Allow multiple file attachments** for batch processing.
+4. Link the form to the **Start Event** of your workflow.
+
+---
+
+## Field Validation Rules
+
+Validation rules act as a gatekeeper — documents with validation errors are held for review before moving to export.
+
+### Internal Validation (configured in IDP)
+
+| Rule | Description |
+| --- | --- |
+| **Min/Max Length** | Enforce character count limits on extracted values. |
+| **Regex Pattern** | Validate formats: email, phone, tax ID, postcode. |
+| **Required** | Mark the field as mandatory — document cannot proceed without a value. |
+
+### Process-Based Validation (scripts)
+
+For complex business rules that can't be expressed as a regex:
+1. In the **Edit Field** pane, click **Add** under Field Validation.
+2. Select **Create Process**.
+3. Use the provided **Script Template** to write your validation logic (e.g., database lookup, cross-field calculation, external API call).
+4. The process is saved under **Processes** and the script under **Field Validations** automatically.
+
+### Output Formatting
+
+Standardize extracted values before passing to downstream systems:
+- **Case Conversion**: UPPERCASE, lowercase, or Sentence case
+- **Character Removal**: Strip punctuation or symbols
+- **Date Reformatting**: Enforce consistent formats (e.g., `DD-MM-YYYY`)
+- **Truncation**: Trim to a specific character length

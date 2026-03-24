@@ -138,12 +138,11 @@
               "group": "Intelligent Document Processing (IDP)",
               "pages": [
                 "content-intelligence/idp/introduction",
-                "content-intelligence/idp/getting-started",
-                "content-intelligence/idp/project-management",
-                "content-intelligence/idp/data-model",
-                "content-intelligence/idp/document-processing",
-                "content-intelligence/idp/workflow-configuration",
-                "content-intelligence/idp/forms-and-validation"
+                "content-intelligence/idp/project-setup",
+                "content-intelligence/idp/classification-extraction",
+                "content-intelligence/idp/workflow-process-design",
+                "content-intelligence/idp/review-validation",
+                "content-intelligence/idp/deployment-monitoring"
               ]
             },
             {

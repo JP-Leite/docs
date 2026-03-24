@@ -1,0 +1,86 @@
+---
+title: "Workflow & Process Design"
+description: "Build end-to-end IDP workflows using BPMN templates, process variables, and connectors in Studio Modeler."
+---
+
+IDP workflows orchestrate how documents move through automated processing stages and human review tasks. They are built in **Studio Modeler** using BPMN 2.0 with specialized IDP service tasks and connectors.
+
+---
+
+## Starting a Workflow
+
+After configuring your classes and fields, click **Build Process** in your IDP project to open the workflow builder. Choose a **Process Template** to accelerate development:
+
+| Template | Description |
+| --- | --- |
+| **Create from Scratch** | Full control — build your BPMN diagram manually. |
+| **Classification Only** | Focuses solely on identifying document types. |
+| **Classification & Field Extraction** | Standard end-to-end flow for identifying and pulling structured data. |
+| **Full Automation** | Handles document separation, classification, and full field extraction. |
+| **Federated Content Connection** | Extends the full automation flow to send processed documents directly to **OnBase**. |
+
+<Tip>
+  For most use cases, **Classification & Field Extraction** is the right starting point. Add separation and federation steps as your use case evolves.
+</Tip>
+
+---
+
+## Process Variables
+
+Process variables carry data between BPMN elements. These three are essential for every IDP workflow:
+
+| Variable | Type | Purpose |
+| --- | --- | --- |
+| **Content** | `Array<content>` | Stores the raw document files ingested into the process. |
+| **BatchState** | `json` | The central data object — carries assigned classes, extracted fields, and review status. |
+| **rejectReasons** | `Array<any>` | A list of reasons displayed to users in the Review/Verification UI. |
+
+### Configuring Rejection Reasons
+
+Define your organization's rejection reasons as a JSON array on the **BatchState** variable:
+
+```json
+[
+  {"id": "1", "value": "Unknown document type"},
+  {"id": "2", "value": "Document missing pages"},
+  {"id": "3", "value": "Low quality scan (illegible)"},
+  {"id": "4", "value": "Wrong document type submitted"}
+]
+```
+
+---
+
+## Connecting to External Systems
+
+IDP is designed to fit into your existing enterprise ecosystem via built-in connectors:
+
+| Integration | Capability |
+| --- | --- |
+| **OnBase** | Send classified and extracted documents directly to OnBase via the Federated Content connector. |
+| **Alfresco / Nuxeo / Perceptive** | Import documents directly from these repositories as an alternative to upload forms. |
+| **SharePoint / OneDrive** | Connect Microsoft cloud storage as a document source. |
+| **Salesforce / SAP / ServiceNow** | Trigger downstream record creation or updates via HX Automate connectors. |
+| **REST API** | Programmatically trigger IDP processing and retrieve results from any system. |
+
+---
+
+## Routing & Automation Logic
+
+Use BPMN gateways to build conditional routing logic within your IDP process:
+
+- **Confidence-Based Routing**: Route documents with confidence below a threshold to a human review task; high-confidence documents skip directly to export.
+- **Document-Type Routing**: Split the flow based on assigned class (e.g., send Invoices to Finance, send Contracts to Legal).
+- **Exception Handling**: Automatically flag documents with missing required fields for a supervisor review task.
+- **Multi-Instance Review**: Use a **Sequential Multi-Instance** sub-process on `batchState.documents` to process each document's field review individually.
+
+---
+
+## Document Ingestion Methods
+
+Documents enter the IDP workflow via a **Start Event**. Supported ingestion paths:
+
+- **Upload Form**: A Studio Modeler form with a File Upload field linked to the process Start Event.
+- **API Trigger**: A REST call to programmatically start a process instance with documents.
+- **Email Mailbox**: Configure a mailbox connector to automatically trigger processing when emails arrive.
+- **Repository Connector**: Pull documents directly from OnBase, Alfresco, SharePoint, or Nuxeo.
+- **Batch Upload**: Supports up to **500 documents per batch**.
