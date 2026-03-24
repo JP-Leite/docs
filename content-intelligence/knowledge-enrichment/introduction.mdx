@@ -1,0 +1,135 @@
+---
+title: "Introduction to Knowledge Enrichment"
+description: "Understand Knowledge Enrichment: the AI enrichment pipeline for classifying content, extracting entities, generating summaries, and producing semantic embeddings."
+---
+
+**Hyland Knowledge Enrichment** is the AI enrichment pipeline of the Content Intelligence platform. It processes your documents through AI models to automatically classify content, extract entities, generate summaries, match metadata, and produce semantic embeddings — enriching raw content to power intelligent search and discovery downstream.
+
+<CardGroup cols={2}>
+  <Card title="Classify & Detect" icon="tags">
+    Classify images and text into categories. Detect named entities in images and text documents.
+  </Card>
+  <Card title="Summarize & Describe" icon="file-lines">
+    Generate concise summaries of documents and natural-language descriptions of images.
+  </Card>
+  <Card title="Extract & Match" icon="magnifying-glass">
+    Extract structured metadata fields and match content against custom metadata schemas.
+  </Card>
+  <Card title="Embed" icon="vector-square">
+    Generate semantic vector embeddings for text and images — the foundation for similarity search.
+  </Card>
+</CardGroup>
+
+---
+
+## The Two-API Model
+
+Knowledge Enrichment uses two APIs with distinct responsibilities:
+
+```
+┌─────────────────────────────┐    ┌──────────────────────────────┐
+│      Data Curation API       │    │         Context API            │
+│                             │    │                               │
+│  • Upload documents          │───▶│  • Run AI actions             │
+│  • Chunk & normalize text    │    │  • Classify, extract, embed   │
+│  • Generate text embeddings  │    │  • Returns enriched results   │
+│  • PII detection/redaction   │    │                               │
+└─────────────────────────────┘    └──────────────────────────────┘
+         ▼                                        ▼
+  Content ingested &               Results stored and available
+  prepared for enrichment          for search and discovery
+```
+
+| API | Purpose | Async? |
+| --- | --- | --- |
+| **Data Curation API** | Upload and prepare content (chunking, normalization, embeddings) | Yes |
+| **Context API** | Run AI enrichment actions on prepared content | Yes |
+
+Both APIs use **presigned URLs** for file uploads and **polling** to retrieve results.
+
+---
+
+## Key Concepts
+
+| Term | Description |
+| --- | --- |
+| **Chunk** | A unit of content produced by splitting a document. Chunks are enriched with metadata and semantic relationships during Data Curation. |
+| **Action** | A specific AI operation the Context API can perform (e.g., `text-summarization`, `image-classification`). |
+| **Schema** | The structured blueprint defining the Context API request format, available endpoints, and expected responses. |
+| **Presigned URL** | A temporary, time-limited URL that allows uploading files directly to cloud storage without exposing credentials. |
+| **Asynchronous Processing** | Both APIs return immediately (202 Accepted) — you submit a job and poll for the result. |
+| **Embeddings** | Numerical vector representations of text or images used for semantic similarity search. |
+
+---
+
+## Supported Context API Actions
+
+The Context API supports 10 enrichment actions across text and image content:
+
+### Text Actions
+
+| Action | Description |
+| --- | --- |
+| `text-summarization` | Generate a concise summary of a text document. |
+| `text-classification` | Classify text into one of your pre-defined categories. |
+| `text-metadata-matching` | Extract and match text against a custom metadata schema. |
+| `text-embedding` | Produce semantic vector embeddings from text documents. |
+| `named-entity-text` | Extract named entities (people, organizations, locations) from text. |
+
+### Image Actions
+
+| Action | Description |
+| --- | --- |
+| `image-classification` | Classify an image into one of your pre-defined categories. |
+| `image-description` | Generate a natural-language description of an image. |
+| `image-metadata-matching` | Match image content against a custom metadata schema. |
+| `image-embedding` | Produce semantic vector embeddings from image content. |
+| `named-entity-image` | Detect named entities (people, logos, objects) in images. |
+
+---
+
+## Safety & Guardrails
+
+Knowledge Enrichment includes built-in guardrails that protect against generating harmful, offensive, or inappropriate content. Guardrails automatically block responses containing:
+
+- Sexual content
+- Hate speech
+- Insults
+- Misconduct
+
+| Action | Guardrail Coverage |
+| --- | --- |
+| Text Summarization | ✅ Protected |
+| Text Classification | ✅ Protected |
+| Text Metadata Matching | ✅ Protected |
+| Named Entity Extraction (Text) | ✅ Protected |
+| Image Classification | ✅ Protected |
+| Image Description | ✅ Protected |
+| Image Metadata Matching | ✅ Protected |
+| Detect Entities in Images | ✅ Protected |
+| **Text Embeddings** | ❌ Not covered |
+| **Image Embeddings** | ❌ Not covered |
+
+<Warning>
+  Embedding actions are not covered by guardrails. Ensure your upstream content is appropriately filtered before generating embeddings for sensitive use cases.
+</Warning>
+
+If a request triggers a guardrail, you receive a `GuardrailViolation` error:
+
+```json
+{
+  "status": "FAILURE",
+  "results": [
+    {
+      "textSummary": {
+        "isSuccess": false,
+        "result": null,
+        "error": {
+          "errorType": "GuardrailViolation",
+          "message": "This request triggered our default guardrails. Please rephrase and submit again."
+        }
+      }
+    }
+  ]
+}
+```

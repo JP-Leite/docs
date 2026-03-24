@@ -146,6 +146,24 @@
               ]
             },
             {
+              "group": "Knowledge Discovery",
+              "pages": [
+                "content-intelligence/knowledge-discovery/introduction",
+                "content-intelligence/knowledge-discovery/managing-agents",
+                "content-intelligence/knowledge-discovery/conversations",
+                "content-intelligence/knowledge-discovery/integrations"
+              ]
+            },
+            {
+              "group": "Knowledge Enrichment",
+              "pages": [
+                "content-intelligence/knowledge-enrichment/introduction",
+                "content-intelligence/knowledge-enrichment/getting-started",
+                "content-intelligence/knowledge-enrichment/context-api",
+                "content-intelligence/knowledge-enrichment/tutorials"
+              ]
+            },
+            {
               "group": "Architecture",
               "pages": [
                 "content-intelligence/architecture/overview",

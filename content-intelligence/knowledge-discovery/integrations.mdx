@@ -1,0 +1,118 @@
+---
+title: "Integrations"
+description: "Embed Knowledge Discovery into Alfresco, Salesforce, and other third-party platforms using dedicated service-to-service integration endpoints."
+---
+
+Integration endpoints provide a specialized API surface for external systems to interact with Knowledge Discovery on behalf of their users. Unlike standard endpoints, integrations use a **service-to-service authentication model** — a service user submits requests on behalf of external users from the integrated platform.
+
+---
+
+## Standard vs Integration Endpoints
+
+| | Standard Endpoints | Integration Endpoints |
+| --- | --- | --- |
+| **Authentication** | JWT from direct user login | JWT from service account |
+| **User Context** | Implicit from token | Explicit `userId` required |
+| **Agent Filtering** | Optional `sourceId` | Required `sourceId` |
+| **Use Case** | Direct user-facing app | System-to-system integration |
+| **Scope required** | `hxai-insight-discovery` | `hxp.integrations` |
+
+**Use integration endpoints when**: Building for Alfresco, Salesforce, ServiceNow, or any platform where Knowledge Discovery is embedded within another application's UX.
+
+**Use standard endpoints when**: Building a direct user-facing application where users authenticate with Knowledge Discovery directly.
+
+---
+
+## Authentication for Integrations
+
+Request a token with the `hxp.integrations` scope:
+
+```bash
+curl -X POST "${IAM_BASE_URL}/idp/connect/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=client_credentials" \
+  -d "scope=hxp hxp.integrations hxai-insight-discovery iam.jti-capture" \
+  -d "client_id=${CLIENT_ID}" \
+  -d "client_secret=${CLIENT_SECRET}"
+```
+
+The service account also requires `hxai-insight-discovery.manager` or `hxai-insight-discovery.user` roles.
+
+---
+
+## Integration Endpoints
+
+### List Accessible Agents
+
+Returns agents accessible to your integration, filtered by `sourceId`:
+
+```bash
+curl -X GET "${DISCOVERY_API_BASE_URL}/integrations/agents?sourceId=${SOURCE_ID}" \
+  -H "Authorization: Bearer ${INTEGRATION_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery"
+```
+
+<Info>
+  The `sourceId` parameter is **required** for integration endpoints — it scopes the request to agents associated with your integrated content source.
+</Info>
+
+### Get Agent Details
+
+```bash
+curl -X GET "${DISCOVERY_API_BASE_URL}/integrations/agents/${AGENT_ID}?sourceId=${SOURCE_ID}" \
+  -H "Authorization: Bearer ${INTEGRATION_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery"
+```
+
+### Submit a Question
+
+Pass the external user's identity via `externalUserId` — this ensures data isolation so each user only sees their own results:
+
+```bash
+curl -X POST "${DISCOVERY_API_BASE_URL}/integrations/agents/${AGENT_ID}/questions" \
+  -H "Authorization: Bearer ${INTEGRATION_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "What documents do I need for the onboarding process?",
+    "externalUserId": "user-from-external-system-id",
+    "sourceId": "'"${SOURCE_ID}"'"
+  }'
+```
+
+Retrieve the answer using the standard `/qna/questions/{questionId}/answer` endpoint.
+
+---
+
+## Integration Flow
+
+```
+External Platform (e.g. Alfresco)
+    │
+    ├─ User clicks "Ask AI" in Alfresco UI
+    │
+    ▼
+Integration Service (your middleware)
+    │
+    ├─ Authenticates with service account (hxp.integrations scope)
+    ├─ POST /integrations/agents/{id}/questions with externalUserId
+    ├─ Polls GET /qna/questions/{id}/answer
+    │
+    ▼
+Returns answer + citations → renders in Alfresco UI
+```
+
+---
+
+## Access Control & Data Isolation
+
+- Each `externalUserId` is isolated — users cannot see each other's questions or answers.
+- Agents must have access rights configured to include the service account or group.
+- Source IDs must match between the integration request and the agent's configured `sourceIds`.
+
+<Warning>
+  Never expose the service account JWT to client-side browser code. Always proxy integration requests through your own backend service.
+</Warning>

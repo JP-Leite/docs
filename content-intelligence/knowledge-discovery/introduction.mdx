@@ -1,0 +1,206 @@
+---
+title: "Introduction to Knowledge Discovery"
+description: "Get started with Hyland Knowledge Discovery: create your first AI agent, authenticate, and ask your first question in under 10 minutes."
+---
+
+**Hyland Knowledge Discovery** is the AI-powered Q&A engine of the Content Intelligence platform. You create **agents** backed by your document repositories, then ask natural-language questions — the agent retrieves semantically relevant content and generates accurate, cited answers.
+
+<CardGroup cols={2}>
+  <Card title="AI Agents" icon="robot">
+    Configure agents with custom instructions, data sources, and guardrails to match your business domain.
+  </Card>
+  <Card title="Single-Shot Q&A" icon="circle-question">
+    Submit a question, get an answer with source citations — fire-and-forget async pattern, ideal for integrations.
+  </Card>
+  <Card title="Conversations" icon="messages">
+    Multi-turn dialogue that maintains context across questions — ideal for chatbot and help-desk UIs.
+  </Card>
+  <Card title="Integrations" icon="plug">
+    Service-to-service endpoints for embedding Knowledge Discovery into Alfresco, Salesforce, and other platforms.
+  </Card>
+</CardGroup>
+
+---
+
+## Base URLs & Required Headers
+
+All Knowledge Discovery API requests use these base values:
+
+| Config | Value |
+| --- | --- |
+| **IAM (Auth)** | `https://auth.iam.experience.hyland.com` |
+| **Discovery API** | `https://discovery.experience.hyland.com` |
+| **Required header** | `Hxp-Environment: {your-environment-key}` |
+| **Required header** | `Hxp-App: hxai-discovery` |
+
+---
+
+## Authentication
+
+Knowledge Discovery uses **OAuth 2.0 client credentials**. Set up your environment variables first:
+
+```bash
+export IAM_BASE_URL="https://auth.iam.experience.hyland.com"
+export DISCOVERY_API_BASE_URL="https://discovery.experience.hyland.com"
+export ENVIRONMENT_KEY="your-environment-key"
+export CLIENT_ID="your-client-id"
+export CLIENT_SECRET="your-client-secret"
+export SCOPE="hxp hxp.integrations hxai-insight-discovery iam.jti-capture"
+```
+
+Then request an access token:
+
+<Tabs>
+  <Tab title="curl">
+    ```bash
+    curl -X POST "${IAM_BASE_URL}/idp/connect/token" \
+      -H "Content-Type: application/x-www-form-urlencoded" \
+      -d "grant_type=client_credentials" \
+      -d "scope=${SCOPE}" \
+      -d "client_id=${CLIENT_ID}" \
+      -d "client_secret=${CLIENT_SECRET}"
+    ```
+  </Tab>
+  <Tab title="HTTP">
+    ```http
+    POST https://auth.iam.experience.hyland.com/idp/connect/token
+    Content-Type: application/x-www-form-urlencoded
+
+    grant_type=client_credentials&scope={{scope}}&client_id={{client_id}}&client_secret={{client_secret}}
+    ```
+  </Tab>
+</Tabs>
+
+**Response:**
+```json
+{
+  "access_token": "eyJhbGci...",
+  "expires_in": 900,
+  "token_type": "Bearer",
+  "scope": "hxp hxai-insight-discovery"
+}
+```
+
+Store the `access_token` and include it as `Authorization: Bearer {token}` on every subsequent request. Tokens expire after **15 minutes** — request a new one using the same endpoint.
+
+---
+
+## Quick Start: Create an Agent & Ask a Question
+
+<Steps>
+  <Step title="Create an Agent">
+    Define your agent with a name, model, and the source IDs of the document repositories it should search.
+
+    <Tabs>
+      <Tab title="curl">
+        ```bash
+        curl -X POST "${DISCOVERY_API_BASE_URL}/agent/agents" \
+          -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+          -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+          -H "Hxp-App: hxai-discovery" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "name": "HR Knowledge Agent",
+            "description": "Agent specialized in HR policies and procedures",
+            "modelName": "bedrock-amazon-nova-micro",
+            "instructions": "You are an HR assistant. Answer based on company policies only.",
+            "sourceIds": ["your-source-id-guid"],
+            "accessRights": [
+              { "type": "Group", "id": "hr-team-group-id" }
+            ]
+          }'
+        ```
+      </Tab>
+      <Tab title="HTTP">
+        ```http
+        POST {{baseUrl}}/agent/agents
+        Authorization: Bearer {{accessToken}}
+        Hxp-Environment: {{environmentKey}}
+        Hxp-App: hxai-discovery
+        Content-Type: application/json
+
+        {
+          "name": "HR Knowledge Agent",
+          "description": "Agent specialized in HR policies and procedures",
+          "modelName": "bedrock-amazon-nova-micro",
+          "instructions": "You are an HR assistant. Answer based on company policies only.",
+          "sourceIds": ["your-source-id-guid"],
+          "accessRights": [{ "type": "Group", "id": "hr-team-group-id" }]
+        }
+        ```
+      </Tab>
+    </Tabs>
+
+    Save the `id` from the response — this is your `agentId`.
+  </Step>
+
+  <Step title="Submit a Question">
+    POST your question to the agent. This returns **202 Accepted** immediately — answers are generated asynchronously.
+
+    ```bash
+    curl -X POST "${DISCOVERY_API_BASE_URL}/agent/agents/${AGENT_ID}/questions" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery" \
+      -H "Content-Type: application/json" \
+      -d '{ "question": "What is the vacation policy for new employees?" }'
+    ```
+
+    <Info>
+      The response includes a `questionId` in the `Location` header or response body. Save it for Step 3.
+    </Info>
+  </Step>
+
+  <Step title="Retrieve the Answer">
+    Wait a few seconds, then poll for the completed answer:
+
+    ```bash
+    curl -X GET "${DISCOVERY_API_BASE_URL}/qna/questions/${QUESTION_ID}/answer" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery"
+    ```
+
+    **Example response:**
+    ```json
+    {
+      "answer": "New employees receive 15 days of paid vacation per year...",
+      "responseCompleteness": "Complete",
+      "objectReferences": [
+        {
+          "objectId": "hr-policy-doc-123",
+          "references": [
+            { "referenceId": "section-4.2", "rankScore": 0.95,
+              "content": "Vacation Policy: New employees receive 15 days..." }
+          ]
+        }
+      ]
+    }
+    ```
+
+    Check `responseCompleteness`: `Submitted` means still processing, `Complete` means done, `Error` means something went wrong.
+  </Step>
+</Steps>
+
+<Tip>
+  If you haven't created any agents yet, `GET /agent/agents` will return an empty array `[]` — this is expected.
+</Tip>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Managing Agents" icon="sliders" href="/content-intelligence/knowledge-discovery/managing-agents">
+    Configure filters, guardrails, avatars, and manage agent lifecycle.
+  </Card>
+  <Card title="Q&A & Conversations" icon="messages" href="/content-intelligence/knowledge-discovery/conversations">
+    Build single-shot Q&A and multi-turn conversational flows.
+  </Card>
+  <Card title="Integrations" icon="plug" href="/content-intelligence/knowledge-discovery/integrations">
+    Embed Knowledge Discovery into Alfresco, Salesforce, and other platforms.
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference">
+    Full interactive agent and Q&A API reference.
+  </Card>
+</CardGroup>

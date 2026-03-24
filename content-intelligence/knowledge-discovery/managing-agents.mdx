@@ -1,0 +1,174 @@
+---
+title: "Managing Agents"
+description: "Create, configure, and manage AI agents in Knowledge Discovery — including filters, guardrails, avatars, and model selection."
+---
+
+Agents are the core building blocks of Knowledge Discovery. Each agent connects to one or more content sources and uses a specific AI model to answer questions within its domain.
+
+**Prerequisites**: Valid access token, data source IDs, group IDs for access rights. See [Introduction](/content-intelligence/knowledge-discovery/introduction) for authentication setup.
+
+---
+
+## Creating an Agent
+
+```bash
+curl -X POST "${DISCOVERY_API_BASE_URL}/agent/agents" \
+  -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Customer Support Agent",
+    "description": "Specialized agent for customer support inquiries",
+    "modelName": "bedrock-amazon-nova-micro",
+    "instructions": "You are a helpful customer support assistant. Provide clear answers based on the documentation. If you cannot find relevant information, politely inform the customer.",
+    "sourceIds": ["your-source-id-here"],
+    "accessRights": [
+      { "type": "Group", "id": "support-team-group-id" }
+    ]
+  }'
+```
+
+### Required Parameters
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `name` | ✅ | Display name, 1–200 characters |
+| `description` | ✅ | Agent purpose, 1–1000 characters |
+| `modelName` | ✅ | LLM model (e.g., `bedrock-amazon-nova-micro`) |
+| `sourceIds` | ✅ | Array of content source GUIDs to search |
+| `instructions` | ❌ | System prompt providing context and behaviour guidelines |
+| `accessRights` | ❌ | Array of `{ type: "Group" | "User", id: "guid" }` |
+
+---
+
+## Configuring Filters
+
+Filters restrict which content an agent searches. Use **static filters** for fixed business rules and **dynamic filters** for user-context-based restrictions.
+
+### Static Filters
+Applied to every question regardless of who asks. Narrow the agent to a specific subset of content.
+
+```json
+{
+  "staticFilter": "department eq 'finance' and year eq 2024"
+}
+```
+
+### Dynamic Filters
+Evaluated at query time — pass additional constraints in the question request body so different users see different content.
+
+```json
+{
+  "dynamicFilter": "region eq 'EMEA'"
+}
+```
+
+<Info>
+  Dynamic filters are passed at question time (`POST /agent/agents/{id}/questions`), not at agent creation time.
+</Info>
+
+---
+
+## Configuring Guardrails
+
+Guardrails protect responses from generating harmful content. Available guardrails are returned by `GET /agents/guardrails`.
+
+```bash
+# 1. List available guardrails
+curl -X GET "${DISCOVERY_API_BASE_URL}/agent/guardrails" \
+  -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery"
+
+# 2. Add guardrailId to your agent creation request
+```
+
+```json
+{
+  "name": "HR Agent",
+  "guardrailId": "your-guardrail-id",
+  ...
+}
+```
+
+<Warning>
+  If a question triggers a guardrail, the API returns an error instead of an answer. Your application should handle this gracefully — display a friendly message and suggest rephrasing.
+</Warning>
+
+---
+
+## Agent Avatars
+
+Avatars help users identify agents in multi-agent UIs.
+
+<AccordionGroup>
+  <Accordion title="Use a Static (Built-In) Avatar">
+    ```bash
+    # Get the list of built-in avatar options
+    curl -X GET "${DISCOVERY_API_BASE_URL}/agent/avatars/static" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery"
+    ```
+    Use the `id` from the response in your agent's `avatarId` field.
+  </Accordion>
+  <Accordion title="Upload a Custom Avatar">
+    ```bash
+    curl -X PUT "${DISCOVERY_API_BASE_URL}/agent/agents/${AGENT_ID}/avatar" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery" \
+      -H "Content-Type: image/png" \
+      --data-binary @./your-avatar.png
+    ```
+  </Accordion>
+  <Accordion title="Retrieve Avatars in Bulk">
+    ```bash
+    # Get avatars for multiple agents in one request
+    curl -X GET "${DISCOVERY_API_BASE_URL}/agent/avatars/batch?ids=id1,id2,id3" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery"
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Agent Lifecycle Operations
+
+| Operation | Method | Endpoint |
+| --- | --- | --- |
+| List all agents | `GET` | `/agent/agents` |
+| Get agent by ID | `GET` | `/agent/agents/{agentId}` |
+| Update agent | `PUT` | `/agent/agents/{agentId}` |
+| Delete agent | `DELETE` | `/agent/agents/{agentId}` |
+| Get agent version | `GET` | `/agent/agents/{agentId}/version` |
+| List available models | `GET` | `/agent/models` |
+
+### Update an Agent
+
+```bash
+curl -X PUT "${DISCOVERY_API_BASE_URL}/agent/agents/${AGENT_ID}" \
+  -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "HR Knowledge Agent v2",
+    "instructions": "Updated system prompt...",
+    "modelName": "bedrock-amazon-nova-pro"
+  }'
+```
+
+### Delete an Agent
+
+```bash
+curl -X DELETE "${DISCOVERY_API_BASE_URL}/agent/agents/${AGENT_ID}" \
+  -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery"
+```
+
+Returns `204 No Content` on success.

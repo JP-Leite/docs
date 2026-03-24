@@ -1,0 +1,179 @@
+---
+title: "Getting Started with Knowledge Enrichment"
+description: "Set up authentication and run your first Knowledge Enrichment request — upload content via the Data Curation API and enrich it with the Context API."
+---
+
+This guide walks you through the full enrichment flow from scratch: authenticate, upload a document, run an AI action, and retrieve the enriched result.
+
+**Prerequisites:**
+- Hyland account with Knowledge Enrichment subscription
+- OAuth client credentials configured in [Admin Console](https://admin.experience.hyland.com/external-systems/external-applications)
+- External application configured with the `environment_authorization` scope
+- Environment with `cin-data-curation-api` subscription active
+
+---
+
+## Step 1: Account & App Setup
+
+Before making API calls, configure your external application in the Admin Console:
+
+1. Go to **Admin Console › External Systems › External Applications**.
+2. Create or select your external application.
+3. Enable the **`environment_authorization`** scope.
+4. Assign the application to an environment that has the **Data Curation API** subscription active.
+
+---
+
+## Step 2: Authenticate
+
+Knowledge Enrichment uses **OAuth 2.0 client credentials** with the `environment_authorization` scope:
+
+```bash
+curl -X POST "https://auth.iam.experience.hyland.com/idp/connect/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=<your_client_id>" \
+  -d "client_secret=<your_client_secret>" \
+  -d "grant_type=client_credentials" \
+  -d "scope=environment_authorization"
+```
+
+**Response:**
+```json
+{
+  "access_token": "jwt.access.token",
+  "expires_in": 900,
+  "token_type": "Bearer",
+  "scope": "environment_authorization"
+}
+```
+
+Save the `access_token` — include it as `Authorization: Bearer {token}` on every request. Tokens expire after **15 minutes** and must be refreshed using the same endpoint.
+
+---
+
+## Step 3: Upload Content via Data Curation API
+
+The Data Curation API uses a presigned URL pattern for file uploads:
+
+<Steps>
+  <Step title="Request a Presigned URL">
+    ```bash
+    curl -X POST "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/data-curation/presigned-urls" \
+      -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "fileName": "contract.pdf",
+        "contentType": "application/pdf"
+      }'
+    ```
+
+    **Response:**
+    ```json
+    {
+      "presignedUrl": "https://s3.amazonaws.com/bucket/path?X-Amz-...",
+      "objectKey": "tenant/uploads/contract.pdf"
+    }
+    ```
+    Save both `presignedUrl` and `objectKey`.
+  </Step>
+
+  <Step title="Upload the File">
+    PUT the file directly to the presigned URL — no auth header needed here:
+
+    ```bash
+    curl -X PUT "${PRESIGNED_URL}" \
+      -H "Content-Type: application/pdf" \
+      --data-binary @./contract.pdf
+    ```
+
+    Returns `200 OK` on success.
+  </Step>
+
+  <Step title="Trigger Processing">
+    Notify the Data Curation API that the upload is complete and specify your processing options:
+
+    ```bash
+    curl -X POST "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/data-curation/process" \
+      -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "objectKey": "tenant/uploads/contract.pdf",
+        "normalization": { "quotations": true, "dashes": true },
+        "chunking": true,
+        "chunk_size": 1000,
+        "embedding": false,
+        "pii": false
+      }'
+    ```
+
+    | Option | Type | Description |
+    | --- | --- | --- |
+    | `chunking` | `bool` | Split document into semantic chunks |
+    | `chunk_size` | `int` | Target chunk size in characters |
+    | `embedding` | `bool` | Generate text embeddings (requires chunking) |
+    | `pii` | `"redaction"` / `"detection"` / `false` | PII handling mode |
+    | `normalization` | `object` | Normalize quotation marks and dashes |
+  </Step>
+</Steps>
+
+---
+
+## Step 4: Enrich with the Context API
+
+Once content is uploaded, run an AI enrichment action:
+
+```bash
+curl -X POST "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/context" \
+  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "objectKey": "tenant/uploads/contract.pdf",
+    "actions": [
+      { "type": "text-summarization" }
+    ]
+  }'
+```
+
+**Response (202 Accepted):**
+```json
+{
+  "jobId": "job-guid-12345",
+  "status": "SUBMITTED"
+}
+```
+
+Save the `jobId`.
+
+---
+
+## Step 5: Retrieve the Results
+
+Poll until `status` is `SUCCESS` or `FAILURE`:
+
+```bash
+curl -X GET "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/context/jobs/${JOB_ID}" \
+  -H "Authorization: Bearer ${ACCESS_TOKEN}"
+```
+
+**Success response:**
+```json
+{
+  "id": "job-guid-12345",
+  "status": "SUCCESS",
+  "inProgress": false,
+  "results": [
+    {
+      "objectKey": "tenant/uploads/contract.pdf",
+      "textSummary": {
+        "isSuccess": true,
+        "result": "This contract outlines the terms of service between Hyland Software and Acme Corp, covering data processing, liability, and a 12-month term.",
+        "error": null
+      }
+    }
+  ]
+}
+```
+
+<Tip>
+  Most Context API jobs complete within 5–15 seconds for standard documents. Use exponential backoff polling starting at 2 seconds.
+</Tip>

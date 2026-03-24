@@ -1,0 +1,280 @@
+---
+title: "Context API Reference"
+description: "Full reference for the Knowledge Enrichment Context API — all 10 AI actions, request schemas, response formats, versioning, and error handling."
+---
+
+The Context API runs AI enrichment actions on content uploaded via the Data Curation API. All actions use the same async pattern: POST to submit, GET to retrieve.
+
+**Base URL:** `https://knowledge-enrichment.ai.experience.hyland.com/latest/api/context`
+
+---
+
+## API Versioning
+
+Two versions of the Context API are available:
+
+| Version | Status | Notes |
+| --- | --- | --- |
+| **v1** | ⚠️ Deprecated | Original request format |
+| **v2** | ✅ Current | Recommended — expanded action support and improved response schema |
+
+<Warning>
+  If you are using v1 request format, see the [v1 → v2 Migration Guide](https://hyland.github.io/ContentIntelligence-Docs/KnowledgeEnrichment/Reference/Context%20API/migration-guide-v1-to-v2) for breaking changes.
+</Warning>
+
+---
+
+## Request Structure
+
+All Context API requests share the same envelope:
+
+```json
+{
+  "objectKey": "tenant/path/to/your-file.pdf",
+  "actions": [
+    { "type": "action-name", ...action-specific-fields }
+  ]
+}
+```
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `objectKey` | ✅ | The file path returned by the Data Curation API presigned URL response |
+| `actions` | ✅ | Array of enrichment actions to run. Multiple actions can be batched in one request |
+
+---
+
+## Text Actions
+
+<AccordionGroup>
+  <Accordion title="text-summarization — Generate a document summary">
+    Produces a concise summary of the input text document.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/docs/report.pdf",
+      "actions": [{ "type": "text-summarization" }]
+    }
+    ```
+
+    **Response result field:** `textSummary.result` (string)
+
+    ```json
+    {
+      "textSummary": {
+        "isSuccess": true,
+        "result": "This quarterly report outlines revenue growth of 14% YoY, driven by cloud product adoption...",
+        "error": null
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="text-classification — Classify text into categories">
+    Classifies the document into one of your pre-defined categories. Requires at least **2 classes**.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/docs/claim.pdf",
+      "actions": [
+        {
+          "type": "text-classification",
+          "classes": ["insurance_claim", "medical_bill", "legal_notice"]
+        }
+      ]
+    }
+    ```
+
+    **Response result field:** `textClassification.result` (string — the matched class label)
+  </Accordion>
+
+  <Accordion title="text-metadata-matching — Match against a custom schema">
+    Extracts and matches document content against your custom metadata field definitions.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/docs/invoice.pdf",
+      "actions": [
+        {
+          "type": "text-metadata-matching",
+          "schema": [
+            { "name": "VendorName", "description": "The name of the vendor or supplier" },
+            { "name": "TotalAmount", "description": "The total invoice amount including tax" },
+            { "name": "InvoiceDate", "description": "The date the invoice was issued" }
+          ]
+        }
+      ]
+    }
+    ```
+
+    **Response result field:** `textMetadata.result` (object with matched field values)
+  </Accordion>
+
+  <Accordion title="text-embedding — Generate semantic embeddings">
+    Produces vector embeddings for semantic similarity search. ❌ Not covered by guardrails.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/docs/policy.pdf",
+      "actions": [{ "type": "text-embedding" }]
+    }
+    ```
+
+    **Response result field:** `textEmbeddings.result` (array of float vectors)
+  </Accordion>
+
+  <Accordion title="named-entity-text — Extract named entities from text">
+    Identifies people, organizations, locations, and other named entities in the document.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/docs/article.pdf",
+      "actions": [{ "type": "named-entity-text" }]
+    }
+    ```
+
+    **Response result field:** `namedEntityText.result` (array of entity objects with type and value)
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Image Actions
+
+<AccordionGroup>
+  <Accordion title="image-classification — Classify an image into categories">
+    Analyzes image content and assigns it to one of your pre-defined categories. Requires at least **2 classes**. Input must be an image file.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/images/vehicle.png",
+      "actions": [
+        {
+          "type": "image-classification",
+          "classes": ["damaged_vehicle", "undamaged_vehicle", "not_a_vehicle"]
+        }
+      ]
+    }
+    ```
+
+    **Response result field:** `imageClassification.result` (string — class label)
+
+    ```json
+    { "imageClassification": { "isSuccess": true, "result": "damaged_vehicle" } }
+    ```
+  </Accordion>
+
+  <Accordion title="image-description — Generate an image description">
+    Produces a natural-language description of the image content.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/images/office.jpg",
+      "actions": [{ "type": "image-description" }]
+    }
+    ```
+
+    **Response result field:** `imageDescription.result` (string)
+  </Accordion>
+
+  <Accordion title="image-metadata-matching — Match image against a schema">
+    Extracts and matches image content against custom metadata field definitions.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/images/product.jpg",
+      "actions": [
+        {
+          "type": "image-metadata-matching",
+          "schema": [
+            { "name": "ProductColor", "description": "The primary color of the product" },
+            { "name": "ProductCategory", "description": "The product type or category" }
+          ]
+        }
+      ]
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="image-embedding — Generate image embeddings">
+    Produces vector embeddings for image-based semantic search. ❌ Not covered by guardrails.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/images/logo.png",
+      "actions": [{ "type": "image-embedding" }]
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="named-entity-image — Detect entities in images">
+    Detects named entities, logos, or specific objects in an image.
+
+    **Request:**
+    ```json
+    {
+      "objectKey": "tenant/images/photo.jpg",
+      "actions": [{ "type": "named-entity-image" }]
+    }
+    ```
+
+    **Response result field:** `namedEntityImage.result` (array of detected entity objects)
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Batching Multiple Actions
+
+You can run multiple actions on the same content in a single request:
+
+```json
+{
+  "objectKey": "tenant/docs/contract.pdf",
+  "actions": [
+    { "type": "text-summarization" },
+    { "type": "named-entity-text" },
+    {
+      "type": "text-metadata-matching",
+      "schema": [
+        { "name": "ContractParty", "description": "The counterparty in the contract" },
+        { "name": "EffectiveDate", "description": "The contract start date" }
+      ]
+    }
+  ]
+}
+```
+
+The response will include all three result fields in the same job result object.
+
+---
+
+## Error Handling
+
+| Error Type | Meaning | Action |
+| --- | --- | --- |
+| `GuardrailViolation` | Content triggered safety guardrails | Rephrase content or contact support |
+| `ValidationError` | Invalid request format or missing required fields | Check request schema |
+| `UnsupportedFileFormat` | File format incompatible with the action | Verify file type per action requirements |
+| `ProcessingError` | Transient AI processing failure | Retry with exponential backoff |
+
+All errors follow the same structure:
+```json
+{
+  "isSuccess": false,
+  "result": null,
+  "error": {
+    "errorType": "GuardrailViolation",
+    "message": "Processing failed: reason..."
+  }
+}
+```

@@ -1,0 +1,206 @@
+---
+title: "Q&A & Conversations"
+description: "Submit single-shot questions or start multi-turn conversations with Knowledge Discovery agents — with source citations, feedback, and conversation history."
+---
+
+Knowledge Discovery supports two distinct Q&A patterns. Choose based on your use case:
+
+| | Single-Shot Q&A | Conversations |
+| --- | --- | --- |
+| **Use when** | One-off lookups, integrations, batch processing | Chatbots, help desks, interactive UIs |
+| **Context** | None — each question is independent | Maintained across turns |
+| **Endpoint** | `POST /agent/agents/{id}/questions` | `POST /qna/agents/{id}/conversations` |
+| **Returns** | `questionId` | `conversationId` + first `messageId` |
+
+Both use **async processing** — you submit a request (gets `202 Accepted`) then poll for the result.
+
+---
+
+## Single-Shot Questions
+
+### Submit a Question
+
+<Tabs>
+  <Tab title="curl">
+    ```bash
+    curl -X POST "${DISCOVERY_API_BASE_URL}/agent/agents/${AGENT_ID}/questions" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "question": "What is the company vacation policy for new employees?",
+        "dynamicFilter": null
+      }'
+    ```
+  </Tab>
+  <Tab title="HTTP">
+    ```http
+    POST {{baseUrl}}/agent/agents/{{agentId}}/questions
+    Authorization: Bearer {{accessToken}}
+    Hxp-Environment: {{environmentKey}}
+    Hxp-App: hxai-discovery
+    Content-Type: application/json
+
+    {
+      "question": "What is the company vacation policy for new employees?",
+      "dynamicFilter": null
+    }
+    ```
+  </Tab>
+</Tabs>
+
+Response: `202 Accepted`. Save the `questionId` from the response body or `Location` header.
+
+### Retrieve the Answer
+
+Wait a few seconds, then poll:
+
+```bash
+curl -X GET "${DISCOVERY_API_BASE_URL}/qna/questions/${QUESTION_ID}/answer" \
+  -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery"
+```
+
+**Example response:**
+```json
+{
+  "answer": "New employees receive 15 days of paid vacation per year...",
+  "agentId": "agent-guid",
+  "agentVersion": 1,
+  "responseCompleteness": "Complete",
+  "objectReferences": [
+    {
+      "objectId": "hr-policy-doc-123",
+      "references": [
+        { "referenceId": "section-4.2", "rankScore": 0.95,
+          "content": "Vacation Policy: New employees receive 15 days..." }
+      ]
+    }
+  ],
+  "feedback": null
+}
+```
+
+| `responseCompleteness` | Meaning |
+| --- | --- |
+| `Submitted` | Still processing — poll again |
+| `Complete` | Answer is ready |
+| `Error` | Processing failed |
+
+<Tip>
+  For production polling, use exponential backoff starting at 1 second. Most answers complete within 2–5 seconds.
+</Tip>
+
+### Submit Feedback
+
+```bash
+curl -X POST "${DISCOVERY_API_BASE_URL}/qna/questions/${QUESTION_ID}/feedback" \
+  -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+  -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+  -H "Hxp-App: hxai-discovery" \
+  -H "Content-Type: application/json" \
+  -d '{ "isPositive": true, "comment": "Very helpful and accurate." }'
+```
+
+---
+
+## Conversations (Multi-Turn)
+
+Conversations maintain context across multiple questions — each subsequent message can reference earlier answers.
+
+### Start a Conversation
+
+<Steps>
+  <Step title="Start the Conversation">
+    The first POST creates the conversation and returns the first answer:
+
+    ```bash
+    curl -X POST "${DISCOVERY_API_BASE_URL}/qna/agents/${AGENT_ID}/conversations" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "question": "What is the status of the Q4 project?",
+        "dynamicFilter": null
+      }'
+    ```
+
+    **Response:**
+    ```json
+    {
+      "conversation": {
+        "id": "conv-guid",
+        "lastModified": "2025-12-02T10:30:00Z"
+      },
+      "message": {
+        "id": "msg-guid",
+        "answer": "The Q4 project is currently in testing phase...",
+        "responseCompleteness": "Complete"
+      }
+    }
+    ```
+    Save the `conversation.id` for follow-up messages.
+  </Step>
+
+  <Step title="Continue the Conversation">
+    Add follow-up questions referencing the same conversation:
+
+    ```bash
+    curl -X POST "${DISCOVERY_API_BASE_URL}/qna/conversations/${CONVERSATION_ID}/messages" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery" \
+      -H "Content-Type: application/json" \
+      -d '{ "question": "When is the expected release date?" }'
+    ```
+
+    The API understands this is a follow-up question — it uses the conversation context to generate a more precise answer.
+  </Step>
+
+  <Step title="Retrieve Conversation History">
+    ```bash
+    curl -X GET "${DISCOVERY_API_BASE_URL}/qna/conversations/${CONVERSATION_ID}/messages" \
+      -H "Authorization: Bearer ${DISCOVERY_ACCESS_TOKEN}" \
+      -H "Hxp-Environment: ${ENVIRONMENT_KEY}" \
+      -H "Hxp-App: hxai-discovery"
+    ```
+  </Step>
+</Steps>
+
+---
+
+## Source Citations
+
+Every answer includes `objectReferences` — the source documents that contributed to the answer. Use these to build a "Sources" UI in your application:
+
+```json
+"objectReferences": [
+  {
+    "objectId": "policy-doc-guid",
+    "references": [
+      {
+        "referenceId": "page-3-section-2",
+        "rankScore": 0.95,
+        "content": "The exact text excerpt that supported the answer..."
+      }
+    ]
+  }
+]
+```
+
+The `rankScore` (0–1) indicates how relevant the source was. Surface only references with `rankScore > 0.7` for cleaner UIs.
+
+---
+
+## Conversation Management
+
+| Operation | Method | Endpoint |
+| --- | --- | --- |
+| List all conversations | `GET` | `/qna/conversations` |
+| Get conversation | `GET` | `/qna/conversations/{id}` |
+| Update conversation metadata | `PUT` | `/qna/conversations/{id}` |
+| Delete conversation | `DELETE` | `/qna/conversations/{id}` |
+| Get message feedback summary | `GET` | `/qna/questions/{id}/feedback` |

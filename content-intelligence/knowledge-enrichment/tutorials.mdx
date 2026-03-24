@@ -1,0 +1,246 @@
+---
+title: "Tutorials & Code Samples"
+description: "End-to-end Knowledge Enrichment tutorials — enrich documents with the Context API and ingest content with the Data Curation API, with Python and C# code samples."
+---
+
+Hands-on tutorials for building real Knowledge Enrichment pipelines. All examples assume you have completed [Getting Started](/content-intelligence/knowledge-enrichment/getting-started) and have a valid access token.
+
+---
+
+## Tutorial 1: Context API Enrichment Pipeline
+
+Run multiple AI actions on a document in a single pipeline — summarize, extract entities, and match metadata at the same time.
+
+<Steps>
+  <Step title="Upload the Document">
+    Follow the [Getting Started](/content-intelligence/knowledge-enrichment/getting-started) presigned URL flow to upload your document. Note the `objectKey` returned.
+  </Step>
+
+  <Step title="Submit a Batch Enrichment Request">
+    ```bash
+    curl -X POST "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/context" \
+      -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "objectKey": "tenant/uploads/invoice.pdf",
+        "actions": [
+          { "type": "text-summarization" },
+          { "type": "named-entity-text" },
+          {
+            "type": "text-metadata-matching",
+            "schema": [
+              { "name": "VendorName", "description": "Name of the vendor or supplier" },
+              { "name": "InvoiceTotal", "description": "Total amount due on the invoice" },
+              { "name": "InvoiceDate", "description": "Date the invoice was issued" }
+            ]
+          }
+        ]
+      }'
+    ```
+  </Step>
+
+  <Step title="Poll for Results">
+    ```bash
+    # Wait 3-5 seconds, then poll
+    curl -X GET "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/context/jobs/${JOB_ID}" \
+      -H "Authorization: Bearer ${ACCESS_TOKEN}"
+    ```
+
+    **Example success response:**
+    ```json
+    {
+      "status": "SUCCESS",
+      "results": [
+        {
+          "objectKey": "tenant/uploads/invoice.pdf",
+          "textSummary": {
+            "isSuccess": true,
+            "result": "Invoice from Acme Corp for software license renewal totalling $12,400..."
+          },
+          "namedEntityText": {
+            "isSuccess": true,
+            "result": [
+              { "type": "Organization", "value": "Acme Corp" },
+              { "type": "Date", "value": "March 15, 2025" }
+            ]
+          },
+          "textMetadata": {
+            "isSuccess": true,
+            "result": {
+              "VendorName": "Acme Corp",
+              "InvoiceTotal": "$12,400.00",
+              "InvoiceDate": "2025-03-15"
+            }
+          }
+        }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+---
+
+## Tutorial 2: Data Curation Pipeline
+
+Prepare a document for downstream semantic search — chunk the text and generate embeddings.
+
+```bash
+curl -X POST "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/data-curation/process" \
+  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "objectKey": "tenant/uploads/policy.pdf",
+    "normalization": {
+      "quotations": true,
+      "dashes": true
+    },
+    "chunking": true,
+    "chunk_size": 1000,
+    "embedding": true,
+    "pii": "detection"
+  }'
+```
+
+<Info>
+  Setting `embedding: true` requires `chunking: true`. The API will generate an embedding vector for each chunk — these can then be indexed in a vector database for semantic search.
+</Info>
+
+**Processing options reference:**
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `chunking` | `bool` | `false` | Split document into semantic chunks |
+| `chunk_size` | `int` | `1000` | Target chunk size in characters |
+| `embedding` | `bool` | `false` | Generate embeddings (requires chunking) |
+| `pii` | `string` / `false` | `false` | `"detection"` flags PII, `"redaction"` replaces it |
+| `normalization.quotations` | `bool` | `false` | Normalize curly/smart quotes to straight quotes |
+| `normalization.dashes` | `bool` | `false` | Normalize em-dashes and en-dashes |
+| `json_schema` | `string` / `false` | `false` | Output format: `"FULL"`, `"MDAST"`, or `"PIPELINE"` |
+
+---
+
+## Python Sample
+
+<Tabs>
+  <Tab title="Setup & Auth">
+    ```python
+    import base64, json, os
+    from urllib.parse import urlencode
+    from urllib.request import Request, urlopen
+
+    # Configuration
+    dc_api_url = "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/data-curation"
+    oauth_url = "https://auth.iam.experience.hyland.com/idp"
+    oauth_client_id = os.environ["KE_CLIENT_ID"]
+    oauth_client_secret = os.environ["KE_CLIENT_SECRET"]
+
+    # Processing options
+    dc_options = {
+        "normalization": {"quotations": True, "dashes": True},
+        "chunking": True,
+        "chunk_size": 1000,
+        "embedding": False,
+        "pii": False
+    }
+
+    def get_access_token():
+        data = urlencode({
+            "grant_type": "client_credentials",
+            "scope": "environment_authorization",
+            "client_id": oauth_client_id,
+            "client_secret": oauth_client_secret
+        }).encode()
+        req = Request(f"{oauth_url}/connect/token", data=data,
+                      headers={"Content-Type": "application/x-www-form-urlencoded"})
+        response = urlopen(req)
+        return json.loads(response.read())["access_token"]
+    ```
+  </Tab>
+  <Tab title="Upload & Process">
+    ```python
+    def get_presigned_url(token, file_name, content_type):
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
+        body = json.dumps({"fileName": file_name, "contentType": content_type}).encode()
+        req = Request(f"{dc_api_url}/presigned-urls", data=body, headers=headers, method="POST")
+        return json.loads(urlopen(req).read())
+
+    def upload_file(presigned_url, file_path, content_type):
+        with open(file_path, "rb") as f:
+            data = f.read()
+        req = Request(presigned_url, data=data,
+                      headers={"Content-Type": content_type}, method="PUT")
+        urlopen(req)
+        print("File uploaded successfully")
+
+    # Main flow
+    token = get_access_token()
+    presigned = get_presigned_url(token, "document.pdf", "application/pdf")
+    upload_file(presigned["presignedUrl"], "./document.pdf", "application/pdf")
+    print(f"Object key: {presigned['objectKey']}")
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## C# Sample
+
+```csharp
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+
+var httpClient = new HttpClient();
+
+// Authenticate
+var tokenRequest = new FormUrlEncodedContent(new Dictionary<string, string>
+{
+    ["grant_type"] = "client_credentials",
+    ["scope"] = "environment_authorization",
+    ["client_id"] = Environment.GetEnvironmentVariable("KE_CLIENT_ID"),
+    ["client_secret"] = Environment.GetEnvironmentVariable("KE_CLIENT_SECRET")
+});
+var tokenResponse = await httpClient.PostAsync(
+    "https://auth.iam.experience.hyland.com/idp/connect/token", tokenRequest);
+var tokenData = JsonSerializer.Deserialize<JsonElement>(
+    await tokenResponse.Content.ReadAsStringAsync());
+var accessToken = tokenData.GetProperty("access_token").GetString();
+
+httpClient.DefaultRequestHeaders.Authorization =
+    new AuthenticationHeaderValue("Bearer", accessToken);
+
+// Request presigned URL
+var presignBody = JsonSerializer.Serialize(new
+{
+    fileName = "document.pdf",
+    contentType = "application/pdf"
+});
+var presignResponse = await httpClient.PostAsync(
+    "https://knowledge-enrichment.ai.experience.hyland.com/latest/api/data-curation/presigned-urls",
+    new StringContent(presignBody, Encoding.UTF8, "application/json"));
+var presignData = JsonSerializer.Deserialize<JsonElement>(
+    await presignResponse.Content.ReadAsStringAsync());
+
+Console.WriteLine($"Object key: {presignData.GetProperty("objectKey").GetString()}");
+```
+
+---
+
+## Testing with Postman / Bruno
+
+Set up the following environment variables in your Postman or Bruno workspace:
+
+| Variable | Value |
+| --- | --- |
+| `ke_base_url` | `https://knowledge-enrichment.ai.experience.hyland.com/latest/api` |
+| `access_token` | Your OAuth token from the auth request |
+| `object_key` | The `objectKey` returned by the presigned URL endpoint |
+| `job_id` | The `jobId` returned by the Context API response |
+
+<Tip>
+  Add a pre-request script to Postman to automatically refresh your access token before each request — tokens expire after 15 minutes.
+</Tip>
