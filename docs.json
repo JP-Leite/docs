@@ -16,7 +16,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Overview",
+        "tab": "Docs",
         "groups": [
           {
             "group": "Overview",
@@ -28,12 +28,7 @@
               "overview/content-model",
               "overview/authentication"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Guides",
-        "groups": [
+          },
           {
             "group": "Content Services",
             "pages": [
